@@ -4,6 +4,7 @@ module.exports = {
     description: `Learn about GPU shaders in a simple, relatively easy-to-digest format.`,
     author: `@disappointin_af`,
   },
+  pathPrefix: "/shader-tutorial",
   plugins: [
     `gatsby-plugin-react-helmet`,
     {
@@ -20,7 +21,7 @@ module.exports = {
       options: {
         name: `gatsby-starter-default`,
         short_name: `starter`,
-        start_url: `/`,
+        start_url: `/shader-tutorial/`,
         background_color: `#000000`,
         theme_color: `#ffffff`,
         display: `minimal-ui`,
