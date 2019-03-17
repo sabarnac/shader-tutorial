@@ -1,20 +1,28 @@
 import React from "react"
-import { Link } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
+    <SEO title="Home" keywords={[`gpu`, "shader", "tutorial"]} />
+    <h2>Welcome!</h2>
+    <p>
+      The purpose of this website is to provide a simple understanding about the
+      concept of GPU shaders, their purpose and function, types, and a look into
+      how they work and can be used to perform a variety of operations that can
+      create effects or perform certain actions that leverage the power of a GPU
+    </p>
+    <p>
+      The tutorials are designed to be simple, primarily on concepts and
+      applications of such concepts, while being as language agnostic as
+      possible. In cases where code will have to be shown, we will try to
+      provide examples in pseudo-code, or in multiple shader languages.
+    </p>
+    <p>
+      You can browse through the tutorial by clicking on the links in the
+      sidebar
+    </p>
   </Layout>
 )
 
