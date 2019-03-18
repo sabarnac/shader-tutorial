@@ -3,12 +3,14 @@ import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const NotFoundPage = () => (
+const IndexPage = () => (
   <Layout>
-    <SEO title="404: Not found" />
-    <h1>NOT FOUND</h1>
-    <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
+    <SEO title="Home" keywords={[`gpu`, "shader", "tutorial"]} />
+    <h2>Page Not Found</h2>
+    <p>
+      The page you requested for doesn't seem to exist.
+    </p>
   </Layout>
 )
 
-export default NotFoundPage
+export default IndexPage
