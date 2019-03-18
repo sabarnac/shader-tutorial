@@ -6,7 +6,7 @@ const Footer = () => (
   <div className="row">
     <footer className="column">
       <div className="author">By Sabarna Chakravarty</div>
-      <div class="social">
+      <div className="social">
         <a
           href="https://twitter.com/disappoint_af"
           rel="noopener noreferrer"
