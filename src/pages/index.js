@@ -5,7 +5,7 @@ import SEO from "../components/seo"
 
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" keywords={[`gpu`, "shader", "tutorial"]} />
+    <SEO title="Home" keywords={["gpu", "shader", "tutorial"]} />
     <h2>Welcome!</h2>
     <p>
       The purpose of this website is to provide a simple understanding about the

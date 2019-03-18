@@ -5,11 +5,9 @@ import SEO from "../components/seo"
 
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" keywords={[`gpu`, "shader", "tutorial"]} />
+    <SEO title="Page Not Found" keywords={["not", "found"]} />
     <h2>Page Not Found</h2>
-    <p>
-      The page you requested for doesn't seem to exist.
-    </p>
+    <p>The page you requested for doesn't seem to exist.</p>
   </Layout>
 )
 
