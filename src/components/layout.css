@@ -22,13 +22,23 @@ body {
   height: 100%;
 }
 
-a {
+a,
+a:visited {
   color: #ffffff;
-  text-decoration: underline;
+  border-bottom: 1px dotted #ffffff;
+}
+
+a:hover {
+  color: #bbbbbb;
+  border-bottom: 1px dotted #bbbbbb;
 }
 
 code {
-  background: #111111;
+  background: #333333;
+}
+
+img {
+  background: #ffffff;
 }
 
 #___gatsby {
@@ -116,4 +126,16 @@ nav ul {
     border-bottom: none;
     border-right: 1px solid #ffffff;
   }
+}
+
+.util.text-center {
+  text-align: center;
+}
+
+.util.text-left {
+  text-align: left;
+}
+
+.util.text-right {
+  text-align: right;
 }
