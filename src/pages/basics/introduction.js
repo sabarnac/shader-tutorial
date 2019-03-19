@@ -28,7 +28,7 @@ const IntroductionPage = () => (
     </p>
     <h3>What Kind Of Shaders Are There?</h3>
     <p>
-      There are two primary shaders that are always used when rendering 3D
+      There are two primary shaders that are always used when rendering 2D/3D
       applications:
     </p>
     <ol>
@@ -68,9 +68,8 @@ const IntroductionPage = () => (
     <p>
       <em>
         Note: Compute shaders aren't present in the pipeline image because they
-        are not part of the standard GPU pipeline workflow. However, computer
-        shaders *can* be used as an intermediate step at any point in the
-        pipeline.
+        are not part of the standard GPU pipeline workflow. However, they *can*
+        be used as an intermediate step at any point in the pipeline.
       </em>
     </p>
     <p>
@@ -110,7 +109,8 @@ const IntroductionPage = () => (
       , where every shader type is practically the same in the functions and
       APIs they have access to, with the main differences between them being
       code implementation specific (what that shader specifically does and when
-      it is executed).
+      it is executed). This makes them simpler to implement in hardware and easy
+      to program in software as well.
     </p>
     <p>
       <Link to="/basics/vertex-shader/">Go To Next Chapter.</Link>
