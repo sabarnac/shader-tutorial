@@ -65,6 +65,25 @@ const IntroductionPage = () => (
         Source
       </a>
     </p>
+    <p>
+      <em>
+        Note: Compute shaders aren't present in the pipeline image because they
+        are not part of the standard GPU pipeline workflow. However, computer
+        shaders *can* be used as an intermediate step at any point in the
+        pipeline.
+      </em>
+    </p>
+    <p>
+      An overview of the rendering pipeline can be read about{" "}
+      <a
+        href="https://www.khronos.org/opengl/wiki/Rendering_Pipeline_Overview"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        here
+      </a>
+      .
+    </p>
     <h3>Why Are Shaders Necessary?</h3>
     <p>
       Fixed-function pipelines do have the benefit of being very fast, since
@@ -78,6 +97,20 @@ const IntroductionPage = () => (
       should be shaded allows programmers more freedom, while also reducing
       hardware requirements, since a single programmable unit can perform the
       function of any fixed function units.
+    </p>
+    <p>
+      Currently, all shaders work under the{" "}
+      <a
+        href="https://en.wikipedia.org/wiki/Unified_shader_model"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Unified Shader Model
+      </a>
+      , where every shader type is practically the same in the functions and
+      APIs they have access to, with the main differences between them being
+      code implementation specific (what that shader specifically does and when
+      it is executed).
     </p>
     <p>
       <Link to="/basics/vertex-shader/">Go To Next Chapter.</Link>
