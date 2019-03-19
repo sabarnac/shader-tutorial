@@ -8,7 +8,7 @@ const IntroductionPage = () => (
   <Layout>
     <SEO title="Introduction" keywords={["shader", "introduction"]} />
     <h2>Introduction</h2>
-    <h3>What Is A Shader?</h3>
+    <h3>What is a shader?</h3>
     <p>
       A shader is basically a program that is primarily used to shade an image,
       generating color information while applying any lighting and darkening
@@ -26,7 +26,7 @@ const IntroductionPage = () => (
       pipeline that you may be more familiar with, which can use programmable
       shaders.
     </p>
-    <h3>What Kind Of Shaders Are There?</h3>
+    <h3>What Types of shaders are there?</h3>
     <p>
       There are two primary shaders that are always used when rendering 2D/3D
       applications:
@@ -83,7 +83,7 @@ const IntroductionPage = () => (
       </a>
       .
     </p>
-    <h3>Why Are Shaders Necessary?</h3>
+    <h3>Why are shaders necessary?</h3>
     <p>
       Fixed-function pipelines do have the benefit of being very fast, since
       they have dedicated hardware for each function unit to execute their
@@ -111,6 +111,22 @@ const IntroductionPage = () => (
       code implementation specific (what that shader specifically does and when
       it is executed). This makes them simpler to implement in hardware and easy
       to program in software as well.
+    </p>
+    <h3>What do I need to know before getting started?</h3>
+    <p>
+      A beginner understanding of matrix and vector math will be helpful when
+      going through this tutorial. A recommendation is to go through{" "}
+      <a
+        href="https://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        this chapter
+      </a>{" "}
+      of OpenGL Tutorial (and previous ones if you need a better understanding
+      of what has happened before) to learn about what's necessary. As stated in
+      that chapter, that information is extremely important and you will have to
+      burn it into your head.
     </p>
     <p>
       <Link to="/basics/vertex-shader/">Go To Next Chapter.</Link>
