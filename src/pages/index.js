@@ -9,7 +9,7 @@ const IndexPage = () => (
     <h2>Welcome!</h2>
     <p>
       The purpose of this website is to provide a simple understanding about the
-      concept of GPU shaders, their purpose and function, types, and a look into
+      concept of GPU shaders, their purpose, functions, types, and a look into
       how they work and can be used to perform a variety of operations that can
       create effects or perform certain actions that leverage the power of a
       GPU.
@@ -18,7 +18,8 @@ const IndexPage = () => (
       The tutorials are designed to be simple, primarily on concepts and
       applications of such concepts, while being as language agnostic as
       possible. In cases where code will have to be shown, we will try to
-      provide examples in pseudo-code, or in multiple shader languages.
+      provide examples in pseudo-code, in multiple shader languages, or explain
+      the concepts present within the code of that particular language.
     </p>
     <p>
       You can browse through the tutorial by clicking on the links in the

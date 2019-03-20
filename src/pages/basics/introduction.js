@@ -15,16 +15,15 @@ const IntroductionPage = () => (
       effects on that image.
     </p>
     <p>
-      While shaders can (and are) still be used for this purpose, they can now
-      also be used to perform other types of graphical and compute tasks.
+      While shaders are still used for this purpose, they can now also be used
+      to perform other types of graphical and compute tasks.
     </p>
     <p>
       Graphics cards didn't always support programmable shaders. Initially, GPUs
       would have a fixed-function pipeline, where one would call specific "fixed
       function units", which could only perform specific actions on a provided
-      set of data. This was later taken over by the current GPU rendering
-      pipeline that you may be more familiar with, which can use programmable
-      shaders.
+      set of data. This was later taken over by the current system of shaders
+      used today.
     </p>
     <h3>What Types of shaders are there?</h3>
     <p>
@@ -83,20 +82,6 @@ const IntroductionPage = () => (
       </a>
       .
     </p>
-    <h3>Why are shaders necessary?</h3>
-    <p>
-      Fixed-function pipelines do have the benefit of being very fast, since
-      they have dedicated hardware for each function unit to execute their
-      tasks. However, this limits what can be done to shade an image, and also
-      there is a limit of how many fixed function units you can build into a
-      GPU.
-    </p>
-    <p>
-      Providing a programmable system where a programmer can decide how an image
-      should be shaded allows programmers more freedom, while also reducing
-      hardware requirements, since a single programmable unit can perform the
-      function of any fixed function units.
-    </p>
     <p>
       Currently, all shaders work under the{" "}
       <a
@@ -112,6 +97,20 @@ const IntroductionPage = () => (
       it is executed). This makes them simpler to implement in hardware and easy
       to program in software as well.
     </p>
+    <h3>Why are shaders necessary?</h3>
+    <p>
+      Fixed-function pipelines do have the benefit of being very fast, since
+      they have dedicated hardware for each function unit to execute their
+      tasks. However, this limits what can be done to shade an image, and also
+      there is a limit of how many fixed function units you can build into a
+      GPU.
+    </p>
+    <p>
+      Providing a programmable system where a programmer can decide how an image
+      should be shaded allows programmers more freedom, while also reducing
+      hardware requirements, since a single programmable unit can perform the
+      function of any fixed function units.
+    </p>
     <h3>What do I need to know before getting started?</h3>
     <p>
       A beginner understanding of matrix and vector math will be helpful when
@@ -124,9 +123,16 @@ const IntroductionPage = () => (
         this chapter
       </a>{" "}
       of OpenGL Tutorial (and previous ones if you need a better understanding
-      of what has happened before) to learn about what's necessary. As stated in
-      that chapter, that information is extremely important and you will have to
-      burn it into your head.
+      of what has happened before) to learn about the necessary maths behind it.
+      Even if you have a basic understanding of the maths, it is still
+      recommended to go through it since it provides important contextual
+      information that will be useful throughout the tutorial. As stated in that
+      chapter, that information is extremely important and you will have to burn
+      it into your head.
+    </p>
+    <p>
+      As an added bonus, if you ever wanted to an introduction to OpenGL
+      programming, that website is a great start.
     </p>
     <p>
       <Link to="/basics/vertex-shader/">Go To Next Chapter.</Link>

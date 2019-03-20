@@ -42,13 +42,17 @@ a:visited {
   border-bottom: 1px dotted #ffffff;
 }
 
-a:hover {
+a:hover, a:focus {
   color: #bbbbbb;
   border-bottom: 1px dotted #bbbbbb;
 }
 
-code {
+code, pre {
   background: #333333;
+}
+
+pre {
+  padding: 1rem;
 }
 
 img {

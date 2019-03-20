@@ -8,7 +8,7 @@ const Footer = () => (
       <div className="author">By Sabarna Chakravarty</div>
       <div className="social">
         <a
-          href="https://twitter.com/disappoint_af"
+          href="https://twitter.com/disappointin_af"
           rel="noopener noreferrer"
           target="_blank"
         >

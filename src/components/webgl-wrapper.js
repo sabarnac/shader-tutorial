@@ -13,8 +13,9 @@ export default class WebGlWrapper {
   }
   _projectionMatrix = mat4.create()
   _viewMatrix = mat4.create()
+  _modelMatrix = mat4.create()
 
-  constructor(canvas) {
+  constructor(canvas, triangleModelPosition) {
     this._canvas = canvas
     this._canvasDimensions = {
       ...this._canvasDimensions,
@@ -30,7 +31,7 @@ export default class WebGlWrapper {
     }
     this._isSupported = true
 
-    this._startSetup()
+    this._startSetup(triangleModelPosition)
   }
 
   _showNotSupported = () => {
@@ -48,7 +49,7 @@ export default class WebGlWrapper {
     }
   }
 
-  _startSetup = () => {
+  _startSetup = triangleModelPosition => {
     this._webgl.clearColor(0.0, 0.0, 0.0, 1.0)
     this._webgl.clearDepth(1.0)
     this._webgl.clear(
@@ -62,7 +63,13 @@ export default class WebGlWrapper {
     const { fov, aspect, zNear, zFar } = this._canvasDimensions
 
     mat4.perspective(this._projectionMatrix, fov, aspect, zNear, zFar)
-    mat4.translate(this._viewMatrix, mat4.create(), [0.0, 0.0, -6.0])
+    mat4.lookAt(
+      this._viewMatrix,
+      [0.0, 0.0, 5.0],
+      [0.0, 0.0, 0.0],
+      [0.0, 1.0, 0.0]
+    )
+    mat4.translate(this._modelMatrix, triangleModelPosition, [0.0, 0.0, 0.0])
   }
 
   _loadShaderSource = (shaderType, shaderSource) => {
@@ -168,6 +175,7 @@ export default class WebGlWrapper {
       gl: this._webgl,
       projectionMatrix: this._projectionMatrix,
       viewMatrix: this._viewMatrix,
+      modelMatrix: this._modelMatrix,
     }
     renderer(renderInfo)
   }
@@ -177,6 +185,10 @@ export default class WebGlWrapper {
     this._canvasDimensions = {
       width: 0,
       height: 0,
+      aspect: 1.0,
+      fov: (45 * Math.PI) / 180,
+      zNear: 0.1,
+      zFar: 100.0,
     }
     this._webgl = null
     this._isSupported = false

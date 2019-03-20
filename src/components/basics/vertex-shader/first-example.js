@@ -4,24 +4,14 @@ import {
   areAllNumbers,
   haveValidVertexGroups,
   runOnPredicate,
+  chunkArray,
+  doesArrayChildrenSatisfyPredicate,
 } from "../../util"
-
-const vertexShaderSource = `
-attribute vec4 vertexPosition;
-
-uniform mat4 viewMatrix;
-uniform mat4 projectionMatrix;
-
-void main() {
-  gl_Position = projectionMatrix * viewMatrix * vertexPosition;
-}
-`
-
-const fragmentShaderSource = `
-void main() {
-  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-}
-`
+import {
+  vertexShaderSource,
+  fragmentShaderSource,
+} from "./first-example-shaders"
+import { mat4 } from "gl-matrix"
 
 const shaderProgramInfo = {
   vertex: {
@@ -29,6 +19,7 @@ const shaderProgramInfo = {
       vertexPosition: "vec4",
     },
     uniformLocations: {
+      modelMatrix: "mat4",
       viewMatrix: "mat4",
       projectionMatrix: "mat4",
     },
@@ -39,13 +30,22 @@ const shaderProgramInfo = {
   },
 }
 
+const triangleModelPosition = mat4.create()
+
 const VertexShaderFirstExample = () => {
-  const [trianglePositions, updateTrianglePositions] = useState({
-    positions: [0.0, 1.0, 0.0, -1.0, -1.0, 0.0, 1.0, -1.0, 0.0],
-    perVertex: 3,
-  })
+  const [trianglePositions, updateTrianglePositions] = useState([
+    0.0,
+    1.0,
+    0.0,
+    -1.0,
+    -1.0,
+    0.0,
+    1.0,
+    -1.0,
+    0.0,
+  ])
   const [tempTrianglePositions, updateTemp] = useState(
-    JSON.stringify(trianglePositions.positions)
+    JSON.stringify(chunkArray(trianglePositions, 3))
   )
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -54,9 +54,9 @@ const VertexShaderFirstExample = () => {
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
-      updateWebGlRef(new WebGlWrapper(canvas))
+      updateWebGlRef(new WebGlWrapper(canvas, triangleModelPosition))
     }
-  })
+  }, [])
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {
@@ -79,10 +79,7 @@ const VertexShaderFirstExample = () => {
   useEffect(
     runOnPredicate(shaderInfo !== null, () => {
       updateTriangleBuffer(
-        webGlRef.createStaticDrawArrayBuffer(
-          trianglePositions.positions,
-          triangleBuffer
-        )
+        webGlRef.createStaticDrawArrayBuffer(trianglePositions, triangleBuffer)
       )
     }),
     [shaderInfo, trianglePositions]
@@ -90,43 +87,42 @@ const VertexShaderFirstExample = () => {
 
   useEffect(
     runOnPredicate(triangleBuffer !== null, () => {
-      webGlRef.renderScene(({ gl, projectionMatrix, viewMatrix }) => {
-        gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer)
-        gl.vertexAttribPointer(
-          shaderInfo.vertex.attributeLocations.vertexPosition,
-          trianglePositions.perVertex,
-          gl.FLOAT,
-          false,
-          0,
-          0
-        )
-        gl.enableVertexAttribArray(
-          shaderInfo.vertex.attributeLocations.vertexPosition
-        )
+      webGlRef.renderScene(
+        ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
+          gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer)
+          gl.vertexAttribPointer(
+            shaderInfo.vertex.attributeLocations.vertexPosition,
+            3,
+            gl.FLOAT,
+            false,
+            0,
+            0
+          )
+          gl.enableVertexAttribArray(
+            shaderInfo.vertex.attributeLocations.vertexPosition
+          )
 
-        gl.useProgram(shaderProgram)
+          gl.useProgram(shaderProgram)
 
-        gl.uniformMatrix4fv(
-          shaderInfo.vertex.uniformLocations.projectionMatrix,
-          false,
-          projectionMatrix
-        )
-        gl.uniformMatrix4fv(
-          shaderInfo.vertex.uniformLocations.viewMatrix,
-          false,
-          viewMatrix
-        )
+          gl.uniformMatrix4fv(
+            shaderInfo.vertex.uniformLocations.projectionMatrix,
+            false,
+            projectionMatrix
+          )
+          gl.uniformMatrix4fv(
+            shaderInfo.vertex.uniformLocations.viewMatrix,
+            false,
+            viewMatrix
+          )
+          gl.uniformMatrix4fv(
+            shaderInfo.vertex.uniformLocations.modelMatrix,
+            false,
+            modelMatrix
+          )
 
-        console.log(trianglePositions.positions, trianglePositions.perVertex)
-        console.log(
-          trianglePositions.positions.length / trianglePositions.perVertex
-        )
-        gl.drawArrays(
-          gl.LINE_LOOP,
-          0,
-          trianglePositions.positions.length / trianglePositions.perVertex
-        )
-      })
+          gl.drawArrays(gl.LINE_LOOP, 0, trianglePositions.length / 3)
+        }
+      )
     }),
     [triangleBuffer, trianglePositions]
   )
@@ -139,8 +135,17 @@ const VertexShaderFirstExample = () => {
         height="480"
         ref={canvasRef}
       />
+      <div className="util text-center">
+        <code>
+          <em>
+            [[vertex1.x, vertex1.y, vertex1.z], [vertex2.x, vertex2.y,
+            vertex2.z], ...]
+          </em>
+        </code>
+      </div>
       <input
         type="text"
+        className="util text-center"
         value={tempTrianglePositions}
         onChange={ev => {
           updateTemp(ev.target.value)
@@ -148,13 +153,20 @@ const VertexShaderFirstExample = () => {
             const newTrianglePositions = JSON.parse(ev.target.value)
             if (
               Array.isArray(newTrianglePositions) &&
-              areAllNumbers(newTrianglePositions) &&
-              haveValidVertexGroups(newTrianglePositions)
+              doesArrayChildrenSatisfyPredicate(
+                newTrianglePositions,
+                Array.isArray
+              ) &&
+              doesArrayChildrenSatisfyPredicate(
+                newTrianglePositions,
+                areAllNumbers
+              ) &&
+              doesArrayChildrenSatisfyPredicate(
+                newTrianglePositions,
+                haveValidVertexGroups
+              )
             ) {
-              updateTrianglePositions({
-                positions: newTrianglePositions,
-                perVertex: newTrianglePositions.length % 3 === 0 ? 3 : 2,
-              })
+              updateTrianglePositions([].concat.apply([], newTrianglePositions))
             }
           } catch (e) {
             console.error("Cannot accept new input due to error", e)
