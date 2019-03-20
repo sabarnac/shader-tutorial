@@ -1,4 +1,4 @@
-export const vertexShaderSource = `
+export const vertexShaderSource = glsl`
 attribute vec4 vertexPosition;
 
 uniform mat4 modelMatrix;
@@ -10,7 +10,7 @@ void main() {
 }
 `
 
-export const fragmentShaderSource = `
+export const fragmentShaderSource = glsl`
 void main() {
   gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }
