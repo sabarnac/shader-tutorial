@@ -26,7 +26,7 @@ const shaderProgramInfo = {
 
 const triangleModelPosition = mat4.create()
 
-const VertexShaderFirstExample = () => {
+const FragmentShaderFirstExample = () => {
   const triangle = {
     vertices: [0.0, 1.0, 0.0, -1.0, -1.0, 0.0, 1.0, -1.0, 0.0],
   }
@@ -109,7 +109,7 @@ const VertexShaderFirstExample = () => {
             modelMatrix
           )
 
-          gl.drawArrays(gl.LINE_LOOP, 0, triangle.vertices.length / 3)
+          gl.drawArrays(gl.TRIANGLES, 0, triangle.vertices.length / 3)
         }
       )
     }),
@@ -132,4 +132,4 @@ Vertex 3: ${coordArrToString(vertices[2])}
   )
 }
 
-export default VertexShaderFirstExample
+export default FragmentShaderFirstExample

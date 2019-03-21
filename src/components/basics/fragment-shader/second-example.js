@@ -11,9 +11,12 @@ const shaderProgramInfo = {
   vertex: {
     attributeLocations: {
       vertexPosition: "vec4",
+      vertexColor: "vec3",
     },
     uniformLocations: {
-      mvpMatrix: "mat4",
+      modelMatrix: "mat4",
+      viewMatrix: "mat4",
+      projectionMatrix: "mat4",
     },
   },
   fragment: {
@@ -24,15 +27,18 @@ const shaderProgramInfo = {
 
 const triangleModelPosition = mat4.create()
 
-const VertexShaderSecondExample = () => {
+const FragmentShaderSecondExample = () => {
   const triangle = {
     vertices: [0.0, 1.0, 0.0, -1.0, -1.0, 0.0, 1.0, -1.0, 0.0],
+    colors: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
   const [shaderInfo, updateShaderInfo] = useState(null)
-  const [triangleBuffer, updateTriangleBuffer] = useState({ vertices: null })
-  const [shouldRender, updateShouldRender] = useState(true)
+  const [triangleBuffer, updateTriangleBuffer] = useState({
+    vertices: null,
+    colors: null,
+  })
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
@@ -68,30 +74,21 @@ const VertexShaderSecondExample = () => {
           triangle.vertices,
           triangleBuffer.vertices
         ),
+        colors: webGlRef.createStaticDrawArrayBuffer(
+          triangle.colors,
+          triangleBuffer.colors
+        ),
       })
     }),
     [shaderInfo]
   )
 
   useEffect(
-    runOnPredicate(triangleBuffer.vertices !== null, () => {
-      updateShouldRender(true)
-      const renderScene = () => {
+    runOnPredicate(
+      triangleBuffer.vertices !== null && triangleBuffer.colors !== null,
+      () => {
         webGlRef.renderScene(
           ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
-            if (!shouldRender) {
-              return
-            }
-
-            const rotatedModelMatrix = mat4.create()
-            const time = parseInt(performance.now())
-            const rotationAngle = (((time / 30) % 360) * Math.PI) / 180
-            mat4.rotateZ(rotatedModelMatrix, modelMatrix, rotationAngle)
-
-            const mvpMatrix = mat4.create()
-            mat4.multiply(mvpMatrix, viewMatrix, rotatedModelMatrix)
-            mat4.multiply(mvpMatrix, projectionMatrix, mvpMatrix)
-
             gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer.vertices)
             gl.vertexAttribPointer(
               shaderInfo.vertex.attributeLocations.vertexPosition,
@@ -105,28 +102,48 @@ const VertexShaderSecondExample = () => {
               shaderInfo.vertex.attributeLocations.vertexPosition
             )
 
+            gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer.colors)
+            gl.vertexAttribPointer(
+              shaderInfo.vertex.attributeLocations.vertexColor,
+              3,
+              gl.FLOAT,
+              false,
+              0,
+              0
+            )
+            gl.enableVertexAttribArray(
+              shaderInfo.vertex.attributeLocations.vertexColor
+            )
+
             gl.useProgram(shaderProgram)
 
             gl.uniformMatrix4fv(
-              shaderInfo.vertex.uniformLocations.mvpMatrix,
+              shaderInfo.vertex.uniformLocations.projectionMatrix,
               false,
-              mvpMatrix
+              projectionMatrix
+            )
+            gl.uniformMatrix4fv(
+              shaderInfo.vertex.uniformLocations.viewMatrix,
+              false,
+              viewMatrix
+            )
+            gl.uniformMatrix4fv(
+              shaderInfo.vertex.uniformLocations.modelMatrix,
+              false,
+              modelMatrix
             )
 
-            gl.drawArrays(gl.LINE_LOOP, 0, triangle.vertices.length / 3)
-
-            requestAnimationFrame(renderScene)
+            gl.drawArrays(gl.TRIANGLES, 0, triangle.vertices.length / 3)
           }
         )
       }
-      requestAnimationFrame(renderScene)
-
-      return () => updateShouldRender(false)
-    }),
+    ),
     [triangleBuffer]
   )
 
   const vertices = chunkArray(triangle.vertices, 3)
+  const colors = chunkArray(triangle.colors, 3)
+  const colorCoordMap = { x: "r", y: "g", z: "b" }
 
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
@@ -138,8 +155,15 @@ Vertex 2: ${coordArrToString(vertices[1])}
 Vertex 3: ${coordArrToString(vertices[2])}
 `.trim()}
       </pre>
+      <pre>
+        {`
+Vertex 1 Color: ${coordArrToString(colors[0], colorCoordMap)}
+Vertex 2 Color: ${coordArrToString(colors[1], colorCoordMap)}
+Vertex 3 Color: ${coordArrToString(colors[2], colorCoordMap)}
+`.trim()}
+      </pre>
     </div>
   )
 }
 
-export default VertexShaderSecondExample
+export default FragmentShaderSecondExample

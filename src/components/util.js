@@ -8,5 +8,10 @@ export const chunkArray = (array, chunk_size) =>
 
 export const glsl = x => x.join("")
 
-export const coordArrToString = coord =>
-  `{ x: ${coord[0]}, y: ${coord[1]}, z: ${coord[2]} }`
+export const coordArrToString = (
+  coord,
+  coordMap = { x: "x", y: "y", z: "z" }
+) =>
+  `{ ${coordMap.x}: ${coord[0]}, ${coordMap.y}: ${coord[1]}, ${coordMap.z}: ${
+    coord[2]
+  } }`

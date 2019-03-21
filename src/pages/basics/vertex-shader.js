@@ -49,13 +49,15 @@ const VertexShaderPage = () => {
         Even though this is WebGL (which is similar to OpenGL), the concepts
         applied in this vertex shader can be mapped across other languages as
         well. First, we have the <code>vertexPosition</code> attribute. This is
-        the attribute that basically receives the initial vertex coordinates as
+        the property that basically receives the initial vertex coordinates as
         it's primary input, the one that it should transform into the final
-        clip-space coordinates. Do note that the type of it is set to{" "}
-        <code>vec4</code>, which basically means it's a vector of size 4, but
-        vertices passed to the vertex shader need not be limited to just this
-        type, but a <code>vec4</code> type would provide the most detail about a
-        certain vertex.
+        clip-space coordinates. It is defined as an attribute since it can
+        change per vertex (since this represents the input vertex, it always
+        will), and as a result are always read-only. Do note that the type of it
+        is set to <code>vec4</code>, which basically means it's a vector of size
+        4, but vertices passed to the vertex shader need not be limited to just
+        this type, but a <code>vec4</code> type would provide the most detail
+        about a certain vertex.
       </p>
       <p>
         The <code>void main</code> function is the primary function that is
@@ -66,22 +68,19 @@ const VertexShaderPage = () => {
       </p>
       <p>
         Next we have the <code>modelMatrix</code>, <code>viewMatrix</code>, and{" "}
-        <code>projectionMatrix</code> attributes, that are passed separately to
+        <code>projectionMatrix</code> uniforms, that are passed separately to
         the vertex shader. Unlike the <code>vertexPosition</code> attribute,
-        where it actually is set to a single coordinate from a list of
-        coordinates, the values passed to these two properties are shared as a
-        whole to the vertex shader, and will always be the same value no matter
-        what vertex you are currently operating on. This makes them useful for
-        passing values that can be used to calculate the final vertex position,
-        and are also why they are actually called uniforms (because they are
-        values passed that are uniform throughout all vertex shader instances
-        that are operating on separate vertices). Similar to the{" "}
-        <code>vertexPosition</code> attribute, the types of these uniforms is{" "}
-        <code>mat4</code>, which means a matrix of size 4x4. Again, they need
-        not be limited to this type, and can be a matrix of size upto 4x4, or
-        even a vector of size upto 4.
+        these values need to be the same for every vertex of the
+        object/primitive operated on, which is why it's defined as uniform.
+        Similar to the <code>vertexPosition</code> attribute, the types of these
+        uniforms is <code>mat4</code>, which means a matrix of size 4x4. Again,
+        they need not be limited to this type, and can be a matrix of size upto
+        4x4, or even a vector of size upto 4.
       </p>
-      <p>A simple explanation of these uniforms is below:</p>
+      <p>
+        A simple explanation of these uniforms (values that are same per
+        object/primitive) is below:
+      </p>
       <dl>
         <dt>
           <h5>modelMatrix</h5>
@@ -109,16 +108,16 @@ const VertexShaderPage = () => {
         </dt>
         <dd>
           This matrix is used to represent the projection of the view onto the
-          camera. Since objects can overlap each other, and the size of objects
-          can differ based on how far or how close they are to the camera, a
-          calculation is required to determine how the perspective of the camera
-          can affect the view to calculate the actual final coordinates of the
-          vertices. By multiplying the projection matrix onto the result of the
-          previous calculations, we are able to map the vertex onto the
-          perspective of the camera, taking into account it's height, width,
-          aspect ratio, the farthest it can see, and the closest it can see.
-          This final calculation provides us the homogenous coordinates which
-          can be used to plot that vertex in clip-space.
+          camera. Since objects/primitives can overlap each other, and the size
+          of objects/primitives can differ based on how far or how close they
+          are to the camera, a calculation is required to determine how the
+          perspective of the camera can affect the view to calculate the actual
+          final coordinates of the vertices. By multiplying the projection
+          matrix onto the result of the previous calculations, we are able to
+          map the vertex onto the perspective of the camera, taking into account
+          it's height, width, aspect ratio, the farthest it can see, and the
+          closest it can see. This final calculation provides us the homogenous
+          coordinates which can be used to plot that vertex in clip-space.
         </dd>
       </dl>
       <p>
