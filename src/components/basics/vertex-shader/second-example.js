@@ -1,12 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
-import {
-  areAllNumbers,
-  haveValidVertexGroups,
-  runOnPredicate,
-  chunkArray,
-  doesArrayChildrenSatisfyPredicate,
-} from "../../util"
+import { runOnPredicate, chunkArray, coordArrToString } from "../../util"
 import {
   secondVertexShaderSource,
   secondFragmentShaderSource,
@@ -31,20 +25,7 @@ const shaderProgramInfo = {
 const triangleModelPosition = mat4.create()
 
 const VertexShaderSecondExample = () => {
-  const [trianglePositions, updateTrianglePositions] = useState([
-    0.0,
-    1.0,
-    0.0,
-    -1.0,
-    -1.0,
-    0.0,
-    1.0,
-    -1.0,
-    0.0,
-  ])
-  const [tempTrianglePositions, updateTemp] = useState(
-    JSON.stringify(chunkArray(trianglePositions, 3))
-  )
+  const trianglePositions = [0.0, 1.0, 0.0, -1.0, -1.0, 0.0, 1.0, -1.0, 0.0]
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
   const [shaderInfo, updateShaderInfo] = useState(null)
@@ -140,52 +121,18 @@ const VertexShaderSecondExample = () => {
     [triangleBuffer, trianglePositions]
   )
 
+  const vertices = chunkArray(trianglePositions, 3)
+
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
-      <canvas
-        id="basics-vertex-shader-1"
-        width="640"
-        height="480"
-        ref={canvasRef}
-      />
-      <div className="util text-center">
-        <code>
-          <em>
-            [[vertex1.x, vertex1.y, vertex1.z], [vertex2.x, vertex2.y,
-            vertex2.z], ...]
-          </em>
-        </code>
-      </div>
-      <input
-        type="text"
-        className="util text-center"
-        value={tempTrianglePositions}
-        onChange={ev => {
-          updateTemp(ev.target.value)
-          try {
-            const newTrianglePositions = JSON.parse(ev.target.value)
-            if (
-              Array.isArray(newTrianglePositions) &&
-              doesArrayChildrenSatisfyPredicate(
-                newTrianglePositions,
-                Array.isArray
-              ) &&
-              doesArrayChildrenSatisfyPredicate(
-                newTrianglePositions,
-                areAllNumbers
-              ) &&
-              doesArrayChildrenSatisfyPredicate(
-                newTrianglePositions,
-                haveValidVertexGroups
-              )
-            ) {
-              updateTrianglePositions([].concat.apply([], newTrianglePositions))
-            }
-          } catch (e) {
-            console.error("Cannot accept new input due to error", e)
-          }
-        }}
-      />
+      <canvas width="640" height="480" ref={canvasRef} />
+      <pre>
+        {`
+Vertex 1: ${coordArrToString(vertices[0])}
+Vertex 2: ${coordArrToString(vertices[1])}
+Vertex 3: ${coordArrToString(vertices[2])}
+`.trim()}
+      </pre>
     </div>
   )
 }

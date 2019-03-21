@@ -123,6 +123,17 @@ textarea {
   max-width: 100%;
 }
 
+.container .row.wrapper .column.content .notice.column {
+  border-bottom: 1px solid #ffffff;
+  background: #ff0000;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+  align-items: center;
+}
+
 .container .row.wrapper .column.content main.row {
   flex-grow: 1;
   padding: 1rem;
