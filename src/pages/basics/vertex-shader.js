@@ -21,16 +21,18 @@ const VertexShaderPage = () => {
       <p>
         Vertex shaders are a shader <em>stage</em> whose task is to handle
         processing individual vertices provided from a dataset to the shader.
-        They are supposed to take a single 3D vertex and plot it onto the 2D
-        plane that represents the screen, optionally, with a 3rd axis value
-        which is used to signify it's depth value, which is stored in a buffer
-        (called the Z-buffer or depth-buffer).
+        They are supposed to take a single 3D vertex and place it onto a 4D
+        space known as "clip-space", which is basically a space that represents
+        the perspective of the screen, and provides a simple representation of
+        what is outside that perspective and can be cut out/culled/clipped, and
+        what remains within the perspective and kept (hence why it is called
+        clip-space).
       </p>
       <p>
         Since this shader is executed per vertex on all vertexes passed to the
-        shader pipeline, any operation that requires modifications to the vertex
+        GPU pipeline, any operation that requires modifications to the vertex
         can be performed during this shader stage, as long as the final output
-        is where the vertex is to be plotted in a 2D plane.
+        is where the vertex is to be plotted in the clip-space.
       </p>
       <h3>A Simple Example - A Triangle</h3>
       <p>Let's look at an example of a simple vertex shader below.</p>
@@ -48,12 +50,12 @@ const VertexShaderPage = () => {
         applied in this vertex shader can be mapped across other languages as
         well. First, we have the <code>vertexPosition</code> attribute. This is
         the attribute that basically receives the initial vertex coordinates as
-        it's primary input, the one that it should transform into a coordinate
-        that can be plotted onto the screen. Do note that the type of it is set
-        to <code>vec4</code>, which basically means it's a vector of size 4. Do
-        note that vertices passed to the vertex shader need not be limited to
-        just this type, but a <code>vec4</code> type would provide the most
-        detail about a certain vertex.
+        it's primary input, the one that it should transform into the final
+        clip-space coordinates. Do note that the type of it is set to{" "}
+        <code>vec4</code>, which basically means it's a vector of size 4, but
+        vertices passed to the vertex shader need not be limited to just this
+        type, but a <code>vec4</code> type would provide the most detail about a
+        certain vertex.
       </p>
       <p>
         The <code>void main</code> function is the primary function that is
@@ -97,8 +99,8 @@ const VertexShaderPage = () => {
         </dt>
         <dd>
           This matrix is used to represent where the vertex exists relative to
-          the view (which is the camera/screen). Once the vertex position is
-          known in the world (by multiplying it with the{" "}
+          your view, or more specifically the cameras view. Once the vertex
+          position is known in the world (by multiplying it with the{" "}
           <code>modelMatrix</code>), it's position relative to the camera can be
           determined by multiplying it with this matrix.
         </dd>
@@ -115,10 +117,8 @@ const VertexShaderPage = () => {
           previous calculations, we are able to map the vertex onto the
           perspective of the camera, taking into account it's height, width,
           aspect ratio, the farthest it can see, and the closest it can see.
-          This final calculation provides us the homogenous coordinates (where
-          any vertex in view will have it's x, y, and z coordinate within the
-          range of -1 to 1), which can then be used to plot that vertex onto the
-          screen.
+          This final calculation provides us the homogenous coordinates which
+          can be used to plot that vertex in clip-space.
         </dd>
       </dl>
       <p>
@@ -136,12 +136,19 @@ const VertexShaderPage = () => {
         result is the output of the vertex shader, which, in WebGL, is stored in
         the special variable <code>gl_Position</code>.
       </p>
+      <p>
+        Once the coordinates are generated (and some other processing is
+        performed on them), they are normalized into "Normalized Device
+        Coordinates" (NDC), which is basically the coordinates that can be
+        plotted onto your screen, with a depth value attached to them, which is
+        why it's also known as screen-space coordinates.
+      </p>
       <h3>Another Example - A Rotating Triangle</h3>
       <p>
-        Since the vertex shader determines where each vertex is to be plotted on
-        the screen, by passing it transformations to the vertices, it can move
-        the positions of the vertices as needed. For example, with the below
-        render:
+        Since the vertex shader determines where each vertex is w.r.t the
+        perspective space of the screen, by passing it transformations to the
+        vertices, it can move the positions of the vertices as needed. For
+        example, with the below render:
       </p>
       <VertexShaderSecondExample />
       <h4>How It Works</h4>
@@ -170,11 +177,11 @@ const VertexShaderPage = () => {
       <h3>Summary</h3>
       <p>
         The vertex shader receives a vertex from a list of vertices and plots it
-        onto the 2D screen, and optionally stating it's depth. Since the vertex
-        determines where the vertex has to be plotted, it can manipulate and
-        transform the vertex to be placed wherever required, as long as the
-        correct transformation matrices are passed to the vertex shader which it
-        will use to calculate the final coordinates of the vertex.
+        onto a space known as the clip-space. Since the vertex determines where
+        the vertex is present within this space, it can manipulate and transform
+        the vertex to be placed wherever required, as long as the correct
+        transformation matrices are passed to the vertex shader which it will
+        use to calculate the final coordinates of the vertex.
       </p>
       <PageChange
         previous="/basics/introduction/"
