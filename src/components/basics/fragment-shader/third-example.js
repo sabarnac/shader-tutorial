@@ -42,6 +42,7 @@ const FragmentShaderThirdExample = () => {
     colors: null,
   })
   const [shouldRender, updateShouldRender] = useState(true)
+  const [colorShift, updateColorShift] = useState(0)
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
@@ -89,6 +90,8 @@ const FragmentShaderThirdExample = () => {
   useEffect(
     runOnPredicate(triangleBuffer.vertices !== null, () => {
       updateShouldRender(true)
+      let then = parseInt(performance.now())
+
       const renderScene = () => {
         webGlRef.renderScene(
           ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
@@ -97,9 +100,15 @@ const FragmentShaderThirdExample = () => {
             }
 
             const time = parseInt(performance.now())
+
             const timeSlice = time % 4000
             const colorShift =
               1 - (timeSlice >= 2000 ? 4000 - timeSlice : timeSlice) / 1000
+
+            if (time - then > 100) {
+              then = time
+              updateColorShift(colorShift)
+            }
 
             gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer.vertices)
             gl.vertexAttribPointer(
@@ -183,6 +192,7 @@ Vertex 2 Color: ${coordArrToString(colors[1], colorCoordMap)}
 Vertex 3 Color: ${coordArrToString(colors[2], colorCoordMap)}
 `.trim()}
       </pre>
+      <pre>Color Shift: {colorShift.toFixed(6)}</pre>
     </div>
   )
 }

@@ -76,6 +76,7 @@ const VertexShaderSecondExample = () => {
   useEffect(
     runOnPredicate(triangleBuffer.vertices !== null, () => {
       updateShouldRender(true)
+
       const renderScene = () => {
         webGlRef.renderScene(
           ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
@@ -83,8 +84,9 @@ const VertexShaderSecondExample = () => {
               return
             }
 
-            const rotatedModelMatrix = mat4.create()
             const time = parseInt(performance.now())
+
+            const rotatedModelMatrix = mat4.create()
             const rotationAngle = (((time / 30) % 360) * Math.PI) / 180
             mat4.rotateZ(rotatedModelMatrix, modelMatrix, rotationAngle)
 
