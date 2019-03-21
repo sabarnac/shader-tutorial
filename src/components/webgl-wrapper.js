@@ -50,11 +50,7 @@ export default class WebGlWrapper {
   }
 
   _startSetup = triangleModelPosition => {
-    this._webgl.clearColor(0.0, 0.0, 0.0, 1.0)
-    this._webgl.clearDepth(1.0)
-    this._webgl.clear(
-      this._webgl.COLOR_BUFFER_BIT | this._webgl.DEPTH_BUFFER_BIT
-    )
+    this._clearScreen()
 
     this._webgl.depthFunc(this._webgl.LEQUAL)
     this._canvasDimensions.aspect =
@@ -70,6 +66,14 @@ export default class WebGlWrapper {
       [0.0, 1.0, 0.0]
     )
     mat4.translate(this._modelMatrix, triangleModelPosition, [0.0, 0.0, 0.0])
+  }
+
+  _clearScreen = () => {
+    this._webgl.clearColor(0.0, 0.0, 0.0, 1.0)
+    this._webgl.clearDepth(1.0)
+    this._webgl.clear(
+      this._webgl.COLOR_BUFFER_BIT | this._webgl.DEPTH_BUFFER_BIT
+    )
   }
 
   _loadShaderSource = (shaderType, shaderSource) => {
@@ -177,6 +181,7 @@ export default class WebGlWrapper {
       viewMatrix: this._viewMatrix,
       modelMatrix: this._modelMatrix,
     }
+    this._clearScreen()
     renderer(renderInfo)
   }
 

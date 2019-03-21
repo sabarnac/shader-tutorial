@@ -31,6 +31,14 @@ h6 {
   text-transform: capitalize;
 }
 
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
+
 canvas {
   background: #ffffff;
   border: 1px solid #ffffff;
@@ -42,12 +50,14 @@ a:visited {
   border-bottom: 1px dotted #ffffff;
 }
 
-a:hover, a:focus {
+a:hover,
+a:focus {
   color: #bbbbbb;
   border-bottom: 1px dotted #bbbbbb;
 }
 
-code, pre {
+code,
+pre {
   background: #333333;
 }
 
@@ -161,4 +171,9 @@ nav ul {
 
 .util.text-right {
   text-align: right;
+}
+
+.row.page-change {
+  border-top: 1px dashed #ffffff;
+  padding: 1rem;
 }

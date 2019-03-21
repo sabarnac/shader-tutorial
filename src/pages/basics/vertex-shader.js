@@ -2,9 +2,13 @@ import React from "react"
 
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
-import { Link, withPrefix } from "gatsby"
 import VertexShaderFirstExample from "../../components/basics/vertex-shader/first-example"
-import { vertexShaderSource } from "../../components/basics/vertex-shader/first-example-shaders"
+import { firstVertexShaderSource } from "../../components/basics/vertex-shader/first-example-shaders"
+import { secondVertexShaderSource } from "../../components/basics/vertex-shader/second-example-shaders"
+import PageChange from "../../components/page-change"
+import VertexShaderSecondExample from "../../components/basics/vertex-shader/second-example"
+
+console.log(firstVertexShaderSource)
 
 const VertexShaderPage = () => {
   return (
@@ -14,6 +18,7 @@ const VertexShaderPage = () => {
         keywords={["vertex", "shader", "basics"]}
       />
       <h2>Basics Of A Vertex Shader</h2>
+      <h3>What Is A Vertex Shader</h3>
       <p>
         Vertex shaders are a shader <em>stage</em> whose task is to handle
         processing individual vertices provided from a dataset to the shader.
@@ -28,6 +33,7 @@ const VertexShaderPage = () => {
         can be performed during this shader stage, as long as the final output
         is where the vertex is to be plotted in a 2D plane.
       </p>
+      <h3>A Simple Example - A Triangle</h3>
       <p>Let's look at an example of a simple vertex shader below.</p>
       <VertexShaderFirstExample />
       <p>
@@ -35,20 +41,20 @@ const VertexShaderPage = () => {
         drawn. The points on the canvas where the vertices are plotted on to are
         done so by the vertex shader.
       </p>
+      <h4>How It Works</h4>
       <p> Let's look at the code for the vertex shader</p>
-      <pre>{vertexShaderSource.trim()}</pre>
+      <pre>{firstVertexShaderSource.trim()}</pre>
       <p>
-        Even though this is WebGL (which is similar in terms of flow and
-        function to OpenGL), the concepts applied in this vertex shader can be
-        mapped across other languages as well. First, we have the{" "}
-        <code>vertexPosition</code> attribute. This is the attribute that
-        basically receives the initial vertex coordinates as it's primary input,
-        the one that it should transform into a coordinate that can be plotted
-        onto the screen. Do note that the type of it is set to <code>vec4</code>
-        , which basically means it's a vector of size 4. Do note that vertices
-        passed to the vertex shader need not be limited to just this type, but a{" "}
-        <code>vec4</code> type would provide the most detail about a certain
-        vertex.
+        Even though this is WebGL (which is similar to OpenGL), the concepts
+        applied in this vertex shader can be mapped across other languages as
+        well. First, we have the <code>vertexPosition</code> attribute. This is
+        the attribute that basically receives the initial vertex coordinates as
+        it's primary input, the one that it should transform into a coordinate
+        that can be plotted onto the screen. Do note that the type of it is set
+        to <code>vec4</code>, which basically means it's a vector of size 4. Do
+        note that vertices passed to the vertex shader need not be limited to
+        just this type, but a <code>vec4</code> type would provide the most
+        detail about a certain vertex.
       </p>
       <p>
         The <code>void main</code> function is the primary function that is
@@ -77,7 +83,7 @@ const VertexShaderPage = () => {
       <p>A simple explanation of these uniforms is below:</p>
       <dl>
         <dt>
-          <h4>modelMatrix</h4>
+          <h5>modelMatrix</h5>
         </dt>
         <dd>
           This matrix is used to represent where the vertex exists within the
@@ -88,7 +94,7 @@ const VertexShaderPage = () => {
           the world w.r.t. to the center of the model it belongs to.
         </dd>
         <dt>
-          <h4>viewMatrix</h4>
+          <h5>viewMatrix</h5>
         </dt>
         <dd>
           This matrix is used to represent where the vertex exists relative to
@@ -98,7 +104,7 @@ const VertexShaderPage = () => {
           determined by multiplying it with this matrix.
         </dd>
         <dt>
-          <h4>projectionMatrix</h4>
+          <h5>projectionMatrix</h5>
         </dt>
         <dd>
           This matrix is used to represent the projection of the view onto the
@@ -131,10 +137,50 @@ const VertexShaderPage = () => {
         result is the output of the vertex shader, which, in WebGL, is stored in
         the special variable <code>gl_Position</code>.
       </p>
+      <h3>Another Example - A Rotating Triangle</h3>
       <p>
-        <Link to="/basics/fragment-shader/">Go To Next Chapter.</Link>
+        Since the vertex shader determines where each vertex is to be plotted on
+        the screen, by passing it transformations to the vertices, it can move
+        the positions of the vertices as needed. For example, with the below
+        render:
       </p>
-      <script src={withPrefix("/scripts/basics/vertex-shader-example.js")} />
+      <VertexShaderSecondExample />
+      <h4>How It Works</h4>
+      <p>
+        By passing a <code>modelMatrix</code> that's rotated based on the
+        current time, the vertex shader will rotate all the vertices by the set
+        amount when rendering each frame. The <code>modelMatrix</code> is
+        rotated because it is the matrix that represents the model as a whole,
+        so transforming this matrix is akin to transforming the model (scale,
+        rotation, and translation), and thereby every vertex of that model.
+      </p>
+      <p>
+        The reason the model matrix rotation is done on the CPU is to avoid
+        redundancy. Instead of having the vertex shader recalculate the rotation
+        for every vertex every frame, the CPU can calculate it just once every
+        frame and then pass it to the vertex shader to apply it.
+      </p>
+      <p>
+        This principle can (and should) also be applied to the model, view, and
+        projection matrices we multiply to the vertex. By multiplying all these
+        3 matrices in advance on the CPU, and then passing to the vertex shader,
+        we save on unnecessary calculations being done for every vertex every
+        frame. Which means our vertex shader code should ideally look like this:
+      </p>
+      <pre>{secondVertexShaderSource.trim()}</pre>
+      <h3>Summary</h3>
+      <p>
+        The vertex shader receives a vertex from a list of vertices and plots it
+        onto the 2D screen, and optionally stating it's depth. Since the vertex
+        determines where the vertex has to be plotted, it can manipulate and
+        transform the vertex to be placed wherever required, as long as the
+        correct transformation matrices are passed to the vertex shader which it
+        will use to calculate the final coordinates of the vertex.
+      </p>
+      <PageChange
+        previous="/basics/introduction/"
+        next="/basics/fragment-shader/"
+      />
     </Layout>
   )
 }

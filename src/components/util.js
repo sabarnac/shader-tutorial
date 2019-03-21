@@ -14,4 +14,4 @@ export const chunkArray = (array, chunk_size) =>
 export const doesArrayChildrenSatisfyPredicate = (array, predicate) =>
   array.filter(predicate).length === array.length
 
-export const glsl = x => x
+export const glsl = x => x.join("")

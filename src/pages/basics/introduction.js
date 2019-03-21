@@ -2,7 +2,7 @@ import React from "react"
 
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
-import { Link } from "gatsby"
+import PageChange from "../../components/page-change"
 
 const IntroductionPage = () => (
   <Layout>
@@ -134,9 +134,7 @@ const IntroductionPage = () => (
       As an added bonus, if you ever wanted to an introduction to OpenGL
       programming, that website is a great start.
     </p>
-    <p>
-      <Link to="/basics/vertex-shader/">Go To Next Chapter.</Link>
-    </p>
+    <PageChange next="/basics/vertex-shader/" />
   </Layout>
 )
 

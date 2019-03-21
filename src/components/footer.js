@@ -1,4 +1,3 @@
-import PropTypes from "prop-types"
 import React from "react"
 import twitter from "../images/twitter.png"
 
@@ -18,13 +17,5 @@ const Footer = () => (
     </footer>
   </div>
 )
-
-Footer.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Footer.defaultProps = {
-  siteTitle: ``,
-}
 
 export default Footer

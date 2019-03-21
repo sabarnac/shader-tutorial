@@ -8,9 +8,9 @@ import {
   doesArrayChildrenSatisfyPredicate,
 } from "../../util"
 import {
-  firstVertexShaderSource,
-  firstFragmentShaderSource,
-} from "./first-example-shaders"
+  secondVertexShaderSource,
+  secondFragmentShaderSource,
+} from "./second-example-shaders"
 import { mat4 } from "gl-matrix"
 
 const shaderProgramInfo = {
@@ -19,9 +19,7 @@ const shaderProgramInfo = {
       vertexPosition: "vec4",
     },
     uniformLocations: {
-      modelMatrix: "mat4",
-      viewMatrix: "mat4",
-      projectionMatrix: "mat4",
+      mvpMatrix: "mat4",
     },
   },
   fragment: {
@@ -32,7 +30,7 @@ const shaderProgramInfo = {
 
 const triangleModelPosition = mat4.create()
 
-const VertexShaderFirstExample = () => {
+const VertexShaderSecondExample = () => {
   const [trianglePositions, updateTrianglePositions] = useState([
     0.0,
     1.0,
@@ -51,6 +49,7 @@ const VertexShaderFirstExample = () => {
   const [shaderProgram, updateShaderProgram] = useState(null)
   const [shaderInfo, updateShaderInfo] = useState(null)
   const [triangleBuffer, updateTriangleBuffer] = useState(null)
+  const [shouldRender, updateShouldRender] = useState(true)
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
@@ -62,8 +61,8 @@ const VertexShaderFirstExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          firstVertexShaderSource,
-          firstFragmentShaderSource
+          secondVertexShaderSource,
+          secondFragmentShaderSource
         )
       )
     }),
@@ -90,42 +89,53 @@ const VertexShaderFirstExample = () => {
 
   useEffect(
     runOnPredicate(triangleBuffer !== null, () => {
-      webGlRef.renderScene(
-        ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
-          gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer)
-          gl.vertexAttribPointer(
-            shaderInfo.vertex.attributeLocations.vertexPosition,
-            3,
-            gl.FLOAT,
-            false,
-            0,
-            0
-          )
-          gl.enableVertexAttribArray(
-            shaderInfo.vertex.attributeLocations.vertexPosition
-          )
+      updateShouldRender(true)
+      const renderScene = () => {
+        webGlRef.renderScene(
+          ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
+            if (!shouldRender) {
+              return
+            }
 
-          gl.useProgram(shaderProgram)
+            const rotatedModelMatrix = mat4.create()
+            const time = performance.now()
+            const rotationAngle = (((time / 30) % 360) * Math.PI) / 180
+            mat4.rotateZ(rotatedModelMatrix, modelMatrix, rotationAngle)
 
-          gl.uniformMatrix4fv(
-            shaderInfo.vertex.uniformLocations.projectionMatrix,
-            false,
-            projectionMatrix
-          )
-          gl.uniformMatrix4fv(
-            shaderInfo.vertex.uniformLocations.viewMatrix,
-            false,
-            viewMatrix
-          )
-          gl.uniformMatrix4fv(
-            shaderInfo.vertex.uniformLocations.modelMatrix,
-            false,
-            modelMatrix
-          )
+            const mvpMatrix = mat4.create()
+            mat4.multiply(mvpMatrix, viewMatrix, rotatedModelMatrix)
+            mat4.multiply(mvpMatrix, projectionMatrix, mvpMatrix)
 
-          gl.drawArrays(gl.LINE_LOOP, 0, trianglePositions.length / 3)
-        }
-      )
+            gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer)
+            gl.vertexAttribPointer(
+              shaderInfo.vertex.attributeLocations.vertexPosition,
+              3,
+              gl.FLOAT,
+              false,
+              0,
+              0
+            )
+            gl.enableVertexAttribArray(
+              shaderInfo.vertex.attributeLocations.vertexPosition
+            )
+
+            gl.useProgram(shaderProgram)
+
+            gl.uniformMatrix4fv(
+              shaderInfo.vertex.uniformLocations.mvpMatrix,
+              false,
+              mvpMatrix
+            )
+
+            gl.drawArrays(gl.LINE_LOOP, 0, trianglePositions.length / 3)
+
+            requestAnimationFrame(renderScene)
+          }
+        )
+      }
+      requestAnimationFrame(renderScene)
+
+      return () => updateShouldRender(false)
     }),
     [triangleBuffer, trianglePositions]
   )
@@ -180,4 +190,4 @@ const VertexShaderFirstExample = () => {
   )
 }
 
-export default VertexShaderFirstExample
+export default VertexShaderSecondExample
