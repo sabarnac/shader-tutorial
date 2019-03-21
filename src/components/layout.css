@@ -155,6 +155,18 @@ textarea {
   max-height: 2rem;
 }
 
+.page-change {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.page-change .page-previous,
+.page-change .page-next {
+  padding: 1rem;
+  flex-grow: 1;
+}
+
 nav ul {
   list-style: none;
   margin: 0;
