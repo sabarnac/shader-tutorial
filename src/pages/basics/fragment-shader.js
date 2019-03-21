@@ -148,6 +148,7 @@ const FragmentShaderPage = () => {
         then split into fragments, with each fragment then colored by the
         fragment shader.
       </p>
+      <h3>A Simple Example - A Triangular Color Wheel?</h3>
       <p>
         What if we wanted to define our own color values that should be used to
         color the pixels? Just like with the vertex shader, we can pass our own
@@ -161,12 +162,12 @@ const FragmentShaderPage = () => {
         each vertex, and not each fragment or pixel, since where the vertices of
         the triangle will finally be placed is unknown, as well as how much of
         the screen area it will cover. So if we can only define color values for
-        each vertex, how will the fragment shader know what the color it should
-        receive for pixels that are inside the triangle? Let's take a look at
-        the result first.
+        each vertex, how will the fragment shader know what color it should
+        receive for pixels that are inside the triangle not defined by any
+        vertex? Let's take a look at an example.
       </p>
       <FragmentShaderSecondExample />
-      <FragmentShaderThirdExample />
+      {/* <FragmentShaderThirdExample /> */}
       <PageChange previous="/basics/vertex-shader/" />
     </Layout>
   )
