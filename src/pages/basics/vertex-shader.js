@@ -7,8 +7,7 @@ import { firstVertexShaderSource } from "../../components/basics/vertex-shader/f
 import { secondVertexShaderSource } from "../../components/basics/vertex-shader/second-example-shaders"
 import PageChange from "../../components/page-change"
 import VertexShaderSecondExample from "../../components/basics/vertex-shader/second-example"
-
-console.log(firstVertexShaderSource)
+import GlslCodeHighlight from "../../components/glsl-code-highlight"
 
 const VertexShaderPage = () => {
   return (
@@ -43,7 +42,7 @@ const VertexShaderPage = () => {
       </p>
       <h4>How It Works</h4>
       <p> Let's look at the code for the vertex shader</p>
-      <pre>{firstVertexShaderSource.trim()}</pre>
+      <GlslCodeHighlight code={firstVertexShaderSource.trim()} />
       <p>
         Even though this is WebGL (which is similar to OpenGL), the concepts
         applied in this vertex shader can be mapped across other languages as
@@ -167,7 +166,7 @@ const VertexShaderPage = () => {
         we save on unnecessary calculations being done for every vertex every
         frame. Which means our vertex shader code should ideally look like this:
       </p>
-      <pre>{secondVertexShaderSource.trim()}</pre>
+      <GlslCodeHighlight code={secondVertexShaderSource.trim()} />
       <h3>Summary</h3>
       <p>
         The vertex shader receives a vertex from a list of vertices and plots it

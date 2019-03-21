@@ -151,6 +151,10 @@ textarea {
   padding-right: 1rem;
 }
 
+.container .row.wrapper .column.content footer.column .social a {
+  border-bottom: none;
+}
+
 .container .row.wrapper .column.content footer.column .social img {
   max-height: 2rem;
 }
