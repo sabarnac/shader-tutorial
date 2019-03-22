@@ -104,7 +104,7 @@ const FragmentShaderPage = () => {
         should be. In the case of the circle, by taking 4 "fragments" (one from
         each corner), we can see that 3 of those fragments would return white,
         and one would return red, so averaging it out should return 25% red, 75%
-        white, resulting in the image, which is a lot closer to reality compared
+        white, resulting in the image, which is a bit closer to reality compared
         to the first result:
       </p>
       <p className="util text-center">
@@ -113,6 +113,12 @@ const FragmentShaderPage = () => {
           style={{ width: "65%" }}
           src={fragment3Img}
         />
+      </p>
+      <p>
+        Of course, there will always be a loss in detail at lower resolutions,
+        even with multiple samples taken to get an accurate color. The only
+        solution for this is to view at a higher resolution, which would improve
+        the detail of the rendered image.
       </p>
       <p>
         Fragments can also be overlapped by other fragments, similar to how
@@ -260,7 +266,7 @@ const FragmentShaderPage = () => {
       </p>
       <PageChange
         previous="/basics/vertex-shader/"
-        next="/basics/vertex-shader-2"
+        next="/basics/fragment-shader-2"
       />
     </Layout>
   )
