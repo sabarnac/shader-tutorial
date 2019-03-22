@@ -8,6 +8,11 @@ import fragment2Img from "../../images/basics/fragment-2.png"
 import fragment3Img from "../../images/basics/fragment-3.png"
 import FragmentShaderFirstExample from "../../components/basics/fragment-shader/first-example"
 import { firstFragmentShaderSource } from "../../components/basics/fragment-shader/first-example-shaders"
+import {
+  secondVertexShaderSource,
+  secondFragmentShaderSource,
+} from "../../components/basics/fragment-shader/second-example-shaders"
+import { thirdFragmentShaderSource } from "../../components/basics/fragment-shader/third-example-shaders"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import FragmentShaderSecondExample from "../../components/basics/fragment-shader/second-example"
 import FragmentShaderThirdExample from "../../components/basics/fragment-shader/third-example"
@@ -34,6 +39,11 @@ const FragmentShaderPage = () => {
         lights or darkening due to shadows, absorbing other colors due to
         reflections, etc.) can be done through the fragment shader, as long as
         the final result is a color value
+      </p>
+      <p>
+        Fragment shaders can also provide a depth value for their fragment, if
+        the interpolated depth of the fragment based on the vertices depth isn't
+        enough.
       </p>
       <h3>What Is A Fragment</h3>
       <p>
@@ -112,6 +122,10 @@ const FragmentShaderPage = () => {
         fragment is overlapped by another fragment, then it is discarded when
         rendering the final image.
       </p>
+      <p>
+        Do note that in DirectX, fragments are called pixels, but this naming
+        isn't accurate, as we've seen here.
+      </p>
       <h3>A Simple Example - The Triangle Returns</h3>
       <p>
         Let's go back to our standard triangle examples. Previously we had only
@@ -119,6 +133,7 @@ const FragmentShaderPage = () => {
         shaders work. This time we'll be coloring the entire triangle red.
       </p>
       <FragmentShaderFirstExample />
+      <h4>How It Works</h4>
       <GlslCodeHighlight code={firstFragmentShaderSource.trim()} />
       <p>
         Looking at the code, you'll see the fragment shader is extremely simple,
@@ -148,7 +163,7 @@ const FragmentShaderPage = () => {
         then split into fragments, with each fragment then colored by the
         fragment shader.
       </p>
-      <h3>A Simple Example - A Triangular Color Wheel?</h3>
+      <h3>Another Example - A Triangular Color Wheel?</h3>
       <p>
         What if we wanted to define our own color values that should be used to
         color the pixels? Just like with the vertex shader, we can pass our own
@@ -167,8 +182,86 @@ const FragmentShaderPage = () => {
         vertex? Let's take a look at an example.
       </p>
       <FragmentShaderSecondExample />
-      {/* <FragmentShaderThirdExample /> */}
-      <PageChange previous="/basics/vertex-shader/" />
+      <h4>How It Works</h4>
+      <p>
+        As is visible from the result, since we set the colors of each vertex
+        have been set to red, green, and blue, those corners of the triangles
+        have been colored appropriately. However, the rest of the triangle seems
+        to be a color mixture of all these colors in specific ratios. This is
+        done through data interpolation.
+      </p>
+      <p>
+        When we set the colors of the vertices, and then the object/primitive is
+        set into fragments, the fragments covering the vertices automatically
+        get the color of that vertex, since that is what that fragment
+        represents. The color of other fragments is determined by checking its
+        position and distance relative to every vertex, and interpolating what
+        its color value should be based upon the distance. So, for example, as a
+        fragment moves further away from vertex 2 and moves closer to vertex 3,
+        the green color component slowly fades away and is slowly overtaken by
+        the blue component.
+      </p>
+      <p>Let's look at the code for the shaders in this example:</p>
+      <p>
+        <strong>Vertex Shader:</strong>
+      </p>
+      <GlslCodeHighlight code={secondVertexShaderSource.trim()} />
+      <p>
+        <strong>Fragment Shader:</strong>
+      </p>
+      <GlslCodeHighlight code={secondFragmentShaderSource.trim()} />
+      <p>
+        We pass the color of the vertices to their respective vertex shader by
+        passing the color values as an attribute (since the color is different
+        per vertex). The vertex shader then passes this on to the fragment
+        shader through the <code>vec3</code> varying named <code>color</code>.
+        The <code>color</code> is defined as a varying is because while it is
+        fixed per vertex, it will need to be interpolated when passed to
+        fragments, depending on their position relative to the vertices. It is
+        also defined as <code>lowp</code> which just means the precision of it's
+        value is low.
+      </p>
+      <p>
+        As a result, when we pass the color of the vertices down to the fragment
+        shaders, the value is interpolated based on the position of the
+        fragment, and then passed to the fragment. Just as attributes are
+        read-only for the vertex shader and can differ per vertex, varyings are
+        read-only for the fragment shader and can differ per fragment (they are
+        write only for the vertex shader).
+      </p>
+      <h3>A Final Example - A Pulsing Triangle Color Wheel</h3>
+      <FragmentShaderThirdExample />
+      <h4>How It Works</h4>
+      <p>
+        Similar to how we did the rotating triangle in the previous chapter, we
+        determine how much to shift the color by relative to the current
+        timestamp. This calculation is, similar to the rotating triangle, also
+        done on the CPU since it only needs to be done once, and can save
+        redundant calculations done repeatedly on the GPU.
+      </p>
+      <p>
+        By subtracting the calculated color shift from the interpolated fragment
+        color, we can have the color of the triangle oscillate from pure black,
+        to the standard triangle color wheel, to pure white, and back again. The
+        color shift value is passed directly as a uniform since it doesn't need
+        to be interpolated and should instead be constant for every fragment.
+      </p>
+      <GlslCodeHighlight code={thirdFragmentShaderSource.trim()} />
+      <h3>Summary</h3>
+      <p>
+        The fragment shader receives a fragment from a list of fragments
+        generated by splitting the object into small samples, and sets the
+        appropriate color value for that fragment, which then contributes to the
+        final color of the pixel that that fragment belongs to. Since the shader
+        determines what the final color (and optionally depth value) of the
+        fragment should be, it can manipulate the color based on various
+        information passed to the shader (such as lighting, position and
+        shadows) to determine what the correct color of that fragment should be.
+      </p>
+      <PageChange
+        previous="/basics/vertex-shader/"
+        next="/basics/vertex-shader-2"
+      />
     </Layout>
   )
 }
