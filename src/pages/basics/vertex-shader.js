@@ -176,7 +176,7 @@ const VertexShaderPage = () => {
       <h3>Summary</h3>
       <p>
         The vertex shader receives a vertex from a list of vertices and plots it
-        onto a space known as the clip-space. Since the vertex determines where
+        onto a space known as the clip-space. Since the shader determines where
         the vertex is present within this space, it can manipulate and transform
         the vertex to be placed wherever required, as long as the correct
         transformation matrices are passed to the vertex shader which it will
