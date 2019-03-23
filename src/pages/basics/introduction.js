@@ -26,79 +26,61 @@ const IntroductionPage = () => (
     <p>  
       This was later replaced with the current shading system used today.
     </p>
-    <h3>What are the different types of shaders?</h3>
-    <p>
-      There are two shaders that are primarily used when rendering 2D/3D
-      applications:
-    </p>
+    <h3>Where are shaders used?</h3>
+    <p>They can be used in a lot of areas:</p>
     <ul>
-      <li>Vertex Shader: (Needs some detail)</li>
-      <li>Fragment Shader: (Needs some detail)</li>
+      <li>Rendering video games.</li>
+      <li>
+        Creating neat <a href="https://www.shadertoy.com/">visual effects</a>.
+      </li>
+      <li>Post-processing videos.</li>
     </ul>
-    <p>
-      Along with these, there are other kinds of shaders that can be used to
-      perform certain other specific tasks:
-    </p>
+    <p>They can be used to:</p>
     <ul>
-      <li>Tessellation Shaders: (Needs some detail)</li>
-      <li>Geometry Shader: (Needs some detail)</li>
-      <li>Compute Shader: (Needs some detail)</li>
+      <li>Change hue, saturation, brightness, and/or contrast of an image.</li>
+      <li>
+        Produce effects like bloom, volumetric lighting, bokeh, cel shading.
+      </li>
+      <li>Perform edge-detection, motion-detection.</li>
+      <li>Create even cool psychedelic effects.</li>
+      <li>And much, much more.</li>
     </ul>
-
+    <h3>Can shaders only be used for visual effects and rendering?</h3>
     <p>
-      A visual overview of what a GPU rendering pipeline looks like is shown
-      below:
-    </p>
-    <p className="util text-center">
-      <img
-        src="https://www.khronos.org/opengl/wiki_opengl/images/RenderingPipeline.png"
-        alt="Render Pipeline Visual"
-      />
-      <br />
-      <a
-        href="https://www.khronos.org/opengl/wiki/File:RenderingPipeline.png"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Source
-      </a>
+      No, they can be used for other areas too. If you've ever heard of machine
+      learning, you might be interested to know that they can be trained on
+      GPUs. Machine learning models can run on the GPU using a certain type of
+      shader.
     </p>
     <p>
-      <em>
-        Note: Compute shaders aren't present in the image as they are not
-        part of the standard GPU rendering pipeline, however, they *can* be used
-        as an intermediate step at any point. 
-      </em>
+      Considering the GPU is like a simple CPU with a lot of cores that can do
+      some complicated math very fast, machine learning systems can run a
+      thousand scenarios and improve themselves relatively quickly compared to
+      if they ran on the CPU.
     </p>
     <p>
-      An overview of the rendering pipeline can be read from{" "}
-      <a
-        href="https://www.khronos.org/opengl/wiki/Rendering_Pipeline_Overview"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        here
-      </a>
-      .
+      There are also cases where you don't need to render an image, but there is
+      a lot of parallel operations you want to run and the results of them can
+      be stored in an image.
     </p>
     <p>
-      Currently, all shaders work under the{" "}
-      <a
-        href="https://en.wikipedia.org/wiki/Unified_shader_model"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Unified Shader Model
-      </a>
-      , where every shader type is practically the same. 
-      This makes them simpler to implement in hardware and easy to program in software as well.
+      For example, if you needed to perform a particular calculation on a 1000
+      input values, and the output values will always be within a specific range
+      (like 0 to 256), then you can run the calculation on the GPU, and have the
+      result stored in a gray-scale image that can go from 0 (black) to 256
+      (white).
+    </p>
+    <p>
+      Sometimes this is even done on normal data just to visualize how it looks
+      as an image, since certain data drawn out can bring out certain patterns
+      that may not necessarily be obvious.
     </p>
     <h3>What do I need to know before getting started?</h3>
     <p>
       (Make this a list)A beginner understanding of matrix and vector math will be helpful when
       going through this tutorial. A recommendation is to go through{" "}
       <a
-        href="https://opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/"
+        href="https://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -106,7 +88,7 @@ const IntroductionPage = () => (
       </a>{" "}
       of{" "}
       <a
-        href="https://opengl-tutorial.org/"
+        href="https://www.opengl-tutorial.org/"
         target="_blank"
         rel="noopener noreferrer"
       >

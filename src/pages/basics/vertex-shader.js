@@ -17,12 +17,16 @@ const VertexShaderPage = () => {
         keywords={["vertex", "shader", "basics"]}
       />
       <h2>Basics Of A Vertex Shader</h2>
-      <h3>What Is A Vertex Shader</h3>
+      <h3>What is a vertex shader</h3>
       <p>
-        Vertex shaders process vertices and place them in "clip-space", which is
-        a space that makes it easy to detect which vertices are present inside
-        this perspective, and what objects are outside and need to be removed or
-        "clipped".
+        Vertex shaders process vertices and put them in "clip-space", which is a
+        space that makes it easy for computers to understand which vertices are
+        visible to the camera and which are not and have to be cut or "clipped"
+        out.
+      </p>
+      <p>
+        This makes it faster for GPUs later on since they then have less data to
+        work with.
       </p>
       <p>
         They perform this process by receiving a single vertex from the list of
@@ -30,20 +34,20 @@ const VertexShaderPage = () => {
         should be present within clip-space,
       </p>
       <p>
-        Since this shader is executed per vertex on all vertexes passed to the
+        Since this shader is executed per vertex on all vertices passed to the
         GPU pipeline, any operation that requires modifications to the vertex
-        can be performed during this shader stage, as long as the final output
-        is where the vertex is to be plotted in the clip-space.
+        can be performed during in this shader, as long as the final output is
+        where the vertex is to be placed in the clip-space.
       </p>
-      <h3>An Example - A Triangle</h3>
+      <h3>An example - A triangle</h3>
       <p>Let's look at an example of a simple vertex shader below.</p>
       <VertexShaderFirstExample />
       <p>
         Here we can see for the provided set of vertex positions, a shape is
         drawn. The points on the canvas where the vertices are plotted on to are
-        done so by the vertex shader.
+        done so by the vertex shader (in part).
       </p>
-      <h4>How It Works</h4>
+      <h4>How it works</h4>
       <p> Let's look at the code for the vertex shader</p>
       <GlslCodeHighlight code={firstVertexShaderSource.trim()} />
       <p>
@@ -52,17 +56,17 @@ const VertexShaderPage = () => {
       </p>
       <p>
         First, we have the <code>vertexPosition</code> attribute. This is the
-        property that basically receives the initial vertex coordinates as it's
-        primary input, the one that it should transform into the final
-        clip-space coordinates. It is defined as an attribute since it can
-        change per vertex (since this represents the input vertex, it always
-        will), and as a result are always read-only.
+        property that receives the initial vertex coordinates as it's primary
+        input, the one that it should transform into the final clip-space
+        coordinates. It is defined as an attribute since it can change per
+        vertex (since this represents the input vertex, it always will), and are
+        always read-only.
       </p>
       <p>
-        Do note that the type of it is set to <code>vec4</code>, which basically
-        means it's a vector of size 4, but vertices passed to the vertex shader
-        need not be limited to just this type, but a <code>vec4</code> type
-        would provide the most detail about a certain vertex.
+        Do note that the type of it is set to <code>vec4</code>, which means
+        it's a vector of size 4, but vertices passed to the vertex shader need
+        not be limited to just this type, but a <code>vec4</code> type would
+        provide the most detail about a certain vertex.
       </p>
       <p>
         The <code>void main</code> function is the primary function that is
@@ -160,7 +164,7 @@ const VertexShaderPage = () => {
         This final result is the output of the vertex shader, which, in WebGL,
         is stored in the special variable <code>gl_Position</code>.
       </p>
-      <h3>Another Example - A Rotating Triangle</h3>
+      <h3>Another example - A rotating triangle</h3>
       <p>
         Since the vertex shader determines where each vertex is w.r.t the
         perspective space of the screen, by passing it the necessary
@@ -168,7 +172,7 @@ const VertexShaderPage = () => {
         requried.
       </p>
       <VertexShaderSecondExample />
-      <h4>How It Works</h4>
+      <h4>How it works</h4>
       <p>
         By passing a <code>modelMatrix</code> that's rotated based on the
         current time, the vertex shader will rotate all the vertices by the set
