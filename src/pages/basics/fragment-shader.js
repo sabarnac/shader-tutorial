@@ -162,7 +162,7 @@ const FragmentShaderPage = () => {
         then split into fragments, with each fragment then colored by the
         fragment shader.
       </p>
-      <h3>Another Example - A Triangular Color Wheel?</h3>
+      <h3>Another Example - A Triangular Color Wheel</h3>
       <p>
         What if we wanted to define our own color values that should be used to
         color the pixels? Just like with the vertex shader, we can pass our own
