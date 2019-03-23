@@ -15,9 +15,12 @@ const VertexShaderPage = () => {
       <p>
         So far we've passed direct color information of vertices to the fragment
         shader, which was then interpolated for each fragment and then set as
-        the pixel color. However, if we require to retrieve the color values
-        form a texture, will the same process still apply? Let's take a look at
-        a cube with a texture attached to it.
+        the pixel color.
+      </p>
+      <p>
+        However, if we require to retrieve the color values form a texture, will
+        the same process still apply? Let's take a look at a cube with a texture
+        attached to it.
       </p>
       <p>TODO</p>
       <PageChange previous="/basics/fragment-shader/" />

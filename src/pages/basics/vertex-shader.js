@@ -19,13 +19,15 @@ const VertexShaderPage = () => {
       <h2>Basics Of A Vertex Shader</h2>
       <h3>What Is A Vertex Shader</h3>
       <p>
-        Vertex shaders are a shader <em>stage</em> whose task is to handle
-        processing individual vertices provided from a dataset to the shader.
-        They are supposed to take a single 3D vertex and place it onto
-        "clip-space", which is a space that represents the perspective of the
-        screen, and also provides a simple representation of what is outside
-        that perspective and can be cut out/culled/clipped, and what remains
-        within the perspective and kept (hence why it is called clip-space).
+        Vertex shaders process vertices and place them in "clip-space", which is
+        a space that makes it easy to detect which vertices are present inside
+        this perspective, and what objects are outside and need to be removed or
+        "clipped".
+      </p>
+      <p>
+        They perform this process by receiving a single vertex from the list of
+        vertices as input, and return a result that determines where the vertex
+        should be present within clip-space,
       </p>
       <p>
         Since this shader is executed per vertex on all vertexes passed to the
@@ -33,7 +35,7 @@ const VertexShaderPage = () => {
         can be performed during this shader stage, as long as the final output
         is where the vertex is to be plotted in the clip-space.
       </p>
-      <h3>A Simple Example - A Triangle</h3>
+      <h3>An Example - A Triangle</h3>
       <p>Let's look at an example of a simple vertex shader below.</p>
       <VertexShaderFirstExample />
       <p>
@@ -85,7 +87,7 @@ const VertexShaderPage = () => {
       <p>Here's a simple explanation of the uniform variables being used:</p>
       <dl>
         <dt>
-          <h5>modelMatrix</h5>
+          1. <strong>modelMatrix</strong>
         </dt>
         <dd>
           <p>
@@ -101,7 +103,7 @@ const VertexShaderPage = () => {
           </p>
         </dd>
         <dt>
-          <h5>viewMatrix</h5>
+          2. <strong>viewMatrix</strong>
         </dt>
         <dd>
           <p>
@@ -113,7 +115,7 @@ const VertexShaderPage = () => {
           </p>
         </dd>
         <dt>
-          <h5>projectionMatrix</h5>
+          3. <strong>projectionMatrix</strong>
         </dt>
         <dd>
           <p>
