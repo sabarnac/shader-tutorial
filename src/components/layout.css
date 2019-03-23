@@ -134,7 +134,7 @@ textarea {
 
 .container .row.wrapper .column.content main.row > .column {
   max-width: 1000px;
-  padding: 0;
+  padding: 1.25rem;
 }
 
 .container .row.wrapper .column.content footer.column {
