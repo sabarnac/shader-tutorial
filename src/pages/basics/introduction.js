@@ -93,12 +93,8 @@ const IntroductionPage = () => (
         Unified Shader Model
       </a>
       , where every shader type is practically the same in the functions and
-      APIs they have access to
-    </p>
-    <p>
-      The main differences between them is code implementation specific (what
-      that shader specifically does and when it is executed). This makes them
-      simpler to implement in hardware and easy to program in software as well.
+      APIs they have access to. This makes them simpler to implement in hardware
+      and easy to program in software as well.
     </p>
     <h3>What do I need to know before getting started?</h3>
     <p>
