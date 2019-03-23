@@ -11,21 +11,18 @@ const IntroductionPage = () => (
     <h3>What is a shader?</h3>
     <p>
       A shader is a program that is primarily used to shade an image, generating
-      color information while applying any lighting effects on
-      said image.
+      color information while applying any lighting effects on said image.
     </p>
     <p>
       While shaders are mainly used for this purpose, they can now also be used
       to perform other types of computational tasks.
     </p>
     <p>
-      Initally, graphics cards (GPUs) didn't support programmable shaders. Initially, GPUs
-      would have a fixed-function pipeline(where one would call specific units),
-      which could only perform specific actions. 
+      Initally, graphics cards (GPUs) didn't support programmable shaders.
+      Initially, GPUs would have a fixed-function pipeline (where one would call
+      specific units), which could only perform specific actions.
     </p>
-    <p>  
-      This was later replaced with the current shading system used today.
-    </p>
+    <p>This was later replaced with the current shading system used today.</p>
     <h3>Where are shaders used?</h3>
     <p>They can be used in a lot of areas:</p>
     <ul>
@@ -77,8 +74,7 @@ const IntroductionPage = () => (
     </p>
     <h3>What do I need to know before getting started?</h3>
     <p>
-      (Make this a list)A beginner understanding of matrix and vector math will be helpful when
-      going through this tutorial. A recommendation is to go through{" "}
+      Go through{" "}
       <a
         href="https://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/"
         target="_blank"
@@ -94,12 +90,13 @@ const IntroductionPage = () => (
       >
         OpenGL Tutorial
       </a>{" "}
-      (and previous ones if you need a better understanding of what has happened
-      before) to learn about the necessary maths behind it.
+      to learn about the necessary details vector and matrix math, even if you
+      have an understanding of it. This knowledge is vital as it provides a base
+      for understanding all the math that'll be used later on.
     </p>
     <p>
-      Side note; if you ever wanted an introduction to OpenGL
-      programming, that website is a great start.
+      Side note: If you ever wanted an introduction to OpenGL programming, that
+      website is a great start.
     </p>
     <PageChange next="/basics/vertex-shader/" />
   </Layout>
