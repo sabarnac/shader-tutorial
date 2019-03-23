@@ -69,14 +69,14 @@ const FragmentShaderPage = () => {
       </p>
       <p>
         After splitting the circle into 16 equal parts, we have to now decide
-        what the color of each pixel should be. For pixels 6, 7, 10, and 11,
-        this is easy, since the pixel is completely within the circle, so it
-        just needs to be colored red.
+        what the color of each pixel should be. For pixels with just a single
+        color inside them this is easy, since the pixel just needs to use that
+        color.
       </p>
       <p>
-        However, the other pixels contain both the circle, as well as the
-        background, so a decision needs to be made as to what color that pixel
-        should be.
+        However, the other pixels contain two colors, as they only cover a part
+        of the circle. This requires a decision needs to be made as to what the
+        final color of the pixel should be.
       </p>
       <p>
         In order to do this, we can take a sample from somewhere in the area the
