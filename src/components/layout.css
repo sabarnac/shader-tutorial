@@ -129,6 +129,12 @@ textarea {
 .container .row.wrapper .column.content main.row {
   flex-grow: 1;
   padding: 1rem;
+  align-items: center;
+}
+
+.container .row.wrapper .column.content main.row > .column {
+  max-width: 1000px;
+  padding: 0;
 }
 
 .container .row.wrapper .column.content footer.column {
@@ -174,9 +180,15 @@ nav ul {
   .container .row.wrapper .column.content {
     max-width: inherit;
   }
+
   .container .row.wrapper header.column {
     border-bottom: none;
     border-right: 1px solid #ffffff;
+  }
+
+  .container .row.wrapper .column.content main.row {
+    align-items: initial;
+    justify-content: center;
   }
 }
 
