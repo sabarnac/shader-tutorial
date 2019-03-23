@@ -18,9 +18,9 @@ const IntroductionPage = () => (
       to perform other types of computational tasks.
     </p>
     <p>
-      Initally, graphics cards (GPUs) didn't support programmable shaders.
-      Initially, GPUs would have a fixed-function pipeline (where one would call
-      specific units), which could only perform specific actions.
+      Initally, graphics cards (GPUs) didn't support programmable shaders. GPUs
+      would have a fixed-function pipeline (where one would call specific
+      units), which could only perform specific actions.
     </p>
     <p>This was later replaced with the current shading system used today.</p>
     <h3>Where are shaders used?</h3>
