@@ -103,8 +103,8 @@ const FragmentShaderPage = () => {
       </p>
       <p>
         In the case of the circle, by taking 4 "fragments" (one from each
-        corner), we can see that 3 of those fragments would return white, and
-        one would return red, which would average out to a very light pink, as
+        corner), we can see that two of those fragments would return white, and
+        two would return red, which would average out to a reddist-pink, as
         shown below:
       </p>
       <p className="util text-center">
