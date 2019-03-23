@@ -116,7 +116,27 @@ const FragmentShaderPage = () => {
       </p>
       <p>
         While not as accurate as our initial image, it is still closer to
-        reality compared to the first result.
+        reality compared to the first result. If you're not sure how, let's see
+        how these images look at 25px width and height.
+      </p>
+      <p className="util text-center">
+        <img
+          alt="Fragment Example Part 2 Mini"
+          style={{ width: "30px" }}
+          src={fragment2Img}
+        />
+        <br />
+        <img
+          alt="Fragment Example Part 3 Mini"
+          style={{ width: "30px" }}
+          src={fragment3Img}
+        />
+      </p>
+      <p>
+        At a much smaller scale, the second result will look considerably more
+        like a circle than the first result. This is also how anti-aliasing
+        works, by using multiple samples to determine a more accurate color for
+        each pixel.
       </p>
       <p>
         Along with this case, primitives can also overlap other primitives,
