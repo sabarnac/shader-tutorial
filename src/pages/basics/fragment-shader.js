@@ -25,7 +25,7 @@ const FragmentShaderPage = () => {
         keywords={["fragment", "shader", "basics"]}
       />
       <h2>Basics Of A Fragment Shader</h2>
-      <h3>What Is A Fragment Shader</h3>
+      <h3>What is a fragment shader</h3>
       <p>
         Similar to how a vertex shader operates on a vertex of the object and
         tells where it's final coordinates are on the screen, a fragment shader
@@ -38,7 +38,7 @@ const FragmentShaderPage = () => {
         fragment (like brightening due to lights or darkening due to shadows)
         can be done through the fragment shader.
       </p>
-      <h3>What Is A Fragment</h3>
+      <h3>What is a fragment</h3>
       <p>
         Once the vertex shader has produced the final set of vertices that have
         been plotted onto the screen (or what is called "screen-space"), the
@@ -149,14 +149,14 @@ const FragmentShaderPage = () => {
         fragment shaders are called pixel shaders), but that name isn't
         technically accurate.
       </p>
-      <h3>An Example - The Triangle Returns</h3>
+      <h3>An example - The triangle returns</h3>
       <p>
         Let's go back to our standard triangle example. Previously, we only had
         the edges of the triangle drawn to provide an explanation on how vertex
         shaders work. This time we'll be coloring the entire triangle.
       </p>
       <FragmentShaderFirstExample />
-      <h4>How It Works</h4>
+      <h4>How it works</h4>
       <GlslCodeHighlight code={firstFragmentShaderSource.trim()} />
       <p>
         Looking at the code, you'll see the fragment shader is extremely simple,
@@ -167,14 +167,14 @@ const FragmentShaderPage = () => {
       </p>
       <p>
         In the vertex shader examples, WebGL was told that the three vertices
-        provided were part of a line loop, which is basically coordinates that
+        provided were part of a line loop, meaning they are coordinates that
         define a line that loops back around to the start.
       </p>
       <p>
         So when OpenGL would call the fragment shader, it would color the
-        fragments of the lines that joined the first and second vertex, the
-        second and third vertex, and (since it was defined to be a loop), the
-        third and first vertex.
+        fragments of the lines that joined the first and second vertex, then the
+        line connecting the second and third vertex, and (since it was defined
+        to be a loop), the line connecting third and first vertex.
       </p>
       <p>
         In this case, since WebGL is told the vertices belong to a triangle, the
@@ -182,7 +182,7 @@ const FragmentShaderPage = () => {
         then split into fragments, with each fragment then colored by the
         fragment shader.
       </p>
-      <h3>Another Example - A Triangular Color Wheel</h3>
+      <h3>Another example - A triangular color wheel</h3>
       <p>
         What if we wanted to define our own color values that should be used to
         color the pixels? Just like with the vertex shader, we can pass our own
@@ -206,7 +206,7 @@ const FragmentShaderPage = () => {
         example.
       </p>
       <FragmentShaderSecondExample />
-      <h4>How It Works</h4>
+      <h4>How it works</h4>
       <p>
         As is visible from the result, since we set the colors of each vertex
         have been set to red, green, and blue, those corners of the triangles
@@ -269,9 +269,9 @@ const FragmentShaderPage = () => {
         per vertex, varyings are read-only for the fragment shader and can
         differ per fragment (they are write only for the vertex shader).
       </p>
-      <h3>A Final Example - A Pulsing Triangle Color Wheel</h3>
+      <h3>A final example - A pulsing triangle color wheel</h3>
       <FragmentShaderThirdExample />
-      <h4>How It Works</h4>
+      <h4>How it works</h4>
       <p>
         Similar to how we did the rotating triangle in the previous chapter, we
         determine how much to shift the color by relative to the current

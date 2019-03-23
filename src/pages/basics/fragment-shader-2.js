@@ -11,7 +11,7 @@ const VertexShaderPage = () => {
         title="Fragment Shader Basics - Part 2"
         keywords={["fragment", "shader", "basics", "part", "two", "2"]}
       />
-      <h2>Fragment Shader Basics - Part 2</h2>
+      <h2>Basics Of A Fragment Shader - Part 2</h2>
       <p>
         So far we've passed direct color information of vertices to the fragment
         shader, which was then interpolated for each fragment and then set as
