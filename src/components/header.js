@@ -7,6 +7,7 @@ const Header = ({ siteTitle }) => (
   <header className="column column-25">
     <img
       src={icon}
+      alt="GPU Shader Tutorial Logo"
       style={{ display: "block", maxWidth: "65%", margin: "0 auto" }}
     />
     <h1>{siteTitle}</h1>
