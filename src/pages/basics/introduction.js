@@ -28,7 +28,15 @@ const IntroductionPage = () => (
     <ul>
       <li>Rendering video games.</li>
       <li>
-        Creating neat <a href="https://www.shadertoy.com/">visual effects</a>.
+        Creating neat{" "}
+        <a
+          href="https://www.shadertoy.com/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          visual effects
+        </a>
+        .
       </li>
       <li>Post-processing videos.</li>
     </ul>
@@ -98,7 +106,7 @@ const IntroductionPage = () => (
       Side note: If you ever wanted an introduction to OpenGL programming, that
       website is a great start.
     </p>
-    <PageChange next="/basics/vertex-shader/" />
+    <PageChange next="/basics/render-pipeline/" />
   </Layout>
 )
 

@@ -19,6 +19,9 @@ const Navigation = () => (
             <Link to="/basics/introduction/">Introduction</Link>
           </li>
           <li>
+            <Link to="/basics/render-pipeline/">The Render Pipeline</Link>
+          </li>
+          <li>
             <Link to="/basics/vertex-shader/">Vertex Shader Basics</Link>
           </li>
           <li>

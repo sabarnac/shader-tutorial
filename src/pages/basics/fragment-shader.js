@@ -16,6 +16,7 @@ import { thirdFragmentShaderSource } from "../../components/basics/fragment-shad
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import FragmentShaderSecondExample from "../../components/basics/fragment-shader/second-example"
 import FragmentShaderThirdExample from "../../components/basics/fragment-shader/third-example"
+import { Link } from "gatsby"
 
 const FragmentShaderPage = () => {
   return (
@@ -39,16 +40,10 @@ const FragmentShaderPage = () => {
       </p>
       <h3>What is a fragment</h3>
       <p>
-        Once the vertex shader has produced the final set of vertices, which are
-        then modifiedand plotted onto the screen (or what is called
-        "screen-space"), the vertices are then converted into a set of base
-        primitives (points, lines and/or triangles). These base primitives are
-        then broken down into small units called fragments.
-      </p>
-      <p>
-        A fragment is a sample of a primitive that contains certain information
-        required for filling up a pixel, and so fragments are what colors a
-        pixel.
+        As previously mentioned in the{" "}
+        <Link to="/basics/render-pipeline">render pipeline overview</Link>, a
+        fragment is a sample of a primitive that contains certain information
+        required for coloring a pixel.
       </p>
       <p>
         A pixel can consist of multiple fragments, because, depending upon what
@@ -57,8 +52,8 @@ const FragmentShaderPage = () => {
         selected at random.
       </p>
       <p>
-        Let us assume that we wish to render a circle on a screen of size 8x8
-        pixels (total of 64 pixels), as shown by the image below:
+        As an example, take a circle that is to be rendered on a screen of size
+        8x8 pixels (total of 64 pixels), as shown by the image below:
       </p>
       <p className="util text-center">
         <img
@@ -68,25 +63,23 @@ const FragmentShaderPage = () => {
         />
       </p>
       <p>
-        After splitting the circle into 16 equal parts, we have to now decide
-        what the color of each pixel should be. For pixels with just a single
-        color inside them this is easy, since the pixel just needs to use that
-        color.
+        After splitting the circle into 16 equal parts, a decision on what the
+        color of each pixel should be needs to be made. For pixels with just a
+        single color, they just adopt that color.
       </p>
       <p>
-        However, the other pixels contain two colors, as they only cover a part
-        of the circle. This requires a decision needs to be made as to what the
-        final color of the pixel should be.
+        However, the other pixels contain two colors, as they contain both the
+        circle and the background. This requires a decision needs to be made as
+        to what the final color of the pixel should be.
       </p>
       <p>
-        In order to do this, we can take a sample from somewhere in the area the
-        pixel covers, and assume that as the final color of the pixel. This
+        In order to do this, a sample can be taken from somewhere in the area
+        the pixel covers, and fix that as the final color of the pixel. This
         sample is what is considered a "fragment".
       </p>
       <p>
-        If we only wanted to take one "fragment" per pixel, then we could just
-        take a sample from the center of each pixel, meaning that in this
-        scenario, the final image on the screen, would be:
+        If only one "fragment" is requuired per pixel, then a sample from the
+        center of each pixel can be taken, resulting in the render below:
       </p>
       <p className="util text-center">
         <img
@@ -96,15 +89,14 @@ const FragmentShaderPage = () => {
         />
       </p>
       <p>
-        You could also instead of just taking one "fragment", take multiple
-        fragments, and interpolate from that what the ideal color of each pixel
-        should be.
+        Instead, if multiple fragments are taken, a final color value for the
+        pixel can be interpolated based on what the color of each fragment is.
       </p>
       <p>
-        In the case of the circle, by taking 4 "fragments" (one from each
-        corner), we can see that two of those fragments would return white, and
-        two would return red, which would average out to a reddish-pink, as
-        shown below:
+        In the case of the circle, by taking 4 "fragments" (one from
+        approximately each corner), the final color would be a reddish-pink,
+        since two of these fragments would have the color red, and the other two
+        would have the color white:
       </p>
       <p className="util text-center">
         <img
@@ -116,7 +108,7 @@ const FragmentShaderPage = () => {
       <p>
         While not as accurate as our initial image, it is still closer to
         reality compared to the first result. If you're not sure how, let's see
-        how these images look at 25px width and height.
+        how these images look at 30px width and height.
       </p>
       <p className="util text-center">
         <img
@@ -132,16 +124,16 @@ const FragmentShaderPage = () => {
         />
       </p>
       <p>
-        At a much smaller scale, the second result will look considerably more
-        like a circle than the first result. This is also how anti-aliasing
-        works, by using multiple samples to determine a more accurate color for
-        each pixel.
+        At a much smaller scale, the second result looks considerably more like
+        a circle than the first result. This is how certain anti-aliasing
+        methods works.
       </p>
       <p>
         Along with this case, primitives can also overlap other primitives,
         which means fragments can overlap other fragments. This requires
         fragments to be discarded if they are covered, or combined with other
-        fragments if some of them are not opaque.
+        fragments if some of them are not opaque (a fragment from a translucent
+        glass over an object).
       </p>
       <p>
         Do note that in DirectX, fragments are called pixels (and by extension,
@@ -162,7 +154,7 @@ const FragmentShaderPage = () => {
         it just generates a <code>vec4</code> of <code>1.0, 0.0, 0.0, 0.0</code>
         , which corresponds to R, G, B, and A values respectively. The color is
         then assigned to the special output variable defined in WebGL called{" "}
-        <code>gl_FragColor</code> (OpenGL Fragment Color)
+        <code>gl_FragColor</code> (WebGL Fragment Color)
       </p>
       <p>
         In the vertex shader examples, WebGL was told that the three vertices
@@ -170,7 +162,7 @@ const FragmentShaderPage = () => {
         define a line that loops back around to the start.
       </p>
       <p>
-        So when OpenGL would call the fragment shader, it would color the
+        So when WebGL would call the fragment shader, it would color the
         fragments of the lines that joined the first and second vertex, then the
         line connecting the second and third vertex, and (since it was defined
         to be a loop), the line connecting third and first vertex.

@@ -220,7 +220,7 @@ const VertexShaderPage = () => (
       </li>
     </ul>
     <PageChange
-      previous="/basics/introduction/"
+      previous="/basics/render-pipeline/"
       next="/basics/fragment-shader/"
     />
   </Layout>
