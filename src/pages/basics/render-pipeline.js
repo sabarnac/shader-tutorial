@@ -71,31 +71,37 @@ const IntroductionPage = () => (
       This may seem a little daunting at first, but let's walk through it step
       by step:
     </p>
-    <ol>
-      <li>
-        <h4>Vertex specification</h4>
+    <dl>
+      <dt>
+        <h4>Vertex Specification</h4>
+      </dt>
+      <dd>
         <p>
           This is the set of data that the GPU will be working with. For
           rendering, the GPU primarily works with a set of vertices.
         </p>
         <p>
-          Additional data can be also be sent, but they have to be constant for
-          all vertices passed to the GPU, or need to have a 1-to-1 relation with
-          the vertices (each piece of data should relate to a vertex and
+          Additional data can be be sent as well, but they have to be constant
+          for all vertices passed to the GPU, or need to have a 1-to-1 relation
+          with the vertices (each piece of data should relate to a vertex and
           vice-versa).
         </p>
-      </li>
-      <li>
-        <h4>Vertex shader</h4>
+      </dd>
+      <dt>
+        <h4>Vertex Shader</h4>
+      </dt>
+      <dd>
         <p>
           This is the first shader that is executed on the data provided to the
           GPU. It receives a single vertex as an input and provides a coordinate
           in "clip-space" as an output. More of this will be discussed in the
           chapter on the basics of the vertex shader.
         </p>
-      </li>
-      <li>
+      </dd>
+      <dt>
         <h4>Tesellation</h4>
+      </dt>
+      <dd>
         <p>
           Tessellation is an optional stage that can be performed on the
           resultant vertices with their coordinates to determine and
@@ -107,9 +113,11 @@ const IntroductionPage = () => (
           a primitive needs to be tessellated, and one that performs the actual
           tessellation.
         </p>
-      </li>
-      <li>
-        <h4>Geometry shader</h4>
+      </dd>
+      <dt>
+        <h4>Geometry Shader</h4>
+      </dt>
+      <dd>
         <p>
           This is an optional shader that can receive a set of primitives, and
           outputs a set of primitives that can be same or different to the ones
@@ -134,9 +142,11 @@ const IntroductionPage = () => (
           </a>
           .
         </p>
-      </li>
-      <li>
+      </dd>
+      <dt>
         <h4>Vertex Post-Processing</h4>
+      </dt>
+      <dd>
         <p>
           In this stage, the results from the processing done in the previous
           stages is saved in a separate buffer, allowing the results to be
@@ -144,82 +154,88 @@ const IntroductionPage = () => (
           CPU read the results.
         </p>
         <p>
-          The data of the output from the previous stages is also in the same
-          order as the input data provided to it, so that the input data and
-          output result can be related easily.
+          The data of the output from the previous stages is in the same order
+          as the input data provided to it, so that the input data and output
+          result can be related easily.
         </p>
         <p>
-          Along with this, the output also undergoes clipping, where every
+          The output undergoes clipping after the previous step, where every
           primitive completely outside the view of the screen is removed, every
           primitive completely inside is kept, and primitives in between are
           subdivided in such a way that they split into primitives that are
           completely outside and inside, allowing for the unneeded parts of the
           primitive to be removed.
         </p>
-      </li>
-      <li>
-        <h4>The primitive assembly</h4>
+      </dd>
+      <dt>
+        <h4>Primitive Assembly</h4>
+      </dt>
+      <dd>
         <p>
           This stages takes the primitives that have to be rendered and splits
           them up into simple/base primitives (points, lines, or triangles). The
-          reason for this is because these are the simplest sets of primitives
-          that the GPU can work with, and are also the smallest type of
-          primitive (cannot be divided into smaller types).
+          reason for this is because these are the simplest and sets of
+          primitives that the GPU can work with, as well as being the smallest
+          type (they cannot be represented by shapes with fewer vertices).
         </p>
         <p>
-          Certain primitives can also be culled in this stage, in cases where
-          the primitive will never be in view of the screen. The GPU is required
-          to be informed to perform this step, and may not always be useful, but
-          doing so can save processing time.
+          Culling is performed during this stage as well, to remove base
+          primitives that won't be rendered onto the screen.
         </p>
-      </li>
-      <li>
+      </dd>
+      <dt>
         <h4>Rasterization</h4>
+      </dt>
+      <dd>
         <p>
           The final primitives are broken down into small samples called
           fragments, which contain information that is used to color the pixels
           of the rendered image. More of this will be discussed in the chapter
           on the basics of the fragment shader.
         </p>
-      </li>
-      <li>
-        <h4>Fragment shader</h4>
+      </dd>
+      <dt>
+        <h4>Fragment Shader</h4>
+      </dt>
+      <dd>
         <p>
           This shader processes the fragments generated by the rasterization
           process and determines what the color of each fragment is, which
           contributes to the final color of the pixel the fragment is under.
           More of this will be discussed in the chapter on the basics of the
-          fragment shader. This stage is <em>*technically*</em> optional, but is
-          required if you want to render an actual image with some color.
+          fragment shader.
         </p>
-      </li>
-      <li>
-        <h4>Per-sample operations</h4>
+        <p>
+          This stage is <em>*technically*</em> optional, but it is required if
+          you want to render an actual image with some color.
+        </p>
+      </dd>
+      <dt>
+        <h4>Per-Sample Operations</h4>
+      </dt>
+      <dd>
         <p>
           This the final stage that consists of multiple tests in order to
           remove fragments that are not part of the final image. The tests are:
         </p>
         <ul>
           <li>
-            <p>
-              <strong>Pixel ownership test</strong>: Tests if the pixel the
-              fragment is under is "owned" by the renderer (applicable in cases
-              where a window is overlapping the view).
-            </p>
-            <p>
-              <strong>Scissor test</strong>: Tests if the fragment lies within a
-              specific section of the screen.
-            </p>
-            <p>
-              <strong>Stencil test</strong>: An optional test that, when
-              enabled, checks if the fragment is blocked by a stencil
-              image/mask.
-            </p>
-            <p>
-              <strong>Depth test</strong>: Tests if the fragment's is below or
-              above certain fragments, and whether they need to be discarded
-              accordingly.
-            </p>
+            <strong>Pixel ownership test</strong>: Tests if the pixel the
+            fragment is under is "owned" by the renderer (applicable in cases
+            where a window is overlapping the view).
+          </li>
+          <li>
+            <strong>Scissor test</strong>: Tests if the fragment lies within a
+            specific section of the screen.
+          </li>
+          <li>
+            <strong>Stencil test</strong>: An optional test that, when enabled,
+            checks if the fragment is blocked by a stencil image/mask.
+          </li>
+          <li>
+            <strong>Depth test</strong>: Tests if the fragment's is below or
+            above certain fragments, and whether they need to be discarded
+            accordingly.
           </li>
         </ul>
         <p>
@@ -236,8 +252,8 @@ const IntroductionPage = () => (
           generated image, and can either be copied from the GPU by the CPU, or
           sent to the monitor to show to the user.
         </p>
-      </li>
-    </ol>
+      </dd>
+    </dl>
     <p>
       The flow of the pipeline also allows for data to be passed from certain
       shaders to others, which can be used in interesting ways, which will be
