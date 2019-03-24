@@ -43,11 +43,10 @@ const IntroductionPage = () => (
       aid the GPU in interpreting this data and visualizing it.
     </p>
     <p>
-      The GPU is then told to perform an operation. It starts a lot of instances
-      of the shader program in parallel, runs them by passing each instance a
-      value from the set of data provided, processing the output during
-      intermediate stages of the program execution, and finally responding with
-      a rendered image.
+      The GPU is then told to perform an operation. It goes through a render
+      pipeline, starting multiple instances of the shader program to process the
+      data in parallel, processing the data during intermediate stages as
+      required, and finally outputting a rendered image.
     </p>
     <p>
       Below is an overview of the render pipeline, showing the stages the GPU
