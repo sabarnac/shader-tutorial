@@ -243,25 +243,23 @@ const FragmentShaderTwoFirstExample = () => {
       <canvas width="640" height="480" ref={canvasRef} />
       <pre>
         {`
-Front Vertices:
-  Vertex 1: ${coordArrToString(cube.vertices[0])}
-  Vertex 2: ${coordArrToString(cube.vertices[1])}
-  Vertex 3: ${coordArrToString(cube.vertices[2])}
-  Vertex 4: ${coordArrToString(cube.vertices[3])}
-Back Vertices:
-  Vertex 1: ${coordArrToString(cube.vertices[20])}
-  Vertex 2: ${coordArrToString(cube.vertices[21])}
-  Vertex 3: ${coordArrToString(cube.vertices[22])}
-  Vertex 4: ${coordArrToString(cube.vertices[23])}
+Vertex 1: ${coordArrToString(cube.vertices[0])}
+Vertex 2: ${coordArrToString(cube.vertices[1])}
+Vertex 3: ${coordArrToString(cube.vertices[2])}
+Vertex 4: ${coordArrToString(cube.vertices[3])}
+Vertex 5: ${coordArrToString(cube.vertices[20])}
+Vertex 6: ${coordArrToString(cube.vertices[21])}
+Vertex 7: ${coordArrToString(cube.vertices[22])}
+Vertex 8: ${coordArrToString(cube.vertices[23])}
 `.trim()}
       </pre>
       <pre>
         {`
-Face IV:
-  Vertex 1 UV: ${uvArrToString(cubeFaceUvs[0])}
-  Vertex 2 UV: ${uvArrToString(cubeFaceUvs[1])}
-  Vertex 3 UV: ${uvArrToString(cubeFaceUvs[2])}
-  Vertex 4 UV: ${uvArrToString(cubeFaceUvs[3])}
+Face UV:
+Vertex 1 UV: ${uvArrToString(cubeFaceUvs[0])}
+Vertex 2 UV: ${uvArrToString(cubeFaceUvs[1])}
+Vertex 3 UV: ${uvArrToString(cubeFaceUvs[2])}
+Vertex 4 UV: ${uvArrToString(cubeFaceUvs[3])}
 `.trim()}
       </pre>
     </div>
