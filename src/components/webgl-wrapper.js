@@ -50,9 +50,10 @@ export default class WebGlWrapper {
   }
 
   _startSetup = triangleModelPosition => {
+    this._webgl.depthFunc(this._webgl.LEQUAL)
+
     this._clearScreen()
 
-    this._webgl.depthFunc(this._webgl.LEQUAL)
     this._canvasDimensions.aspect =
       this._webgl.canvas.clientWidth / this._webgl.canvas.clientHeight
 

@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate, chunkArray, coordArrToString } from "../../util"
+import { runOnPredicate, coordArrToString } from "../../util"
 import {
   secondVertexShaderSource,
   secondFragmentShaderSource,
@@ -26,7 +26,7 @@ const triangleModelPosition = mat4.create()
 
 const VertexShaderSecondExample = () => {
   const triangle = {
-    vertices: [0.0, 1.0, 0.0, -1.0, -1.0, 0.0, 1.0, -1.0, 0.0],
+    vertices: [[0.0, 1.0, 0.0], [-1.0, -1.0, 0.0], [1.0, -1.0, 0.0]],
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -65,7 +65,7 @@ const VertexShaderSecondExample = () => {
     runOnPredicate(shaderInfo !== null, () => {
       updateTriangleBuffer({
         vertices: webGlRef.createStaticDrawArrayBuffer(
-          triangle.vertices,
+          triangle.vertices.flat(),
           triangleBuffer.vertices
         ),
       })
@@ -84,7 +84,7 @@ const VertexShaderSecondExample = () => {
               return
             }
 
-            const time = parseInt(performance.now())
+            const time = parseInt(performance.now().toString())
 
             const rotatedModelMatrix = mat4.create()
             const rotationAngle = (((time / 30) % 360) * Math.PI) / 180
@@ -115,7 +115,7 @@ const VertexShaderSecondExample = () => {
               mvpMatrix
             )
 
-            gl.drawArrays(gl.LINE_LOOP, 0, triangle.vertices.length / 3)
+            gl.drawArrays(gl.LINE_LOOP, 0, triangle.vertices.length)
 
             requestAnimationFrame(renderScene)
           }
@@ -128,16 +128,14 @@ const VertexShaderSecondExample = () => {
     [triangleBuffer]
   )
 
-  const vertices = chunkArray(triangle.vertices, 3)
-
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
       <canvas width="640" height="480" ref={canvasRef} />
       <pre>
         {`
-Vertex 1: ${coordArrToString(vertices[0])}
-Vertex 2: ${coordArrToString(vertices[1])}
-Vertex 3: ${coordArrToString(vertices[2])}
+Vertex 1: ${coordArrToString(triangle.vertices[0])}
+Vertex 2: ${coordArrToString(triangle.vertices[1])}
+Vertex 3: ${coordArrToString(triangle.vertices[2])}
 `.trim()}
       </pre>
     </div>

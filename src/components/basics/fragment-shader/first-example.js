@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate, chunkArray, coordArrToString } from "../../util"
+import { runOnPredicate, coordArrToString } from "../../util"
 import {
   firstVertexShaderSource,
   firstFragmentShaderSource,
@@ -28,7 +28,7 @@ const triangleModelPosition = mat4.create()
 
 const FragmentShaderFirstExample = () => {
   const triangle = {
-    vertices: [0.0, 1.0, 0.0, -1.0, -1.0, 0.0, 1.0, -1.0, 0.0],
+    vertices: [[0.0, 1.0, 0.0], [-1.0, -1.0, 0.0], [1.0, -1.0, 0.0]],
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -66,7 +66,7 @@ const FragmentShaderFirstExample = () => {
     runOnPredicate(shaderInfo !== null, () => {
       updateTriangleBuffer({
         vertices: webGlRef.createStaticDrawArrayBuffer(
-          triangle.vertices,
+          triangle.vertices.flat(),
           triangleBuffer.vertices
         ),
       })
@@ -109,23 +109,21 @@ const FragmentShaderFirstExample = () => {
             modelMatrix
           )
 
-          gl.drawArrays(gl.TRIANGLES, 0, triangle.vertices.length / 3)
+          gl.drawArrays(gl.TRIANGLES, 0, triangle.vertices.length)
         }
       )
     }),
     [triangleBuffer]
   )
 
-  const vertices = chunkArray(triangle.vertices, 3)
-
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
       <canvas width="640" height="480" ref={canvasRef} />
       <pre>
         {`
-Vertex 1: ${coordArrToString(vertices[0])}
-Vertex 2: ${coordArrToString(vertices[1])}
-Vertex 3: ${coordArrToString(vertices[2])}
+Vertex 1: ${coordArrToString(triangle.vertices[0])}
+Vertex 2: ${coordArrToString(triangle.vertices[1])}
+Vertex 3: ${coordArrToString(triangle.vertices[2])}
 `.trim()}
       </pre>
     </div>

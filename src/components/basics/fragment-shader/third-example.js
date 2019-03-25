@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate, chunkArray, coordArrToString } from "../../util"
+import { runOnPredicate, coordArrToString } from "../../util"
 import {
   thirdVertexShaderSource,
   thirdFragmentShaderSource,
@@ -31,8 +31,8 @@ const triangleModelPosition = mat4.create()
 
 const FragmentShaderThirdExample = () => {
   const triangle = {
-    vertices: [0.0, 1.0, 0.0, -1.0, -1.0, 0.0, 1.0, -1.0, 0.0],
-    colors: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+    vertices: [[0.0, 1.0, 0.0], [-1.0, -1.0, 0.0], [1.0, -1.0, 0.0]],
+    colors: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -75,11 +75,11 @@ const FragmentShaderThirdExample = () => {
     runOnPredicate(shaderInfo !== null, () => {
       updateTriangleBuffer({
         vertices: webGlRef.createStaticDrawArrayBuffer(
-          triangle.vertices,
+          triangle.vertices.flat(),
           triangleBuffer.vertices
         ),
         colors: webGlRef.createStaticDrawArrayBuffer(
-          triangle.colors,
+          triangle.colors.flat(),
           triangleBuffer.colors
         ),
       })
@@ -90,7 +90,7 @@ const FragmentShaderThirdExample = () => {
   useEffect(
     runOnPredicate(triangleBuffer.vertices !== null, () => {
       updateShouldRender(true)
-      let then = parseInt(performance.now())
+      let then = parseInt(performance.now().toString())
 
       const renderScene = () => {
         webGlRef.renderScene(
@@ -99,7 +99,7 @@ const FragmentShaderThirdExample = () => {
               return
             }
 
-            const time = parseInt(performance.now())
+            const time = parseInt(performance.now().toString())
 
             const timeSlice = time % 4000
             const colorShift =
@@ -158,7 +158,7 @@ const FragmentShaderThirdExample = () => {
               colorShift
             )
 
-            gl.drawArrays(gl.TRIANGLES, 0, triangle.vertices.length / 3)
+            gl.drawArrays(gl.TRIANGLES, 0, triangle.vertices.length)
 
             requestAnimationFrame(renderScene)
           }
@@ -171,8 +171,6 @@ const FragmentShaderThirdExample = () => {
     [triangleBuffer]
   )
 
-  const vertices = chunkArray(triangle.vertices, 3)
-  const colors = chunkArray(triangle.colors, 3)
   const colorCoordMap = { x: "r", y: "g", z: "b" }
 
   return (
@@ -180,16 +178,16 @@ const FragmentShaderThirdExample = () => {
       <canvas width="640" height="480" ref={canvasRef} />
       <pre>
         {`
-Vertex 1: ${coordArrToString(vertices[0])}
-Vertex 2: ${coordArrToString(vertices[1])}
-Vertex 3: ${coordArrToString(vertices[2])}
+Vertex 1: ${coordArrToString(triangle.vertices[0])}
+Vertex 2: ${coordArrToString(triangle.vertices[1])}
+Vertex 3: ${coordArrToString(triangle.vertices[2])}
 `.trim()}
       </pre>
       <pre>
         {`
-Vertex 1 Color: ${coordArrToString(colors[0], colorCoordMap)}
-Vertex 2 Color: ${coordArrToString(colors[1], colorCoordMap)}
-Vertex 3 Color: ${coordArrToString(colors[2], colorCoordMap)}
+Vertex 1 Color: ${coordArrToString(triangle.colors[0], colorCoordMap)}
+Vertex 2 Color: ${coordArrToString(triangle.colors[1], colorCoordMap)}
+Vertex 3 Color: ${coordArrToString(triangle.colors[2], colorCoordMap)}
 `.trim()}
       </pre>
       <pre>Color Shift: {colorShift.toFixed(6)}</pre>

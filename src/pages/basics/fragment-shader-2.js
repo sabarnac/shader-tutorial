@@ -22,6 +22,7 @@ const VertexShaderPage = () => {
         the same process still apply? Let's take a look at a cube with a texture
         attached to it.
       </p>
+      <h3>An example - A cube</h3>
       <p>TODO</p>
       <PageChange previous="/basics/fragment-shader/" />
     </Layout>

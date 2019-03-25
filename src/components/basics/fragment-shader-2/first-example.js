@@ -1,17 +1,17 @@
 import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate, coordArrToString } from "../../util"
+import { runOnPredicate, coordArrToString, uvArrToString } from "../../util"
 import {
-  secondVertexShaderSource,
-  secondFragmentShaderSource,
-} from "./second-example-shaders"
+  firstVertexShaderSource,
+  firstFragmentShaderSource,
+} from "./first-example-shaders"
 import { mat4 } from "gl-matrix"
 
 const shaderProgramInfo = {
   vertex: {
     attributeLocations: {
       vertexPosition: "vec4",
-      vertexColor: "vec3",
+      vertexUv: "vec3",
     },
     uniformLocations: {
       modelMatrix: "mat4",
@@ -27,18 +27,36 @@ const shaderProgramInfo = {
 
 const triangleModelPosition = mat4.create()
 
-const FragmentShaderSecondExample = () => {
-  const triangle = {
-    vertices: [[0.0, 1.0, 0.0], [-1.0, -1.0, 0.0], [1.0, -1.0, 0.0]],
-    colors: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+const FragmentShaderFirstExample = () => {
+  const cube = {
+    vertices: [
+      // Front vertices
+      [-1.0, -1.0, 1.0],
+      [-1.0, 1.0, 1.0],
+      [1.0, -1.0, 1.0],
+      [1.0, 1.0, 1.0],
+      // Back vertices
+      [-1.0, -1.0, -1.0],
+      [-1.0, 1.0, -1.0],
+      [1.0, -1.0, -1.0],
+      [1.0, 1.0, -1.0],
+    ],
+    uv: [
+      // Front vertices
+      [0.0, 0.0],
+      [0.0, 1.0],
+      [1.0, 0.0],
+      [1.0, 1.0],
+    ],
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
   const [shaderInfo, updateShaderInfo] = useState(null)
-  const [triangleBuffer, updateTriangleBuffer] = useState({
+  const [cubeBuffer, updateCubeBuffer] = useState({
     vertices: null,
-    colors: null,
+    uv: null,
   })
+  const [shouldRender, updateShouldRender] = useState(true)
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
@@ -50,8 +68,8 @@ const FragmentShaderSecondExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          secondVertexShaderSource,
-          secondFragmentShaderSource
+          firstVertexShaderSource,
+          firstFragmentShaderSource
         )
       )
     }),
@@ -69,27 +87,28 @@ const FragmentShaderSecondExample = () => {
 
   useEffect(
     runOnPredicate(shaderInfo !== null, () => {
-      updateTriangleBuffer({
+      updateCubeBuffer({
         vertices: webGlRef.createStaticDrawArrayBuffer(
-          triangle.vertices.flat(),
-          triangleBuffer.vertices
+          cube.vertices.flat(),
+          cubeBuffer.vertices
         ),
-        colors: webGlRef.createStaticDrawArrayBuffer(
-          triangle.colors.flat(),
-          triangleBuffer.colors
-        ),
+        uv: webGlRef.createStaticDrawArrayBuffer(cube.uv.flat(), cubeBuffer.uv),
       })
     }),
     [shaderInfo]
   )
 
   useEffect(
-    runOnPredicate(
-      triangleBuffer.vertices !== null && triangleBuffer.colors !== null,
-      () => {
+    runOnPredicate(cubeBuffer.vertices !== null, () => {
+      updateShouldRender(true)
+      const renderScene = () => {
         webGlRef.renderScene(
           ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
-            gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer.vertices)
+            if (!shouldRender) {
+              return
+            }
+
+            gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.vertices)
             gl.vertexAttribPointer(
               shaderInfo.vertex.attributeLocations.vertexPosition,
               3,
@@ -102,7 +121,7 @@ const FragmentShaderSecondExample = () => {
               shaderInfo.vertex.attributeLocations.vertexPosition
             )
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer.colors)
+            gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.uv)
             gl.vertexAttribPointer(
               shaderInfo.vertex.attributeLocations.vertexColor,
               3,
@@ -133,35 +152,46 @@ const FragmentShaderSecondExample = () => {
               modelMatrix
             )
 
-            gl.drawArrays(gl.TRIANGLES, 0, triangle.vertices.length)
+            gl.drawArrays(gl.TRIANGLES, 0, cube.vertices.length)
+
+            requestAnimationFrame(renderScene)
           }
         )
       }
-    ),
-    [triangleBuffer]
-  )
+      requestAnimationFrame(renderScene)
 
-  const colorCoordMap = { x: "r", y: "g", z: "b" }
+      return () => updateShouldRender(false)
+    }),
+    [cubeBuffer]
+  )
 
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
       <canvas width="640" height="480" ref={canvasRef} />
       <pre>
         {`
-Vertex 1: ${coordArrToString(triangle.vertices[0])}
-Vertex 2: ${coordArrToString(triangle.vertices[1])}
-Vertex 3: ${coordArrToString(triangle.vertices[2])}
+Front Vertices:
+  Vertex 1: ${coordArrToString(cube.vertices[0])}
+  Vertex 2: ${coordArrToString(cube.vertices[1])}
+  Vertex 3: ${coordArrToString(cube.vertices[2])}
+  Vertex 3: ${coordArrToString(cube.vertices[3])}
+Back Vertices:
+  Vertex 1: ${coordArrToString(cube.vertices[4])}
+  Vertex 2: ${coordArrToString(cube.vertices[5])}
+  Vertex 3: ${coordArrToString(cube.vertices[6])}
+  Vertex 3: ${coordArrToString(cube.vertices[7])}
 `.trim()}
       </pre>
       <pre>
         {`
-Vertex 1 Color: ${coordArrToString(triangle.colors[0], colorCoordMap)}
-Vertex 2 Color: ${coordArrToString(triangle.colors[1], colorCoordMap)}
-Vertex 3 Color: ${coordArrToString(triangle.colors[2], colorCoordMap)}
+Vertex 1 UV: ${uvArrToString(cube.uv[0])}
+Vertex 2 UV: ${uvArrToString(cube.uv[1])}
+Vertex 3 UV: ${uvArrToString(cube.uv[2])}
+Vertex 4 UV: ${uvArrToString(cube.uv[3])}
 `.trim()}
       </pre>
     </div>
   )
 }
 
-export default FragmentShaderSecondExample
+export default FragmentShaderFirstExample

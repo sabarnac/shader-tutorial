@@ -15,3 +15,6 @@ export const coordArrToString = (
   `{ ${coordMap.x}: ${coord[0]}, ${coordMap.y}: ${coord[1]}, ${coordMap.z}: ${
     coord[2]
   } }`
+
+export const uvArrToString = (coord, coordMap = { u: "u", v: "v" }) =>
+  `{ ${coordMap.u}: ${coord[0]}, ${coordMap.v}: ${coord[1]} }`
