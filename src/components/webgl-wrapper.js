@@ -15,7 +15,7 @@ export default class WebGlWrapper {
   _viewMatrix = mat4.create()
   _modelMatrix = mat4.create()
 
-  constructor(canvas, triangleModelPosition) {
+  constructor(canvas, modelPosition) {
     this._canvas = canvas
     this._canvasDimensions = {
       ...this._canvasDimensions,
@@ -24,14 +24,16 @@ export default class WebGlWrapper {
       aspect: this._canvas.width / this._canvas.height,
     }
 
-    this._webgl = this._canvas.getContext("webgl")
+    this._webgl =
+      this._canvas.getContext("webgl") ||
+      this._canvas.getContext("experimental-webgl")
     if (this._webgl === null) {
       this._isSupported = false
       this._showNotSupported()
     }
     this._isSupported = true
 
-    this._startSetup(triangleModelPosition)
+    this._startSetup(modelPosition)
   }
 
   _showNotSupported = () => {
@@ -49,7 +51,8 @@ export default class WebGlWrapper {
     }
   }
 
-  _startSetup = triangleModelPosition => {
+  _startSetup = modelPosition => {
+    this._webgl.enable(this._webgl.DEPTH_TEST)
     this._webgl.depthFunc(this._webgl.LEQUAL)
 
     this._clearScreen()
@@ -66,7 +69,7 @@ export default class WebGlWrapper {
       [0.0, 0.0, 0.0],
       [0.0, 1.0, 0.0]
     )
-    mat4.translate(this._modelMatrix, triangleModelPosition, [0.0, 0.0, 0.0])
+    mat4.translate(this._modelMatrix, modelPosition, [0.0, 0.0, 0.0])
   }
 
   _clearScreen = () => {
@@ -132,6 +135,79 @@ export default class WebGlWrapper {
     return shaderProgram
   }
 
+  _isPowerOf2 = value => {
+    return (value & (value - 1)) === 0
+  }
+
+  createImageTexture = (imageSrc, texture) => {
+    if (texture === null) {
+      texture = this._webgl.createTexture()
+    }
+
+    this._webgl.bindTexture(this._webgl.TEXTURE_2D, texture)
+
+    const level = 0
+    const internalFormat = this._webgl.RGBA
+    const width = 1
+    const height = 1
+    const border = 0
+    const srcFormat = this._webgl.RGBA
+    const srcType = this._webgl.UNSIGNED_BYTE
+    const pixel = new Uint8Array([255, 255, 255, 255])
+    this._webgl.texImage2D(
+      this._webgl.TEXTURE_2D,
+      level,
+      internalFormat,
+      width,
+      height,
+      border,
+      srcFormat,
+      srcType,
+      pixel
+    )
+
+    const image = new Image()
+    image.addEventListener("load", () => {
+      this._webgl.bindTexture(this._webgl.TEXTURE_2D, texture)
+
+      this._webgl.texImage2D(
+        this._webgl.TEXTURE_2D,
+        level,
+        internalFormat,
+        srcFormat,
+        srcType,
+        image
+      )
+
+      if (this._isPowerOf2(image.width) && this._isPowerOf2(image.height)) {
+        this._webgl.generateMipmap(this._webgl.TEXTURE_2D)
+      } else {
+        this._webgl.texParameteri(
+          this._webgl.TEXTURE_2D,
+          this._webgl.TEXTURE_WRAP_S,
+          this._webgl.CLAMP_TO_EDGE
+        )
+        this._webgl.texParameteri(
+          this._webgl.TEXTURE_2D,
+          this._webgl.TEXTURE_WRAP_T,
+          this._webgl.CLAMP_TO_EDGE
+        )
+        this._webgl.texParameteri(
+          this._webgl.TEXTURE_2D,
+          this._webgl.TEXTURE_MIN_FILTER,
+          this._webgl.LINEAR
+        )
+      }
+
+      this._webgl.bindTexture(this._webgl.TEXTURE_2D, null)
+    })
+    image.src = imageSrc
+
+    this._webgl.bindTexture(this._webgl.TEXTURE_2D, null)
+
+    return texture
+  }
+
   getDataLocations = (shaderProgram, programInfo) => {
     const dataLocation = {}
     for (let type in programInfo) {
@@ -158,21 +234,51 @@ export default class WebGlWrapper {
     return dataLocation
   }
 
-  createStaticDrawArrayBuffer = (bufferData, buffer) => {
+  _createBuffer = (
+    bufferData,
+    buffer,
+    bufferType,
+    drawType,
+    dataType = this._webgl.FLOAT
+  ) => {
     if (buffer === null) {
       buffer = this._webgl.createBuffer()
     }
 
-    this._webgl.bindBuffer(this._webgl.ARRAY_BUFFER, buffer)
-    this._webgl.bufferData(
-      this._webgl.ARRAY_BUFFER,
-      new Float32Array(bufferData),
-      this._webgl.STATIC_DRAW
-    )
+    let rawBufferArray
+    switch (dataType) {
+      case this._webgl.UNSIGNED_SHORT:
+        rawBufferArray = new Uint16Array(bufferData)
+        break
+      default:
+        rawBufferArray = new Float32Array(bufferData)
+    }
 
-    this._webgl.bindBuffer(this._webgl.ARRAY_BUFFER, null)
+    this._webgl.bindBuffer(bufferType, buffer)
+    this._webgl.bufferData(bufferType, rawBufferArray, drawType)
+
+    this._webgl.bindBuffer(bufferType, null)
 
     return buffer
+  }
+
+  createStaticDrawArrayBuffer = (bufferData, buffer) => {
+    return this._createBuffer(
+      bufferData,
+      buffer,
+      this._webgl.ARRAY_BUFFER,
+      this._webgl.STATIC_DRAW
+    )
+  }
+
+  createElementArrayBuffer = (elementData, buffer) => {
+    return this._createBuffer(
+      elementData,
+      buffer,
+      this._webgl.ELEMENT_ARRAY_BUFFER,
+      this._webgl.STATIC_DRAW,
+      this._webgl.UNSIGNED_SHORT
+    )
   }
 
   renderScene = renderer => {

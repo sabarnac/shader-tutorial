@@ -4,14 +4,12 @@ export const thirdVertexShaderSource = glsl`
 attribute vec4 vertexPosition;
 attribute vec3 vertexColor;
 
-uniform mat4 modelMatrix;
-uniform mat4 viewMatrix;
-uniform mat4 projectionMatrix;
+uniform mat4 mvpMatrix;
 
 varying highp vec3 color;
 
 void main() {
-  gl_Position = projectionMatrix * viewMatrix * modelMatrix * vertexPosition;
+  gl_Position = mvpMatrix * vertexPosition;
   color = vertexColor;
 }
 `

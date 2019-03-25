@@ -14,9 +14,7 @@ const shaderProgramInfo = {
       vertexColor: "vec3",
     },
     uniformLocations: {
-      modelMatrix: "mat4",
-      viewMatrix: "mat4",
-      projectionMatrix: "mat4",
+      mvpMatrix: "mat4",
     },
   },
   fragment: {
@@ -110,6 +108,10 @@ const FragmentShaderThirdExample = () => {
               updateColorShift(colorShift)
             }
 
+            const mvpMatrix = mat4.create()
+            mat4.multiply(mvpMatrix, viewMatrix, modelMatrix)
+            mat4.multiply(mvpMatrix, projectionMatrix, mvpMatrix)
+
             gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer.vertices)
             gl.vertexAttribPointer(
               shaderInfo.vertex.attributeLocations.vertexPosition,
@@ -139,19 +141,9 @@ const FragmentShaderThirdExample = () => {
             gl.useProgram(shaderProgram)
 
             gl.uniformMatrix4fv(
-              shaderInfo.vertex.uniformLocations.projectionMatrix,
+              shaderInfo.vertex.uniformLocations.mvpMatrix,
               false,
-              projectionMatrix
-            )
-            gl.uniformMatrix4fv(
-              shaderInfo.vertex.uniformLocations.viewMatrix,
-              false,
-              viewMatrix
-            )
-            gl.uniformMatrix4fv(
-              shaderInfo.vertex.uniformLocations.modelMatrix,
-              false,
-              modelMatrix
+              mvpMatrix
             )
             gl.uniform1f(
               shaderInfo.fragment.uniformLocations.colorShift,

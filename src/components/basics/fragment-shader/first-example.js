@@ -13,9 +13,7 @@ const shaderProgramInfo = {
       vertexPosition: "vec4",
     },
     uniformLocations: {
-      modelMatrix: "mat4",
-      viewMatrix: "mat4",
-      projectionMatrix: "mat4",
+      mvpMatrix: "mat4",
     },
   },
   fragment: {
@@ -78,6 +76,10 @@ const FragmentShaderFirstExample = () => {
     runOnPredicate(triangleBuffer.vertices !== null, () => {
       webGlRef.renderScene(
         ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
+          const mvpMatrix = mat4.create()
+          mat4.multiply(mvpMatrix, viewMatrix, modelMatrix)
+          mat4.multiply(mvpMatrix, projectionMatrix, mvpMatrix)
+
           gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer.vertices)
           gl.vertexAttribPointer(
             shaderInfo.vertex.attributeLocations.vertexPosition,
@@ -94,19 +96,9 @@ const FragmentShaderFirstExample = () => {
           gl.useProgram(shaderProgram)
 
           gl.uniformMatrix4fv(
-            shaderInfo.vertex.uniformLocations.projectionMatrix,
+            shaderInfo.vertex.uniformLocations.mvpMatrix,
             false,
-            projectionMatrix
-          )
-          gl.uniformMatrix4fv(
-            shaderInfo.vertex.uniformLocations.viewMatrix,
-            false,
-            viewMatrix
-          )
-          gl.uniformMatrix4fv(
-            shaderInfo.vertex.uniformLocations.modelMatrix,
-            false,
-            modelMatrix
+            mvpMatrix
           )
 
           gl.drawArrays(gl.TRIANGLES, 0, triangle.vertices.length)
