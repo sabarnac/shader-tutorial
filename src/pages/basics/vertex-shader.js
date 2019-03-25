@@ -63,9 +63,12 @@ const VertexShaderPage = () => (
     <p>
       The <code>vertexPosition</code> attribute is a property that receives the
       initial coordinates of vertex as it's primary input, the one that it
-      should transform into the final clip-space coordinates. It is defined as
-      an attribute as it can change per vertex (since this represents the input
-      vertex, it always will), and are always read-only.
+      should transform into the final clip-space coordinates.
+    </p>
+    <p>
+      It is defined as an attribute as it is a description of a certain
+      "attribute" of the vertex (in this case, its position), can change based
+      on which vertex is being operated on, and are always read-only.
     </p>
     <p>
       Do note that the type of it is set to <code>vec4</code>, which means it's
