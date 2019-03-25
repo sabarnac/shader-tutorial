@@ -6,28 +6,30 @@ import {
   firstFragmentShaderSource,
 } from "./first-example-shaders"
 import { mat4 } from "gl-matrix"
+import texture from "../../../images/basics/texture.png"
 
 const shaderProgramInfo = {
   vertex: {
     attributeLocations: {
       vertexPosition: "vec4",
-      vertexUv: "vec3",
+      vertexUv: "vec2",
     },
     uniformLocations: {
-      modelMatrix: "mat4",
-      viewMatrix: "mat4",
-      projectionMatrix: "mat4",
+      mvpMatrix: "mat4",
     },
   },
   fragment: {
     attributeLocations: {},
-    uniformLocations: {},
+    uniformLocations: {
+      textureSampler: "sampler2D",
+    },
   },
 }
 
-const triangleModelPosition = mat4.create()
+const cubeModelPosition = mat4.create()
+const cubeFaceUvs = [[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]
 
-const FragmentShaderFirstExample = () => {
+const FragmentShaderTwoFirstExample = () => {
   const cube = {
     vertices: [
       // Front vertices
@@ -35,32 +37,70 @@ const FragmentShaderFirstExample = () => {
       [-1.0, 1.0, 1.0],
       [1.0, -1.0, 1.0],
       [1.0, 1.0, 1.0],
+      // Left vertices
+      [-1.0, -1.0, 1.0],
+      [-1.0, 1.0, 1.0],
+      [-1.0, -1.0, -1.0],
+      [-1.0, 1.0, -1.0],
+      // Right vertices
+      [1.0, -1.0, 1.0],
+      [1.0, 1.0, 1.0],
+      [1.0, -1.0, -1.0],
+      [1.0, 1.0, -1.0],
+      // Top vertices
+      [-1.0, 1.0, 1.0],
+      [1.0, 1.0, 1.0],
+      [-1.0, 1.0, -1.0],
+      [1.0, 1.0, -1.0],
+      // Bottom vertices
+      [-1.0, -1.0, 1.0],
+      [1.0, -1.0, 1.0],
+      [-1.0, -1.0, -1.0],
+      [1.0, -1.0, -1.0],
       // Back vertices
       [-1.0, -1.0, -1.0],
       [-1.0, 1.0, -1.0],
       [1.0, -1.0, -1.0],
       [1.0, 1.0, -1.0],
     ],
-    uv: [
-      // Front vertices
-      [0.0, 0.0],
-      [0.0, 1.0],
-      [1.0, 0.0],
-      [1.0, 1.0],
+    uvs: [
+      // Front UVs
+      ...cubeFaceUvs,
+      // Left UVs
+      ...cubeFaceUvs,
+      // Right UVs
+      ...cubeFaceUvs,
+      // Top UVs
+      ...cubeFaceUvs,
+      // Bottom UVs
+      ...cubeFaceUvs,
+      // Back UVs
+      ...cubeFaceUvs,
     ],
+    indices: [
+      [0, 1, 2, 3],
+      [4, 5, 6, 7],
+      [8, 9, 10, 11],
+      [12, 13, 14, 15],
+      [16, 17, 18, 19],
+      [20, 21, 22, 23],
+    ],
+    texture: texture,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
   const [shaderInfo, updateShaderInfo] = useState(null)
   const [cubeBuffer, updateCubeBuffer] = useState({
     vertices: null,
-    uv: null,
+    uvs: null,
+    indices: null,
+    texture: null,
   })
   const [shouldRender, updateShouldRender] = useState(true)
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
-      updateWebGlRef(new WebGlWrapper(canvas, triangleModelPosition))
+      updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
     }
   }, [])
 
@@ -92,7 +132,15 @@ const FragmentShaderFirstExample = () => {
           cube.vertices.flat(),
           cubeBuffer.vertices
         ),
-        uv: webGlRef.createStaticDrawArrayBuffer(cube.uv.flat(), cubeBuffer.uv),
+        uvs: webGlRef.createStaticDrawArrayBuffer(
+          cube.uvs.flat(),
+          cubeBuffer.uvs
+        ),
+        indices: webGlRef.createElementArrayBuffer(
+          cube.indices.flat(),
+          cubeBuffer.indices
+        ),
+        texture: webGlRef.createImageTexture(cube.texture, cubeBuffer.texture),
       })
     }),
     [shaderInfo]
@@ -108,6 +156,26 @@ const FragmentShaderFirstExample = () => {
               return
             }
 
+            const time = parseInt(performance.now().toString())
+
+            const rotatedModelMatrix = mat4.create()
+            const rotationAngle = (((time / 30) % (360 * 6)) * Math.PI) / 180
+            mat4.rotateZ(rotatedModelMatrix, modelMatrix, rotationAngle)
+            mat4.rotateX(
+              rotatedModelMatrix,
+              rotatedModelMatrix,
+              rotationAngle / 2
+            )
+            mat4.rotateY(
+              rotatedModelMatrix,
+              rotatedModelMatrix,
+              rotationAngle / 3
+            )
+
+            const mvpMatrix = mat4.create()
+            mat4.multiply(mvpMatrix, viewMatrix, rotatedModelMatrix)
+            mat4.multiply(mvpMatrix, projectionMatrix, mvpMatrix)
+
             gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.vertices)
             gl.vertexAttribPointer(
               shaderInfo.vertex.attributeLocations.vertexPosition,
@@ -121,38 +189,43 @@ const FragmentShaderFirstExample = () => {
               shaderInfo.vertex.attributeLocations.vertexPosition
             )
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.uv)
+            gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.uvs)
             gl.vertexAttribPointer(
-              shaderInfo.vertex.attributeLocations.vertexColor,
-              3,
+              shaderInfo.vertex.attributeLocations.vertexUv,
+              2,
               gl.FLOAT,
               false,
               0,
               0
             )
             gl.enableVertexAttribArray(
-              shaderInfo.vertex.attributeLocations.vertexColor
+              shaderInfo.vertex.attributeLocations.vertexUv
             )
+
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeBuffer.indices)
 
             gl.useProgram(shaderProgram)
 
             gl.uniformMatrix4fv(
-              shaderInfo.vertex.uniformLocations.projectionMatrix,
+              shaderInfo.vertex.uniformLocations.mvpMatrix,
               false,
-              projectionMatrix
-            )
-            gl.uniformMatrix4fv(
-              shaderInfo.vertex.uniformLocations.viewMatrix,
-              false,
-              viewMatrix
-            )
-            gl.uniformMatrix4fv(
-              shaderInfo.vertex.uniformLocations.modelMatrix,
-              false,
-              modelMatrix
+              mvpMatrix
             )
 
-            gl.drawArrays(gl.TRIANGLES, 0, cube.vertices.length)
+            gl.activeTexture(gl.TEXTURE0)
+            gl.bindTexture(gl.TEXTURE_2D, cubeBuffer.texture)
+            gl.uniform1i(
+              shaderInfo.fragment.uniformLocations.textureSampler,
+              false,
+              gl.TEXTURE0
+            )
+
+            gl.drawElements(
+              gl.TRIANGLE_STRIP,
+              cube.indices.length * cube.indices[0].length,
+              gl.UNSIGNED_SHORT,
+              0
+            )
 
             requestAnimationFrame(renderScene)
           }
@@ -174,24 +247,25 @@ Front Vertices:
   Vertex 1: ${coordArrToString(cube.vertices[0])}
   Vertex 2: ${coordArrToString(cube.vertices[1])}
   Vertex 3: ${coordArrToString(cube.vertices[2])}
-  Vertex 3: ${coordArrToString(cube.vertices[3])}
+  Vertex 4: ${coordArrToString(cube.vertices[3])}
 Back Vertices:
-  Vertex 1: ${coordArrToString(cube.vertices[4])}
-  Vertex 2: ${coordArrToString(cube.vertices[5])}
-  Vertex 3: ${coordArrToString(cube.vertices[6])}
-  Vertex 3: ${coordArrToString(cube.vertices[7])}
+  Vertex 1: ${coordArrToString(cube.vertices[20])}
+  Vertex 2: ${coordArrToString(cube.vertices[21])}
+  Vertex 3: ${coordArrToString(cube.vertices[22])}
+  Vertex 4: ${coordArrToString(cube.vertices[23])}
 `.trim()}
       </pre>
       <pre>
         {`
-Vertex 1 UV: ${uvArrToString(cube.uv[0])}
-Vertex 2 UV: ${uvArrToString(cube.uv[1])}
-Vertex 3 UV: ${uvArrToString(cube.uv[2])}
-Vertex 4 UV: ${uvArrToString(cube.uv[3])}
+Face IV:
+  Vertex 1 UV: ${uvArrToString(cubeFaceUvs[0])}
+  Vertex 2 UV: ${uvArrToString(cubeFaceUvs[1])}
+  Vertex 3 UV: ${uvArrToString(cubeFaceUvs[2])}
+  Vertex 4 UV: ${uvArrToString(cubeFaceUvs[3])}
 `.trim()}
       </pre>
     </div>
   )
 }
 
-export default FragmentShaderFirstExample
+export default FragmentShaderTwoFirstExample

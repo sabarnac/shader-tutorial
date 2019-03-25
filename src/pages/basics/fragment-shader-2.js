@@ -3,6 +3,7 @@ import React from "react"
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
+import FragmentShaderTwoFirstExample from "../../components/basics/fragment-shader-2/first-example"
 
 const VertexShaderPage = () => {
   return (
@@ -23,7 +24,7 @@ const VertexShaderPage = () => {
         attached to it.
       </p>
       <h3>An example - A cube</h3>
-      <p>TODO</p>
+      <FragmentShaderTwoFirstExample />
       <PageChange previous="/basics/fragment-shader/" />
     </Layout>
   )
