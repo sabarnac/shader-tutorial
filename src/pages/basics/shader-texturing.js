@@ -212,7 +212,7 @@ const ShaderTexturingPage = () => {
       <p>
         <em>
           Note: <code>clamp</code> (and some other built-in functions) don't
-          have a performance impact although they can be expected to cause
+          have a performance impact although they are expected to cause
           branching, because either OpenGL optimizes such functions, or the GPU
           has special hardware or driver code optimizations to ensure that such
           code would not have any performance impact. Some of such functions
