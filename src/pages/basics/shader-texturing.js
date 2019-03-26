@@ -235,9 +235,9 @@ const ShaderTexturingPage = () => {
           negatively impact performance except for certain scenarios.
         </li>
         <li>
-          Test to see if a branch does affect performance, although it generally
-          is GPU and driver dependent. Preferrable use branches only when you
-          have to.
+          Test to see if a branch in the code does affect performance, but
+          remember that it can be GPU and driver dependent. Preferrable use
+          branches only when you have to.
         </li>
       </ul>
       <PageChange previous="/basics/fragment-shader/" />
