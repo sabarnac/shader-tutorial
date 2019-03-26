@@ -137,7 +137,9 @@ const FragmentShaderSecondExample = () => {
 
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
-      <canvas width="640" height="480" ref={canvasRef} />
+      <canvas width="640" height="480" ref={canvasRef}>
+        Cannot run WebGL examples (not supported)
+      </canvas>
       <pre>
         {`
 Vertex 1: ${coordArrToString(triangle.vertices[0])}

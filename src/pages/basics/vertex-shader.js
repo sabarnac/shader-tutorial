@@ -12,7 +12,7 @@ import GlslCodeHighlight from "../../components/glsl-code-highlight"
 const VertexShaderPage = () => (
   <Layout>
     <SEO
-      title="Basics Of A Vertex Shader"
+      title="Shader Basics - Vertex Shader"
       keywords={["vertex", "shader", "basics"]}
     />
     <h2>Basics Of A Vertex Shader</h2>
@@ -48,7 +48,7 @@ const VertexShaderPage = () => (
     </p>
     <h4>How it works</h4>
     <p>Let's look at the code for the vertex shader</p>
-    <GlslCodeHighlight code={firstVertexShaderSource.trim()} />
+    <GlslCodeHighlight code={firstVertexShaderSource.trim()} type={"Vertex"} />
     <p>
       Even though this is WebGL (which is similar to OpenGL), the concepts
       applied here can be mapped across other languages as well.
@@ -204,7 +204,7 @@ const VertexShaderPage = () => (
       unnecessary calculations being done for every vertex every frame.
     </p>
     <p>The vertex shader code should now ideally look like this:</p>
-    <GlslCodeHighlight code={secondVertexShaderSource.trim()} />
+    <GlslCodeHighlight code={secondVertexShaderSource.trim()} type={"Vertex"} />
     <h3>Summary</h3>
     <ul>
       <li>

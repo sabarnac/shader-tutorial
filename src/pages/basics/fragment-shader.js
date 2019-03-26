@@ -22,7 +22,7 @@ const FragmentShaderPage = () => {
   return (
     <Layout>
       <SEO
-        title="Basics Of A Fragment Shader"
+        title="Shader Basics - Fragment Shader"
         keywords={["fragment", "shader", "basics"]}
       />
       <h2>Basics Of A Fragment Shader</h2>
@@ -148,7 +148,10 @@ const FragmentShaderPage = () => {
       </p>
       <FragmentShaderFirstExample />
       <h4>How it works</h4>
-      <GlslCodeHighlight code={firstFragmentShaderSource.trim()} />
+      <GlslCodeHighlight
+        code={firstFragmentShaderSource.trim()}
+        type={"Fragment"}
+      />
       <p>
         Looking at the code, you'll see the fragment shader is extremely simple,
         it just generates a <code>vec4</code> of <code>1.0, 0.0, 0.0, 0.0</code>
@@ -224,14 +227,14 @@ const FragmentShaderPage = () => {
         and is slowly overtaken by the blue component.
       </p>
       <p>Let's look at the code for the shaders in this example:</p>
-      <p>
-        <strong>Vertex Shader:</strong>
-      </p>
-      <GlslCodeHighlight code={secondVertexShaderSource.trim()} />
-      <p>
-        <strong>Fragment Shader:</strong>
-      </p>
-      <GlslCodeHighlight code={secondFragmentShaderSource.trim()} />
+      <GlslCodeHighlight
+        code={secondVertexShaderSource.trim()}
+        type={"Vertex"}
+      />
+      <GlslCodeHighlight
+        code={secondFragmentShaderSource.trim()}
+        type={"Fragment"}
+      />
       <p>
         We pass the color of the vertices to their respective vertex shader by
         passing the color values as an attribute (since the color is different
@@ -283,7 +286,10 @@ const FragmentShaderPage = () => {
         need to be interpolated and should instead be constant for every
         fragment of the object.
       </p>
-      <GlslCodeHighlight code={thirdFragmentShaderSource.trim()} />
+      <GlslCodeHighlight
+        code={thirdFragmentShaderSource.trim()}
+        type={"Fragment"}
+      />
       <p>
         <em>
           <code>clamp</code> is a function that takes a specific value (
@@ -324,7 +330,7 @@ const FragmentShaderPage = () => {
       </ul>
       <PageChange
         previous="/basics/vertex-shader/"
-        next="/basics/fragment-shader-2"
+        next="/basics/shader-texturing"
       />
     </Layout>
   )
