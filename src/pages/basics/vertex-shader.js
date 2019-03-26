@@ -15,7 +15,7 @@ const VertexShaderPage = () => (
       title="Shader Basics - Vertex Shader"
       keywords={["vertex", "shader", "basics"]}
     />
-    <h2>Basics Of A Vertex Shader</h2>
+    <h2>Shader Basics - Vertex Shader</h2>
     <h3>What is a vertex shader</h3>
     <p>
       Vertex shaders process vertices and tells what their coordinates are in

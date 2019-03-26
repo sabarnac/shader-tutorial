@@ -20,7 +20,7 @@ const ShaderTexturingPage = () => {
         title="Shader Basics - Textures And Branching"
         keywords={["fragment", "shader", "basics", "part", "two", "2"]}
       />
-      <h2>Basics Of A Fragment Shader - Part 2</h2>
+      <h2>Shader Basics - Textures And Branching</h2>
       <p>
         So far we've passed direct color information of vertices to the fragment
         shader, which was then interpolated for each fragment and then set as
