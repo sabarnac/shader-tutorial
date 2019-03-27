@@ -3,15 +3,15 @@ import React from "react"
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
-import FragmentShaderTwoFirstExample from "../../components/basics/shader-texturing/first-example"
-import FragmentShaderTwoSecondExample from "../../components/basics/shader-texturing/second-example"
+import TextureBranchingFirstExample from "../../components/basics/texturing-branching/first-example"
+import TextureBranchingSecondExample from "../../components/basics/texturing-branching/second-example"
 import {
   firstVertexShaderSource,
   firstFragmentShaderSource,
-} from "../../components/basics/shader-texturing/first-example-shaders"
+} from "../../components/basics/texturing-branching/first-example-shaders"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import { Link } from "gatsby"
-import { secondFragmentShaderSource } from "../../components/basics/shader-texturing/second-example-shaders"
+import { secondFragmentShaderSource } from "../../components/basics/texturing-branching/second-example-shaders"
 
 const ShaderTexturingPage = () => {
   return (
@@ -52,7 +52,7 @@ const ShaderTexturingPage = () => {
         vertices.
       </p>
       <h3>An example - A cube</h3>
-      <FragmentShaderTwoFirstExample />
+      <TextureBranchingFirstExample />
       <h4>How it works</h4>
       <p>
         GPUs follow an operation similar to UV mapping. They can accept a
@@ -95,7 +95,7 @@ const ShaderTexturingPage = () => {
         specific coordinates.
       </p>
       <h3>Another example - A (mostly) pulsing cube</h3>
-      <FragmentShaderTwoSecondExample />
+      <TextureBranchingSecondExample />
       <h4>How it works</h4>
       <p>
         Similar to how the pulsing triangle was made in the last example of the{" "}

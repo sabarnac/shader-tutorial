@@ -28,7 +28,7 @@ const Navigation = () => (
             <Link to="/basics/fragment-shader">Fragment Shader Basics</Link>
           </li>
           <li>
-            <Link to="/basics/shader-texturing">Texturing And Branching</Link>
+            <Link to="/basics/texturing-branching">Texturing And Branching</Link>
           </li>
         </ul>
       </li>

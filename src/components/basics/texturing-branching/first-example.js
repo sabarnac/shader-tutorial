@@ -2,9 +2,9 @@ import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
 import { runOnPredicate, coordArrToString, uvArrToString } from "../../util"
 import {
-  secondVertexShaderSource,
-  secondFragmentShaderSource,
-} from "./second-example-shaders"
+  firstVertexShaderSource,
+  firstFragmentShaderSource,
+} from "./first-example-shaders"
 import { mat4 } from "gl-matrix"
 import texture from "../../../images/basics/texture.png"
 
@@ -21,7 +21,6 @@ const shaderProgramInfo = {
   fragment: {
     attributeLocations: {},
     uniformLocations: {
-      colorShift: "float",
       textureSampler: "sampler2D",
     },
   },
@@ -30,7 +29,7 @@ const shaderProgramInfo = {
 const cubeModelPosition = mat4.create()
 const cubeFaceUvs = [[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]
 
-const FragmentShaderTwoSecondExample = () => {
+const TextureBranchingFirstExample = () => {
   const cube = {
     vertices: [
       // Front vertices
@@ -98,7 +97,6 @@ const FragmentShaderTwoSecondExample = () => {
     texture: null,
   })
   const [shouldRender, updateShouldRender] = useState(true)
-  const [colorShift, updateColorShift] = useState(0)
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
@@ -110,8 +108,8 @@ const FragmentShaderTwoSecondExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          secondVertexShaderSource,
-          secondFragmentShaderSource
+          firstVertexShaderSource,
+          firstFragmentShaderSource
         )
       )
     }),
@@ -151,8 +149,6 @@ const FragmentShaderTwoSecondExample = () => {
   useEffect(
     runOnPredicate(cubeBuffer.vertices !== null, () => {
       updateShouldRender(true)
-      let then = parseInt(performance.now().toString())
-
       const renderScene = () => {
         webGlRef.renderScene(
           ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
@@ -161,15 +157,6 @@ const FragmentShaderTwoSecondExample = () => {
             }
 
             const time = parseInt(performance.now().toString())
-
-            const timeSlice = time % 4000
-            const colorShift =
-              1 - (timeSlice >= 2000 ? 4000 - timeSlice : timeSlice) / 1000
-
-            if (time - then > 100) {
-              then = time
-              updateColorShift(colorShift)
-            }
 
             const rotatedModelMatrix = mat4.create()
             const rotationAngle = (((time / 30) % (360 * 6)) * Math.PI) / 180
@@ -224,10 +211,6 @@ const FragmentShaderTwoSecondExample = () => {
               false,
               mvpMatrix
             )
-            gl.uniform1f(
-              shaderInfo.fragment.uniformLocations.colorShift,
-              colorShift
-            )
 
             gl.activeTexture(gl.TEXTURE0)
             gl.bindTexture(gl.TEXTURE_2D, cubeBuffer.texture)
@@ -281,9 +264,8 @@ Vertex 3 UV: ${uvArrToString(cubeFaceUvs[2])}
 Vertex 4 UV: ${uvArrToString(cubeFaceUvs[3])}
 `.trim()}
       </pre>
-      <pre>Color Shift: {colorShift.toFixed(6)}</pre>
     </div>
   )
 }
 
-export default FragmentShaderTwoSecondExample
+export default TextureBranchingFirstExample
