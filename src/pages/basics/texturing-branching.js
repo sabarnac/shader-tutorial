@@ -12,6 +12,7 @@ import {
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import { Link } from "gatsby"
 import { secondFragmentShaderSource } from "../../components/basics/texturing-branching/second-example-shaders"
+import LightingFirstExample from "../../components/basics/lighting/first-example"
 
 const ShaderTexturingPage = () => {
   return (
@@ -240,6 +241,7 @@ const ShaderTexturingPage = () => {
           branches only when you have to.
         </li>
       </ul>
+      <LightingFirstExample />
       <PageChange previous="/basics/fragment-shader/" />
     </Layout>
   )
