@@ -2,9 +2,9 @@ import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
 import { runOnPredicate, coordArrToString, uvArrToString } from "../../util"
 import {
-  firstVertexShaderSource,
-  firstFragmentShaderSource,
-} from "./first-example-shaders"
+  secondVertexShaderSource,
+  secondFragmentShaderSource,
+} from "./second-example-shaders"
 import { mat4, vec3, vec4 } from "gl-matrix"
 import texture from "../../../images/basics/texture.png"
 
@@ -28,6 +28,7 @@ const shaderProgramInfo = {
   fragment: {
     attributeLocations: {},
     uniformLocations: {
+      ambientFactor: "float",
       textureSampler: "sampler2D",
     },
   },
@@ -47,7 +48,7 @@ const cubeFaceUvs = [
   [1.0, 1.0],
 ]
 
-const LightingFirstExample = () => {
+const LightingSecondExample = () => {
   const cube = {
     vertices: [
       // Front vertices
@@ -160,6 +161,7 @@ const LightingFirstExample = () => {
       [30, 31, 32, 33, 34, 35],
     ],
     texture: texture,
+    ambientFactor: 0.3,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -183,8 +185,8 @@ const LightingFirstExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          firstVertexShaderSource,
-          firstFragmentShaderSource
+          secondVertexShaderSource,
+          secondFragmentShaderSource
         )
       )
     }),
@@ -323,6 +325,11 @@ const LightingFirstExample = () => {
               lightIntensity
             )
 
+            gl.uniform1f(
+              shaderInfo.fragment.uniformLocations.ambientFactor,
+              cube.ambientFactor
+            )
+
             gl.activeTexture(gl.TEXTURE0)
             gl.bindTexture(gl.TEXTURE_2D, cubeBuffer.texture)
             gl.uniform1i(
@@ -379,4 +386,4 @@ Vertex 4 UV: ${uvArrToString(cubeFaceUvs[3])}
   )
 }
 
-export default LightingFirstExample
+export default LightingSecondExample

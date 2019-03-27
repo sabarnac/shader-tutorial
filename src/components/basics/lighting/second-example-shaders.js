@@ -1,6 +1,6 @@
 import { glsl } from "../../util"
 
-export const firstVertexShaderSource = glsl`
+export const secondVertexShaderSource = glsl`
 attribute vec4 vertexPosition;
 attribute vec2 vertexUv;
 attribute vec3 vertexNormal;
@@ -33,16 +33,16 @@ void main() {
 }
 `
 
-export const firstFragmentShaderSource = glsl`
+export const secondFragmentShaderSource = glsl`
 varying highp vec2 uv;
 varying highp vec3 diffuseFactor;
-varying highp vec3 specularFactor;
 
+uniform highp float ambientFactor;
 uniform sampler2D textureSampler;
 
 void main() {
   highp vec4 textureColor = texture2D(textureSampler, uv);
-  gl_FragColor.rgb = textureColor.rgb * diffuseFactor;
+  gl_FragColor.rgb = (textureColor.rgb * ambientFactor) + (textureColor.rgb * diffuseFactor);
   gl_FragColor.a = textureColor.a;
 }
 `
