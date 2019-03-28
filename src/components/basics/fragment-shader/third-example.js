@@ -170,21 +170,23 @@ const FragmentShaderThirdExample = () => {
       <canvas width="640" height="480" ref={canvasRef}>
         Cannot run WebGL examples (not supported)
       </canvas>
-      <pre>
+      <pre className="util text-left">
         {`
-Vertex 1: ${coordArrToString(triangle.vertices[0])}
-Vertex 2: ${coordArrToString(triangle.vertices[1])}
-Vertex 3: ${coordArrToString(triangle.vertices[2])}
+Triangle Vertices:
+    Vertex 1: ${coordArrToString(triangle.vertices[0])}
+    Vertex 2: ${coordArrToString(triangle.vertices[1])}
+    Vertex 3: ${coordArrToString(triangle.vertices[2])}
 `.trim()}
       </pre>
-      <pre>
+      <pre className="util text-left">
         {`
-Vertex 1 Color: ${coordArrToString(triangle.colors[0], colorCoordMap)}
-Vertex 2 Color: ${coordArrToString(triangle.colors[1], colorCoordMap)}
-Vertex 3 Color: ${coordArrToString(triangle.colors[2], colorCoordMap)}
+Vertex Colors:
+    Vertex 1: ${coordArrToString(triangle.colors[0], colorCoordMap)}
+    Vertex 2: ${coordArrToString(triangle.colors[1], colorCoordMap)}
+    Vertex 3: ${coordArrToString(triangle.colors[2], colorCoordMap)}
 `.trim()}
       </pre>
-      <pre>Color Shift: {colorShift.toFixed(6)}</pre>
+      <pre className="util text-left">Color Shift: {colorShift.toFixed(6)}</pre>
     </div>
   )
 }

@@ -362,30 +362,48 @@ const LightingThirdExample = () => {
     [cubeBuffer]
   )
 
+  const colorCoords = { x: "r", y: "g", z: "b" }
+
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
       <canvas width="640" height="480" ref={canvasRef}>
         Cannot run WebGL examples (not supported)
       </canvas>
-      <pre>
+      <pre className="util text-left">
         {`
-Vertex 1: ${coordArrToString(cube.vertices[0])}
-Vertex 2: ${coordArrToString(cube.vertices[1])}
-Vertex 3: ${coordArrToString(cube.vertices[2])}
-Vertex 4: ${coordArrToString(cube.vertices[3])}
-Vertex 5: ${coordArrToString(cube.vertices[20])}
-Vertex 6: ${coordArrToString(cube.vertices[21])}
-Vertex 7: ${coordArrToString(cube.vertices[22])}
-Vertex 8: ${coordArrToString(cube.vertices[23])}
+Cube Vertices:
+    Vertex 1: ${coordArrToString(cube.vertices[0])}
+    Vertex 2: ${coordArrToString(cube.vertices[1])}
+    Vertex 3: ${coordArrToString(cube.vertices[2])}
+    Vertex 4: ${coordArrToString(cube.vertices[5])}
+    Vertex 5: ${coordArrToString(cube.vertices[30])}
+    Vertex 6: ${coordArrToString(cube.vertices[31])}
+    Vertex 7: ${coordArrToString(cube.vertices[32])}
+    Vertex 8: ${coordArrToString(cube.vertices[35])}
 `.trim()}
       </pre>
-      <pre>
+      <pre className="util text-left">
         {`
-Face UV:
-Vertex 1 UV: ${uvArrToString(cubeFaceUvs[0])}
-Vertex 2 UV: ${uvArrToString(cubeFaceUvs[1])}
-Vertex 3 UV: ${uvArrToString(cubeFaceUvs[2])}
-Vertex 4 UV: ${uvArrToString(cubeFaceUvs[3])}
+Cube Face UV:
+    Vertex 1: ${uvArrToString(cubeFaceUvs[0])}
+    Vertex 2: ${uvArrToString(cubeFaceUvs[1])}
+    Vertex 3: ${uvArrToString(cubeFaceUvs[2])}
+    Vertex 4: ${uvArrToString(cubeFaceUvs[5])}
+`.trim()}
+      </pre>
+      <pre className="util text-left">
+        {`
+Cube Lighting:
+    Ambient Factor: ${cube.ambientFactor}
+    Specular Color: ${coordArrToString(cube.specularColor, colorCoords)}
+`.trim()}
+      </pre>
+      <pre className="util text-left">
+        {`
+Light:
+    World Position: ${coordArrToString(lightModelPosition)}
+    Color: ${coordArrToString(lightColor, colorCoords)}
+    Intensity: ${lightIntensity}
 `.trim()}
       </pre>
     </div>

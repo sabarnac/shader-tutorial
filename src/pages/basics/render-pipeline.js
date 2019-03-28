@@ -126,7 +126,7 @@ const IntroductionPage = () => (
         <p>
           This is useful for a variety of tasks, from{" "}
           <a
-            href="http://upvoid.com/devblog/2013/02/prototype-grass/"
+            href="https://upvoid.com/devblog/2013/02/prototype-grass/"
             rel="noopener noreferrer"
             target="_blank"
           >

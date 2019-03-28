@@ -248,7 +248,10 @@ const ShaderTexturingPage = () => {
           branches only when you have to.
         </li>
       </ul>
-      <PageChange previous="/basics/fragment-shader/" />
+      <PageChange
+        previous="/basics/fragment-shader/"
+        next="/basics/lighting/"
+      />
     </Layout>
   )
 }

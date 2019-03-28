@@ -2,9 +2,9 @@ import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
 import { runOnPredicate, coordArrToString, uvArrToString } from "../../util"
 import {
-  fourthVertexShaderSource,
-  fourthFragmentShaderSource,
-} from "./fourth-example-shaders"
+  thirdVertexShaderSource,
+  thirdFragmentShaderSource,
+} from "./third-example-shaders"
 import { mat4, vec3, vec4 } from "gl-matrix"
 import texture from "../../../images/basics/texture.png"
 
@@ -30,7 +30,6 @@ const shaderProgramInfo = {
     attributeLocations: {},
     uniformLocations: {
       ambientFactor: "float",
-      noiseGranularity: "float",
       textureSampler: "sampler2D",
     },
   },
@@ -39,8 +38,6 @@ const shaderProgramInfo = {
 const lightModelPosition = vec4.fromValues(0.0, 0.0, 4.0, 1.0)
 const lightColor = vec3.fromValues(1.0, 1.0, 1.0)
 const lightIntensity = 40.0
-
-const noiseGranularity = 0.5 / 255.0
 
 const cubeModelPosition = mat4.create()
 const cubeFaceUvs = [
@@ -52,7 +49,7 @@ const cubeFaceUvs = [
   [1.0, 1.0],
 ]
 
-const LightingFourthExample = () => {
+const LightingIssueExample = () => {
   const cube = {
     vertices: [
       // Front vertices
@@ -190,8 +187,8 @@ const LightingFourthExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          fourthVertexShaderSource,
-          fourthFragmentShaderSource
+          thirdVertexShaderSource,
+          thirdFragmentShaderSource
         )
       )
     }),
@@ -338,10 +335,6 @@ const LightingFourthExample = () => {
               shaderInfo.fragment.uniformLocations.ambientFactor,
               cube.ambientFactor
             )
-            gl.uniform1f(
-              shaderInfo.fragment.uniformLocations.noiseGranularity,
-              noiseGranularity
-            )
 
             gl.activeTexture(gl.TEXTURE0)
             gl.bindTexture(gl.TEXTURE_2D, cubeBuffer.texture)
@@ -417,4 +410,4 @@ Light:
   )
 }
 
-export default LightingFourthExample
+export default LightingIssueExample

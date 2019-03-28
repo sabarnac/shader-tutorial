@@ -113,11 +113,12 @@ const FragmentShaderFirstExample = () => {
       <canvas width="640" height="480" ref={canvasRef}>
         Cannot run WebGL examples (not supported)
       </canvas>
-      <pre>
+      <pre className="util text-left">
         {`
-Vertex 1: ${coordArrToString(triangle.vertices[0])}
-Vertex 2: ${coordArrToString(triangle.vertices[1])}
-Vertex 3: ${coordArrToString(triangle.vertices[2])}
+Triangle Vertices:
+    Vertex 1: ${coordArrToString(triangle.vertices[0])}
+    Vertex 2: ${coordArrToString(triangle.vertices[1])}
+    Vertex 3: ${coordArrToString(triangle.vertices[2])}
 `.trim()}
       </pre>
     </div>

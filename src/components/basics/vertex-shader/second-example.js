@@ -33,6 +33,7 @@ const VertexShaderSecondExample = () => {
   const [shaderInfo, updateShaderInfo] = useState(null)
   const [triangleBuffer, updateTriangleBuffer] = useState({ vertices: null })
   const [shouldRender, updateShouldRender] = useState(true)
+  const [rotationAngle, updateRotationAngle] = useState(0)
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
@@ -76,6 +77,7 @@ const VertexShaderSecondExample = () => {
   useEffect(
     runOnPredicate(triangleBuffer.vertices !== null, () => {
       updateShouldRender(true)
+      let then = parseInt(performance.now().toString())
 
       const renderScene = () => {
         webGlRef.renderScene(
@@ -89,6 +91,11 @@ const VertexShaderSecondExample = () => {
             const rotatedModelMatrix = mat4.create()
             const rotationAngle = (((time / 30) % 360) * Math.PI) / 180
             mat4.rotateZ(rotatedModelMatrix, modelMatrix, rotationAngle)
+
+            if (time - then > 100) {
+              then = time
+              updateRotationAngle((rotationAngle * 180) / Math.PI)
+            }
 
             const mvpMatrix = mat4.create()
             mat4.multiply(mvpMatrix, viewMatrix, rotatedModelMatrix)
@@ -133,12 +140,16 @@ const VertexShaderSecondExample = () => {
       <canvas width="640" height="480" ref={canvasRef}>
         Cannot run WebGL examples (not supported)
       </canvas>
-      <pre>
+      <pre className="util text-left">
         {`
-Vertex 1: ${coordArrToString(triangle.vertices[0])}
-Vertex 2: ${coordArrToString(triangle.vertices[1])}
-Vertex 3: ${coordArrToString(triangle.vertices[2])}
+Triangle Vertices:
+    Vertex 1: ${coordArrToString(triangle.vertices[0])}
+    Vertex 2: ${coordArrToString(triangle.vertices[1])}
+    Vertex 3: ${coordArrToString(triangle.vertices[2])}
 `.trim()}
+      </pre>
+      <pre className="util text-left">
+        Rotation Angle (Z-Axis): {rotationAngle.toFixed(2)}
       </pre>
     </div>
   )

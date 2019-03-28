@@ -260,28 +260,29 @@ const TextureBranchingSecondExample = () => {
       <canvas width="640" height="480" ref={canvasRef}>
         Cannot run WebGL examples (not supported)
       </canvas>
-      <pre>
+      <pre className="util text-left">
         {`
-Vertex 1: ${coordArrToString(cube.vertices[0])}
-Vertex 2: ${coordArrToString(cube.vertices[1])}
-Vertex 3: ${coordArrToString(cube.vertices[2])}
-Vertex 4: ${coordArrToString(cube.vertices[3])}
-Vertex 5: ${coordArrToString(cube.vertices[20])}
-Vertex 6: ${coordArrToString(cube.vertices[21])}
-Vertex 7: ${coordArrToString(cube.vertices[22])}
-Vertex 8: ${coordArrToString(cube.vertices[23])}
+Cube Vertices:
+    Vertex 1: ${coordArrToString(cube.vertices[0])}
+    Vertex 2: ${coordArrToString(cube.vertices[1])}
+    Vertex 3: ${coordArrToString(cube.vertices[2])}
+    Vertex 4: ${coordArrToString(cube.vertices[3])}
+    Vertex 5: ${coordArrToString(cube.vertices[20])}
+    Vertex 6: ${coordArrToString(cube.vertices[21])}
+    Vertex 7: ${coordArrToString(cube.vertices[22])}
+    Vertex 8: ${coordArrToString(cube.vertices[23])}
 `.trim()}
       </pre>
-      <pre>
+      <pre className="util text-left">
         {`
-Face UV:
-Vertex 1 UV: ${uvArrToString(cubeFaceUvs[0])}
-Vertex 2 UV: ${uvArrToString(cubeFaceUvs[1])}
-Vertex 3 UV: ${uvArrToString(cubeFaceUvs[2])}
-Vertex 4 UV: ${uvArrToString(cubeFaceUvs[3])}
+Cube Face UV:
+    Vertex 1: ${uvArrToString(cubeFaceUvs[0])}
+    Vertex 2: ${uvArrToString(cubeFaceUvs[1])}
+    Vertex 3: ${uvArrToString(cubeFaceUvs[2])}
+    Vertex 4: ${uvArrToString(cubeFaceUvs[3])}
 `.trim()}
       </pre>
-      <pre>Color Shift: {colorShift.toFixed(6)}</pre>
+      <pre className="util text-left">Color Shift: {colorShift.toFixed(6)}</pre>
     </div>
   )
 }
