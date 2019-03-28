@@ -12,14 +12,21 @@ import {
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import { Link } from "gatsby"
 import { secondFragmentShaderSource } from "../../components/basics/texturing-branching/second-example-shaders"
-import LightingFirstExample from "../../components/basics/lighting/first-example"
 
 const ShaderTexturingPage = () => {
   return (
     <Layout>
       <SEO
         title="Shader Basics - Textures And Branching"
-        keywords={["fragment", "shader", "basics", "part", "two", "2"]}
+        keywords={[
+          "texture",
+          "branching",
+          "branch",
+          "texturing",
+          "uv",
+          "shader",
+          "basics",
+        ]}
       />
       <h2>Shader Basics - Textures And Branching</h2>
       <p>
@@ -241,7 +248,6 @@ const ShaderTexturingPage = () => {
           branches only when you have to.
         </li>
       </ul>
-      <LightingFirstExample />
       <PageChange previous="/basics/fragment-shader/" />
     </Layout>
   )

@@ -165,7 +165,7 @@ const LightingFourthExample = () => {
       [30, 31, 32, 33, 34, 35],
     ],
     texture: texture,
-    ambientFactor: 0.3,
+    ambientFactor: 0.1,
     specularColor: vec3.fromValues(0.0, 0.0, 1.0),
   }
   const [webGlRef, updateWebGlRef] = useState(null)

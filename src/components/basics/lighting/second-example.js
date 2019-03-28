@@ -161,7 +161,7 @@ const LightingSecondExample = () => {
       [30, 31, 32, 33, 34, 35],
     ],
     texture: texture,
-    ambientFactor: 0.3,
+    ambientFactor: 0.1,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
