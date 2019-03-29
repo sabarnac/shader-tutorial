@@ -36,7 +36,7 @@ void main() {
 
   highp vec3 lightReflection_viewSpace = reflect(-lightDirection_viewSpace, normal_viewSpace);
   highp float specularStrength = clamp(dot(viewDirection_viewSpace, lightReflection_viewSpace), 0.0, 1.0);
-  specularFactor = (specularColor * lightColorIntensity * pow(specularStrength, 5.0)) / (distanceFromLight * distanceFromLight);
+  specularFactor = (lightColorIntensity * pow(specularStrength, 5.0)) / (distanceFromLight * distanceFromLight);
 }
 `
 

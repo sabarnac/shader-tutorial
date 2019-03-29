@@ -23,7 +23,6 @@ const shaderProgramInfo = {
       lightPosition_worldSpace: "vec4",
       lightColor: "vec3",
       lightIntensity: "float",
-      specularColor: "vec3",
     },
   },
   fragment: {
@@ -163,7 +162,6 @@ const LightingIssueExample = () => {
     ],
     texture: texture,
     ambientFactor: 0.3,
-    specularColor: vec3.fromValues(1.0, 1.0, 1.0),
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -326,10 +324,6 @@ const LightingIssueExample = () => {
               shaderInfo.vertex.uniformLocations.lightIntensity,
               lightIntensity
             )
-            gl.uniform3fv(
-              shaderInfo.vertex.uniformLocations.specularColor,
-              cube.specularColor
-            )
 
             gl.uniform1f(
               shaderInfo.fragment.uniformLocations.ambientFactor,
@@ -395,7 +389,6 @@ Cube Face UV:
         {`
 Cube Lighting:
     Ambient Factor: ${cube.ambientFactor}
-    Specular Color: ${coordArrToString(cube.specularColor, colorCoords)}
 `.trim()}
       </pre>
       <pre className="util text-left">

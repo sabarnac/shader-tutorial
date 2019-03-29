@@ -55,7 +55,10 @@ const ShaderTexturingPage = () => {
           target="_blank"
         >
           OpenGL Tutorial
-        </a>
+        </a>{" "}
+        provides a good explanation of what the three components are, but we'll
+        be going through them here as well. You can use that material as a
+        secondary reference if required.
       </p>
       <p>
         Let's look at each component, and how they effect the look of the object
