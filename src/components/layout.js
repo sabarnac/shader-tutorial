@@ -5,8 +5,9 @@
  * See: https://www.gatsbyjs.org/docs/static-query/
  */
 
-import React from "react"
+import React, { Fragment } from "react"
 import PropTypes from "prop-types"
+import MathJax from "react-mathjax2"
 import { StaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
@@ -32,7 +33,11 @@ const Layout = ({ children }) => (
           <div className="column column-75 content">
             <Notice />
             <main className="row main" id="main">
-              <div className="column">{children}</div>
+              <div className="column">
+                <MathJax.Context input="ascii">
+                  <Fragment>{children}</Fragment>
+                </MathJax.Context>
+              </div>
             </main>
             <Footer />
           </div>

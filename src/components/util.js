@@ -1,3 +1,6 @@
+import React from "react"
+import MathJax from "react-mathjax2"
+
 export const runOnPredicate = (predicate, action) => () =>
   predicate ? action() : undefined
 
@@ -20,3 +23,11 @@ export const uvArrToString = (coord, coordMap = { u: "u", v: "v" }) =>
   `{ ${coordMap.u}: ${coord[0].toFixed(3)}, ${coordMap.v}: ${coord[1].toFixed(
     3
   )} }`
+
+export const renderEquation = text => (
+  <code
+    style={{ display: "inline-block", padding: "0.5rem", margin: "0.5rem" }}
+  >
+    <MathJax.Node inline>{text}</MathJax.Node>
+  </code>
+)

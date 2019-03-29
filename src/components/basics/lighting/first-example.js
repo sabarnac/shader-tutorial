@@ -358,24 +358,22 @@ const LightingFirstExample = () => {
       </canvas>
       <pre className="util text-left">
         {`
-Cube Vertices:
-    Vertex 1: ${coordArrToString(cube.vertices[0])}
-    Vertex 2: ${coordArrToString(cube.vertices[1])}
-    Vertex 3: ${coordArrToString(cube.vertices[2])}
-    Vertex 4: ${coordArrToString(cube.vertices[5])}
-    Vertex 5: ${coordArrToString(cube.vertices[30])}
-    Vertex 6: ${coordArrToString(cube.vertices[31])}
-    Vertex 7: ${coordArrToString(cube.vertices[32])}
-    Vertex 8: ${coordArrToString(cube.vertices[35])}
-`.trim()}
-      </pre>
-      <pre className="util text-left">
-        {`
-Cube Face UV:
-    Vertex 1: ${uvArrToString(cubeFaceUvs[0])}
-    Vertex 2: ${uvArrToString(cubeFaceUvs[1])}
-    Vertex 3: ${uvArrToString(cubeFaceUvs[2])}
-    Vertex 4: ${uvArrToString(cubeFaceUvs[5])}
+Cube:
+    Vertices:
+        Vertex 1: ${coordArrToString(cube.vertices[0])}
+        Vertex 2: ${coordArrToString(cube.vertices[1])}
+        Vertex 3: ${coordArrToString(cube.vertices[2])}
+        Vertex 4: ${coordArrToString(cube.vertices[5])}
+        Vertex 5: ${coordArrToString(cube.vertices[30])}
+        Vertex 6: ${coordArrToString(cube.vertices[31])}
+        Vertex 7: ${coordArrToString(cube.vertices[32])}
+        Vertex 8: ${coordArrToString(cube.vertices[35])}
+    Face UV:
+        Vertex 1: ${uvArrToString(cubeFaceUvs[0])}
+        Vertex 2: ${uvArrToString(cubeFaceUvs[1])}
+        Vertex 3: ${uvArrToString(cubeFaceUvs[2])}
+        Vertex 4: ${uvArrToString(cubeFaceUvs[5])}
+    World Position: ${coordArrToString([0.0, 0.0, 0.0])}
 `.trim()}
       </pre>
       <pre className="util text-left">

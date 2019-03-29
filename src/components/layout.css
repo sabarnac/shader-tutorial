@@ -26,6 +26,11 @@ h1 {
   text-transform: capitalize;
 }
 
+h5,
+h6 {
+  font-weight: 600;
+}
+
 canvas {
   background: #ffffff;
   border: 1px solid #ffffff;
