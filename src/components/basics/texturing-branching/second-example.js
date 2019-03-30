@@ -267,16 +267,16 @@ Cube:
         Vertex 1: ${coordArrToString(cube.vertices[0])}
         Vertex 2: ${coordArrToString(cube.vertices[1])}
         Vertex 3: ${coordArrToString(cube.vertices[2])}
-        Vertex 4: ${coordArrToString(cube.vertices[5])}
-        Vertex 5: ${coordArrToString(cube.vertices[30])}
-        Vertex 6: ${coordArrToString(cube.vertices[31])}
-        Vertex 7: ${coordArrToString(cube.vertices[32])}
-        Vertex 8: ${coordArrToString(cube.vertices[35])}
+        Vertex 4: ${coordArrToString(cube.vertices[3])}
+        Vertex 5: ${coordArrToString(cube.vertices[12])}
+        Vertex 6: ${coordArrToString(cube.vertices[13])}
+        Vertex 7: ${coordArrToString(cube.vertices[14])}
+        Vertex 8: ${coordArrToString(cube.vertices[15])}
     Face UV:
         Vertex 1: ${uvArrToString(cubeFaceUvs[0])}
         Vertex 2: ${uvArrToString(cubeFaceUvs[1])}
         Vertex 3: ${uvArrToString(cubeFaceUvs[2])}
-        Vertex 4: ${uvArrToString(cubeFaceUvs[5])}
+        Vertex 4: ${uvArrToString(cubeFaceUvs[3])}
 `.trim()}
       </pre>
       <pre className="util text-left">Color Shift: {colorShift.toFixed(6)}</pre>

@@ -6,8 +6,11 @@ import PageChange from "../../components/page-change"
 
 const IntroductionPage = () => (
   <Layout>
-    <SEO title="Introduction" keywords={["shader", "introduction"]} />
-    <h2>Introduction</h2>
+    <SEO
+      title="Shader Basics - Introduction"
+      keywords={["shader", "basics", "introduction"]}
+    />
+    <h2>Shader Basics - Introduction</h2>
     <h3>What is a shader?</h3>
     <p>
       A shader is a program that is primarily used to shade an image, generating

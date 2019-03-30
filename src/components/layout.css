@@ -59,6 +59,7 @@ pre {
 
 img {
   background: #ffffff;
+  border: 1px solid #ffffff;
 }
 
 input,
@@ -98,6 +99,10 @@ textarea {
 
 .container .row.wrapper header.column h1 {
   text-align: center;
+}
+
+.container .row.wrapper header.column img {
+  border: none;
 }
 
 .container .row.wrapper header.column nav ul li.skip-nav {
@@ -155,6 +160,7 @@ textarea {
 
 .container .row.wrapper .column.content footer.column .social img {
   max-height: 2rem;
+  border: none;
 }
 
 .page-change {
@@ -167,6 +173,10 @@ textarea {
 .page-change .page-next {
   padding: 1rem;
   flex-grow: 1;
+}
+
+.toc {
+  font-size: 2rem;
 }
 
 nav ul {

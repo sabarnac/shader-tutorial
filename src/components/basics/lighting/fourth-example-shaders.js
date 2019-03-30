@@ -13,6 +13,7 @@ uniform highp vec4 lightPosition_worldSpace;
 uniform highp vec3 lightColor;
 uniform highp float lightIntensity;
 uniform highp vec3 specularColor;
+uniform highp float surfaceReflectivity;
 
 varying highp vec2 uv;
 varying highp vec3 diffuseFactor;
@@ -36,7 +37,7 @@ void main() {
 
   highp vec3 lightReflection_viewSpace = reflect(-lightDirection_viewSpace, normal_viewSpace);
   highp float specularStrength = clamp(dot(viewDirection_viewSpace, lightReflection_viewSpace), 0.0, 1.0);
-  specularFactor = (lightColorIntensity * pow(specularStrength, 5.0)) / (distanceFromLight * distanceFromLight);
+  specularFactor = (lightColorIntensity * pow(specularStrength, surfaceReflectivity)) / (distanceFromLight * distanceFromLight);
 }
 `
 
@@ -49,8 +50,8 @@ uniform highp float noiseGranularity;
 uniform highp float ambientFactor;
 uniform sampler2D textureSampler;
 
-highp float random(vec2 co) {
-   return fract(sin(dot(co.xy,vec2(12.9898,78.233))) * 43758.5453);
+highp float random(vec2 coords) {
+   return fract(sin(dot(coords.xy,vec2(12.9898,78.233))) * 43758.5453);
 }
 
 void main() {

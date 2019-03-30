@@ -13,7 +13,7 @@ import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import { Link } from "gatsby"
 import { secondFragmentShaderSource } from "../../components/basics/texturing-branching/second-example-shaders"
 
-const ShaderTexturingPage = () => {
+const TexturingBranchingPage = () => {
   return (
     <Layout>
       <SEO
@@ -256,4 +256,4 @@ const ShaderTexturingPage = () => {
   )
 }
 
-export default ShaderTexturingPage
+export default TexturingBranchingPage

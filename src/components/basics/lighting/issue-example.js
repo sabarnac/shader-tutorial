@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate, coordArrToString, uvArrToString } from "../../util"
+import { runOnPredicate } from "../../util"
 import {
   thirdVertexShaderSource,
   thirdFragmentShaderSource,
@@ -23,6 +23,7 @@ const shaderProgramInfo = {
       lightPosition_worldSpace: "vec4",
       lightColor: "vec3",
       lightIntensity: "float",
+      surfaceReflectivity: "float",
     },
   },
   fragment: {
@@ -162,6 +163,7 @@ const LightingIssueExample = () => {
     ],
     texture: texture,
     ambientFactor: 0.3,
+    surfaceReflectivity: 5.0,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -324,6 +326,10 @@ const LightingIssueExample = () => {
               shaderInfo.vertex.uniformLocations.lightIntensity,
               lightIntensity
             )
+            gl.uniform1f(
+              shaderInfo.vertex.uniformLocations.surfaceReflectivity,
+              cube.surfaceReflectivity
+            )
 
             gl.uniform1f(
               shaderInfo.fragment.uniformLocations.ambientFactor,
@@ -356,43 +362,11 @@ const LightingIssueExample = () => {
     [cubeBuffer]
   )
 
-  const colorCoords = { x: "r", y: "g", z: "b" }
-
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
       <canvas width="640" height="480" ref={canvasRef}>
         Cannot run WebGL examples (not supported)
       </canvas>
-      <pre className="util text-left">
-        {`
-Cube:
-    Vertices:
-        Vertex 1: ${coordArrToString(cube.vertices[0])}
-        Vertex 2: ${coordArrToString(cube.vertices[1])}
-        Vertex 3: ${coordArrToString(cube.vertices[2])}
-        Vertex 4: ${coordArrToString(cube.vertices[5])}
-        Vertex 5: ${coordArrToString(cube.vertices[30])}
-        Vertex 6: ${coordArrToString(cube.vertices[31])}
-        Vertex 7: ${coordArrToString(cube.vertices[32])}
-        Vertex 8: ${coordArrToString(cube.vertices[35])}
-    Face UV:
-        Vertex 1: ${uvArrToString(cubeFaceUvs[0])}
-        Vertex 2: ${uvArrToString(cubeFaceUvs[1])}
-        Vertex 3: ${uvArrToString(cubeFaceUvs[2])}
-        Vertex 4: ${uvArrToString(cubeFaceUvs[5])}
-    World Position: ${coordArrToString([0.0, 0.0, 0.0])}
-    Lighting:
-        Ambient Factor: ${cube.ambientFactor}
-`.trim()}
-      </pre>
-      <pre className="util text-left">
-        {`
-Light:
-    World Position: ${coordArrToString(lightModelPosition)}
-    Color: ${coordArrToString(lightColor, colorCoords)}
-    Intensity: ${lightIntensity}
-`.trim()}
-      </pre>
     </div>
   )
 }

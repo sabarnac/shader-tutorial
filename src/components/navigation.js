@@ -13,19 +13,19 @@ const Navigation = () => (
         <Link to="/">Home</Link>
       </li>
       <li>
-        Basics
+        <Link to="/basics/">Basics</Link>
         <ul>
           <li>
             <Link to="/basics/introduction/">Introduction</Link>
           </li>
           <li>
-            <Link to="/basics/render-pipeline/">The Render Pipeline</Link>
+            <Link to="/basics/render-pipeline/">Render Pipeline</Link>
           </li>
           <li>
-            <Link to="/basics/vertex-shader/">Vertex Shader Basics</Link>
+            <Link to="/basics/vertex-shader/">Vertex Shader</Link>
           </li>
           <li>
-            <Link to="/basics/fragment-shader">Fragment Shader Basics</Link>
+            <Link to="/basics/fragment-shader">Fragment Shader</Link>
           </li>
           <li>
             <Link to="/basics/texturing-branching">

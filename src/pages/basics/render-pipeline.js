@@ -6,8 +6,11 @@ import PageChange from "../../components/page-change"
 
 const IntroductionPage = () => (
   <Layout>
-    <SEO title="Introduction" keywords={["shader", "introduction"]} />
-    <h2>The GPU Render Pipeline</h2>
+    <SEO
+      title="Shader Basics - The GPU Render Pipeline"
+      keywords={["shader", "basics", "gpu", "render", "pipeline"]}
+    />
+    <h2>Shader Basics - The GPU Render Pipeline</h2>
     <p>
       Before diving into shaders, an overview of the render pipeline is
       necessary to understand how shaders actually contribute to rendering an
