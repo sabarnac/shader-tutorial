@@ -50,11 +50,11 @@ function SEO({
         },
         {
           property: `og:title`,
-          content: `${site.siteMetadata.baseUrl}${pathname}`,
+          content: title,
         },
         {
           property: `og:url`,
-          content: title,
+          content: `${site.siteMetadata.baseUrl}${pathname}`,
         },
         {
           property: `og:description`,
