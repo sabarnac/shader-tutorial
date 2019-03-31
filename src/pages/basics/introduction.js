@@ -5,9 +5,10 @@ import Content from "../../components/content"
 import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
 
-const IntroductionPage = () => (
+const IntroductionPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
+      pathname={pathname}
       title="Shader Basics - Introduction"
       description="An introduction to GPU shaders and general information on them."
       keywords={["shader", "basics", "introduction"]}

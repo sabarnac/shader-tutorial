@@ -10,9 +10,10 @@ import PageChange from "../../components/page-change"
 import VertexShaderSecondExample from "../../components/basics/vertex-shader/second-example"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 
-const VertexShaderPage = () => (
+const VertexShaderPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
+      pathname={pathname}
       title="Shader Basics - Vertex Shader"
       description="A look into the basics of a GPU vertex shader."
       keywords={["vertex", "shader", "basics"]}

@@ -4,9 +4,10 @@ import Layout from "../components/layout"
 import Content from "../components/content"
 import SEO from "../components/seo"
 
-const IndexPage = () => (
+const IndexPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
+      pathname={pathname}
       title="Page Not Found"
       description="The page you are looking for does not exist."
       keywords={["not", "found"]}

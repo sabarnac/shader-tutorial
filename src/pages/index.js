@@ -5,9 +5,13 @@ import Content from "../components/content"
 import SEO from "../components/seo"
 import { Link } from "gatsby"
 
-const IndexPage = () => (
+const IndexPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO title="Home" keywords={["gpu", "shader", "tutorial"]} />
+    <SEO
+      pathname={pathname}
+      title="Home"
+      keywords={["gpu", "shader", "tutorial"]}
+    />
     <Content>
       <h2>Welcome!</h2>
       <p>

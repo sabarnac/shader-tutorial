@@ -5,9 +5,10 @@ import Content from "../../components/content"
 import SEO from "../../components/seo"
 import { Link } from "gatsby"
 
-const EndPage = () => (
+const EndPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
+      pathname={pathname}
       title="Shader Basics - Content"
       description="Table of Contents for the Shader Basics section."
       keywords={["shader", "basics", "content"]}

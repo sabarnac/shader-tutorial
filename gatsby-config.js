@@ -2,6 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `GPU Shader Tutorial`,
     baseUrl: `https://sabarnac.github.io`,
+    fbAppId: `2273493326234232`,
     description: `Learn about GPU shaders in a simple, relatively easy-to-digest format.`,
     author: `@disappointin_af`,
   },

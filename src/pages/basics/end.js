@@ -5,9 +5,10 @@ import Content from "../../components/content"
 import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
 
-const EndPage = () => (
+const EndPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
+      pathname={pathname}
       title="Shader Basics - The End"
       description="An epilogue to the basics of shaders."
       keywords={["shader", "basics", "end", "complete", "epilogue"]}

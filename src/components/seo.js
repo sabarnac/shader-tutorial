@@ -16,6 +16,7 @@ function SEO({
   meta = [],
   keywords,
   title,
+  pathname,
 }) {
   const { site } = useStaticQuery(
     graphql`
@@ -26,6 +27,7 @@ function SEO({
             baseUrl
             description
             author
+            fbAppId
           }
         }
       }
@@ -48,6 +50,10 @@ function SEO({
         },
         {
           property: `og:title`,
+          content: `${site.siteMetadata.baseUrl}${pathname}`,
+        },
+        {
+          property: `og:url`,
           content: title,
         },
         {
@@ -73,6 +79,10 @@ function SEO({
         {
           property: `og:type`,
           content: `website`,
+        },
+        {
+          property: `fb:app_id`,
+          content: site.siteMetadata.fbAppId,
         },
         {
           name: `twitter:card`,
@@ -124,6 +134,7 @@ SEO.propTypes = {
   meta: PropTypes.array,
   keywords: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.string.isRequired,
+  pathname: PropTypes.string.isRequired,
 }
 
 export default SEO
