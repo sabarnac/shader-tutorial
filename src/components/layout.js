@@ -7,7 +7,6 @@
 
 import React, { Fragment } from "react"
 import PropTypes from "prop-types"
-import MathJax from "react-mathjax2"
 import { StaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
@@ -34,9 +33,7 @@ const Layout = ({ children }) => (
             <Notice />
             <main className="row main" id="main">
               <div className="column">
-                <MathJax.Context input="ascii">
-                  <Fragment>{children}</Fragment>
-                </MathJax.Context>
+                <Fragment>{children}</Fragment>
               </div>
             </main>
             <Footer />

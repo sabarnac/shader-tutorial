@@ -23,6 +23,7 @@ function SEO({
         site {
           siteMetadata {
             title
+            baseUrl
             description
             author
           }
@@ -55,7 +56,7 @@ function SEO({
         },
         {
           property: `og:image`,
-          content: withPrefix("/icon.png"),
+          content: `${site.siteMetadata.baseUrl}${withPrefix("/icon.png")}`,
         },
         {
           property: `og:image:height`,
@@ -91,7 +92,11 @@ function SEO({
         },
         {
           name: `twitter:image`,
-          content: withPrefix("/icon.png"),
+          content: `${site.siteMetadata.baseUrl}${withPrefix("/icon.png")}`,
+        },
+        {
+          name: `twitter:image:alt`,
+          content: "GPU Shader Tutorial Icon",
         },
       ]
         .concat(
