@@ -8,7 +8,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Helmet from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, withPrefix } from "gatsby"
 
 function SEO({
   description = undefined,
@@ -54,6 +54,22 @@ function SEO({
           content: metaDescription,
         },
         {
+          property: `og:image`,
+          content: withPrefix("/icon.png"),
+        },
+        {
+          property: `og:image:height`,
+          content: "256",
+        },
+        {
+          property: `og:image:width`,
+          content: "256",
+        },
+        {
+          property: `og:image:alt`,
+          content: "GPU Shader Tutorial Icon",
+        },
+        {
           property: `og:type`,
           content: `website`,
         },
@@ -72,6 +88,10 @@ function SEO({
         {
           name: `twitter:description`,
           content: metaDescription,
+        },
+        {
+          name: `twitter:image`,
+          content: withPrefix("/icon.png"),
         },
       ]
         .concat(

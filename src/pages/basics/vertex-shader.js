@@ -13,6 +13,7 @@ const VertexShaderPage = () => (
   <Layout>
     <SEO
       title="Shader Basics - Vertex Shader"
+      description="A look into the basics of a GPU vertex shader."
       keywords={["vertex", "shader", "basics"]}
     />
     <h2>Shader Basics - Vertex Shader</h2>

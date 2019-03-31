@@ -8,6 +8,7 @@ const EndPage = () => (
   <Layout>
     <SEO
       title="Shader Basics - The End"
+      description="An epilogue to the basics of shaders."
       keywords={["shader", "basics", "end", "complete", "epilogue"]}
     />
     <h2>Shader Basics - The End</h2>

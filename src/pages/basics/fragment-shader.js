@@ -23,6 +23,7 @@ const FragmentShaderPage = () => {
     <Layout>
       <SEO
         title="Shader Basics - Fragment Shader"
+        description="A look into the basics of a GPU fragment shader."
         keywords={["fragment", "shader", "basics"]}
       />
       <h2>Shader Basics - Fragment Shader</h2>

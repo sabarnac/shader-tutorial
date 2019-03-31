@@ -35,6 +35,7 @@ const LandingPage = () => {
     <Layout>
       <SEO
         title="Shader Basics - Lighting"
+        description="A look into how lighting can be simulated on objects through shaders."
         keywords={[
           "lighting",
           "shader",

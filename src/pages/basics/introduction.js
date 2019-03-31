@@ -8,6 +8,7 @@ const IntroductionPage = () => (
   <Layout>
     <SEO
       title="Shader Basics - Introduction"
+      description="An introduction to GPU shaders and general information on them."
       keywords={["shader", "basics", "introduction"]}
     />
     <h2>Shader Basics - Introduction</h2>

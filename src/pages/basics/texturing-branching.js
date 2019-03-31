@@ -18,6 +18,7 @@ const TexturingBranchingPage = () => {
     <Layout>
       <SEO
         title="Shader Basics - Textures And Branching"
+        description="A look into the how textures are used to color objects in shaders."
         keywords={[
           "texture",
           "branching",

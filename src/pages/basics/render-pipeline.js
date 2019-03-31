@@ -8,6 +8,7 @@ const IntroductionPage = () => (
   <Layout>
     <SEO
       title="Shader Basics - The GPU Render Pipeline"
+      description="A look into the GPU render pipeline and how it renders images."
       keywords={["shader", "basics", "gpu", "render", "pipeline"]}
     />
     <h2>Shader Basics - The GPU Render Pipeline</h2>
