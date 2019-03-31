@@ -1,7 +1,6 @@
 import { mat4 } from "gl-matrix"
 
 export default class WebGlWrapper {
-  _isSupported = false
   _canvas = null
   _canvasDimensions = {
     width: 0,
@@ -28,10 +27,8 @@ export default class WebGlWrapper {
       this._canvas.getContext("webgl") ||
       this._canvas.getContext("experimental-webgl")
     if (this._webgl === null) {
-      this._isSupported = false
       this._showNotSupported()
     }
-    this._isSupported = true
 
     this._startSetup(modelPosition)
   }
@@ -98,8 +95,50 @@ export default class WebGlWrapper {
     return shader
   }
 
-  get isSupported() {
-    return this._isSupported
+  _isPowerOf2 = value => {
+    return (value & (value - 1)) === 0
+  }
+
+  _createBuffer = (
+    bufferData,
+    buffer,
+    bufferType,
+    drawType,
+    dataType = this._webgl.FLOAT
+  ) => {
+    if (buffer === null) {
+      buffer = this._webgl.createBuffer()
+    }
+
+    let rawBufferArray
+    switch (dataType) {
+      case this._webgl.UNSIGNED_SHORT:
+        rawBufferArray = new Uint16Array(bufferData)
+        break
+      default:
+        rawBufferArray = new Float32Array(bufferData)
+    }
+
+    this._webgl.bindBuffer(bufferType, buffer)
+    this._webgl.bufferData(bufferType, rawBufferArray, drawType)
+
+    this._webgl.bindBuffer(bufferType, null)
+
+    return buffer
+  }
+
+  _resizeCanvas = () => {
+    if (this._canvas.width !== this._canvas.clientWidth) {
+      this._canvas.width = this._canvas.clientWidth
+      this._canvas.height = (this._canvas.clientWidth * 3) / 4
+    }
+
+    this._webgl.viewport(
+      0,
+      0,
+      this._webgl.canvas.width,
+      this._webgl.canvas.height
+    )
   }
 
   createShaderProgram = (vertexShaderSource, fragmentShaderSource) => {
@@ -133,10 +172,6 @@ export default class WebGlWrapper {
     }
 
     return shaderProgram
-  }
-
-  _isPowerOf2 = value => {
-    return (value & (value - 1)) === 0
   }
 
   createImageTexture = (imageSrc, texture) => {
@@ -234,34 +269,6 @@ export default class WebGlWrapper {
     return dataLocation
   }
 
-  _createBuffer = (
-    bufferData,
-    buffer,
-    bufferType,
-    drawType,
-    dataType = this._webgl.FLOAT
-  ) => {
-    if (buffer === null) {
-      buffer = this._webgl.createBuffer()
-    }
-
-    let rawBufferArray
-    switch (dataType) {
-      case this._webgl.UNSIGNED_SHORT:
-        rawBufferArray = new Uint16Array(bufferData)
-        break
-      default:
-        rawBufferArray = new Float32Array(bufferData)
-    }
-
-    this._webgl.bindBuffer(bufferType, buffer)
-    this._webgl.bufferData(bufferType, rawBufferArray, drawType)
-
-    this._webgl.bindBuffer(bufferType, null)
-
-    return buffer
-  }
-
   createStaticDrawArrayBuffer = (bufferData, buffer) => {
     return this._createBuffer(
       bufferData,
@@ -282,6 +289,8 @@ export default class WebGlWrapper {
   }
 
   renderScene = renderer => {
+    this._resizeCanvas()
+
     const renderInfo = {
       gl: this._webgl,
       projectionMatrix: this._projectionMatrix,
@@ -303,6 +312,5 @@ export default class WebGlWrapper {
       zFar: 100.0,
     }
     this._webgl = null
-    this._isSupported = false
   }
 }

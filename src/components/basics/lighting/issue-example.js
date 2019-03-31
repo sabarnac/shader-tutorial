@@ -232,6 +232,7 @@ const LightingIssueExample = () => {
   useEffect(
     runOnPredicate(cubeBuffer.vertices !== null, () => {
       updateShouldRender(true)
+
       const renderScene = () => {
         webGlRef.renderScene(
           ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {

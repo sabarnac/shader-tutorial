@@ -37,6 +37,7 @@ const FragmentShaderSecondExample = () => {
     vertices: null,
     colors: null,
   })
+  const [shouldRender, updateShouldRender] = useState(true)
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
@@ -85,49 +86,60 @@ const FragmentShaderSecondExample = () => {
     runOnPredicate(
       triangleBuffer.vertices !== null && triangleBuffer.colors !== null,
       () => {
-        webGlRef.renderScene(
-          ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
-            const mvpMatrix = mat4.create()
-            mat4.multiply(mvpMatrix, viewMatrix, modelMatrix)
-            mat4.multiply(mvpMatrix, projectionMatrix, mvpMatrix)
+        updateShouldRender(true)
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer.vertices)
-            gl.vertexAttribPointer(
-              shaderInfo.vertex.attributeLocations.vertexPosition,
-              3,
-              gl.FLOAT,
-              false,
-              0,
-              0
-            )
-            gl.enableVertexAttribArray(
-              shaderInfo.vertex.attributeLocations.vertexPosition
-            )
+        const renderScene = () => {
+          webGlRef.renderScene(
+            ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
+              if (!shouldRender) {
+                return
+              }
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer.colors)
-            gl.vertexAttribPointer(
-              shaderInfo.vertex.attributeLocations.vertexColor,
-              3,
-              gl.FLOAT,
-              false,
-              0,
-              0
-            )
-            gl.enableVertexAttribArray(
-              shaderInfo.vertex.attributeLocations.vertexColor
-            )
+              const mvpMatrix = mat4.create()
+              mat4.multiply(mvpMatrix, viewMatrix, modelMatrix)
+              mat4.multiply(mvpMatrix, projectionMatrix, mvpMatrix)
 
-            gl.useProgram(shaderProgram)
+              gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer.vertices)
+              gl.vertexAttribPointer(
+                shaderInfo.vertex.attributeLocations.vertexPosition,
+                3,
+                gl.FLOAT,
+                false,
+                0,
+                0
+              )
+              gl.enableVertexAttribArray(
+                shaderInfo.vertex.attributeLocations.vertexPosition
+              )
 
-            gl.uniformMatrix4fv(
-              shaderInfo.vertex.uniformLocations.mvpMatrix,
-              false,
-              mvpMatrix
-            )
+              gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer.colors)
+              gl.vertexAttribPointer(
+                shaderInfo.vertex.attributeLocations.vertexColor,
+                3,
+                gl.FLOAT,
+                false,
+                0,
+                0
+              )
+              gl.enableVertexAttribArray(
+                shaderInfo.vertex.attributeLocations.vertexColor
+              )
 
-            gl.drawArrays(gl.TRIANGLES, 0, triangle.vertices.length)
-          }
-        )
+              gl.useProgram(shaderProgram)
+
+              gl.uniformMatrix4fv(
+                shaderInfo.vertex.uniformLocations.mvpMatrix,
+                false,
+                mvpMatrix
+              )
+
+              gl.drawArrays(gl.TRIANGLES, 0, triangle.vertices.length)
+            }
+          )
+        }
+        requestAnimationFrame(renderScene)
+
+        return () => updateShouldRender(false)
       }
     ),
     [triangleBuffer]

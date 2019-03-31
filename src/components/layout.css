@@ -67,6 +67,10 @@ textarea {
   color: #ffffff;
 }
 
+canvas {
+  width: 100%;
+}
+
 #___gatsby {
   height: 100%;
 }
@@ -152,15 +156,20 @@ textarea {
 
 .container .row.wrapper .column.content footer.column .social {
   padding-right: 1rem;
+  height: 2rem;
 }
 
 .container .row.wrapper .column.content footer.column .social a {
   border-bottom: none;
+  height: 2rem;
+  display: inline-block;
 }
 
 .container .row.wrapper .column.content footer.column .social img {
-  max-height: 2rem;
+  height: 2rem;
+  padding: 0 1rem;
   border: none;
+  background: none;
 }
 
 .page-change {

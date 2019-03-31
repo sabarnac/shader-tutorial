@@ -1,5 +1,6 @@
 import React from "react"
 import twitter from "../images/twitter.png"
+import github from "../images/github.png"
 
 const Footer = () => (
   <div className="row">
@@ -16,11 +17,18 @@ const Footer = () => (
       </div>
       <div className="social">
         <a
+          href="https://github.com/sabarnac/shader-tutorial/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img src={github} alt="GitHub Repo Link" />
+        </a>
+        <a
           href="https://twitter.com/disappointin_af"
           rel="noopener noreferrer"
           target="_blank"
         >
-          <img src={twitter} alt="twitter" />
+          <img src={twitter} alt="Twitter Link" />
         </a>
       </div>
     </footer>

@@ -34,6 +34,7 @@ const VertexShaderFirstExample = () => {
   const [shaderProgram, updateShaderProgram] = useState(null)
   const [shaderInfo, updateShaderInfo] = useState(null)
   const [triangleBuffer, updateTriangleBuffer] = useState({ vertices: null })
+  const [shouldRender, updateShouldRender] = useState(true)
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
@@ -76,42 +77,53 @@ const VertexShaderFirstExample = () => {
 
   useEffect(
     runOnPredicate(triangleBuffer.vertices !== null, () => {
-      webGlRef.renderScene(
-        ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
-          gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer.vertices)
-          gl.vertexAttribPointer(
-            shaderInfo.vertex.attributeLocations.vertexPosition,
-            3,
-            gl.FLOAT,
-            false,
-            0,
-            0
-          )
-          gl.enableVertexAttribArray(
-            shaderInfo.vertex.attributeLocations.vertexPosition
-          )
+      updateShouldRender(true)
 
-          gl.useProgram(shaderProgram)
+      const renderScene = () => {
+        webGlRef.renderScene(
+          ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
+            if (!shouldRender) {
+              return
+            }
 
-          gl.uniformMatrix4fv(
-            shaderInfo.vertex.uniformLocations.projectionMatrix,
-            false,
-            projectionMatrix
-          )
-          gl.uniformMatrix4fv(
-            shaderInfo.vertex.uniformLocations.viewMatrix,
-            false,
-            viewMatrix
-          )
-          gl.uniformMatrix4fv(
-            shaderInfo.vertex.uniformLocations.modelMatrix,
-            false,
-            modelMatrix
-          )
+            gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer.vertices)
+            gl.vertexAttribPointer(
+              shaderInfo.vertex.attributeLocations.vertexPosition,
+              3,
+              gl.FLOAT,
+              false,
+              0,
+              0
+            )
+            gl.enableVertexAttribArray(
+              shaderInfo.vertex.attributeLocations.vertexPosition
+            )
 
-          gl.drawArrays(gl.LINE_LOOP, 0, triangle.vertices.length)
-        }
-      )
+            gl.useProgram(shaderProgram)
+
+            gl.uniformMatrix4fv(
+              shaderInfo.vertex.uniformLocations.projectionMatrix,
+              false,
+              projectionMatrix
+            )
+            gl.uniformMatrix4fv(
+              shaderInfo.vertex.uniformLocations.viewMatrix,
+              false,
+              viewMatrix
+            )
+            gl.uniformMatrix4fv(
+              shaderInfo.vertex.uniformLocations.modelMatrix,
+              false,
+              modelMatrix
+            )
+
+            gl.drawArrays(gl.LINE_LOOP, 0, triangle.vertices.length)
+          }
+        )
+      }
+      requestAnimationFrame(renderScene)
+
+      return () => updateShouldRender(false)
     }),
     [triangleBuffer]
   )
