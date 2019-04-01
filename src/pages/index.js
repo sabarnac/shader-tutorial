@@ -26,10 +26,9 @@ const IndexPage = ({ location: { pathname } }) => (
         as language agnostic as possible.
       </p>
       <p>
-        Do note that this tutorial was written from the perspective of video
-        games and effects and functionality required or useful for them. The
-        concepts taught can still be used in other areas, and content may be
-        updated to make the target application more general.
+        Do note that this tutorial was written from the perspective of 3D
+        graphics. The concepts taught can still be used in other areas, and
+        content may be updated to make the target application more general.
       </p>
       <p>
         You can browse through the tutorial by clicking on the links in the
