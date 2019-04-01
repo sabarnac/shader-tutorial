@@ -13,6 +13,9 @@ const Navigation = () => (
         <Link to="/">Home</Link>
       </li>
       <li>
+        <hr />
+      </li>
+      <li>
         <Link to="/basics/">Basics</Link>
         <ul>
           <li>
@@ -36,6 +39,12 @@ const Navigation = () => (
             <Link to="/basics/lighting">Lighting</Link>
           </li>
         </ul>
+      </li>
+      <li>
+        <hr />
+      </li>
+      <li>
+        <Link to="/faq">FAQ</Link>
       </li>
     </ul>
   </nav>

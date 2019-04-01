@@ -5,7 +5,7 @@ import Content from "../../components/content"
 import SEO from "../../components/seo"
 import { Link } from "gatsby"
 
-const EndPage = ({ location: { pathname } }) => (
+const BasicsIndexPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
       pathname={pathname}
@@ -45,4 +45,4 @@ const EndPage = ({ location: { pathname } }) => (
   </Layout>
 )
 
-export default EndPage
+export default BasicsIndexPage

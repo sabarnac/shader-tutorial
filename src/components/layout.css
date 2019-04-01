@@ -34,6 +34,8 @@ h6 {
 canvas {
   background: #ffffff;
   border: 1px solid #ffffff;
+  width: 100%;
+  max-width: 800px;
 }
 
 a,
@@ -65,10 +67,6 @@ img {
 input,
 textarea {
   color: #ffffff;
-}
-
-canvas {
-  width: 100%;
 }
 
 #___gatsby {
@@ -115,7 +113,7 @@ canvas {
 
 .container .row.wrapper header.column nav ul li:not(.skip-nav) {
   font-size: 2rem;
-  padding-left: 2rem;
+  padding: 0 2rem;
 }
 
 .container .row.wrapper .column.content {
@@ -186,6 +184,11 @@ canvas {
 
 .toc {
   font-size: 2rem;
+}
+
+dl.faq-list dt::before {
+  content: "Q. ";
+  font-weight: 600;
 }
 
 nav ul {

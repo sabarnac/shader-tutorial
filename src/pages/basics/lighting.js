@@ -65,27 +65,6 @@ const LandingPage = ({ location: { pathname } }) => (
         <li>The specular component</li>
       </ul>
       <p>
-        The{" "}
-        <a
-          href="https://www.opengl-tutorial.org/beginners-tutorials/tutorial-8-basic-shading/"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          following chapter
-        </a>{" "}
-        of the{" "}
-        <a
-          href="https://www.opengl-tutorial.org/"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          OpenGL Tutorial
-        </a>{" "}
-        provides a good explanation of what the three components are, but we'll
-        be going through them here as well. You can use that material as a
-        secondary reference if required.
-      </p>
-      <p>
         Let's look at each component, and how they effect the look of the object
         when simulating lighting. We'll only work with a single point light,
         which has light rays going from a single point in every direction, but
