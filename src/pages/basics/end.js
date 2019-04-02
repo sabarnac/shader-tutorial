@@ -22,9 +22,9 @@ const EndPage = ({ location: { pathname } }) => (
       </p>
       <p>
         These concepts are the groundwork needed to help you get started and
-        experiment with shader programming. As the last chapter says, the
-        concepts for lighting are concepts that can be creatively experimented
-        with, and also shows how and where experimentation can be introduced.
+        experiment with shader programming. Examples are provided for how
+        experimentation can be done within the vertex and fragment shader
+        chapters with the final examples in them.
       </p>
       <p>
         Start experimenting and see what crazy things you can come up with.

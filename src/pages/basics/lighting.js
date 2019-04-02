@@ -946,53 +946,6 @@ const LandingPage = ({ location: { pathname } }) => (
         much smoother than they really are due to the colors from the noise
         blending together.
       </p>
-      <h3>A final note on lighting and experimentation</h3>
-      <p>
-        The methods and details discussed on lighting and its components are on
-        how to realistically simulate lighting of an object through basic
-        methods. However, realism in lighting may not always be desirable.
-      </p>
-      <p>
-        These concepts are present just to show one way of lighting an object,
-        but it most definitely is not the only way. There are other ways to
-        simulate the same effects, and many more ways to simulate different
-        kinds of lighting effects that may be less realistic.
-      </p>
-      <p>
-        The way objects are lit in an environment can be a creative process. You
-        can have lighting certain reflection components be exaggerated, just
-        like we did for our color banding examples.
-      </p>
-      <p>
-        Likewise, these components can also be heavily subdued if that fits your
-        requirements.
-      </p>
-      <p>
-        If required, you can also completely forgo these methods and light your
-        environment in unique and visually interesting ways. This chapter should
-        just provide you a starting point to go from.
-      </p>
-      <p>
-        While previous chapters do show points where creativity can be added in,
-        they are clearcut on the concepts required to perform the operations
-        that they teach.
-      </p>
-      <p>
-        This is the first chapter that teaches a concept that can be completely
-        modified, replaced, or removed to satisfy creative requirements,
-        allowing for freedom on what can and cannot be done.
-      </p>
-      <p>
-        The concepts of this chapter also show how modifications can be made to
-        create visual effects that improve the image. These concepts should help
-        be a starting point for moving forward and applying your own
-        modifications and effects.
-      </p>
-      <p>
-        An honest recommendation is to start experimenting. See what best fits
-        your requirements, and see how changes, both big and small, can affect
-        the end result.
-      </p>
       <h3>Summary</h3>
       <ul>
         <li>
@@ -1031,15 +984,6 @@ const LandingPage = ({ location: { pathname } }) => (
           <li>
             Dithering is a process of adding noise to an image to remove color
             pattern issues such as color banding.
-          </li>
-          <li>
-            <strong>EXPERIMENT! EXPERIMENT! EXPERIMENT!</strong> Lighting is the
-            first main concept taught that can be experimented with in multiple
-            ways, allowing for creativity. It also is the first concept that
-            shows how experimentation can be introduced within the primary
-            concepts taught beforehand in order to add visual effects to a
-            rendered image. Experiment to see what best fits your requirements,
-            and how variables and parts affect the end result.
           </li>
         </li>
       </ul>
