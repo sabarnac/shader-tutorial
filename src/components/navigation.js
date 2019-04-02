@@ -25,6 +25,9 @@ const Navigation = () => (
             <Link to="/basics/render-pipeline/">Render Pipeline</Link>
           </li>
           <li>
+            <Link to="/basics/mathematics/">Mathematics</Link>
+          </li>
+          <li>
             <Link to="/basics/vertex-shader/">Vertex Shader</Link>
           </li>
           <li>

@@ -234,7 +234,7 @@ const VertexShaderPage = ({ location: { pathname } }) => (
       </ul>
     </Content>
     <PageChange
-      previous="/basics/render-pipeline/"
+      previous="/basics/mathematics/"
       next="/basics/fragment-shader/"
     />
   </Layout>

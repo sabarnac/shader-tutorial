@@ -25,6 +25,11 @@ const BasicsIndexPage = ({ location: { pathname } }) => (
           </Link>
         </li>
         <li>
+          <Link to="/basics/mathematics/">
+            Shader Basics - A Primer On Necessary Mathematics
+          </Link>
+        </li>
+        <li>
           <Link to="/basics/vertex-shader/">Shader Basics - Vertex Shader</Link>
         </li>
         <li>

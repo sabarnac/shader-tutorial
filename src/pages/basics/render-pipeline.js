@@ -16,12 +16,6 @@ const IntroductionPage = ({ location: { pathname } }) => (
     <Content>
       <h2>Shader Basics - The GPU Render Pipeline</h2>
       <p>
-        Before diving into shaders, an overview of the render pipeline is
-        necessary to understand how shaders actually contribute to rendering an
-        image.
-      </p>
-      <h3>An overview</h3>
-      <p>
         GPUs, when rendering images, primarily work on a set of vertex data. If
         we have an object (for example, a teapot) that we wish to render an
         image of, the teapot first needs to be divided into small components
@@ -281,7 +275,7 @@ const IntroductionPage = ({ location: { pathname } }) => (
         the vertex shader.
       </p>
     </Content>
-    <PageChange next="/basics/vertex-shader/" />
+    <PageChange previous="/basics/introduction/" next="/basics/mathematics/" />
   </Layout>
 )
 
