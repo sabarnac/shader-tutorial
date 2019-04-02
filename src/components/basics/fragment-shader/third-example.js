@@ -99,9 +99,7 @@ const FragmentShaderThirdExample = () => {
 
             const time = parseInt(performance.now().toString())
 
-            const timeSlice = time % 4000
-            const colorShift =
-              1 - (timeSlice >= 2000 ? 4000 - timeSlice : timeSlice) / 1000
+            const colorShift = Math.cos((time / 500) % 360)
 
             if (time - then > 100) {
               then = time
