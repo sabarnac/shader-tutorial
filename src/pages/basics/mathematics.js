@@ -84,16 +84,16 @@ const MathematicsPage = ({ location: { pathname } }) => (
         position. This can best be represented through vectors.
       </p>
       <p>
-        We've learnt that a vector represents moving a point from one place to
-        another. If the initial point is always the origin{" "}
-        {renderEquation(`A = (0, 0, 0)`)}, then you'll notice that all formed
-        vectors always represents the position of the final point.
+        We know that a vector is data that represents moving a point from one
+        place to another. If the initial point is always the origin{" "}
+        {renderEquation(`O = (0, 0, 0)`)}, then you'll notice that all resulting
+        vectors represent the position of the final point.
       </p>
       <p>
         The reason for this is quite simple. Every point you plot is always
         respective to the origin. So when a point is plotted at{" "}
         {renderEquation(`A = (1, 2, 3)`)}, that point is placed relative to an
-        origin point which is always at {renderEquation(`A = (0, 0, 0)`)}.
+        origin point which is always at {renderEquation(`O = (0, 0, 0)`)}.
       </p>
       <p>
         This means that any vector that represents the amount needed to carry
