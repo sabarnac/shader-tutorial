@@ -33,13 +33,23 @@ const Navigation = () => (
           <li>
             <Link to="/basics/fragment-shader">Fragment Shader</Link>
           </li>
+        </ul>
+      </li>
+      <li>
+        <hr />
+      </li>
+      <li>
+        <Link to="/intermediates/">Intermediates</Link>
+        <ul>
           <li>
-            <Link to="/basics/texturing-branching">
+            <Link to="/intermediates/texturing-branching">
               Texturing And Branching
             </Link>
           </li>
           <li>
-            <Link to="/basics/lighting">Lighting</Link>
+            <Link to="/intermediates/lighting-dithering">
+              Lighting And Dithering
+            </Link>
           </li>
         </ul>
       </li>

@@ -1,12 +1,12 @@
 import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate, coordArrToString, uvArrToString } from "../../util"
+import { runOnPredicate } from "../../util"
 import {
-  firstVertexShaderSource,
-  firstFragmentShaderSource,
-} from "./first-example-shaders"
+  noLightVertexShaderSource,
+  noLightFragmentShaderSource,
+} from "./no-light-example-shaders"
 import { mat4 } from "gl-matrix"
-import texture from "../../../images/basics/texture.png"
+import texture from "../../../images/intermediates/texture.png"
 
 const shaderProgramInfo = {
   vertex: {
@@ -15,7 +15,9 @@ const shaderProgramInfo = {
       vertexUv: "vec2",
     },
     uniformLocations: {
-      mvpMatrix: "mat4",
+      modelMatrix: "mat4",
+      viewMatrix: "mat4",
+      projectionMatrix: "mat4",
     },
   },
   fragment: {
@@ -27,13 +29,22 @@ const shaderProgramInfo = {
 }
 
 const cubeModelPosition = mat4.create()
-const cubeFaceUvs = [[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]
+const cubeFaceUvs = [
+  [0.0, 0.0],
+  [1.0, 0.0],
+  [0.0, 1.0],
+  [1.0, 0.0],
+  [0.0, 1.0],
+  [1.0, 1.0],
+]
 
-const TextureBranchingFirstExample = () => {
+const LightingNoLightExample = () => {
   const cube = {
     vertices: [
       // Front vertices
       [-1.0, -1.0, 1.0],
+      [-1.0, 1.0, 1.0],
+      [1.0, -1.0, 1.0],
       [-1.0, 1.0, 1.0],
       [1.0, -1.0, 1.0],
       [1.0, 1.0, 1.0],
@@ -41,9 +52,13 @@ const TextureBranchingFirstExample = () => {
       [-1.0, -1.0, 1.0],
       [-1.0, 1.0, 1.0],
       [-1.0, -1.0, -1.0],
+      [-1.0, 1.0, 1.0],
+      [-1.0, -1.0, -1.0],
       [-1.0, 1.0, -1.0],
       // Right vertices
       [1.0, -1.0, 1.0],
+      [1.0, 1.0, 1.0],
+      [1.0, -1.0, -1.0],
       [1.0, 1.0, 1.0],
       [1.0, -1.0, -1.0],
       [1.0, 1.0, -1.0],
@@ -51,17 +66,23 @@ const TextureBranchingFirstExample = () => {
       [-1.0, 1.0, 1.0],
       [1.0, 1.0, 1.0],
       [-1.0, 1.0, -1.0],
+      [1.0, 1.0, 1.0],
+      [-1.0, 1.0, -1.0],
       [1.0, 1.0, -1.0],
       // Bottom vertices
       [-1.0, -1.0, 1.0],
       [1.0, -1.0, 1.0],
       [-1.0, -1.0, -1.0],
+      [1.0, -1.0, 1.0],
+      [-1.0, -1.0, -1.0],
       [1.0, -1.0, -1.0],
       // Back vertices
-      [-1.0, -1.0, -1.0],
+      [1.0, 1.0, -1.0],
+      [1.0, -1.0, -1.0],
       [-1.0, 1.0, -1.0],
       [1.0, -1.0, -1.0],
-      [1.0, 1.0, -1.0],
+      [-1.0, 1.0, -1.0],
+      [-1.0, -1.0, -1.0],
     ],
     uvs: [
       // Front UVs
@@ -78,12 +99,12 @@ const TextureBranchingFirstExample = () => {
       ...cubeFaceUvs,
     ],
     indices: [
-      [0, 1, 2, 3],
-      [4, 5, 6, 7],
-      [8, 9, 10, 11],
-      [12, 13, 14, 15],
-      [16, 17, 18, 19],
-      [20, 21, 22, 23],
+      [0, 1, 2, 3, 4, 5],
+      [6, 7, 8, 9, 10, 11],
+      [12, 13, 14, 15, 16, 17],
+      [18, 19, 20, 21, 22, 23],
+      [24, 25, 26, 27, 28, 29],
+      [30, 31, 32, 33, 34, 35],
     ],
     texture: texture,
   }
@@ -108,8 +129,8 @@ const TextureBranchingFirstExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          firstVertexShaderSource,
-          firstFragmentShaderSource
+          noLightVertexShaderSource,
+          noLightFragmentShaderSource
         )
       )
     }),
@@ -173,10 +194,6 @@ const TextureBranchingFirstExample = () => {
               rotationAngle / 3
             )
 
-            const mvpMatrix = mat4.create()
-            mat4.multiply(mvpMatrix, viewMatrix, rotatedModelMatrix)
-            mat4.multiply(mvpMatrix, projectionMatrix, mvpMatrix)
-
             gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.vertices)
             gl.vertexAttribPointer(
               shaderInfo.vertex.attributeLocations.vertexPosition,
@@ -208,9 +225,19 @@ const TextureBranchingFirstExample = () => {
             gl.useProgram(shaderProgram)
 
             gl.uniformMatrix4fv(
-              shaderInfo.vertex.uniformLocations.mvpMatrix,
+              shaderInfo.vertex.uniformLocations.projectionMatrix,
               false,
-              mvpMatrix
+              projectionMatrix
+            )
+            gl.uniformMatrix4fv(
+              shaderInfo.vertex.uniformLocations.viewMatrix,
+              false,
+              viewMatrix
+            )
+            gl.uniformMatrix4fv(
+              shaderInfo.vertex.uniformLocations.modelMatrix,
+              false,
+              rotatedModelMatrix
             )
 
             gl.activeTexture(gl.TEXTURE0)
@@ -222,7 +249,7 @@ const TextureBranchingFirstExample = () => {
             )
 
             gl.drawElements(
-              gl.TRIANGLE_STRIP,
+              gl.TRIANGLES,
               cube.indices.length * cube.indices[0].length,
               gl.UNSIGNED_SHORT,
               0
@@ -244,27 +271,8 @@ const TextureBranchingFirstExample = () => {
       <canvas width="640" height="480" ref={canvasRef}>
         Cannot run WebGL examples (not supported)
       </canvas>
-      <pre className="util text-left">
-        {`
-Cube:
-    Vertices:
-        Vertex 1: ${coordArrToString(cube.vertices[0])}
-        Vertex 2: ${coordArrToString(cube.vertices[1])}
-        Vertex 3: ${coordArrToString(cube.vertices[2])}
-        Vertex 4: ${coordArrToString(cube.vertices[3])}
-        Vertex 5: ${coordArrToString(cube.vertices[12])}
-        Vertex 6: ${coordArrToString(cube.vertices[13])}
-        Vertex 7: ${coordArrToString(cube.vertices[14])}
-        Vertex 8: ${coordArrToString(cube.vertices[15])}
-    Face UV:
-        Vertex 1: ${uvArrToString(cubeFaceUvs[0])}
-        Vertex 2: ${uvArrToString(cubeFaceUvs[1])}
-        Vertex 3: ${uvArrToString(cubeFaceUvs[2])}
-        Vertex 4: ${uvArrToString(cubeFaceUvs[3])}
-`.trim()}
-      </pre>
     </div>
   )
 }
 
-export default TextureBranchingFirstExample
+export default LightingNoLightExample

@@ -1,12 +1,12 @@
 import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate } from "../../util"
+import { runOnPredicate, coordArrToString } from "../../util"
 import {
-  fourthVertexShaderSource,
-  fourthFragmentShaderSource,
-} from "./fourth-example-shaders"
+  secondVertexShaderSource,
+  secondFragmentShaderSource,
+} from "./second-example-shaders"
 import { mat4, vec3, vec4 } from "gl-matrix"
-import texture from "../../../images/basics/texture.png"
+import texture from "../../../images/intermediates/texture.png"
 
 const shaderProgramInfo = {
   vertex: {
@@ -23,24 +23,20 @@ const shaderProgramInfo = {
       lightPosition_worldSpace: "vec4",
       lightColor: "vec3",
       lightIntensity: "float",
-      surfaceReflectivity: "float",
     },
   },
   fragment: {
     attributeLocations: {},
     uniformLocations: {
       ambientFactor: "float",
-      noiseGranularity: "float",
       textureSampler: "sampler2D",
     },
   },
 }
 
-const lightModelPosition = vec4.fromValues(0.0, 0.0, 4.0, 1.0)
-const lightColor = vec3.fromValues(1.0, 1.0, 1.0)
-const lightIntensity = 40.0
-
-const noiseGranularity = 0.5 / 255.0
+const lightModelPosition = vec4.fromValues(4.0, 4.0, 4.0, 1.0)
+const lightColor = vec3.fromValues(0.3, 0.3, 0.3)
+const lightIntensity = 50.0
 
 const cubeModelPosition = mat4.create()
 const cubeFaceUvs = [
@@ -52,7 +48,7 @@ const cubeFaceUvs = [
   [1.0, 1.0],
 ]
 
-const LightingFourthExample = () => {
+const LightingSecondExample = () => {
   const cube = {
     vertices: [
       // Front vertices
@@ -165,8 +161,7 @@ const LightingFourthExample = () => {
       [30, 31, 32, 33, 34, 35],
     ],
     texture: texture,
-    ambientFactor: 0.3,
-    surfaceReflectivity: 5.0,
+    ambientFactor: 0.1,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -190,8 +185,8 @@ const LightingFourthExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          fourthVertexShaderSource,
-          fourthFragmentShaderSource
+          secondVertexShaderSource,
+          secondFragmentShaderSource
         )
       )
     }),
@@ -330,18 +325,10 @@ const LightingFourthExample = () => {
               shaderInfo.vertex.uniformLocations.lightIntensity,
               lightIntensity
             )
-            gl.uniform1f(
-              shaderInfo.vertex.uniformLocations.surfaceReflectivity,
-              cube.surfaceReflectivity
-            )
 
             gl.uniform1f(
               shaderInfo.fragment.uniformLocations.ambientFactor,
               cube.ambientFactor
-            )
-            gl.uniform1f(
-              shaderInfo.fragment.uniformLocations.noiseGranularity,
-              noiseGranularity
             )
 
             gl.activeTexture(gl.TEXTURE0)
@@ -370,14 +357,31 @@ const LightingFourthExample = () => {
     [cubeBuffer]
   )
 
+  const colorCoords = { x: "r", y: "g", z: "b" }
+
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
       <canvas width="640" height="480" ref={canvasRef}>
         Cannot run WebGL examples (not supported)
       </canvas>
-      <pre className="util text-left">Noise Granularity: 0.5 / 255.0</pre>
+      <pre className="util text-left">
+        {`
+Cube:
+    World Position: ${coordArrToString([0.0, 0.0, 0.0])}
+    Lighting:
+        Ambient Factor: ${cube.ambientFactor}
+`.trim()}
+      </pre>
+      <pre className="util text-left">
+        {`
+Light:
+    World Position: ${coordArrToString(lightModelPosition)}
+    Color: ${coordArrToString(lightColor, colorCoords)}
+    Intensity: ${lightIntensity}
+`.trim()}
+      </pre>
     </div>
   )
 }
 
-export default LightingFourthExample
+export default LightingSecondExample

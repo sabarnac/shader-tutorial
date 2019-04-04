@@ -4,21 +4,21 @@ import Layout from "../../components/layout"
 import Content from "../../components/content"
 import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
-import TextureBranchingFirstExample from "../../components/basics/texturing-branching/first-example"
-import TextureBranchingSecondExample from "../../components/basics/texturing-branching/second-example"
+import TextureBranchingFirstExample from "../../components/intermediates/texturing-branching/first-example"
+import TextureBranchingSecondExample from "../../components/intermediates/texturing-branching/second-example"
 import {
   firstVertexShaderSource,
   firstFragmentShaderSource,
-} from "../../components/basics/texturing-branching/first-example-shaders"
+} from "../../components/intermediates/texturing-branching/first-example-shaders"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import { Link } from "gatsby"
-import { secondFragmentShaderSource } from "../../components/basics/texturing-branching/second-example-shaders"
+import { secondFragmentShaderSource } from "../../components/intermediates/texturing-branching/second-example-shaders"
 
 const TexturingBranchingPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
       pathname={pathname}
-      title="Shader Basics - Textures And Branching"
+      title="Shader Intermediates - Textures And Branching"
       description="A look into the how textures are used to color objects in shaders."
       keywords={[
         "texture",
@@ -27,11 +27,11 @@ const TexturingBranchingPage = ({ location: { pathname } }) => (
         "texturing",
         "uv",
         "shader",
-        "basics",
+        "intermediates",
       ]}
     />
     <Content>
-      <h2>Shader Basics - Textures And Branching</h2>
+      <h2>Shader Intermediates - Textures And Branching</h2>
       <p>
         So far we've passed direct color information of vertices to the fragment
         shader, which was then interpolated for each fragment and then set as
@@ -252,7 +252,7 @@ const TexturingBranchingPage = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange previous="/basics/fragment-shader/" next="/basics/lighting/" />
+    <PageChange next="/intermediates/lighting/" />
   </Layout>
 )
 

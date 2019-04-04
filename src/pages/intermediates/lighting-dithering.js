@@ -4,43 +4,43 @@ import Layout from "../../components/layout"
 import Content from "../../components/content"
 import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
-import LightingNoLightExample from "../../components/basics/lighting/no-light-example.js"
-import LightingFirstExample from "../../components/basics/lighting/first-example"
-import LightingSecondExample from "../../components/basics/lighting/second-example"
-import LightingThirdExample from "../../components/basics/lighting/third-example"
-import LightingFourthExample from "../../components/basics/lighting/fourth-example"
-import LightingIssueExample from "../../components/basics/lighting/issue-example"
+import LightingNoLightExample from "../../components/intermediates/lighting-dithering/no-light-example.js"
+import LightingFirstExample from "../../components/intermediates/lighting-dithering/first-example"
+import LightingSecondExample from "../../components/intermediates/lighting-dithering/second-example"
+import LightingThirdExample from "../../components/intermediates/lighting-dithering/third-example"
+import LightingFourthExample from "../../components/intermediates/lighting-dithering/fourth-example"
+import LightingIssueExample from "../../components/intermediates/lighting-dithering/issue-example"
 import { renderEquation } from "../../components/util"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import {
   firstVertexShaderSource,
   firstFragmentShaderSource,
-} from "../../components/basics/lighting/first-example-shaders"
+} from "../../components/intermediates/lighting-dithering/first-example-shaders"
 import { Link } from "gatsby"
-import { secondFragmentShaderSource } from "../../components/basics/lighting/second-example-shaders"
+import { secondFragmentShaderSource } from "../../components/intermediates/lighting-dithering/second-example-shaders"
 import {
   thirdVertexShaderSource,
   thirdFragmentShaderSource,
-} from "../../components/basics/lighting/third-example-shaders"
-import { fourthFragmentShaderSource } from "../../components/basics/lighting/fourth-example-shaders"
-import glslReflect from "../../images/basics/glsl-reflect.png"
-import banding from "../../images/basics/banded.png"
-import bandingExaggerated from "../../images/basics/banded-exaggerated.png"
-import noised from "../../images/basics/noised.png"
-import noisedExaggerated from "../../images/basics/noised-exaggerated.png"
-import actualGradient from "../../images/basics/actual-gradient.png"
-import bandedGradient from "../../images/basics/banded-gradient.png"
+} from "../../components/intermediates/lighting-dithering/third-example-shaders"
+import { fourthFragmentShaderSource } from "../../components/intermediates/lighting-dithering/fourth-example-shaders"
+import glslReflect from "../../images/intermediates/glsl-reflect.png"
+import banding from "../../images/intermediates/banded.png"
+import bandingExaggerated from "../../images/intermediates/banded-exaggerated.png"
+import noised from "../../images/intermediates/noised.png"
+import noisedExaggerated from "../../images/intermediates/noised-exaggerated.png"
+import actualGradient from "../../images/intermediates/actual-gradient.png"
+import bandedGradient from "../../images/intermediates/banded-gradient.png"
 
 const LandingPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
       pathname={pathname}
-      title="Shader Basics - Lighting"
+      title="Shader Intermediates - Lighting"
       description="A look into how lighting can be simulated on objects through shaders."
       keywords={[
         "lighting",
         "shader",
-        "basics",
+        "intermediates",
         "diffuse",
         "specular",
         "ambient",
@@ -49,7 +49,7 @@ const LandingPage = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <h2>Shader Basics - Lighting</h2>
+      <h2>Shader Intermediates - Lighting</h2>
       <p>
         While adding textures to color your objects helps to add more detail,
         simulating the lighting of the environment on the object adds further
@@ -713,7 +713,7 @@ const LandingPage = ({ location: { pathname } }) => (
       <p className="util text-center">
         <img
           src={bandingExaggerated}
-          alt="Color Banding Screenshot Exaggerated"
+          alt="Color Bithering Screenshot Exaggerated"
         />
       </p>
       <p>
@@ -893,8 +893,8 @@ const LandingPage = ({ location: { pathname } }) => (
         each other, they easily blend together and look smooth to your eyes.
       </p>
       <p>
-        Remember that the second image for dithering exaggerates the noise. In
-        the first dithering screenshot, the noise and patterns are practically
+        Remember that the second image for banding exaggerates the noise. In the
+        first banding screenshot, the noise and patterns are practically
         invisible, which is required to simulate a smooth gradient.
       </p>
       <GlslCodeHighlight code={fourthFragmentShaderSource} type="Fragment" />
@@ -988,7 +988,7 @@ const LandingPage = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange previous="/basics/texturing-branching/" next="/basics/end/" />
+    <PageChange previous="/intermediates/texturing-branching/" />
   </Layout>
 )
 

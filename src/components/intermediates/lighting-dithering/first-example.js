@@ -6,7 +6,7 @@ import {
   firstFragmentShaderSource,
 } from "./first-example-shaders"
 import { mat4, vec3, vec4 } from "gl-matrix"
-import texture from "../../../images/basics/texture.png"
+import texture from "../../../images/intermediates/texture.png"
 
 const shaderProgramInfo = {
   vertex: {

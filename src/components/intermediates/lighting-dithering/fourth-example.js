@@ -1,40 +1,64 @@
 import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate, coordArrToString, uvArrToString } from "../../util"
+import { runOnPredicate } from "../../util"
 import {
-  secondVertexShaderSource,
-  secondFragmentShaderSource,
-} from "./second-example-shaders"
-import { mat4 } from "gl-matrix"
-import texture from "../../../images/basics/texture.png"
+  fourthVertexShaderSource,
+  fourthFragmentShaderSource,
+} from "./fourth-example-shaders"
+import { mat4, vec3, vec4 } from "gl-matrix"
+import texture from "../../../images/intermediates/texture.png"
 
 const shaderProgramInfo = {
   vertex: {
     attributeLocations: {
       vertexPosition: "vec4",
       vertexUv: "vec2",
+      vertexNormal: "vec4",
     },
     uniformLocations: {
-      mvpMatrix: "mat4",
+      modelMatrix: "mat4",
+      viewMatrix: "mat4",
+      projectionMatrix: "mat4",
+
+      lightPosition_worldSpace: "vec4",
+      lightColor: "vec3",
+      lightIntensity: "float",
+      surfaceReflectivity: "float",
     },
   },
   fragment: {
     attributeLocations: {},
     uniformLocations: {
-      colorShift: "float",
+      ambientFactor: "float",
+      noiseGranularity: "float",
       textureSampler: "sampler2D",
     },
   },
 }
 
-const cubeModelPosition = mat4.create()
-const cubeFaceUvs = [[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]
+const lightModelPosition = vec4.fromValues(0.0, 0.0, 4.0, 1.0)
+const lightColor = vec3.fromValues(1.0, 1.0, 1.0)
+const lightIntensity = 40.0
 
-const TextureBranchingSecondExample = () => {
+const noiseGranularity = 0.5 / 255.0
+
+const cubeModelPosition = mat4.create()
+const cubeFaceUvs = [
+  [0.0, 0.0],
+  [1.0, 0.0],
+  [0.0, 1.0],
+  [1.0, 0.0],
+  [0.0, 1.0],
+  [1.0, 1.0],
+]
+
+const LightingFourthExample = () => {
   const cube = {
     vertices: [
       // Front vertices
       [-1.0, -1.0, 1.0],
+      [-1.0, 1.0, 1.0],
+      [1.0, -1.0, 1.0],
       [-1.0, 1.0, 1.0],
       [1.0, -1.0, 1.0],
       [1.0, 1.0, 1.0],
@@ -42,9 +66,13 @@ const TextureBranchingSecondExample = () => {
       [-1.0, -1.0, 1.0],
       [-1.0, 1.0, 1.0],
       [-1.0, -1.0, -1.0],
+      [-1.0, 1.0, 1.0],
+      [-1.0, -1.0, -1.0],
       [-1.0, 1.0, -1.0],
       // Right vertices
       [1.0, -1.0, 1.0],
+      [1.0, 1.0, 1.0],
+      [1.0, -1.0, -1.0],
       [1.0, 1.0, 1.0],
       [1.0, -1.0, -1.0],
       [1.0, 1.0, -1.0],
@@ -52,17 +80,23 @@ const TextureBranchingSecondExample = () => {
       [-1.0, 1.0, 1.0],
       [1.0, 1.0, 1.0],
       [-1.0, 1.0, -1.0],
+      [1.0, 1.0, 1.0],
+      [-1.0, 1.0, -1.0],
       [1.0, 1.0, -1.0],
       // Bottom vertices
       [-1.0, -1.0, 1.0],
       [1.0, -1.0, 1.0],
       [-1.0, -1.0, -1.0],
+      [1.0, -1.0, 1.0],
+      [-1.0, -1.0, -1.0],
       [1.0, -1.0, -1.0],
       // Back vertices
-      [-1.0, -1.0, -1.0],
+      [1.0, 1.0, -1.0],
+      [1.0, -1.0, -1.0],
       [-1.0, 1.0, -1.0],
       [1.0, -1.0, -1.0],
-      [1.0, 1.0, -1.0],
+      [-1.0, 1.0, -1.0],
+      [-1.0, -1.0, -1.0],
     ],
     uvs: [
       // Front UVs
@@ -78,15 +112,61 @@ const TextureBranchingSecondExample = () => {
       // Back UVs
       ...cubeFaceUvs,
     ],
+    normals: [
+      // Front normals
+      [0.0, 0.0, 1.0],
+      [0.0, 0.0, 1.0],
+      [0.0, 0.0, 1.0],
+      [0.0, 0.0, 1.0],
+      [0.0, 0.0, 1.0],
+      [0.0, 0.0, 1.0],
+      // Left normals
+      [-1.0, 0.0, 0.0],
+      [-1.0, 0.0, 0.0],
+      [-1.0, 0.0, 0.0],
+      [-1.0, 0.0, 0.0],
+      [-1.0, 0.0, 0.0],
+      [-1.0, 0.0, 0.0],
+      // Right normals
+      [1.0, 0.0, 0.0],
+      [1.0, 0.0, 0.0],
+      [1.0, 0.0, 0.0],
+      [1.0, 0.0, 0.0],
+      [1.0, 0.0, 0.0],
+      [1.0, 0.0, 0.0],
+      // Top normals
+      [0.0, 1.0, 0.0],
+      [0.0, 1.0, 0.0],
+      [0.0, 1.0, 0.0],
+      [0.0, 1.0, 0.0],
+      [0.0, 1.0, 0.0],
+      [0.0, 1.0, 0.0],
+      // Bottom normals
+      [0.0, -1.0, 0.0],
+      [0.0, -1.0, 0.0],
+      [0.0, -1.0, 0.0],
+      [0.0, -1.0, 0.0],
+      [0.0, -1.0, 0.0],
+      [0.0, -1.0, 0.0],
+      // Back normals
+      [0.0, 0.0, -1.0],
+      [0.0, 0.0, -1.0],
+      [0.0, 0.0, -1.0],
+      [0.0, 0.0, -1.0],
+      [0.0, 0.0, -1.0],
+      [0.0, 0.0, -1.0],
+    ],
     indices: [
-      [0, 1, 2, 3],
-      [4, 5, 6, 7],
-      [8, 9, 10, 11],
-      [12, 13, 14, 15],
-      [16, 17, 18, 19],
-      [20, 21, 22, 23],
+      [0, 1, 2, 3, 4, 5],
+      [6, 7, 8, 9, 10, 11],
+      [12, 13, 14, 15, 16, 17],
+      [18, 19, 20, 21, 22, 23],
+      [24, 25, 26, 27, 28, 29],
+      [30, 31, 32, 33, 34, 35],
     ],
     texture: texture,
+    ambientFactor: 0.3,
+    surfaceReflectivity: 5.0,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -94,11 +174,11 @@ const TextureBranchingSecondExample = () => {
   const [cubeBuffer, updateCubeBuffer] = useState({
     vertices: null,
     uvs: null,
+    normals: null,
     indices: null,
     texture: null,
   })
   const [shouldRender, updateShouldRender] = useState(true)
-  const [colorShift, updateColorShift] = useState(0)
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
@@ -110,8 +190,8 @@ const TextureBranchingSecondExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          secondVertexShaderSource,
-          secondFragmentShaderSource
+          fourthVertexShaderSource,
+          fourthFragmentShaderSource
         )
       )
     }),
@@ -138,6 +218,10 @@ const TextureBranchingSecondExample = () => {
           cube.uvs.flat(),
           cubeBuffer.uvs
         ),
+        normals: webGlRef.createStaticDrawArrayBuffer(
+          cube.normals.flat(),
+          cubeBuffer.normals
+        ),
         indices: webGlRef.createElementArrayBuffer(
           cube.indices.flat(),
           cubeBuffer.indices
@@ -151,7 +235,6 @@ const TextureBranchingSecondExample = () => {
   useEffect(
     runOnPredicate(cubeBuffer.vertices !== null, () => {
       updateShouldRender(true)
-      let then = parseInt(performance.now().toString())
 
       const renderScene = () => {
         webGlRef.renderScene(
@@ -161,15 +244,6 @@ const TextureBranchingSecondExample = () => {
             }
 
             const time = parseInt(performance.now().toString())
-
-            const timeSlice = time % 4000
-            const colorShift =
-              1 - (timeSlice >= 2000 ? 4000 - timeSlice : timeSlice) / 1000
-
-            if (time - then > 100) {
-              then = time
-              updateColorShift(colorShift)
-            }
 
             const rotatedModelMatrix = mat4.create()
             const rotationAngle = (((time / 30) % (360 * 6)) * Math.PI) / 180
@@ -184,10 +258,6 @@ const TextureBranchingSecondExample = () => {
               rotatedModelMatrix,
               rotationAngle / 3
             )
-
-            const mvpMatrix = mat4.create()
-            mat4.multiply(mvpMatrix, viewMatrix, rotatedModelMatrix)
-            mat4.multiply(mvpMatrix, projectionMatrix, mvpMatrix)
 
             gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.vertices)
             gl.vertexAttribPointer(
@@ -215,18 +285,63 @@ const TextureBranchingSecondExample = () => {
               shaderInfo.vertex.attributeLocations.vertexUv
             )
 
+            gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.normals)
+            gl.vertexAttribPointer(
+              shaderInfo.vertex.attributeLocations.vertexNormal,
+              3,
+              gl.FLOAT,
+              false,
+              0,
+              0
+            )
+            gl.enableVertexAttribArray(
+              shaderInfo.vertex.attributeLocations.vertexNormal
+            )
+
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeBuffer.indices)
 
             gl.useProgram(shaderProgram)
 
             gl.uniformMatrix4fv(
-              shaderInfo.vertex.uniformLocations.mvpMatrix,
+              shaderInfo.vertex.uniformLocations.projectionMatrix,
               false,
-              mvpMatrix
+              projectionMatrix
+            )
+            gl.uniformMatrix4fv(
+              shaderInfo.vertex.uniformLocations.viewMatrix,
+              false,
+              viewMatrix
+            )
+            gl.uniformMatrix4fv(
+              shaderInfo.vertex.uniformLocations.modelMatrix,
+              false,
+              rotatedModelMatrix
+            )
+
+            gl.uniform4fv(
+              shaderInfo.vertex.uniformLocations.lightPosition_worldSpace,
+              lightModelPosition
+            )
+            gl.uniform3fv(
+              shaderInfo.vertex.uniformLocations.lightColor,
+              lightColor
             )
             gl.uniform1f(
-              shaderInfo.fragment.uniformLocations.colorShift,
-              colorShift
+              shaderInfo.vertex.uniformLocations.lightIntensity,
+              lightIntensity
+            )
+            gl.uniform1f(
+              shaderInfo.vertex.uniformLocations.surfaceReflectivity,
+              cube.surfaceReflectivity
+            )
+
+            gl.uniform1f(
+              shaderInfo.fragment.uniformLocations.ambientFactor,
+              cube.ambientFactor
+            )
+            gl.uniform1f(
+              shaderInfo.fragment.uniformLocations.noiseGranularity,
+              noiseGranularity
             )
 
             gl.activeTexture(gl.TEXTURE0)
@@ -238,7 +353,7 @@ const TextureBranchingSecondExample = () => {
             )
 
             gl.drawElements(
-              gl.TRIANGLE_STRIP,
+              gl.TRIANGLES,
               cube.indices.length * cube.indices[0].length,
               gl.UNSIGNED_SHORT,
               0
@@ -260,28 +375,9 @@ const TextureBranchingSecondExample = () => {
       <canvas width="640" height="480" ref={canvasRef}>
         Cannot run WebGL examples (not supported)
       </canvas>
-      <pre className="util text-left">
-        {`
-Cube:
-    Vertices:
-        Vertex 1: ${coordArrToString(cube.vertices[0])}
-        Vertex 2: ${coordArrToString(cube.vertices[1])}
-        Vertex 3: ${coordArrToString(cube.vertices[2])}
-        Vertex 4: ${coordArrToString(cube.vertices[3])}
-        Vertex 5: ${coordArrToString(cube.vertices[12])}
-        Vertex 6: ${coordArrToString(cube.vertices[13])}
-        Vertex 7: ${coordArrToString(cube.vertices[14])}
-        Vertex 8: ${coordArrToString(cube.vertices[15])}
-    Face UV:
-        Vertex 1: ${uvArrToString(cubeFaceUvs[0])}
-        Vertex 2: ${uvArrToString(cubeFaceUvs[1])}
-        Vertex 3: ${uvArrToString(cubeFaceUvs[2])}
-        Vertex 4: ${uvArrToString(cubeFaceUvs[3])}
-`.trim()}
-      </pre>
-      <pre className="util text-left">Color Shift: {colorShift.toFixed(6)}</pre>
+      <pre className="util text-left">Noise Granularity: 0.5 / 255.0</pre>
     </div>
   )
 }
 
-export default TextureBranchingSecondExample
+export default LightingFourthExample

@@ -1,12 +1,12 @@
 import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate, coordArrToString } from "../../util"
+import { runOnPredicate } from "../../util"
 import {
   thirdVertexShaderSource,
   thirdFragmentShaderSource,
 } from "./third-example-shaders"
 import { mat4, vec3, vec4 } from "gl-matrix"
-import texture from "../../../images/basics/texture.png"
+import texture from "../../../images/intermediates/texture.png"
 
 const shaderProgramInfo = {
   vertex: {
@@ -35,9 +35,9 @@ const shaderProgramInfo = {
   },
 }
 
-const lightModelPosition = vec4.fromValues(4.0, 4.0, 4.0, 1.0)
-const lightColor = vec3.fromValues(0.3, 0.3, 0.3)
-const lightIntensity = 50.0
+const lightModelPosition = vec4.fromValues(0.0, 0.0, 4.0, 1.0)
+const lightColor = vec3.fromValues(1.0, 1.0, 1.0)
+const lightIntensity = 40.0
 
 const cubeModelPosition = mat4.create()
 const cubeFaceUvs = [
@@ -49,7 +49,7 @@ const cubeFaceUvs = [
   [1.0, 1.0],
 ]
 
-const LightingThirdExample = () => {
+const LightingIssueExample = () => {
   const cube = {
     vertices: [
       // Front vertices
@@ -162,7 +162,7 @@ const LightingThirdExample = () => {
       [30, 31, 32, 33, 34, 35],
     ],
     texture: texture,
-    ambientFactor: 0.1,
+    ambientFactor: 0.3,
     surfaceReflectivity: 5.0,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
@@ -363,32 +363,13 @@ const LightingThirdExample = () => {
     [cubeBuffer]
   )
 
-  const colorCoords = { x: "r", y: "g", z: "b" }
-
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
       <canvas width="640" height="480" ref={canvasRef}>
         Cannot run WebGL examples (not supported)
       </canvas>
-      <pre className="util text-left">
-        {`
-Cube:
-    World Position: ${coordArrToString([0.0, 0.0, 0.0])}
-    Lighting:
-        Ambient Factor: ${cube.ambientFactor}
-        Surface Reflectivity: ${cube.surfaceReflectivity}
-`.trim()}
-      </pre>
-      <pre className="util text-left">
-        {`
-Light:
-    World Position: ${coordArrToString(lightModelPosition)}
-    Color: ${coordArrToString(lightColor, colorCoords)}
-    Intensity: ${lightIntensity}
-`.trim()}
-      </pre>
     </div>
   )
 }
 
-export default LightingThirdExample
+export default LightingIssueExample
