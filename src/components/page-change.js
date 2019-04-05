@@ -6,12 +6,12 @@ const PageChange = ({ previous, next }) => (
   <div className="page-change">
     {previous ? (
       <div className="page-previous util text-left">
-        <Link to={previous}>Previous Chapter</Link>
+        <Link to={previous}>&#x2190; Previous Chapter</Link>
       </div>
     ) : null}
     {next ? (
       <div className="page-next util text-right">
-        <Link to={next}>Next Chapter</Link>
+        <Link to={next}>Next Chapter &#x2192;</Link>
       </div>
     ) : null}
   </div>
