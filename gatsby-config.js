@@ -1,12 +1,12 @@
 module.exports = {
   siteMetadata: {
     title: `GPU Shader Tutorial`,
-    baseUrl: `https://sabarnac.github.io`,
+    baseUrl: `https://shader-tutorial.dev`,
     fbAppId: `2273493326234232`,
     description: `Learn about GPU shaders in a simple, relatively easy-to-digest format.`,
     author: `@disappointin_af`,
   },
-  pathPrefix: "/shader-tutorial",
+  pathPrefix: "/",
   plugins: [
     `gatsby-plugin-react-helmet`,
     {
@@ -23,7 +23,7 @@ module.exports = {
       options: {
         name: `GPU Shader Tutorial`,
         short_name: `Shader Tutorial`,
-        start_url: `/shader-tutorial/`,
+        start_url: `/`,
         background_color: `#000000`,
         theme_color: `#000000`,
         display: `standalone`,
