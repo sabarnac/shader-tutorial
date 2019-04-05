@@ -11,7 +11,7 @@ const BasicsIndexPage = ({ location: { pathname } }) => (
       pathname={pathname}
       title="Shader Basics - Content"
       description="Table of Contents for the Shader Basics section."
-      keywords={["shader", "basics", "content"]}
+      keywords={["shader", "basics", "content", "toc"]}
     />
     <Content>
       <h2>Table of Contents</h2>
