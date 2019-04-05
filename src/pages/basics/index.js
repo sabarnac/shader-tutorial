@@ -37,14 +37,6 @@ const BasicsIndexPage = ({ location: { pathname } }) => (
             Shader Basics - Fragment Shader
           </Link>
         </li>
-        <li>
-          <Link to="/basics/texturing-branching">
-            Shader Basics - Texturing And Branching
-          </Link>
-        </li>
-        <li>
-          <Link to="/basics/lighting">Shader Basics - Lighting</Link>
-        </li>
       </ul>
     </Content>
   </Layout>
