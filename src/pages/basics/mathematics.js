@@ -511,7 +511,7 @@ const MathematicsPage = ({ location: { pathname } }) => (
       <h4>Other Matrices</h4>
       <p>
         There are other types of matrices, such as shearing matrices, which
-        allow for other types of manipulations to be performed on vectors.
+        allow for other types of transformations to be performed on vectors.
       </p>
       <p>
         As noted in the start of this section, the{" "}
