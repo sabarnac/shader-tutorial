@@ -586,10 +586,10 @@ const MathematicsPage = ({ location: { pathname } }) => (
         through some clever math.
       </p>
       <p>
-        For example, let's take a point {renderEquation(`a = vec(1, 2, 3)`)}{" "}
-        which needs animated into being scaled up to double its size, then
-        shrunk down to 0, finally scaled it back to its original size, and then
-        repeating the process.
+        For example, let's take a point {renderEquation(`a = (1, 2, 3)`)} which
+        needs animated into being scaled up to double its size, then shrunk down
+        to 0, finally scaled it back to its original size, and then repeating
+        the process.
       </p>
       <p>
         This can be done by using a scaling transform matrix that uses the value
