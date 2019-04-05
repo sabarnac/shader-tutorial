@@ -149,45 +149,59 @@ const MathematicsPage = ({ location: { pathname } }) => (
       </p>
       <p>
         While vectors are very good at representing data, a method is required
-        to manipulate this data so that we can perform calculations based of the
-        initial vector data provided.
+        to manipulate the data so that transformations can be performed based of
+        the initial vector data provided.
       </p>
       <p>
-        This task is most suitable for matrices, that allow for manipulation in
-        very interesting ways. Let's discuss a few types of matrices that are
-        used, and the how and why behind them.
+        Transformations are essential to calculations since they can change the
+        data into a form that is useful for other calculations. Without
+        transformations, data would always remain fixed within a certain bound,
+        making it less useful.
       </p>
       <p>
-        We'll be teaching about the absolutely required concepts to learn about
-        matrices. To learn more about them, check out{" "}
-        <a
-          href="https://www.opengl-tutorial.org/assets/faq_quaternions/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          this reference
-        </a>{" "}
-        by the{" "}
-        <a
-          href="https://www.opengl-tutorial.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          OpenGL Tutorial
-        </a>
-        , which provides great explanations into the mathematics of matrices,
-        more than could ever be covered here.
+        Let us take a 2D line for example whose ends are at{" "}
+        {renderEquation(`a = (1, 2, 3)`)} and {renderEquation(`b = (5, 7, 9)`)}.
+        This line is currently plotted with respect to the origin.
+      </p>
+      <p>
+        If the details of the lines are required to be known with respect to
+        another point (ex: {renderEquation(`o = (0, 1, -1)`)}, then the value of
+        the end points of the line have to be modified such that they are
+        plotted respective to this point.
+      </p>
+      <p>
+        These sort of transformations are best suited to be done through the use
+        of matrices, which simplify the transformation down into simple
+        multiplication.
+      </p>
+      <p>
+        Let us first look at how matrix multiplication works, and then some
+        examples of transform matrices, which are matrices used to perform
+        transformations.
+      </p>
+      <p>
+        <em>
+          Note: To learn more about matrix mathematics, check out{" "}
+          <a
+            href="https://www.opengl-tutorial.org/assets/faq_quaternions/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            this reference guide
+          </a>{" "}
+          by the{" "}
+          <a
+            href="https://www.opengl-tutorial.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            OpenGL Tutorial
+          </a>
+          , which provides great explanations and more info than can be covered
+          here.
+        </em>
       </p>
       <h4>Matrix Multiplication</h4>
-      <p>
-        When multiplying two matrices, the number of columns from the first
-        matrix has to match the number of rows of the second, or else they
-        cannot be multiplied.
-      </p>
-      <p>
-        The reason for this can be seen when we see the process of how matrices
-        are multiplied.
-      </p>
       <p>
         Let us take two matrices,{" "}
         {renderEquation(
@@ -260,28 +274,6 @@ const MathematicsPage = ({ location: { pathname } }) => (
         values, and add it to the previous result. Keeping going until you hit
         the end of both.
       </p>
-      <p>
-        A trick to remember which column and row from both matrices is needed
-        for a cell is to check the position of the cell.
-      </p>
-      <p>
-        For a cell {renderEquation(`c_(ij)`)}, it's value will be performing the
-        explained process using the {renderEquation(`i`)} column from the second
-        matrix, and the {renderEquation(`j`)} row from the first matrix.
-      </p>
-      <p>
-        If you notice carefully, this process will only work if the number of
-        columns in the first matrix has to equal the number of rows in the
-        second matrix.
-      </p>
-      <p>
-        If this rule isn't satisfied, there will be some cells that don't have a
-        cell from the other matrix that they can be multiplied with.
-      </p>
-      <p>
-        Another important note is that multiplication of matrices is not
-        commutative, meaning that {renderEquation(`a times b != b times a`)}.
-      </p>
       <h4>Identity Matrix</h4>
       <p>
         The identity matrix is similar to the number 1 in a certain way. When 1
@@ -292,7 +284,7 @@ const MathematicsPage = ({ location: { pathname } }) => (
       <p>
         The identity matrix is the same, but with matrices. Any matrix
         multiplied with an identity matrix will result in the original matrix
-        itself, unaltered.
+        itself, and is why the matrix is called an identity matrix.
       </p>
       <p>
         An identity matrix always has the same number of rows and columns. An
@@ -447,11 +439,11 @@ const MathematicsPage = ({ location: { pathname } }) => (
         .
       </p>
       <p>
-        To scale the point, we multiply the translation matrix and the matrix
+        To scale the point, we multiply the scaling matrix and the matrix
         representing the point vector in the order{" "}
         {renderEquation(`a_(scaled) = s times a`)}.
       </p>
-      <p>So the final translated point will be:</p>
+      <p>So the final scaled point will be:</p>
       <p className="util text-center">
         {renderEquation(
           `a_(scaled) = [[2, 0, 0, 0], [0, 3, 0, 0], [0, 0, 0.5, 0], [0, 0, 0, 1]] times [[1], [2], [3], [1]]`
@@ -545,9 +537,8 @@ const MathematicsPage = ({ location: { pathname } }) => (
       <h3>Trignometry</h3>
       <p>
         Similar to matrix mathematics, trignometry is useful for performing
-        manipulations on vector data. However, the benefit trignometry of
-        trignometry lies in the fact that it allows the formation of patterns in
-        manipulation.
+        transformations, except that it allows for transformation through the
+        use of regular patterns or shapes.
       </p>
       <p>
         Let's take the example of the trignometric functions{" "}
@@ -589,18 +580,42 @@ const MathematicsPage = ({ location: { pathname } }) => (
         </a>
       </p>
       <p>
-        As seen from the plot, the line drawn by both functions is a wave that
-        is always continuous. This allows the ability to draw patterns and
-        shapes since the lines drawn by these functions is continuous and
-        smooth, allowing for proper transitions and tiles to be drawn through
-        some clever math.
+        These functions allow the ability to draw patterns and shapes since the
+        results of these functions draws a line that is continuous and smooth
+        when plotted, allowing for proper transitions and tiles to be drawn
+        through some clever math.
       </p>
       <p>
-        A moving sine wave can be drawn as simply as just passing the time
-        elapsed since a certain starting point as the {renderEquation(`theta`)}{" "}
-        to {renderEquation(`sin(theta)`)}. Building up on this, a pattern or
-        shape can be built by setting the input of the function to specific
-        values, or by combining the results of multiple functions as well.
+        For example, let's take a point {renderEquation(`a = vec(1, 2, 3)`)}{" "}
+        which needs animated into being scaled up to double its size, then
+        shrunk down to 0, finally scaled it back to its original size, and then
+        repeating the process.
+      </p>
+      <p>
+        This can be done by using a scaling transform matrix that uses the value
+        of {renderEquation(`cos(theta)`)}, where {renderEquation(`theta`)} can
+        be the number of seconds that has passed since the start of the
+        animation.
+      </p>
+      <p>
+        Since the range of values produced by {renderEquation(`cos(theta)`)} is
+        between -1 to 1, we can just add 1 to the results to shift the range to
+        0 to 2, making the equation be {renderEquation(`x = cos(theta) + 1`)}.
+      </p>
+      <p>
+        The scaling transform can then be based upon this value, which would
+        make the matrix be:
+      </p>
+      <p className="util text-center">
+        {renderEquation(
+          `s = [[cos(theta) + 1, 0, 0, 0], [0, cos(theta) + 1, 0, 0], [0, 0, cos(theta) + 1, 0], [0, 0, 0, 1]]`
+        )}
+      </p>
+      <p>
+        This scaling matrix can then be multiplied with the point to ensure that
+        it is scaled properly based upon the time passed, with the animation
+        being performed by updating the position of the point regularly with the
+        scaling matrix.
       </p>
       <p>
         Other trignometric functions such as {renderEquation(`tan(theta)`)} and{" "}
