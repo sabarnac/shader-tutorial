@@ -57,7 +57,7 @@ const EndPage = ({ location: { pathname } }) => (
         (these use GLSL because they rely on WebGL).
       </p>
     </Content>
-    <PageChange previous="/basics/lighting/" />
+    <PageChange previous="/basics/fragment-shader/" />
   </Layout>
 )
 

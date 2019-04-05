@@ -332,10 +332,7 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange
-      previous="/basics/vertex-shader/"
-      next="/basics/texturing-branching"
-    />
+    <PageChange previous="/basics/vertex-shader/" next="/basics/end" />
   </Layout>
 )
 
