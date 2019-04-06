@@ -254,6 +254,24 @@ const ColorPage = ({ location: { pathname } }) => (
         HSV can be used over HSL as it is generally simpler to understand and
         use for most people.
       </p>
+      <h3>Additional Notes</h3>
+      <p>
+        In future chapters, we will primarily work with RGB(A) colors and
+        textures, but this knowledge is available if you wish to work in HSV
+        color space if it simplifies dealing with color.
+      </p>
+      <p>
+        Many color pickers and wheels generally provide a HSV-type interface,
+        but also allow exporting results into RGB. This should alleviate the
+        requirement for remembering the conversion.
+      </p>
+      <p>
+        The information about the variety of color spaces in use can still be
+        useful in certain cases, such as when you wish to provide to modify
+        colors to users, since color models such as HSV and HSL are more
+        intuitive, as discussed.
+      </p>
+      <p />
       <h3>Summary</h3>
       <ul>
         <li>
