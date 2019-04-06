@@ -727,26 +727,15 @@ const LandingPage = ({ location: { pathname } }) => (
         an undesirable effect, especially when it comes to lighting.
       </p>
       <p>
+        We've previously discussed in the{" "}
+        <Link to="/intermediates/color-2/">color part 2 chapter</Link> that
+        computers are limited in what colors they have the ability to represent
+        and show.
+      </p>
+      <p>
         This issue occurs mainly because the colors that are required to show
         the colors transitioning smoothly just do not exist among the range of
         colors that can form an image and a monitor can show.
-      </p>
-      <p>
-        Monitors and computers are both limited to a certain range of colors
-        they can show and store. Computers generally store colors in red, green,
-        and blue components, optionally with an alpha component
-        (opacity/transparency).
-      </p>
-      <p>
-        Each component is stored as an 8-bit value, which means that each
-        component can have at most 256 possible values. This may not seem like
-        much, but when all components are combined, this allows for{" "}
-        {renderEquation(`256 times 256 times 256 = 16,777,216`)} possible
-        colors.
-      </p>
-      <p>
-        However, even with these many colors, there are some colors that just
-        can't be stored and represented by computers and displays.
       </p>
       <p>
         This means that if a computer wished to show a gradient of colors, there
@@ -839,12 +828,15 @@ const LandingPage = ({ location: { pathname } }) => (
       <p>
         The image is just made from white and black pixels, but through the
         introduction of noise into the image, shades of grey can be seen within
-        the image, although it technically doesn't exist in the image.
+        the image, although the color grey technically doesn't exist in the
+        image.
       </p>
       <p>
-        This is due to how our eyes perceive color. Since there are multiple
-        black and white pixels very close to each other, our eyes blend these
-        colors and make it look like as if the image is showing us grey.
+        This is due to how colors interact with each other and affect how they
+        appear to us, as discussed in the{" "}
+        <Link to="/intermediates/color-2/">color part 2 chapter</Link>. This
+        interactions blends the noise of the colors together to appear as one
+        smooth band.
       </p>
       <p>
         The noise does introduce a grainy effect, but the added detail in color
@@ -943,8 +935,7 @@ const LandingPage = ({ location: { pathname } }) => (
       <p>
         This process of removes the chances of color banding occuring, as seen
         in the dithering screenshots, and allows for color gradients to appear
-        much smoother than they really are due to the colors from the noise
-        blending together.
+        much smoother than they really are.
       </p>
       <h3>Summary</h3>
       <ul>

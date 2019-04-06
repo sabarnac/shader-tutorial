@@ -252,7 +252,10 @@ const TexturingBranchingPage = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange next="/intermediates/lighting-dithering/" />
+    <PageChange
+      previous="/intermediates/color-2/"
+      next="/intermediates/lighting-dithering/"
+    />
   </Layout>
 )
 

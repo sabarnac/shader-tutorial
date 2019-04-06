@@ -82,7 +82,7 @@ const IntroductionPage = ({ location: { pathname } }) => (
         For example, if you needed to perform a particular calculation on a 1000
         input values, and the output values will always be within a specific
         range (like 0 to 256), then you can run the calculation on the GPU, and
-        have the result stored in a gray-scale image that can go from 0 (black)
+        have the result stored in a grey-scale image that can go from 0 (black)
         to 256 (white).
       </p>
       <p>

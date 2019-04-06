@@ -45,6 +45,9 @@ const Navigation = () => (
         <Link to="/intermediates/">Intermediates</Link>
         <ul>
           <li>
+            <Link to="/intermediates/color-2">Color Part 2</Link>
+          </li>
+          <li>
             <Link to="/intermediates/texturing-branching">
               Texturing And Branching
             </Link>

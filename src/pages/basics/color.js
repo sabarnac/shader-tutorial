@@ -240,11 +240,19 @@ const ColorPage = ({ location: { pathname } }) => (
         </a>{" "}
         that provides GLSL implementations of functions that can convert RGB
         color to HSV and back again.{" "}
-        <a href="https://www.rapidtables.com/convert/color/rgb-to-hsv.html">
+        <a
+          href="https://www.rapidtables.com/convert/color/rgb-to-hsv.html"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           This page
         </a>{" "}
         and{" "}
-        <a href="https://www.rapidtables.com/convert/color/hsv-to-rgb.html">
+        <a
+          href="https://www.rapidtables.com/convert/color/hsv-to-rgb.html"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           this page
         </a>{" "}
         show the formula that is used to convert from RGB to HSV and HSV to RGB

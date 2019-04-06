@@ -11,7 +11,7 @@ body {
   margin: 0;
   padding: 0;
   background: #000000;
-  color: #ffffff;
+  color: #cccccc;
 }
 
 html {
@@ -32,16 +32,16 @@ h6 {
 }
 
 canvas {
-  background: #ffffff;
-  border: 1px solid #ffffff;
+  background: #cccccc;
+  border: 1px solid #cccccc;
   width: 100%;
   max-width: 800px;
 }
 
 a,
 a:visited {
-  color: #ffffff;
-  border-bottom: 1px dotted #ffffff;
+  color: #cccccc;
+  border-bottom: 1px dotted #cccccc;
 }
 
 a:hover,
@@ -60,13 +60,13 @@ pre {
 }
 
 img {
-  background: #ffffff;
-  border: 1px solid #ffffff;
+  background: #cccccc;
+  border: 1px solid #cccccc;
 }
 
 input,
 textarea {
-  color: #ffffff;
+  color: #cccccc;
 }
 
 #___gatsby {
@@ -96,7 +96,7 @@ textarea {
 .container .row.wrapper header.column {
   padding: 1rem;
   max-width: 100%;
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid #cccccc;
 }
 
 .container .row.wrapper header.column h1 {
@@ -123,7 +123,7 @@ textarea {
 }
 
 .container .row.wrapper .column.content .notice.column {
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid #cccccc;
   background: #ff0000;
   padding: 1rem;
   display: flex;
@@ -145,7 +145,7 @@ textarea {
 }
 
 .container .row.wrapper .column.content footer.column {
-  border-top: 1px solid #ffffff;
+  border-top: 1px solid #cccccc;
   padding: 1rem;
   display: flex;
   justify-content: space-between;
@@ -205,7 +205,7 @@ nav ul {
 
   .container .row.wrapper header.column {
     border-bottom: none;
-    border-right: 1px solid #ffffff;
+    border-right: 1px solid #cccccc;
   }
 
   .container .row.wrapper .column.content main.row {
@@ -227,6 +227,6 @@ nav ul {
 }
 
 .row.page-change {
-  border-top: 1px dashed #ffffff;
+  border-top: 1px dashed #cccccc;
   padding: 1rem;
 }
