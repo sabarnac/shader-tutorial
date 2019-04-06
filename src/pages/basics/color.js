@@ -219,7 +219,7 @@ const ColorPage = ({ location: { pathname } }) => (
         This property allows the color white to be represented in two ways
         through HSL - by zeroing out saturation or maxing out lightness.
       </p>
-      <h3>Converting between HSL and RGB</h3>
+      <h3>Converting between HSV and RGB</h3>
       <p>
         While colors can be created using the HSL or HSV color model/space, this
         representation needs to be converted into the RGB color model/space,
@@ -239,7 +239,7 @@ const ColorPage = ({ location: { pathname } }) => (
           Here is a Stack Exchange answer
         </a>{" "}
         that provides GLSL implementations of functions that can convert RGB
-        color to HSV and HSV color to RGB.{" "}
+        color to HSV and back again.{" "}
         <a href="https://www.rapidtables.com/convert/color/rgb-to-hsv.html">
           This page
         </a>{" "}
