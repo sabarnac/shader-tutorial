@@ -33,6 +33,9 @@ const BasicsIndexPage = ({ location: { pathname } }) => (
           <Link to="/basics/vertex-shader/">Shader Basics - Vertex Shader</Link>
         </li>
         <li>
+          <Link to="/basics/color/">Shader Basics - Color</Link>
+        </li>
+        <li>
           <Link to="/basics/fragment-shader">
             Shader Basics - Fragment Shader
           </Link>
