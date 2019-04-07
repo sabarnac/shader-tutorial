@@ -275,24 +275,30 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
         timestamp.
       </p>
       <p>
-        This calculation is, similar to the rotating triangle, also done on the
-        CPU since it only needs to be done once, and can save redundant
-        calculations done repeatedly on the GPU.
-      </p>
-      <p>
         By subtracting the calculated color shift from the interpolated fragment
         color, we can have the color of the triangle oscillate from pure black,
         to the standard triangle color wheel, to pure white, and back again.
-      </p>
-      <p>
-        The color shift value is passed directly as a uniform since it doesn't
-        need to be interpolated and should instead be constant for every
-        fragment of the object.
       </p>
       <GlslCodeHighlight
         code={thirdFragmentShaderSource.trim()}
         type={"Fragment"}
       />
+      <p>
+        The color shift is calculated in the shader by taking the time elapsed
+        since the start of the animation as an input, dividing it by 500 so that
+        the animation runs slower, and then finding the cosine of the elapsed
+        time.
+      </p>
+      <p>
+        The time is passed in milliseconds, and the <code>cos</code> function in
+        glsl takes time in radians. So the animation depends on every half
+        second passed.
+      </p>
+      <p>
+        Since the division results in a floating point number, this number does
+        change every frame, which results in the color shift value also updating
+        accordingly.
+      </p>
       <p>
         <em>
           <code>clamp</code> is a function that takes a specific value (

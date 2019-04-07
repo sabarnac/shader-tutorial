@@ -20,7 +20,7 @@ const shaderProgramInfo = {
   fragment: {
     attributeLocations: {},
     uniformLocations: {
-      colorShift: "float",
+      time: "float",
     },
   },
 }
@@ -40,7 +40,7 @@ const FragmentShaderThirdExample = () => {
     colors: null,
   })
   const [shouldRender, updateShouldRender] = useState(true)
-  const [colorShift, updateColorShift] = useState(0)
+  const [time, updateTime] = useState(performance.now())
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
@@ -97,13 +97,11 @@ const FragmentShaderThirdExample = () => {
               return
             }
 
-            const time = parseInt(performance.now().toString())
+            const currentTime = parseInt(performance.now().toString())
 
-            const colorShift = Math.cos((time / 500) % 360)
-
-            if (time - then > 100) {
-              then = time
-              updateColorShift(colorShift)
+            if (currentTime - then > 100) {
+              then = currentTime
+              updateTime(currentTime)
             }
 
             const mvpMatrix = mat4.create()
@@ -143,10 +141,7 @@ const FragmentShaderThirdExample = () => {
               false,
               mvpMatrix
             )
-            gl.uniform1f(
-              shaderInfo.fragment.uniformLocations.colorShift,
-              colorShift
-            )
+            gl.uniform1f(shaderInfo.fragment.uniformLocations.time, currentTime)
 
             gl.drawArrays(gl.TRIANGLES, 0, triangle.vertices.length)
 
@@ -184,7 +179,7 @@ Vertex Colors:
     Vertex 3: ${coordArrToString(triangle.colors[2], colorCoordMap)}
 `.trim()}
       </pre>
-      <pre className="util text-left">Color Shift: {colorShift.toFixed(6)}</pre>
+      <pre className="util text-left">Time: {time}</pre>
     </div>
   )
 }
