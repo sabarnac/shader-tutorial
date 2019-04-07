@@ -1,3 +1,3 @@
-# shader-tutorial
+# GPU Shader Tutorial
 
-A repository for a shader tutorial with example code and documentation, along with a gh-pages website
+A website for learning about GPU shaders in a simple, relatively easy-to-digest format.
