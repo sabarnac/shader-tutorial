@@ -177,7 +177,8 @@ const MathematicsPage = ({ location: { pathname } }) => (
       <p>
         Let us first look at how matrix multiplication works, and then some
         examples of transform matrices, which are matrices used to perform
-        transformations.
+        transformations. These transformations that will be looked into are
+        called linear transformations.
       </p>
       <p>
         <em>
@@ -200,6 +201,26 @@ const MathematicsPage = ({ location: { pathname } }) => (
           , which provides great explanations and more info than can be covered
           here.
         </em>
+      </p>
+      <p>
+        To get a visual TL;DR of transformations (specifically linear
+        transformations), check out{" "}
+        <a
+          href="https://youtu.be/kYB8IZa5AuE"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          this video
+        </a>{" "}
+        by{" "}
+        <a
+          href="https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          3Blue1Brown
+        </a>
+        .
       </p>
       <h4>Matrix Multiplication</h4>
       <p>
