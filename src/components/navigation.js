@@ -57,6 +57,16 @@ const Navigation = () => (
               Lighting And Dithering
             </Link>
           </li>
+          <li>More Coming Soon...</li>
+        </ul>
+      </li>
+      <li>
+        <hr />
+      </li>
+      <li>
+        Advanced
+        <ul>
+          <li>Coming Soon...</li>
         </ul>
       </li>
       <li>

@@ -31,6 +31,7 @@ const IntermediatesIndexPage = ({ location: { pathname } }) => (
             Shader Intermediates - Lighting and Dithering
           </Link>
         </li>
+        <li>More Coming Soon...</li>
       </ul>
     </Content>
   </Layout>
