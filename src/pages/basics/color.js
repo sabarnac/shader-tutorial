@@ -187,7 +187,7 @@ const ColorPage = ({ location: { pathname } }) => (
         As sugar is added to the tea, the concentration of sugar increases,
         which sweetens the tea. Eventually, when the sugar reaches the
         concentration of 100%, there is no more tea present, meaning that what
-        remains is basically the sugar.
+        remains is just sugar.
       </p>
       <p>
         Saturation is similar in concept, where the tea is the final color, the
