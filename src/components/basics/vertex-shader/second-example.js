@@ -13,7 +13,10 @@ const shaderProgramInfo = {
       vertexPosition: "vec4",
     },
     uniformLocations: {
-      mvpMatrix: "mat4",
+      modelMatrix: "mat4",
+      viewMatrix: "mat4",
+      projectionMatrix: "mat4",
+      time: "float",
     },
   },
   fragment: {
@@ -33,7 +36,7 @@ const VertexShaderSecondExample = () => {
   const [shaderInfo, updateShaderInfo] = useState(null)
   const [triangleBuffer, updateTriangleBuffer] = useState({ vertices: null })
   const [shouldRender, updateShouldRender] = useState(true)
-  const [rotationAngle, updateRotationAngle] = useState(0)
+  const [time, updateTime] = useState(performance.now())
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
@@ -86,20 +89,12 @@ const VertexShaderSecondExample = () => {
               return
             }
 
-            const time = parseInt(performance.now().toString())
+            const currentTime = parseInt(performance.now().toString())
 
-            const rotatedModelMatrix = mat4.create()
-            const rotationAngle = (((time / 30) % 360) * Math.PI) / 180
-            mat4.rotateZ(rotatedModelMatrix, modelMatrix, rotationAngle)
-
-            if (time - then > 100) {
-              then = time
-              updateRotationAngle((rotationAngle * 180) / Math.PI)
+            if (currentTime - then > 100) {
+              then = currentTime
+              updateTime(currentTime)
             }
-
-            const mvpMatrix = mat4.create()
-            mat4.multiply(mvpMatrix, viewMatrix, rotatedModelMatrix)
-            mat4.multiply(mvpMatrix, projectionMatrix, mvpMatrix)
 
             gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer.vertices)
             gl.vertexAttribPointer(
@@ -117,10 +112,21 @@ const VertexShaderSecondExample = () => {
             gl.useProgram(shaderProgram)
 
             gl.uniformMatrix4fv(
-              shaderInfo.vertex.uniformLocations.mvpMatrix,
+              shaderInfo.vertex.uniformLocations.projectionMatrix,
               false,
-              mvpMatrix
+              projectionMatrix
             )
+            gl.uniformMatrix4fv(
+              shaderInfo.vertex.uniformLocations.viewMatrix,
+              false,
+              viewMatrix
+            )
+            gl.uniformMatrix4fv(
+              shaderInfo.vertex.uniformLocations.modelMatrix,
+              false,
+              modelMatrix
+            )
+            gl.uniform1f(shaderInfo.vertex.uniformLocations.time, currentTime)
 
             gl.drawArrays(gl.LINE_LOOP, 0, triangle.vertices.length)
 
@@ -148,9 +154,7 @@ Triangle Vertices:
     Vertex 3: ${coordArrToString(triangle.vertices[2])}
 `.trim()}
       </pre>
-      <pre className="util text-left">
-        Rotation Angle (Z-Axis): {rotationAngle.toFixed(2)}
-      </pre>
+      <pre className="util text-left">Time: {time}</pre>
     </div>
   )
 }

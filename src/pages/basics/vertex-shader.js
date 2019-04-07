@@ -9,6 +9,8 @@ import { secondVertexShaderSource } from "../../components/basics/vertex-shader/
 import PageChange from "../../components/page-change"
 import VertexShaderSecondExample from "../../components/basics/vertex-shader/second-example"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
+import { renderEquation } from "../../components/util"
+import { Link } from "gatsby"
 
 const VertexShaderPage = ({ location: { pathname } }) => (
   <Layout>
@@ -186,35 +188,47 @@ const VertexShaderPage = ({ location: { pathname } }) => (
       </p>
       <VertexShaderSecondExample />
       <h4>How it works</h4>
-      <p>
-        By passing a <code>modelMatrix</code> that's rotated based on the
-        current time, the vertex shader will rotate all the vertices by the set
-        amount when rendering each frame.
-      </p>
-      <p>
-        The <code>modelMatrix</code> is rotated because it is the matrix that
-        represents the model as a whole, so transforming this matrix is akin to
-        transforming the model (scale, rotation, and translation), and thereby
-        every vertex of that model.
-      </p>
-      <p>
-        The reason the model matrix rotation calculation is done on the CPU is
-        to avoid redundant calculations. Instead of having the vertex shader
-        recalculate the same rotation value for every vertex every frame, the
-        CPU can calculate it just once every frame and then pass it to the
-        vertex shader to apply it.
-      </p>
-      <p>
-        This principle can also be applied to the model, view, and projection
-        matrices we multiply to the vertex. By multiplying all these 3 matrices
-        in advance on the CPU, and then passing to the vertex shader, we save on
-        unnecessary calculations being done for every vertex every frame.
-      </p>
-      <p>The vertex shader code should now ideally look like this:</p>
       <GlslCodeHighlight
         code={secondVertexShaderSource.trim()}
         type={"Vertex"}
       />
+      <p>
+        The time elapsed since the start of the animation is passed to the
+        vertex shader. From this, the angle is calculated by dividing the
+        elapsed time by 30, so that a degree turn occurs every 30ms.
+      </p>
+      <p>
+        This angle is calculated in degrees, which needs to be converted to
+        radians, which is done by mulitplying the angle by{" "}
+        {renderEquation(`pi`)} and dividing the product by 180.
+      </p>
+      <p>
+        By keeping the calculations in float, we don't round of the decimals,
+        ensuring that the angle always changes (primarily in the fractional
+        part) with every frame. The function
+      </p>
+      <p>
+        This angle is then used to create a rotation matrix. The function{" "}
+        <code>rotateZ</code> creates a rotation matrix that rotates around the
+        Z-axis. The details about this matrix is in the reference link provided
+        in the matrix mathematics section of the{" "}
+        <Link to="/basics/mathematics">mathematics primer</Link> chapter.
+      </p>
+      <p>
+        The rotation matrix is multiplied with the model matrix to rotate the
+        entire model according to the time elapsed. Then the same process as
+        with the previous example is followed to calculate the final coordinates
+        of the vertex.
+      </p>
+      <p>
+        This rotation matrix can be more easily created outside the shader since
+        there are utility libraries that provide helper functions for performing
+        such operations (OpenGL has the GLM library for such tasks).
+      </p>
+      <p>
+        However, for the sake of understanding how the rotation works, it is
+        shown within the shader.
+      </p>
       <h3>Summary</h3>
       <ul>
         <li>

@@ -426,6 +426,13 @@ const MathematicsPage = ({ location: { pathname } }) => (
         axis respectively.
       </p>
       <p>
+        <em>
+          Note: You may notice that this matrix looks very similar to the
+          identity matrix. An identity matrix can be considered as a scaling
+          matrix with the scale set to 1.
+        </em>
+      </p>
+      <p>
         Let's take a point {renderEquation(`vec a = [[1], [2], [3], [1]]`)}.
         Let's scale this point 2 units in the X-axis, 3 units in the Y-axis, and
         0.5 units in the Z-axis (negative values aren't used because scaling
