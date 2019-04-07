@@ -94,6 +94,42 @@ const FaqPage = ({ location: { pathname } }) => (
             that reveals them.
           </p>
         </dd>
+        <dt>How can I debug shader code?</dt>
+        <dd>
+          <p>
+            Unlike normal software development, where one can use a debugger or
+            even output data to cehck the behaviour of applications, shaders are
+            not as easy to debug and fix.
+          </p>
+          <p>
+            There are multiple tools available that can be attached to
+            applications to provide some utilities to debug shaders, but a lot
+            of debugging can still be based on trial and error.
+          </p>
+          <p>
+            If there is an obvious code error in the shader, like a syntax
+            error, the shader compiler should be able to catch the bug and throw
+            an error for you.
+          </p>
+          <p>
+            In other cases where the shader doesn't work as expected and the
+            compiler throws no errors, restart development with shader code that
+            you know works, and slowly build up line by line till it breaks.
+          </p>
+          <p>
+            A WebGL debugger that can be used on this website is{" "}
+            <a
+              href="https://benvanik.github.io/WebGL-Inspector/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              WebGL Inspector
+            </a>
+            . It isn't available on the Chrome Extensions Store, so it will
+            require manual installation, but it does provide multiple utilities
+            to check your shader programs.
+          </p>
+        </dd>
         <dt>
           Do you have references for where one can learn about programming using
           graphics APIs in general?
