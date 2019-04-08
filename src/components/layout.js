@@ -32,9 +32,7 @@ const Layout = ({ children }) => (
           <div className="column column-75 content">
             <Notice />
             <main className="row main" id="main">
-              <div className="column">
-                <Fragment>{children}</Fragment>
-              </div>
+              <div className="column">{children}</div>
             </main>
             <Footer />
           </div>
