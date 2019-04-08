@@ -92,29 +92,9 @@ const IntroductionPage = ({ location: { pathname } }) => (
       </p>
       <h3>What do I need to know before getting started?</h3>
       <p>
-        Go through{" "}
-        <a
-          href="https://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          this chapter
-        </a>{" "}
-        of{" "}
-        <a
-          href="https://www.opengl-tutorial.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          OpenGL Tutorial
-        </a>{" "}
-        to learn about the necessary details vector and matrix math, even if you
-        have an understanding of it. This knowledge is vital as it provides a
-        base for understanding all the math that'll be used later on.
-      </p>
-      <p>
-        Side note: If you ever wanted an introduction to OpenGL programming,
-        that website is a great start.
+        You will need to have a basic understanding of vector math, matrix math,
+        and trignometry. Any other pre-requisite will have links or explanations
+        provided before it is used.
       </p>
     </Content>
     <PageChange next="/basics/render-pipeline/" />

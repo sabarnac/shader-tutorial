@@ -159,15 +159,10 @@ const MathematicsPage = ({ location: { pathname } }) => (
         making it less useful.
       </p>
       <p>
-        Let us take a 2D line for example whose ends are at{" "}
-        {renderEquation(`a = (1, 2, 3)`)} and {renderEquation(`b = (5, 7, 9)`)}.
-        This line is currently plotted with respect to the origin.
-      </p>
-      <p>
-        If the details of the lines are required to be known with respect to
-        another point (ex: {renderEquation(`o = (0, 1, -1)`)}, then the value of
-        the end points of the line have to be modified such that they are
-        plotted respective to this point.
+        Let us take a point {renderEquation(`a = (1, 2, 3)`)}. If we wish to
+        move this point to {renderEquation(`b = (7, 3, 5)`)}, an operation is
+        required that can "transform" the point {renderEquation(`a`)} to point{" "}
+        {renderEquation(`b`)}.
       </p>
       <p>
         These sort of transformations are best suited to be done through the use
@@ -175,36 +170,9 @@ const MathematicsPage = ({ location: { pathname } }) => (
         multiplication.
       </p>
       <p>
-        Let us first look at how matrix multiplication works, and then some
-        examples of transform matrices, which are matrices used to perform
-        transformations. These transformations that will be looked into are
-        called linear transformations.
-      </p>
-      <p>
-        <em>
-          Note: To learn more about matrix mathematics, check out{" "}
-          <a
-            href="https://www.opengl-tutorial.org/assets/faq_quaternions/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            this reference guide
-          </a>{" "}
-          by the{" "}
-          <a
-            href="https://www.opengl-tutorial.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            OpenGL Tutorial
-          </a>
-          , which provides great explanations and more info than can be covered
-          here.
-        </em>
-      </p>
-      <p>
-        To get a visual TL;DR of transformations (specifically linear
-        transformations), check out{" "}
+        The transformations you will generally work with are called linear
+        transformations. To get a basic understanding of what linear
+        transformations are, check out{" "}
         <a
           href="https://youtu.be/kYB8IZa5AuE"
           target="_blank"
@@ -222,298 +190,16 @@ const MathematicsPage = ({ location: { pathname } }) => (
         </a>
         .
       </p>
-      <h4>Matrix Multiplication</h4>
       <p>
-        Let us take two matrices,{" "}
-        {renderEquation(
-          `a = [[a_(11), a_(12), a_(13)], [a_(21), a_(22), a_(23)]]`
-        )}{" "}
-        and{" "}
-        {renderEquation(
-          `b = [[b_(11), b_(12)], [b_(21), b_(22)], [b_(31), b_(32)]]`
-        )}
-        .
-      </p>
-      <p>
-        The multiplication of these two matrices would be{" "}
-        {renderEquation(
-          `c = [[a_(11)b_(11) + a_(12)b_(21) + a_(13)b_(31), a_(11)b_(12) + a_(12)b_(22) + a_(13)b_(32)], [a_(21)b_(11) + a_(22)b_(21) + a_(23)b_(31), a_(21)b_(12) + a_(22)b_(22) + a_(23)b_(32)]]`
-        )}
-      </p>
-      <p>This may seem very complex, but we can break it down.</p>
-      <p>
-        First, let's look at what the size of the final matrix is. The matrix{" "}
-        {renderEquation(`c`)} would have the same number of rows as matrix{" "}
-        {renderEquation(`a`)}, and the same number of columns as matrix{" "}
-        {renderEquation(`b`)}. This means the matrix {renderEquation(`c`)}{" "}
-        should be:
-      </p>
-      <p className="util text-center">
-        {renderEquation(`c = [[c_(11), c_(12)], [c_(21), c_(22)]]`)}
-      </p>
-      <p>
-        Now lets look at what the value of each cell is, starting with{" "}
-        {renderEquation(`c_(11)`)}.
-      </p>
-      <p>
-        Take the first column of matrix {renderEquation(`b`)} and rotate it 90
-        degrees counter-clockwise so that it becomes a row{" "}
-        {renderEquation(`[b_(11), b_(21), b_(31)]`)}.
-      </p>
-      <p>
-        Each cell of this row is then multiplied against the cells in the same
-        position in the first row of matrix {renderEquation(`a`)}, so{" "}
-        {renderEquation(`a_(11)b_(11), a_(12)b_(21), a_(13)c_(31)`)}.
-      </p>
-      <p>
-        The result of these is finally added, which becomes the value of{" "}
-        {renderEquation(`c_(11)`)}.
-      </p>
-      <p>
-        For the value of {renderEquation(`c_(12)`)}, take the first column of
-        matrix {renderEquation(`b`)} and perform the same process against the
-        second row of matrix {renderEquation(`a`)}.
-      </p>
-      <p>
-        For {renderEquation(`c_(21)`)}, the process is performed using the
-        second column of matrix {renderEquation(`b`)} and the first row of
-        matrix {renderEquation(`a`)}. Finally, for {renderEquation(`c_(22)`)},
-        the process is performed using the second column of matrix{" "}
-        {renderEquation(`b`)} and the second row of matrix {renderEquation(`a`)}
-        .
-      </p>
-      <p>
-        If this is a bit hard to remember, think of it this way. For the value
-        of {renderEquation(`c_(11)`)}, first put a finger on the first cell of
-        the first column of matrix {renderEquation(`b`)}, and a finger on the
-        first cell of the first row of matrix {renderEquation(`a`)}.
-      </p>
-      <p>
-        Multiply the two values, then move the finger on matrix{" "}
-        {renderEquation(`b`)} down to the next cell, and the finger on matrix{" "}
-        {renderEquation(`a`)} right to the next cell. Multiply the two pointed
-        values, and add it to the previous result. Keeping going until you hit
-        the end of both.
-      </p>
-      <h4>Identity Matrix</h4>
-      <p>
-        The identity matrix is similar to the number 1 in a certain way. When 1
-        is multiplied with a number we'll call {renderEquation(`x`)}, the final
-        result is the {renderEquation(`x`)} itself. This means that the number 1
-        has helped retain the "identity" of that value multiplied with it.
-      </p>
-      <p>
-        The identity matrix is the same, but with matrices. Any matrix
-        multiplied with an identity matrix will result in the original matrix
-        itself, and is why the matrix is called an identity matrix.
-      </p>
-      <p>
-        An identity matrix always has the same number of rows and columns. An
-        example of a 4x4 identity matrix is:
-      </p>
-      <p className="util text-center">
-        {renderEquation(
-          `i = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]`
-        )}
-      </p>
-      <p>
-        You can verify the the concept discussed about the identity matrix by
-        taking any matrix with 4 columns and multiplying this identity matrix
-        against it. A fun fact is that multiplication with an identity matrix is
-        actually commutative.
-      </p>
-      <h4>Translation Matrix</h4>
-      <p>
-        A translation matrix is a matrix that is used to "translate" or move a
-        vector by a certain amount.
-      </p>
-      <p>A translation matrix is written in the form:</p>
-      <p className="util text-center">
-        {renderEquation(
-          `t = [[1, 0, 0, X], [0, 1, 0, Y], [0, 0, 1, Z], [0, 0, 0, 1]]`
-        )}
-      </p>
-      <p>
-        {renderEquation(`X`)}, {renderEquation(`Y`)}, and {renderEquation(`Z`)}{" "}
-        represent the amount the vector needs to be moved in the X, Y, and Z
-        axis respectively.
-      </p>
-      <p>
-        A translation matrix is similar to an identity matrix, except for the
-        last column. This also means it has the same number of rows and columns.
-      </p>
-      <p>
-        Similar to how the size of a vector is the number of dimensions plus 1,
-        the size of a translation matrix (and the other matrices that will be
-        explained) is the same.
-      </p>
-      <p>
-        A concept discussed about the {renderEquation(`w`)} value for vectors is
-        that for points it is always 1, and for directions it is always 0. The
-        reason for this will be obvious as we discuss translation matrices.
-      </p>
-      <p>
-        Let's take a point {renderEquation(`vec a = [[1], [2], [3], [1]]`)}{" "}
-        (last value is {renderEquation(`w`)}, which is 1 for a point), which
-        we'll represent as a matrix. Let's move this point 2 units in the
-        X-axis, 3 units in the Y-axis, and -1 units in the Z-axis.
-      </p>
-      <p>
-        The translation matrix for this would be{" "}
-        {renderEquation(
-          `t = [[1, 0, 0, 2], [0, 1, 0, 3], [0, 0, 1, -1], [0, 0, 0, 1]]`
-        )}
-        .
-      </p>
-      <p>
-        To translate the point, we multiply the translation matrix and the
-        matrix representing the point vector in the order{" "}
-        {renderEquation(`a_(translated) = t times a`)}.
-      </p>
-      <p>So the final translated point will be:</p>
-      <p className="util text-center">
-        {renderEquation(
-          `a_(translated) = [[1, 0, 0, 2], [0, 1, 0, 3], [0, 0, 1, -1], [0, 0, 0, 1]] times [[1], [2], [3], [1]]`
-        )}
-        <br />
-        {renderEquation(
-          `a_(translated) = [[1 times 1 + 0 times 2 + 0 times 3 + 2 times 1], [0 times 1 + 1 times 2 + 0 times 3 + 3 times 1], [0 times 1 + 0 times 2 + 1 times 3 + -1 times 1], [0 times 1 + 0 times 2 + 0 times 3 + 1 times 1]]`
-        )}
-        <br />
-        {renderEquation(
-          `a_(translated) = [[1 + 0 + 0 + 2], [0 + 2 + 0 + 3], [0 + 0 + 3 + -1], [0 + 0 + 0 + 1]]`
-        )}
-        <br />
-        {renderEquation(`a_(translated) = [[3], [5], [2], [1]]`)}
-      </p>
-      <p>
-        So the final translated point is{" "}
-        {renderEquation(`a_(translated) = (3, 5, 2, 1)`)}, which you can verify
-        yourself if it is correct or not.
-      </p>
-      <p>
-        What if instead of a point, the vector was a direction? The vector would
-        be the same, with the only difference being the value of the component{" "}
-        {renderEquation(`w`)}, which would be 0 for directions. Performing the
-        same multiplication process, we get:
-      </p>
-      <p className="util text-center">
-        {renderEquation(
-          `a_(translated) = [[1, 0, 0, 2], [0, 1, 0, 3], [0, 0, 1, -1], [0, 0, 0, 1]] times [[1], [2], [3], [0]]`
-        )}
-        <br />
-        {renderEquation(
-          `a_(translated) = [[1 times 1 + 0 times 2 + 0 times 3 + 2 times 0], [0 times 1 + 1 times 2 + 0 times 3 + 3 times 0], [0 times 1 + 0 times 2 + 1 times 3 + -1 times 0], [0 times 1 + 0 times 2 + 0 times 3 + 1 times 0]]`
-        )}
-        <br />
-        {renderEquation(
-          `a_(translated) = [[1 + 0 + 0 + 0], [0 + 2 + 0 + 0], [0 + 0 + 3 + 0], [0 + 0 + 0 + 0]]`
-        )}
-        <br />
-        {renderEquation(`a_(translated) = [[1], [2], [3], [0]]`)}
-      </p>
-      <p>
-        From the calculation, we see that the result of the translation is the
-        original direction itself. This is correct, since it makes no sense for
-        a direction to be translated.
-      </p>
-      translation
-      <p>
-        A direction can be rotated to point somewhere else, but a direction
-        cannot be moved from one point to another, since a direction does not
-        represent a position in space.
-      </p>
-      <p>
-        By setting the {renderEquation(`w`)} of a direction to 0, we can ensure
-        that only the operations that makes sense to apply to a direction can
-        actual be performed. In this instance, since translating a direction is
-        not possible, the {renderEquation(`w`)} prevents any modification.
-      </p>
-      <h4>Scaling Matrix</h4>
-      <p>
-        A scaling matrix "scales" a vector with respect to the origin. If a
-        vector has certain X, Y, and Z values, scaling the vector would be
-        multiplying each of those values by a certain amount.
-      </p>
-      <p>A scaling matrix is written in the form:</p>
-      <p className="util text-center">
-        {renderEquation(
-          `s = [[X, 0, 0, 0], [0, Y, 0, 0], [0, 0, Z, 0], [0, 0, 0, 1]]`
-        )}
-      </p>
-      <p>
-        {renderEquation(`X`)}, {renderEquation(`Y`)}, and {renderEquation(`Z`)}{" "}
-        represent the amount the vector needs to be scaled in the X, Y, and Z
-        axis respectively.
-      </p>
-      <p>
-        <em>
-          Note: You may notice that this matrix looks very similar to the
-          identity matrix. An identity matrix can be considered as a scaling
-          matrix with the scale set to 1.
-        </em>
-      </p>
-      <p>
-        Let's take a point {renderEquation(`vec a = [[1], [2], [3], [1]]`)}.
-        Let's scale this point 2 units in the X-axis, 3 units in the Y-axis, and
-        0.5 units in the Z-axis (negative values aren't used because scaling
-        negatively doesn't make sense).
-      </p>
-      <p>
-        The scaling matrix for this would be{" "}
-        {renderEquation(
-          `s = [[2, 0, 0, 0], [0, 3, 0, 0], [0, 0, 0.5, 0], [0, 0, 0, 1]]`
-        )}
-        .
-      </p>
-      <p>
-        To scale the point, we multiply the scaling matrix and the matrix
-        representing the point vector in the order{" "}
-        {renderEquation(`a_(scaled) = s times a`)}.
-      </p>
-      <p>So the final scaled point will be:</p>
-      <p className="util text-center">
-        {renderEquation(
-          `a_(scaled) = [[2, 0, 0, 0], [0, 3, 0, 0], [0, 0, 0.5, 0], [0, 0, 0, 1]] times [[1], [2], [3], [1]]`
-        )}
-        <br />
-        {renderEquation(
-          `a_(scaled) = [[2 times 1 + 0 times 2 + 0 times 3 + 0 times 1], [0 times 1 + 3 times 2 + 0 times 3 + 0 times 1], [0 times 1 + 0 times 2 + 0.5 times 3 + 0 times 1], [0 times 1 + 0 times 2 + 0 times 3 + 1 times 1]]`
-        )}
-        <br />
-        {renderEquation(
-          `a_(scaled) = [[2 + 0 + 0 + 0], [0 + 6 + 0 + 0], [0 + 0 + 1.5 + 0], [0 + 0 + 0 + 1]]`
-        )}
-        <br />
-        {renderEquation(`a_(scaled) = [[2], [6], [1.5], [1]]`)}
-      </p>
-      <p>
-        So the final scaled point is{" "}
-        {renderEquation(`a_(scaled) = (2, 6, 1.5, 1)`)}.
-      </p>
-      <p>
-        An interesting point to note is that directions can actually be scaled.
-        While the case for this is rare, and the concept of scaling a direction
-        doesn't make sense either, this operation can be useful in certain
-        situations. This may be explored in a later chapter.
-      </p>
-      <h4>Rotation Matrix</h4>
-      <p>
-        A rotation matrix is used to rotate a certain vector around a certain
-        axis by a certain number of degrees or radians. Similar to scaling
-        matrices, they can be applied to both points and directions.
-      </p>
-      <p>
-        The concepts of a rotation matrix are a little hard to explain, so we
-        recommend that you go through{" "}
+        Check out{" "}
         <a
-          href="https://www.opengl-tutorial.org/assets/faq_quaternions/#Q26"
+          href="https://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          this reference
+          this chapter
         </a>{" "}
-        by{" "}
+        of{" "}
         <a
           href="https://www.opengl-tutorial.org/"
           target="_blank"
@@ -521,34 +207,14 @@ const MathematicsPage = ({ location: { pathname } }) => (
         >
           OpenGL Tutorial
         </a>{" "}
-        to understand the concepts of a rotation matrix.
-      </p>
-      <p>
-        There is also a section on{" "}
-        <a
-          href="https://www.opengl-tutorial.org/assets/faq_quaternions/#Q47"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          quaternions
-        </a>
-        , which provide a different way of creating rotation matrices, and make
-        rotations simpler to deal with. It is highly recommended to go through
-        this section as well.
-      </p>
-      <h4>Other Matrices</h4>
-      <p>
-        There are other types of matrices, such as shearing matrices, which
-        allow for other types of transformations to be performed on vectors.
-      </p>
-      <p>
-        As noted in the start of this section, the{" "}
+        to get a basic understanding of matrix mathematics and the linear
+        tranformations required for later chapters, as well as{" "}
         <a
           href="https://www.opengl-tutorial.org/assets/faq_quaternions/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          reference guide
+          this reference guide
         </a>{" "}
         by{" "}
         <a
@@ -558,9 +224,40 @@ const MathematicsPage = ({ location: { pathname } }) => (
         >
           OpenGL Tutorial
         </a>{" "}
-        is a great way to learn about all these other concepts in detail, as
-        they provide a great explanation about the concepts and usages of
-        matrices.
+        to learn more about matrix mathematics and some extra additional
+        information on certain linear transformations.
+      </p>
+      <p>
+        When operating on a point, transformations such as rotating the point
+        around an axis, translating/moving a point, or scaling a point in
+        reference to an origin can be considered valid.
+      </p>
+      <p>
+        However, with directions, transformations such as translation don't make
+        sense. In order to be able to use the same transformation formulas on
+        both points and directions and make sure that direction vectors are not
+        affected, we can take advantage of the {renderEquation(`w`)} component.
+      </p>
+      <p>
+        By having {renderEquation(`w`)} set to 0 for directions, transformations
+        such as translating vectors can be prevented from affecting directions,
+        and only affect points.{" "}
+        <a
+          href="https://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#translation-matrices"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          This section
+        </a>{" "}
+        of the third chapter of{" "}
+        <a
+          href="https://www.opengl-tutorial.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          OpenGL Tutorial
+        </a>{" "}
+        provides an example to show this behaviour.
       </p>
       <h3>Trignometry</h3>
       <p>
