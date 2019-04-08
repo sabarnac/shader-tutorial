@@ -27,7 +27,7 @@ const triangleModelPosition = mat4.create()
 
 const FragmentShaderSecondExample = () => {
   const triangle = {
-    vertices: [[0.0, 1.0, 0.0], [-1.0, -1.0, 0.0], [1.0, -1.0, 0.0]],
+    vertices: [[0.0, 1.0, 0.0], [-0.866, -0.5, 0.0], [0.866, -0.5, 0.0]],
     colors: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
   }
   const [webGlRef, updateWebGlRef] = useState(null)
