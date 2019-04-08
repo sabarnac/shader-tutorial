@@ -4,7 +4,6 @@ import Layout from "../../components/layout"
 import Content from "../../components/content"
 import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
-import { renderEquation } from "../../components/util"
 import interaction1 from "../../images/intermediates/interaction-1.png"
 import interaction2 from "../../images/intermediates/interaction-2.png"
 
@@ -44,9 +43,8 @@ const ColorPt2Page = ({ location: { pathname } }) => (
       <p>
         Each color component (RGB) is stored as an 8-bit value, which means that
         each component can have at most 256 possible values. This may not seem
-        like much, but when all components are combined, this allows for{" "}
-        {renderEquation(`256 times 256 times 256 = 16,777,216`)} possible
-        colors.
+        like much, but when all components are combined, this allows for
+        16,777,216 (256 × 256 × 256) possible colors.
       </p>
       <p>
         However, even with these many colors, there are some colors that just

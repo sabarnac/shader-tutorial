@@ -21,7 +21,7 @@ const shaderProgramInfo = {
   fragment: {
     attributeLocations: {},
     uniformLocations: {
-      colorShift: "float",
+      time: "float",
       textureSampler: "sampler2D",
     },
   },
@@ -98,7 +98,7 @@ const TextureBranchingSecondExample = () => {
     texture: null,
   })
   const [shouldRender, updateShouldRender] = useState(true)
-  const [colorShift, updateColorShift] = useState(0)
+  const [time, updateTime] = useState(performance.now())
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
@@ -160,19 +160,16 @@ const TextureBranchingSecondExample = () => {
               return
             }
 
-            const time = parseInt(performance.now().toString())
+            const currentTime = parseInt(performance.now().toString())
 
-            const timeSlice = time % 4000
-            const colorShift =
-              1 - (timeSlice >= 2000 ? 4000 - timeSlice : timeSlice) / 1000
-
-            if (time - then > 100) {
-              then = time
-              updateColorShift(colorShift)
+            if (currentTime - then > 100) {
+              then = currentTime
+              updateTime(currentTime)
             }
 
             const rotatedModelMatrix = mat4.create()
-            const rotationAngle = (((time / 30) % (360 * 6)) * Math.PI) / 180
+            const rotationAngle =
+              (((currentTime / 30) % (360 * 6)) * Math.PI) / 180
             mat4.rotateZ(rotatedModelMatrix, modelMatrix, rotationAngle)
             mat4.rotateX(
               rotatedModelMatrix,
@@ -224,10 +221,7 @@ const TextureBranchingSecondExample = () => {
               false,
               mvpMatrix
             )
-            gl.uniform1f(
-              shaderInfo.fragment.uniformLocations.colorShift,
-              colorShift
-            )
+            gl.uniform1f(shaderInfo.fragment.uniformLocations.time, currentTime)
 
             gl.activeTexture(gl.TEXTURE0)
             gl.bindTexture(gl.TEXTURE_2D, cubeBuffer.texture)
@@ -279,7 +273,7 @@ Cube:
         Vertex 4: ${uvArrToString(cubeFaceUvs[3])}
 `.trim()}
       </pre>
-      <pre className="util text-left">Color Shift: {colorShift.toFixed(6)}</pre>
+      <pre className="util text-left">Time: {time}</pre>
     </div>
   )
 }
