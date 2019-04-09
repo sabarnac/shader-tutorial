@@ -6,7 +6,7 @@ const Footer = () => (
   <div className="row">
     <footer className="column">
       <div className="author">
-        By Sabarna Chakravarty | Logo from{" "}
+        Logo from{" "}
         <a
           href="https://commons.wikimedia.org/wiki/File:Phong-shading-sample.jpg"
           rel="noopener noreferrer"
