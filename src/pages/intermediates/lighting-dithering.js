@@ -35,7 +35,7 @@ const LandingPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
       pathname={pathname}
-      title="Shader Intermediates - Lighting"
+      title="Shader Intermediates - Lighting And Dithering"
       description="A look into how lighting can be simulated on objects through shaders."
       keywords={[
         "lighting",
@@ -49,7 +49,7 @@ const LandingPage = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <h2>Shader Intermediates - Lighting</h2>
+      <h2>Shader Intermediates - Lighting And Dithering</h2>
       <p>
         While adding textures to color your objects helps to add more detail,
         simulating the lighting of the environment on the object adds further
