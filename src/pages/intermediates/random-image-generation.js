@@ -4,18 +4,28 @@ import Layout from "../../components/layout"
 import Content from "../../components/content"
 import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
+import RandomImageGenerationFirstExample from "../../components/intermediates/random-image-generation/first-example"
+import RandomImageGenerationSecondExample from "../../components/intermediates/random-image-generation/second-example"
 
 const TexturingBranchingPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
       pathname={pathname}
-      title="Shader Intermediates - Image Generation"
-      description="A look into the how images can be generated using noise and/or procedural algorithms."
-      keywords={["image", "generation", "shader", "intermediates"]}
+      title="Shader Intermediates - Random Image Generation"
+      description="A look into the how images can be generated using noise combined with certain algorithms."
+      keywords={[
+        "random",
+        "image",
+        "generation",
+        "noise",
+        "shader",
+        "intermediates",
+      ]}
     />
     <Content>
-      <h2>Shader Intermediates - Image Generation</h2>
-      <p />
+      <h2>Shader Intermediates - Random Image Generation</h2>
+      <RandomImageGenerationFirstExample />
+      <RandomImageGenerationSecondExample />
       <p>
         Looking at the fragment shader code, there is an addition of a new
         function called <code>random</code>. This function generates a random
@@ -40,7 +50,7 @@ const TexturingBranchingPage = ({ location: { pathname } }) => (
       <h3>Summary</h3>
     </Content>
     <PageChange
-      previous="/intermediates/texture-branching/"
+      previous="/intermediates/texturing-branching/"
       next="/intermediates/lighting-dithering/"
     />
   </Layout>

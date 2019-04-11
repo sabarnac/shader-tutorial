@@ -960,7 +960,7 @@ const LandingPage = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange previous="/intermediates/image-generation/" />
+    <PageChange previous="/intermediates/random-image-generation/" />
   </Layout>
 )
 

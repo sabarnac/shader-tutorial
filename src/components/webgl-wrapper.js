@@ -1,4 +1,4 @@
-import { mat4 } from "gl-matrix"
+import { vec2, mat4 } from "gl-matrix"
 
 export default class WebGlWrapper {
   _canvas = null
@@ -139,6 +139,9 @@ export default class WebGlWrapper {
       this._webgl.canvas.width,
       this._webgl.canvas.height
     )
+
+    this._canvasDimensions.width = this._canvas.width
+    this._canvasDimensions.height = this._canvas.height
   }
 
   createShaderProgram = (vertexShaderSource, fragmentShaderSource) => {
@@ -296,6 +299,10 @@ export default class WebGlWrapper {
       projectionMatrix: this._projectionMatrix,
       viewMatrix: this._viewMatrix,
       modelMatrix: this._modelMatrix,
+      resolution: vec2.fromValues(
+        this._canvasDimensions.width,
+        this._canvasDimensions.height
+      ),
     }
     this._clearScreen()
     renderer(renderInfo)

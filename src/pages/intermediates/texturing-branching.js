@@ -4,8 +4,8 @@ import Layout from "../../components/layout"
 import Content from "../../components/content"
 import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
-import TextureBranchingFirstExample from "../../components/intermediates/texturing-branching/first-example"
-import TextureBranchingSecondExample from "../../components/intermediates/texturing-branching/second-example"
+import TexturingBranchingFirstExample from "../../components/intermediates/texturing-branching/first-example"
+import TexturingBranchingSecondExample from "../../components/intermediates/texturing-branching/second-example"
 import {
   firstVertexShaderSource,
   firstFragmentShaderSource,
@@ -63,7 +63,7 @@ const TexturingBranchingPage = ({ location: { pathname } }) => (
         vertices.
       </p>
       <h3>An example - A cube</h3>
-      <TextureBranchingFirstExample />
+      <TexturingBranchingFirstExample />
       <h4>How it works</h4>
       <p>
         GPUs follow an operation similar to UV mapping. They can accept a
@@ -106,7 +106,7 @@ const TexturingBranchingPage = ({ location: { pathname } }) => (
         specific coordinates.
       </p>
       <h3>Another example - A (mostly) pulsing cube</h3>
-      <TextureBranchingSecondExample />
+      <TexturingBranchingSecondExample />
       <h4>How it works</h4>
       <p>
         Similar to how the pulsing triangle was made in the last example of the{" "}
@@ -254,7 +254,7 @@ const TexturingBranchingPage = ({ location: { pathname } }) => (
     </Content>
     <PageChange
       previous="/intermediates/color-2/"
-      next="/intermediates/image-generation/"
+      next="/intermediates/random-image-generation/"
     />
   </Layout>
 )

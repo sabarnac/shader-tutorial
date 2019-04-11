@@ -27,6 +27,11 @@ const IntermediatesIndexPage = ({ location: { pathname } }) => (
           </Link>
         </li>
         <li>
+          <Link to="/intermediates/random-image-generation">
+            Shader Intermediates - Random Image Generation
+          </Link>
+        </li>
+        <li>
           <Link to="/intermediates/lighting-dithering">
             Shader Intermediates - Lighting and Dithering
           </Link>

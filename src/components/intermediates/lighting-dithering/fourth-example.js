@@ -29,6 +29,7 @@ const shaderProgramInfo = {
   fragment: {
     attributeLocations: {},
     uniformLocations: {
+      resolution: "vec2",
       ambientFactor: "float",
       noiseGranularity: "float",
       textureSampler: "sampler2D",
@@ -238,7 +239,7 @@ const LightingFourthExample = () => {
 
       const renderScene = () => {
         webGlRef.renderScene(
-          ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
+          ({ gl, projectionMatrix, viewMatrix, modelMatrix, resolution }) => {
             if (!shouldRender) {
               return
             }
@@ -335,6 +336,10 @@ const LightingFourthExample = () => {
               cube.surfaceReflectivity
             )
 
+            gl.uniform2fv(
+              shaderInfo.fragment.uniformLocations.resolution,
+              resolution
+            )
             gl.uniform1f(
               shaderInfo.fragment.uniformLocations.ambientFactor,
               cube.ambientFactor

@@ -29,7 +29,7 @@ const shaderProgramInfo = {
 const cubeModelPosition = mat4.create()
 const cubeFaceUvs = [[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]
 
-const TextureBranchingFirstExample = () => {
+const TexturingBranchingFirstExample = () => {
   const cube = {
     vertices: [
       // Front vertices
@@ -267,4 +267,4 @@ Cube:
   )
 }
 
-export default TextureBranchingFirstExample
+export default TexturingBranchingFirstExample
