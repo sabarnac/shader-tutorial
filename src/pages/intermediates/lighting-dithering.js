@@ -891,27 +891,8 @@ const LandingPage = ({ location: { pathname } }) => (
       </p>
       <GlslCodeHighlight code={fourthFragmentShaderSource} type="Fragment" />
       <p>
-        Looking at the fragment shader code, there is an addition of a new
-        function called <code>random</code>. This function generates a random
-        number between 0 and 1 using a given 2D coordinate, which means it
-        produces the same random number for the same coordinate.
-      </p>
-      <p>
-        This random number generator function was taken from{" "}
-        <a
-          href="https://github.com/PistonDevelopers/shaders/wiki/Some-useful-GLSL-functions"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          here
-        </a>
-        . There are many other useful GLSL functions available there, and
-        functions of similar functionality can be found for other shading
-        languages.
-      </p>
-      <p>
-        So a random number is generated using the coordinates of the fragment.
-        In GLSL, the 2D coordinates of a fragment is available through{" "}
+        A random number is generated using the coordinates of the fragment. In
+        GLSL, the 2D coordinates of a fragment is available through{" "}
         <code>gl_FragCoord.xy</code>, where <code>gl_FragCoord</code> is a
         global variable similar to <code>gl_FragColor</code>, but only read
         only.
@@ -979,7 +960,7 @@ const LandingPage = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange previous="/intermediates/texturing-branching/" />
+    <PageChange previous="/intermediates/image-generation/" />
   </Layout>
 )
 
