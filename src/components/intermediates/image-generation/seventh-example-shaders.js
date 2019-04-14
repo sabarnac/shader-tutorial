@@ -16,9 +16,14 @@ highp float random(vec2 coords) {
 }
 
 void main() {
-  highp float lineResolution = 20.0;
+  highp vec2 tilingResolution = vec2(12.0, 9.0);
   highp vec2 coordinates = gl_FragCoord.xy / resolution;
-  highp float steppedCoordinate = (floor(coordinates.y * lineResolution) / lineResolution);
-  gl_FragColor = vec4(vec3(random(vec2(steppedCoordinate))), 1.0);
+
+  highp vec2 blockCenter = vec2(0.5, 0.5);
+  highp vec2 tileCoord = floor(coordinates * tilingResolution);
+  highp vec2 tileCenter = tileCoord + blockCenter;
+
+  highp float fragmentColor = random(tileCenter / tilingResolution);
+  gl_FragColor = vec4(vec3(fragmentColor), 1.0);
 }
 `

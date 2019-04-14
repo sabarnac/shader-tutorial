@@ -17,6 +17,8 @@ highp float random(vec2 coords) {
 
 void main() {
   highp vec2 coordinates = gl_FragCoord.xy / resolution;
-  gl_FragColor = vec4(vec3(random(coordinates)), 1.0);
+
+  highp float fragmentColor = random(coordinates);
+  gl_FragColor = vec4(vec3(fragmentColor), 1.0);
 }
 `
