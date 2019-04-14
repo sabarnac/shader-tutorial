@@ -110,6 +110,8 @@ const FragmentShaderFirstExample = () => {
             )
 
             gl.drawArrays(gl.TRIANGLES, 0, triangle.vertices.length)
+
+            requestAnimationFrame(renderScene)
           }
         )
       }

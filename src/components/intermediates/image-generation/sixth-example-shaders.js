@@ -16,9 +16,7 @@ highp float random(vec2 coords) {
 }
 
 void main() {
-  highp float lineResolution = 20.0;
   highp vec2 coordinates = gl_FragCoord.xy / resolution;
-  highp float steppedCoordinate = (floor(coordinates.y * lineResolution) / lineResolution);
-  gl_FragColor = vec4(vec3(random(vec2(steppedCoordinate))), 1.0);
+  gl_FragColor = vec4(vec3(random(coordinates)), 1.0);
 }
 `

@@ -19,8 +19,7 @@ void main() {
   highp vec2 distanceFromCenter = abs(blockCenter - blockCoordinates);
   highp float distanceFromDiagonals = abs(distanceFromCenter.x - distanceFromCenter.y);
   highp float diagonalFactor = 1.0 - clamp(distanceFromDiagonals * 4.0, 0.0, 1.0);
-  highp float centerFactor = 1.0 - (distanceFromCenter.x + distanceFromCenter.y);
-  highp float fragmentColor = pow(diagonalFactor * centerFactor, 2.0);
+  highp float fragmentColor = pow(diagonalFactor, 2.0);
   gl_FragColor = vec4(vec3(fragmentColor), 1.0);
 }
 `

@@ -11,12 +11,16 @@ void main() {
 export const fifthFragmentShaderSource = glsl`
 uniform highp vec2 resolution;
 
-highp float random(vec2 coords) {
-   return fract(sin(dot(coords.xy,vec2(12.9898,78.233))) * 43758.5453);
-}
-
 void main() {
+  highp vec2 tilingResolution = vec2(12.0, 9.0);
   highp vec2 coordinates = gl_FragCoord.xy / resolution;
-  gl_FragColor = vec4(vec3(random(coordinates)), 1.0);
+  highp vec2 blockCenter = vec2(0.5, 0.5);
+  highp vec2 blockCoordinates = fract(coordinates * tilingResolution);
+  highp vec2 distanceFromCenter = abs(blockCenter - blockCoordinates);
+  highp float distanceFromDiagonals = abs(distanceFromCenter.x - distanceFromCenter.y);
+  highp float diagonalFactor = 1.0 - clamp(distanceFromDiagonals * 4.0, 0.0, 1.0);
+  highp float centerFactor = 1.0 - (distanceFromCenter.x + distanceFromCenter.y);
+  highp float fragmentColor = pow(diagonalFactor * centerFactor, 2.0);
+  gl_FragColor = vec4(vec3(fragmentColor), 1.0);
 }
 `

@@ -118,6 +118,8 @@ const VertexShaderFirstExample = () => {
             )
 
             gl.drawArrays(gl.LINE_LOOP, 0, triangle.vertices.length)
+
+            requestAnimationFrame(renderScene)
           }
         )
       }

@@ -27,13 +27,13 @@ const IntermediatesIndexPage = ({ location: { pathname } }) => (
           </Link>
         </li>
         <li>
-          <Link to="/intermediates/image-generation">
-            Shader Intermediates - Image Generation
+          <Link to="/intermediates/lighting-dithering">
+            Shader Intermediates - Lighting and Dithering
           </Link>
         </li>
         <li>
-          <Link to="/intermediates/lighting-dithering">
-            Shader Intermediates - Lighting and Dithering
+          <Link to="/intermediates/image-generation">
+            Shader Intermediates - Image Generation
           </Link>
         </li>
         <li>More Coming Soon...</li>

@@ -960,7 +960,10 @@ const LightingDitheringPage = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange previous="/intermediates/image-generation/" />
+    <PageChange
+      previous="/intermediates/texturing-branching/"
+      next="/intermediates/image-generation/"
+    />
   </Layout>
 )
 

@@ -53,12 +53,12 @@ const Navigation = () => (
             </Link>
           </li>
           <li>
-            <Link to="/intermediates/image-generation">Image Generation</Link>
-          </li>
-          <li>
             <Link to="/intermediates/lighting-dithering">
               Lighting And Dithering
             </Link>
+          </li>
+          <li>
+            <Link to="/intermediates/image-generation">Image Generation</Link>
           </li>
           <li>More Coming Soon...</li>
         </ul>
