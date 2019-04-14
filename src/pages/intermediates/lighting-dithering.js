@@ -31,7 +31,7 @@ import noisedExaggerated from "../../images/intermediates/noised-exaggerated.png
 import actualGradient from "../../images/intermediates/actual-gradient.png"
 import bandedGradient from "../../images/intermediates/banded-gradient.png"
 
-const LandingPage = ({ location: { pathname } }) => (
+const LightingDitheringPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
       pathname={pathname}
@@ -964,4 +964,4 @@ const LandingPage = ({ location: { pathname } }) => (
   </Layout>
 )
 
-export default LandingPage
+export default LightingDitheringPage

@@ -5,7 +5,7 @@ import Content from "../../components/content"
 import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
 
-const IntroductionPage = ({ location: { pathname } }) => (
+const RenderPipelinePage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
       pathname={pathname}
@@ -279,4 +279,4 @@ const IntroductionPage = ({ location: { pathname } }) => (
   </Layout>
 )
 
-export default IntroductionPage
+export default RenderPipelinePage

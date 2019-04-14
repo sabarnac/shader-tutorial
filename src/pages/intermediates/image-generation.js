@@ -12,7 +12,7 @@ import RandomImageGenerationFifthExample from "../../components/intermediates/im
 import RandomImageGenerationSixthExample from "../../components/intermediates/image-generation/sixth-example"
 import RandomImageGenerationSeventhExample from "../../components/intermediates/image-generation/seventh-shaders"
 
-const TexturingBranchingPage = ({ location: { pathname } }) => (
+const ImageGenerationPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
       pathname={pathname}
@@ -66,4 +66,4 @@ const TexturingBranchingPage = ({ location: { pathname } }) => (
   </Layout>
 )
 
-export default TexturingBranchingPage
+export default ImageGenerationPage
