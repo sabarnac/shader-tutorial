@@ -4,28 +4,38 @@ import Layout from "../../components/layout"
 import Content from "../../components/content"
 import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
-import RandomImageGenerationFirstExample from "../../components/intermediates/random-image-generation/first-example"
-import RandomImageGenerationSecondExample from "../../components/intermediates/random-image-generation/second-example"
+import RandomImageGenerationFirstExample from "../../components/intermediates/image-generation/first-example"
+import RandomImageGenerationSecondExample from "../../components/intermediates/image-generation/second-example"
+import RandomImageGenerationThirdExample from "../../components/intermediates/image-generation/third-example"
+import RandomImageGenerationFourthExample from "../../components/intermediates/image-generation/fourth-example"
+import RandomImageGenerationFifthExample from "../../components/intermediates/image-generation/fifth-example"
+import RandomImageGenerationSixthExample from "../../components/intermediates/image-generation/sixth-example"
+import RandomImageGenerationSeventhExample from "../../components/intermediates/image-generation/seventh-shaders"
 
 const TexturingBranchingPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
       pathname={pathname}
-      title="Shader Intermediates - Random Image Generation"
-      description="A look into the how images can be generated using noise combined with certain algorithms."
+      title="Shader Intermediates - Image Generation"
+      description="A look into the how images can be generated using noise and patterns."
       keywords={[
-        "random",
         "image",
         "generation",
         "noise",
+        "patterns",
         "shader",
         "intermediates",
       ]}
     />
     <Content>
-      <h2>Shader Intermediates - Random Image Generation</h2>
+      <h2>Shader Intermediates - Image Generation</h2>
       <RandomImageGenerationFirstExample />
       <RandomImageGenerationSecondExample />
+      <RandomImageGenerationThirdExample />
+      <RandomImageGenerationFourthExample />
+      <RandomImageGenerationFifthExample />
+      <RandomImageGenerationSixthExample />
+      <RandomImageGenerationSeventhExample />
       <p>
         Looking at the fragment shader code, there is an addition of a new
         function called <code>random</code>. This function generates a random

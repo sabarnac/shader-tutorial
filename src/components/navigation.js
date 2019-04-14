@@ -53,9 +53,7 @@ const Navigation = () => (
             </Link>
           </li>
           <li>
-            <Link to="/intermediates/random-image-generation">
-              Random Image Generation
-            </Link>
+            <Link to="/intermediates/image-generation">Image Generation</Link>
           </li>
           <li>
             <Link to="/intermediates/lighting-dithering">

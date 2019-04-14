@@ -2,9 +2,9 @@ import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
 import { runOnPredicate } from "../../util"
 import {
-  secondVertexShaderSource,
-  secondFragmentShaderSource,
-} from "./second-example-shaders"
+  sixthVertexShaderSource,
+  sixthFragmentShaderSource,
+} from "./sixth-example-shaders"
 import { mat4 } from "gl-matrix"
 
 const shaderProgramInfo = {
@@ -17,7 +17,6 @@ const shaderProgramInfo = {
   fragment: {
     attributeLocations: {},
     uniformLocations: {
-      time: "float",
       resolution: "vec2",
     },
   },
@@ -25,7 +24,7 @@ const shaderProgramInfo = {
 
 const screenModelPosition = mat4.create()
 
-const RandomImageGenerationSecondExample = () => {
+const RandomImageGenerationSixthExample = () => {
   const screen = {
     vertices: [
       [-1.0, -1.0, 0.0],
@@ -39,7 +38,6 @@ const RandomImageGenerationSecondExample = () => {
   const [shaderInfo, updateShaderInfo] = useState(null)
   const [screenBuffer, updateScreenBuffer] = useState({ vertices: null })
   const [shouldRender, updateShouldRender] = useState(true)
-  const [time, updateTime] = useState(performance.now())
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
@@ -51,8 +49,8 @@ const RandomImageGenerationSecondExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          secondVertexShaderSource,
-          secondFragmentShaderSource
+          sixthVertexShaderSource,
+          sixthFragmentShaderSource
         )
       )
     }),
@@ -83,19 +81,11 @@ const RandomImageGenerationSecondExample = () => {
   useEffect(
     runOnPredicate(screenBuffer.vertices !== null, () => {
       updateShouldRender(true)
-      let then = parseInt(performance.now().toString())
 
       const renderScene = () => {
         webGlRef.renderScene(({ gl, resolution }) => {
           if (!shouldRender) {
             return
-          }
-
-          const currentTime = parseInt(performance.now().toString())
-
-          if (currentTime - then > 100) {
-            then = currentTime
-            updateTime(currentTime)
           }
 
           gl.bindBuffer(gl.ARRAY_BUFFER, screenBuffer.vertices)
@@ -117,7 +107,6 @@ const RandomImageGenerationSecondExample = () => {
             shaderInfo.fragment.uniformLocations.resolution,
             resolution
           )
-          gl.uniform1f(shaderInfo.fragment.uniformLocations.time, currentTime)
 
           gl.drawArrays(gl.TRIANGLE_STRIP, 0, screen.vertices.length)
 
@@ -136,9 +125,8 @@ const RandomImageGenerationSecondExample = () => {
       <canvas width="640" height="480" ref={canvasRef}>
         Cannot run WebGL examples (not supported)
       </canvas>
-      <pre className="util text-left">Time: {time}</pre>
     </div>
   )
 }
 
-export default RandomImageGenerationSecondExample
+export default RandomImageGenerationSixthExample
