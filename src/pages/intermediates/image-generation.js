@@ -71,15 +71,13 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         vertices passed are:
       </p>
       <p className="util text-center">
-        {renderEquation(`vertices = ((-1, -1), (-1, 1), (1, 1), (1, -1)`)}
+        {renderEquation(`vertices = ((-1, -1), (-1, 1), (1, 1), (1, -1))`)}
       </p>
       <p>
-        These coordinates map to the edges of the frame/screen in clip-space, so
-        the vertex shader just directly returns whichever vertex it receives.{" "}
-        <em>
-          No modifications are done to the received vertex since the passed
-          vertices are already plotted in clip-space.
-        </em>
+        These four coordinates map to the vertices of the frame, so the vertex
+        shader returns the vertex value as it receives it. No modifications are
+        done to the received vertex since the passed vertices are already in the
+        form of clip-space coordinates.
       </p>
       <GlslCodeHighlight code={firstVertexShaderSource.trim()} type="Vertex" />
       <h3>Pattern Example - A coordinate gradient</h3>
