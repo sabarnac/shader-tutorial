@@ -46,10 +46,10 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
     <Content>
       <h2>Shader Intermediates - Image Generation</h2>
       <p>
-        So far, all images generated were of objects or shapes that were passed
-        to the GPU. Another way to generate images is to just draw over the
-        entire screen, and apply some logic to determine which fragment gets
-        colored in what way.
+        While images can be generated to render objects passed to a GPU, images
+        can also be generated where the image is drawn over the entire screen,
+        with the help of some logic for what color each pixel should be. Noise
+        can also be added in to the image to change the end result.
       </p>
       <p>
         These generated images can be used as the final image to show to users,
@@ -87,13 +87,212 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         code={firstFragmentShaderSource.trim()}
         type="Fragment"
       />
+      <p>
+        This fragment shader generates a gradient that's darkest at one corner
+        and brightest at the opposite corner. The darkest corner will always be
+        at the origin, since that is the point where the coordinates of the
+        pixel will be 0 (or at least nearest to 0).
+      </p>
+      <p>
+        In GLSL, the coordinates of the current fragment can be accessed through
+        the <code>gl_FragCoord</code> constant. It contains the position of the
+        fragment as the X and Y values, and the depth of the fragment as the Z
+        value.
+      </p>
+      <p>
+        In cases where a single fragment is generated per pixel, the position of
+        this fragment will be the coordinates of the center of the pixel the
+        fragment belongs to.
+      </p>
+      <p>
+        This means that a fragment belonging to the lower-left most pixel, the
+        coordinates of the fragment is {renderEquation(`(0.5, 0.5)`)}, when the
+        location of the pixel itself is {renderEquation(`(0, 0)`)}.
+      </p>
+      <p>
+        The coordinates of the fragments range from {renderEquation(`(0, 0)`)}{" "}
+        to the width and height of the frame. In order to normalize these
+        coordinates down to a range from 0 - 1, we can receive the total
+        resolution of the frame from outside the shader (the shader by default
+        has no way of knowing the resolution of the frame).
+      </p>
+      <p>
+        The fragment coordinates can then be divided by the resolution to get
+        the normalized coordinates of the fragment within the range from 0 - 1,
+        which can make calculations simpler since we now work within a constant
+        range.
+      </p>
+      <p>
+        The color of the fragment is simply set as the product of the normalized
+        X and Y coordinates of the fragment, and in greyscale (since R, G, and B
+        components are all set to the same value).
+      </p>
+      <p>
+        From this render, we can see that the origin of the X and Y axis is at
+        the lower-left corner. The value of X increases as you move right, and
+        the value of Y increases as you go up.
+      </p>
+      <p>Let's now look at the next example, where we tile the image.</p>
       <h3>Pattern Example - A tiled coordinate gradient</h3>
       <RandomImageGenerationSecondExample />
       <h4>How it works</h4>
+      <p>
+        Tiling an image is pretty simple. The image needs to be split into
+        blocks, and then each block can have a calculation performed on it.
+      </p>
+      <p>
+        However, since the fragment shader only works on inidividual fragments,
+        we need to determine to which tile a fragment belongs, as well as its
+        location in a tile. Once these details are known, operations can be
+        performed as stated.
+      </p>
+      <p>
+        We first define the tiling resolution in <code>tilingResolution</code>.
+        This defines the number of tiles that are present along the X and Y
+        axis. In our case, we define that there will be 12 tiles along the
+        X-axis, and 9 along the Y-axis.
+      </p>
+      <p>
+        The reason for this choice is that all rendered images here are at an
+        aspect ratio of 4:3. In order for the tiles to be square, the tiling
+        resolution needs to match this aspect ratio, which is true for our
+        selected values ({renderEquation(`12:9 = 4:3`)}).
+      </p>
+      <p>
+        Next, we have to determine the coordinates of the fragment relative to
+        the tile the belong to. This can be done through a simple multiplication
+        with the tiling resolution.
+      </p>
+      <p>
+        Currently, our fragment coordinates are normalized within the range 0 -
+        1. This means that these coordinates have become fully independent of
+        resolution. Prior to this normalization, their positions were relative
+        to the size of the frame.
+      </p>
+      <p>
+        This is very useful, since now the coordinates can be "scaled up" to any
+        resolution we wish. Let's go through an example to understand what we
+        mean.
+      </p>
+      <p>
+        Assume we have a frame with a resolution of {renderEquation(`(99, 99)`)}
+        . The center of this frame would be at {renderEquation(`(50, 50)`)}. If
+        we normalize the center coordinates, we would get:
+      </p>
+      <p className="util text-center">
+        {renderEquation(`("(50, 50)") / ("(99, 99)") = (0.505050, 0.505050)`)}
+        <br />
+        <em>Note that these final coordinates are approximates</em>.
+      </p>
+      <p>
+        If we multiply these coordinates with the original resolution, we get
+        the original coordinate of the center back:
+      </p>
+      <p className="util text-center">
+        {renderEquation(`("(0.505050, 0.505050)") * ("(99, 99)") = (50, 50)`)}
+        <br />
+        <em>Note that these final coordinates are approximates</em>.
+      </p>
+      <p>
+        However, what if we intend to know what the coordinates of this center
+        would be with a resolution of {renderEquation(`(49, 49)`)} instead?
+        Simple, we just multiply this new resolution with the normalized
+        coordinates of our center.
+      </p>
+      <p className="util text-center">
+        {renderEquation(`("(0.505050, 0.505050)") * ("(49, 49)") = (25, 25)`)}
+        <br />
+        <em>Note that these final coordinates are approximates</em>.
+      </p>
+      <p>
+        This means that the position of any coordinate can be when relative to
+        any resolution just through the simple multiplication.
+      </p>
+      <p>
+        Now let us assume our tiles as pixels on the screen. By multiplyign the
+        tiling resolution with the normalized coordinates, we get the
+        coordinates of the fragments relative to the tiling resolution.
+      </p>
+      <p>
+        Since the number of fragments that have to be rendered by the GPU was
+        initially w.r.t. the size of the frame, by downscaling the resolution
+        down to the number of tiles we have set, we group up multiple fragments
+        into a frame. To be more specific, it would be:
+      </p>
+      <p className="util text-center">
+        {renderEquation(
+          `(text(width of resolution) / text(number of tiles along width), text(height of resolution) / text(number of tiles along height))`
+        )}
+      </p>
+      <p>
+        Let us take our previous example and look into it further. If we took a
+        tiling resolution of {renderEquation(`(10, 10)`)}, then the coordinates
+        of the center w.r.t this resolution would be:
+      </p>
+      <p className="util text-center">
+        {renderEquation(
+          `("(0.505050, 0.505050)") * ("(10, 10)") = (5.050505, 5.050505)`
+        )}
+      </p>
+      <p>
+        Looking at these coordinates, we find that the value's of the components
+        of the coordinates have two parts - an integral part (
+        {renderEquation(`5`)}), and a decimal part ({renderEquation(`.050505`)}
+        ).
+      </p>
+      <p>
+        The integral part of the value represents the coordinate of the tile the
+        fragment belongs to. In this case, the center belongs to the tile which
+        has coordinates {renderEquation(`(5, 5)`)}. The decimal part of the
+        value represents the normalized coordinates of the fragment w.r.t the
+        tile that it belongs to.
+      </p>
+      <p>
+        If you wish, you can further divide a tile into sub-tiles and start a
+        tile-ception, and this same rule would still apply. Do note that for
+        sub-tiles, you'll have to multiply the tiling resolution with the
+        normalized component of this calculated coordinate, not the entire
+        coordinate.
+      </p>
+      <p>
+        Once we have the normalized coordinate of each fragment w.r.t its tile,
+        the rest is as simple as the first example.
+      </p>
       <GlslCodeHighlight
         code={secondFragmentShaderSource.trim()}
         type="Fragment"
       />
+      <p>
+        Looking at our code, we can see the application of the discussed
+        concepts. We set a tiling resolution of ({renderEquation(`(12.0, 9.0)`)}
+        ). The normalized coordinate of the fragment is then calculated.
+      </p>
+      <p>
+        The coordinate of the fragment w.r.t. the tiling resolution is then
+        calculated through the multiplication operation.
+      </p>
+      <p>
+        However, for the color of the fragment, we only care about its
+        normalized coordinate within the block it belongs to, so we grab the
+        decimal component of the resultant coordinate.
+      </p>
+      <p>
+        In GLSL, this can be done using the built-in function <code>fract</code>
+        .
+      </p>
+      <p>
+        <em>
+          Note: In the shader code, any values w.r.t a parent tile will be
+          prefixed with <code>block</code>. Any values w.r.t the frame of tiles
+          will be prefixed with <code>tile</code>
+        </em>
+        . This is done to differentiate between them.
+      </p>
+      <p>
+        These "tile normalized" coordinates are then used to calculate the color
+        of the fragment, just like in the first example.
+      </p>
+      <p>Next, let's draw something else within the tiles.</p>
       <h3>Pattern Example - A tiled pattern with glowing center</h3>
       <RandomImageGenerationThirdExample />
       <h4>How it works</h4>
@@ -166,7 +365,10 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       </p>
       <h3>Summary</h3>
     </Content>
-    <PageChange previous="/intermediates/lighting-dithering/" />
+    <PageChange
+      previous="/intermediates/color-2/"
+      next="/intermediates/texturing-branching/"
+    />
   </Layout>
 )
 

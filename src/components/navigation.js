@@ -48,6 +48,9 @@ const Navigation = () => (
             <Link to="/intermediates/color-2">Color Part 2</Link>
           </li>
           <li>
+            <Link to="/intermediates/image-generation">Image Generation</Link>
+          </li>
+          <li>
             <Link to="/intermediates/texturing-branching">
               Texturing And Branching
             </Link>
@@ -56,9 +59,6 @@ const Navigation = () => (
             <Link to="/intermediates/lighting-dithering">
               Lighting And Dithering
             </Link>
-          </li>
-          <li>
-            <Link to="/intermediates/image-generation">Image Generation</Link>
           </li>
           <li>More Coming Soon...</li>
         </ul>

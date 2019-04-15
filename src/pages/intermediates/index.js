@@ -22,6 +22,11 @@ const IntermediatesIndexPage = ({ location: { pathname } }) => (
           </Link>
         </li>
         <li>
+          <Link to="/intermediates/image-generation">
+            Shader Intermediates - Image Generation
+          </Link>
+        </li>
+        <li>
           <Link to="/intermediates/texturing-branching">
             Shader Intermediates - Texturing And Branching
           </Link>
@@ -29,11 +34,6 @@ const IntermediatesIndexPage = ({ location: { pathname } }) => (
         <li>
           <Link to="/intermediates/lighting-dithering">
             Shader Intermediates - Lighting and Dithering
-          </Link>
-        </li>
-        <li>
-          <Link to="/intermediates/image-generation">
-            Shader Intermediates - Image Generation
           </Link>
         </li>
         <li>More Coming Soon...</li>

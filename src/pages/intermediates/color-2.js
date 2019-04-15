@@ -187,7 +187,7 @@ const ColorPt2Page = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange next="/intermediates/texturing-branching/" />
+    <PageChange next="/intermediates/image-generation/" />
   </Layout>
 )
 
