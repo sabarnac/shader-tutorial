@@ -138,125 +138,226 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <h4>How it works</h4>
       <p>
         Tiling an image is pretty simple. The image needs to be split into
-        blocks, and then each block can have a calculation performed on it.
+        blocks, and then each block can have operations performed on it.
       </p>
       <p>
-        However, since the fragment shader only works on inidividual fragments,
-        we need to determine to which tile a fragment belongs, as well as its
-        location in a tile. Once these details are known, operations can be
-        performed as stated.
+        As the fragment shader can only work on individual fragments, two values
+        need to be calculated for each of them:
+      </p>
+      <ul>
+        <li>The tile the fragment belongs to</li>
+        <li>
+          The position of the fragment within that tile (in the form of
+          normalized coordinates).
+        </li>
+      </ul>
+      <p>
+        Once these values are known, applying operations on each tile (or block)
+        is simple.
       </p>
       <p>
-        We first define the tiling resolution in <code>tilingResolution</code>.
-        This defines the number of tiles that are present along the X and Y
-        axis. In our case, we define that there will be 12 tiles along the
-        X-axis, and 9 along the Y-axis.
+        In order to understand how the math would work, let's look at the
+        current image that we have.
       </p>
       <p>
-        The reason for this choice is that all rendered images here are at an
-        aspect ratio of 4:3. In order for the tiles to be square, the tiling
-        resolution needs to match this aspect ratio, which is true for our
-        selected values ({renderEquation(`12:9 = 4:3`)}).
+        The current image we have is made up of pixels. The position of these
+        pixels can be easily determined. Taking an image of resolution{" "}
+        {renderEquation(`(99, 99)`)}, if we consider the screen as a graph and
+        the lower-left corner pixel as the origin, then the center pixel would
+        be located at {renderEquation(`(49, 49)`)}.
       </p>
       <p>
-        Next, we have to determine the coordinates of the fragment relative to
-        the tile the belong to. This can be done through a simple multiplication
-        with the tiling resolution.
+        Similarly, the coordinates of the top-right corner would{" "}
+        {renderEquation(`(98, 98)`)}, the coordinates of the top-left corner
+        would be {renderEquation(`(0, 98)`)}, the coordinates of the
+        bottom-right corner would be {renderEquation(`(0, 98)`)}, and the
+        coordinates of the bottom-left corner would be{" "}
+        {renderEquation(`(0, 0)`)} (since that's the origin).
       </p>
       <p>
-        Currently, our fragment coordinates are normalized within the range 0 -
-        1. This means that these coordinates have become fully independent of
-        resolution. Prior to this normalization, their positions were relative
-        to the size of the frame.
+        We know that pixels contain multiple fragments. For this current
+        situation, let's consider each pixel only containing one fragment, with
+        its position at the center of the pixel.
       </p>
       <p>
-        This is very useful, since now the coordinates can be "scaled up" to any
-        resolution we wish. Let's go through an example to understand what we
-        mean.
+        Our previous explanation assumes that pixels are point sized (they have
+        no area). However, in reality, they do occupy a region of space, just
+        like tiles.
       </p>
       <p>
-        Assume we have a frame with a resolution of {renderEquation(`(99, 99)`)}
-        . The center of this frame would be at {renderEquation(`(50, 50)`)}. If
-        we normalize the center coordinates, we would get:
-      </p>
-      <p className="util text-center">
-        {renderEquation(`("(50, 50)") / ("(99, 99)") = (0.505050, 0.505050)`)}
-        <br />
-        <em>Note that these final coordinates are approximates</em>.
+        This means that the coordinates of the pixels don't exactly represent
+        the position of that pixel, but instead a particular part of that pixel.
+        As is with graphs and plotting, the coordinate of the pixel represents
+        where the lower-left corner of the pixel is positioned.
       </p>
       <p>
-        If we multiply these coordinates with the original resolution, we get
-        the original coordinate of the center back:
-      </p>
-      <p className="util text-center">
-        {renderEquation(`("(0.505050, 0.505050)") * ("(99, 99)") = (50, 50)`)}
-        <br />
-        <em>Note that these final coordinates are approximates</em>.
+        Since fragments belong to a particular pixel, their position is
+        generally determined relative to each pixel. Since the coordinates of
+        each pixel in an image is represented as an integer, the coordinates of
+        the fragments within the pixel can be represented as decimal values of
+        that integer coordinate.
       </p>
       <p>
-        However, what if we intend to know what the coordinates of this center
-        would be with a resolution of {renderEquation(`(49, 49)`)} instead?
-        Simple, we just multiply this new resolution with the normalized
-        coordinates of our center.
-      </p>
-      <p className="util text-center">
-        {renderEquation(`("(0.505050, 0.505050)") * ("(49, 49)") = (25, 25)`)}
-        <br />
-        <em>Note that these final coordinates are approximates</em>.
-      </p>
-      <p>
-        This means that the position of any coordinate can be when relative to
-        any resolution just through the simple multiplication.
-      </p>
-      <p>
-        Now let us assume our tiles as pixels on the screen. By multiplyign the
-        tiling resolution with the normalized coordinates, we get the
-        coordinates of the fragments relative to the tiling resolution.
-      </p>
-      <p>
-        Since the number of fragments that have to be rendered by the GPU was
-        initially w.r.t. the size of the frame, by downscaling the resolution
-        down to the number of tiles we have set, we group up multiple fragments
-        into a frame. To be more specific, it would be:
+        For example, with the center pixel in our previous example, the
+        coordinate
+        {renderEquation(`(49, 49)`)} now represents the lower-left corner of
+        that pixel. As the position of the fragment lies at the center of the
+        pixel, its coordinates would become:
       </p>
       <p className="util text-center">
         {renderEquation(
-          `(text(width of resolution) / text(number of tiles along width), text(height of resolution) / text(number of tiles along height))`
+          `"fragment coordinates" = (49 + 0.5, 49 + 0.5) = (49.5, 49.5)`
         )}
       </p>
       <p>
-        Let us take our previous example and look into it further. If we took a
-        tiling resolution of {renderEquation(`(10, 10)`)}, then the coordinates
-        of the center w.r.t this resolution would be:
+        <em>
+          Note: Since the coordinates of two consecutive pixels will have a
+          difference of 1, a fragment within a pixel has to have a coordinate
+          within the range of 0 to 1 (excluding 1, including 0). As the fragment
+          in our example is at the centre, its coordinates would be{" "}
+          {renderEquation(`50% "of 1" = 0.5`)}.
+        </em>
+      </p>
+      <p>Here we notice two interesting properties:</p>
+      <ul>
+        <li>
+          The integral part of the coordinates represents the pixel position.
+        </li>
+        <li>
+          The decimal part of the coordinates represents the fragment position
+          within that pixel. They are also considered as normalized coordinates
+          of the fragment w.r.t that pixel (we'll look into that later).
+        </li>
+      </ul>
+      <p>
+        An important note about these coordinates is that they are dependent on
+        the resolution of the image, which is {renderEquation(`(99, 99)`)}. This
+        is evident through a simple check.
+      </p>
+      <p>
+        We saw that the coordinates of the center pixel of the image is{" "}
+        {renderEquation(`(49, 49)`)}. However, this coordinate is relative to
+        the size of the image itself. If the size of the image changes, the
+        coordinates of the center pixel would also change.
+      </p>
+      <p>
+        These coordinates need to be converted into a format such that they are
+        no longer dependent on the resolution of the image. By doing so, the
+        coordinates become "normalized", and are independent of any resolution.
+      </p>
+      <p>
+        The value of the components of normalized coordinates is always within
+        the range of 0 to 1 (excluding 1, including 0).
+      </p>
+      <p>
+        This can be done through a simple division operation of the pixel
+        coordinate and the resolution of the image. The calculation is:
       </p>
       <p className="util text-center">
         {renderEquation(
-          `("(0.505050, 0.505050)") * ("(10, 10)") = (5.050505, 5.050505)`
+          `text(normalized coordinates) = (text(pixel coordinate)_x / text(image resolution)_x, text(pixel coordinate)_y / text(image resolution)_y)`
         )}
       </p>
       <p>
-        Looking at these coordinates, we find that the value's of the components
-        of the coordinates have two parts - an integral part (
-        {renderEquation(`5`)}), and a decimal part ({renderEquation(`.050505`)}
-        ).
+        Once the normalized coordinates of any pixel are known, the coordinates
+        of a pixel relative to any screen resolution can be determined through
+        multiplication:
+      </p>
+      <p className="util text-center">
+        {renderEquation(
+          `text(new coordinates) = (text(pixel coordinate)_x / text(new resolution)_x, text(pixel coordinate)_y / text(new resolution)_y)`
+        )}
       </p>
       <p>
-        The integral part of the value represents the coordinate of the tile the
-        fragment belongs to. In this case, the center belongs to the tile which
-        has coordinates {renderEquation(`(5, 5)`)}. The decimal part of the
-        value represents the normalized coordinates of the fragment w.r.t the
-        tile that it belongs to.
+        Now consider the pixels as tiles. Tiles have area as well, similar to
+        pixels as we've discussed. So this allows us to map the concepts
+        discussed so far into tiles.
       </p>
       <p>
-        If you wish, you can further divide a tile into sub-tiles and start a
-        tile-ception, and this same rule would still apply. Do note that for
-        sub-tiles, you'll have to multiply the tiling resolution with the
-        normalized component of this calculated coordinate, not the entire
+        Tiles also contain a group of points, similar to the concept of pixels,
+        where a fragment is be considered a point, and a pixel is considered a
+        group of fragments, in this case there being only one fragment in the
+        center.
+      </p>
+      <p>
+        By normalizing the coordinates of a fragment, all the fragments from the
+        original image are grouped into an image that is one pixel in size.
+      </p>
+      <p>
+        This is evident by looking at the value of the components of the
+        normalized coordinates. These coordinates will always have the integral
+        component set to 0, which means that they all belong to the same pixel.
+        It is the decimal component that determines where they are located
+        within that pixel.
+      </p>
+      <p>
+        If we took an image of resolution {renderEquation(`(100, 100)`)} with
+        one fragment per pixel, when the fragment coordinates are normalized,
+        the fragments are now simply mapped onto an image of resolution{" "}
+        {renderEquation(`(1, 1)`)}.
+      </p>
+      <p>
+        This means the pixel in this "new image" will contain all the fragments
+        of the original image, which is{" "}
+        {renderEquation(`100 times 100 = 10000`)}. The location of all these
+        fragments within that pixel are determined from the decimal part of the
+        values of the coordinates.
+      </p>
+      <p>
+        By multiplying the normalized coordinates against another resolution,
+        these fragments are again spread across all the pixels in that
+        resolution. This can result in a change in the number of fragments per
+        pixel, depending upon the new resolution.
+      </p>
+      <p>
+        This is also evident from the resultant coordinates. The integral part
+        of the coordinates will indicate which pixel the fragment belongs to,
+        and the decimal part indicates where they are located within that pixel.
+      </p>
+      <p>
+        If the fragments from the example are now spread across an image of
+        resolution {renderEquation(`(10, 10)`)}, then each pixel in the new
+        image will contain{" "}
+        {renderEquation(`10000 / (10 times 10) = 10000 / 100 = 100`)} fragments.
+      </p>
+      <p>
+        A fragment present within pixel of coordinates{" "}
+        {renderEquation(`(5, 5)`)} will have coordinates{" "}
+        {renderEquation(`("5.x", "5.y")`)}, where {renderEquation(`"x"`)} and{" "}
+        {renderEquation(`"y"`)} are the decimal parts that tell the location of
+        the fragment within that pixel.
+      </p>
+      <p>
+        We initially noted that the decimal part of the coordinate is the
+        normalized coordinate of the fragment. The reason for this is simple.
+      </p>
+      <p>
+        We've just discussed how with normalized coordinates, the integral part
+        is always constant, with the decimal part noting the actual location.
+      </p>
+      <p>
+        Similarly, with the fragment coordinates, since the decimal part
+        determines where within a specific pixel the fragment is located, it can
+        be considered as the normalized coordinate relative to the pixel the
+        fragment belongs to.
+      </p>
+      <p>
+        The concept of tiling uses these principles, with a tile representing a
+        pixel. When the coordinate of a fragment is normalized, it is grouped
+        into a single tile.
+      </p>
+      <p>
+        By multiplying this normalized coordinate with the "tiling resolution"
+        (number of tiles across the screen, similar to screen resolution and
+        pixels), the fragment is then placed into the tile that it should belong
+        to.
+      </p>
+      <p>
+        Using the final coordinates of the fragment, the tile the fragment it is
+        present in can be determined by looking at the integral part of its
+        coordinate, and its location within a tile (normalized coordinate w.r.t
+        the tile) can be determined by looking at the decimal part of the
         coordinate.
-      </p>
-      <p>
-        Once we have the normalized coordinate of each fragment w.r.t its tile,
-        the rest is as simple as the first example.
       </p>
       <GlslCodeHighlight
         code={secondFragmentShaderSource.trim()}
@@ -273,7 +374,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       </p>
       <p>
         However, for the color of the fragment, we only care about its
-        normalized coordinate within the block it belongs to, so we grab the
+        normalized coordinate within the tile it belongs to, so we grab the
         decimal component of the resultant coordinate.
       </p>
       <p>
@@ -283,8 +384,8 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <p>
         <em>
           Note: In the shader code, any values w.r.t a parent tile will be
-          prefixed with <code>block</code>. Any values w.r.t the frame of tiles
-          will be prefixed with <code>tile</code>
+          prefixed with <code>block</code>. Any values w.r.t the all tiles will
+          be prefixed with <code>tile</code>
         </em>
         . This is done to differentiate between them.
       </p>
