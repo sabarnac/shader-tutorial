@@ -918,6 +918,40 @@ const LightingDitheringPage = ({ location: { pathname } }) => (
         in the dithering screenshots, and allows for color gradients to appear
         much smoother than they really are.
       </p>
+      <h3>Additional Notes</h3>
+      <p>
+        One interesting point that may be noticed is that all lighting factors
+        are calculated on the vertex shader, which is then passed to the
+        fragment shader, allowing the GPU to interpolate the factor for each
+        fragment.
+      </p>
+      <p>
+        The reason that this is done on the vertex shader and not the fragment
+        shader is to reduce the number of calculations, similar to why the MVP
+        matrix is passed directly instead of the multiplication being done on
+        the GPU.
+      </p>
+      <p>
+        There will always be considerably more fragments that a fragment shader
+        would have to process than vertices that a vertex shader would have to
+        process.
+      </p>
+      <p>
+        This means that any calculations done on a fragment shader will be done
+        much more in comparison to a calculation done on the vertex shader.
+      </p>
+      <p>
+        To save on computation time, if there is a calculation on the fragment
+        shader can be performed on the vertex shader and then interpolated for
+        each fragment, it is recommended to perform that calculation on the
+        vertex shader.
+      </p>
+      <p>
+        This optimization reduces the number of overall computations performed
+        and relies on the GPU interpolating values correctly. If it is seen that
+        the interpolation is inaccurate, then it is acceptable to keep the
+        calculation in the fragment shader.
+      </p>
       <h3>Summary</h3>
       <ul>
         <li>

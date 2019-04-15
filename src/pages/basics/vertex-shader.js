@@ -220,6 +220,7 @@ const VertexShaderPage = ({ location: { pathname } }) => (
         with the previous example is followed to calculate the final coordinates
         of the vertex.
       </p>
+      <h3>Additional Notes</h3>
       <p>
         This rotation matrix can be more easily created outside the shader since
         there are utility libraries that provide helper functions for performing
@@ -228,6 +229,23 @@ const VertexShaderPage = ({ location: { pathname } }) => (
       <p>
         However, for the sake of understanding how the rotation works, it is
         shown within the shader.
+      </p>
+      <p>
+        We also calculate the multiplication of the model, view, and projection
+        matrix within the vertex shader itself. This is a calculation whose
+        result never changes for any vertex.
+      </p>
+      <p>
+        Since the result of the calculation is a constant, it can be done once
+        outside the GPU and then passed as a <code>uniform</code> to the vertex
+        shader. This optimization will be done in future examples and chapters.
+      </p>
+      <p>
+        This will be visible in vertex shaders where we pass an{" "}
+        <code>uniform</code> called <code>mvpMatrix</code>, which is the
+        multiplication product of the model, view, and projection matrices. Any
+        additional transformations (like rotations) will also be calculated
+        beforehand and then passed through this uniform.
       </p>
       <h3>Summary</h3>
       <ul>
