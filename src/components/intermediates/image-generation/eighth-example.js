@@ -2,9 +2,9 @@ import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
 import { runOnPredicate } from "../../util"
 import {
-  eightVertexShaderSource,
-  eightFragmentShaderSource,
-} from "./eight-example-shaders"
+  eighthVertexShaderSource,
+  eighthFragmentShaderSource,
+} from "./eighth-example-shaders"
 import { mat4 } from "gl-matrix"
 
 const shaderProgramInfo = {
@@ -24,7 +24,7 @@ const shaderProgramInfo = {
 
 const screenModelPosition = mat4.create()
 
-const RandomImageGenerationEightExample = () => {
+const RandomImageGenerationEighthExample = () => {
   const screen = {
     vertices: [
       [-1.0, -1.0, 0.0],
@@ -49,8 +49,8 @@ const RandomImageGenerationEightExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          eightVertexShaderSource,
-          eightFragmentShaderSource
+          eighthVertexShaderSource,
+          eighthFragmentShaderSource
         )
       )
     }),
@@ -129,4 +129,4 @@ const RandomImageGenerationEightExample = () => {
   )
 }
 
-export default RandomImageGenerationEightExample
+export default RandomImageGenerationEighthExample

@@ -11,7 +11,7 @@ import RandomImageGenerationFourthExample from "../../components/intermediates/i
 import RandomImageGenerationFifthExample from "../../components/intermediates/image-generation/fifth-example"
 import RandomImageGenerationSixthExample from "../../components/intermediates/image-generation/sixth-example"
 import RandomImageGenerationSeventhExample from "../../components/intermediates/image-generation/seventh-example"
-import RandomImageGenerationEightExample from "../../components/intermediates/image-generation/eight-example"
+import RandomImageGenerationEighthExample from "../../components/intermediates/image-generation/eighth-example"
 import RandomImageGenerationNinthExample from "../../components/intermediates/image-generation/ninth-example"
 import { renderEquation } from "../../components/util"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
@@ -25,7 +25,7 @@ import { fourthFragmentShaderSource } from "../../components/intermediates/image
 import { fifthFragmentShaderSource } from "../../components/intermediates/image-generation/fifth-example-shaders"
 import { sixthFragmentShaderSource } from "../../components/intermediates/image-generation/sixth-example-shaders"
 import { seventhFragmentShaderSource } from "../../components/intermediates/image-generation/seventh-example-shaders"
-import { eightFragmentShaderSource } from "../../components/intermediates/image-generation/eight-example-shaders"
+import { eighthFragmentShaderSource } from "../../components/intermediates/image-generation/eighth-example-shaders"
 import { ninthFragmentShaderSource } from "../../components/intermediates/image-generation/ninth-example-shaders"
 
 const ImageGenerationPage = ({ location: { pathname } }) => (
@@ -430,10 +430,10 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         type="Fragment"
       />
       <h3>Combined Example - A tiled pattern with random centers</h3>
-      <RandomImageGenerationEightExample />
+      <RandomImageGenerationEighthExample />
       <h4>How it works</h4>
       <GlslCodeHighlight
-        code={eightFragmentShaderSource.trim()}
+        code={eighthFragmentShaderSource.trim()}
         type="Fragment"
       />
       <h3>Combined Example - A tiled pattern with random diagonals</h3>

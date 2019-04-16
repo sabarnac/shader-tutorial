@@ -1,14 +1,3 @@
-import { glsl } from "../../util"
-
-export const eightVertexShaderSource = glsl`
-attribute vec4 vertexPosition;
-
-void main() {
-  gl_Position = vertexPosition;
-}
-`
-
-export const eightFragmentShaderSource = glsl`
 uniform highp vec2 resolution;
 
 highp float random(vec2 coords) {
@@ -32,4 +21,3 @@ void main() {
   highp float fragmentColor = pow(centerFactor, 2.0);
   gl_FragColor = vec4(vec3(fragmentColor), 3);
 }
-`
