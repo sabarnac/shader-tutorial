@@ -27,6 +27,8 @@ import { sixthFragmentShaderSource } from "../../components/intermediates/image-
 import { seventhFragmentShaderSource } from "../../components/intermediates/image-generation/seventh-example-shaders"
 import { eighthFragmentShaderSource } from "../../components/intermediates/image-generation/eighth-example-shaders"
 import { ninthFragmentShaderSource } from "../../components/intermediates/image-generation/ninth-example-shaders"
+import tilePlot from "../../images/intermediates/tile-plot.png"
+import tileDiagonalPlot from "../../images/intermediates/tile-diagonal-plot.png"
 
 const ImageGenerationPage = ({ location: { pathname } }) => (
   <Layout>
@@ -397,17 +399,240 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <h3>Pattern Example - A tiled pattern with glowing center</h3>
       <RandomImageGenerationThirdExample />
       <h4>How it works</h4>
+      <p>
+        Now equipped with the information on how to tile an image, and get the
+        necessary values required to work within a tile, we can start drawing
+        within tiles.
+      </p>
+      <p>
+        The algorithm for drawing a glowing circle that dims as you move towards
+        the edge is simple:
+      </p>
+      <ul>
+        <li>Determine the coordinate for the center of the circle.</li>
+        <li>
+          Calculate the distance of the current coordinate from the center.
+        </li>
+        <li>
+          The distance from the center determines the brightness of the
+          fragment. The closer a fragment is to the center, the brighter it will
+          be.
+        </li>
+      </ul>
       <GlslCodeHighlight
         code={thirdFragmentShaderSource.trim()}
         type="Fragment"
       />
+      <p>
+        First, we need to determine the center of a tile. In a tile, the
+        normalized coordinates of the center would be{" "}
+        {renderEquation(`(0.5, 0.5)`)}, since the center would be located at the
+        50% width and height mark of a tile.
+      </p>
+      <p>
+        We can then calculate the distance between the fragment and the center
+        of the tiles using their normalized coordinates. In GLSL, a built-in
+        function exists that can provide this value, called{" "}
+        <code>distance</code>.
+      </p>
+      <p>
+        Since we wish for fragments closer to the center of the tile to be
+        brighter, we calculate the factor for the brightness as 1.0 (which is
+        the maximum possible brightness) minus the distance of the fragment from
+        the center.
+      </p>
+      <p>
+        The result of this factor is stored in a variable called{" "}
+        <code>centerFactor</code>, since this brightness factor is based around
+        the center of the tile.
+      </p>
+      <p>
+        This brightness factor can now be set as the greyscale color of the
+        fragment. This will result in fragments further away from the center of
+        the tile becoming brighter.
+      </p>
+      <p>
+        One thing to note is that the brightness factor is multiplied to the
+        power of 3 (using the GLSL function <code>pow</code>), which is then set
+        as the greyscale color of the fragment.
+      </p>
+      <p>
+        There are two reasons this was done, and are also interlinked with each
+        other:
+      </p>
+      <ul>
+        <li>
+          It increases the range of brightness values that are possible for the
+          fragments.
+        </li>
+        <li>
+          It increases the dropoff in brightness exponentially with distance.
+        </li>
+      </ul>
+      <p>
+        Without using <code>pow</code>, the possible range for the brightness
+        values of fragments would be 1.0 - 0.3.
+      </p>
+      <ul>
+        <li>
+          Points at the center would have a distance of 0, their brightness
+          would be 1.0.
+        </li>
+        <li>
+          Points at the edges of a tile would have a maximum distance of 0.7
+          (the distance of the corners from the center), making their brightness
+          factor go down to 0.3.
+        </li>
+      </ul>
+      <p>
+        By multiplying the factor by the power of 3, this range increases
+        dramatically, to 1.0 - 0.027, since the lowest possible brightness gets
+        cubed.
+      </p>
+      <p>
+        This also means that the dropoff in brightness increases exponentially
+        with distance from the center. Since the edges are now darker, the
+        fragments in between will drop off in brightness a lot more to maintain
+        the transition and range.
+      </p>
+      <p>
+        Use this trick to your advantage if you need to exaggerate color values
+        of your fragments.
+      </p>
       <h3>Pattern Example - A tiled pattern with glowing diagonals</h3>
       <RandomImageGenerationFourthExample />
       <h4>How it works</h4>
+      <p>
+        Drawing a pattern of diagonal lines across a tile may seem complex, but
+        from the maths, we'll see that it's much more simple than it appears to
+        be.
+      </p>
+      <p>
+        In this pattern, we wish for fragments to grow dimmer the further they
+        are from a either diagonal line. This requires calculating the distance
+        of the fragment from either diagonal.
+      </p>
+      <p>
+        In our image, we are dealing with square tiles, so all our calculations
+        will be respective to that particular shape. For non-square tiles, the
+        calculations may differ slightly, but the same requirement exists.
+      </p>
+      <p>
+        Let's take the center of the tile as the origin of the graph. The tile
+        is a square, and the normalized coordinates of the center of the tile is{" "}
+        {renderEquation(`(0.5, 0.5)`)}. This results in the boundaries of the
+        tile in our graph being 0.5 units away from the origin.
+      </p>
+      <p>The plot for this would be:</p>
+      <p className="util text-center">
+        <img src={tilePlot} alt="Tile Graph Plot" />
+        <br />
+        <a
+          href="https://www.transum.org/Maths/Activity/Graph/Desmos.asp"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Image Generation Source
+        </a>
+      </p>
+      <p>
+        Adding the diagonals of the tile to the graph would result in the plot:
+      </p>
+      <p className="util text-center">
+        <img src={tileDiagonalPlot} alt="Tile With Diagonals Graph Plot" />
+        <br />
+        <a
+          href="https://www.transum.org/Maths/Activity/Graph/Desmos.asp"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Image Generation Source
+        </a>
+      </p>
+      <p>
+        Here, we can notice a peculiar property of diagonals - the absolute
+        values of the X and Y coordinates of points on the diagonal are always
+        equal. This can be easily verified from the plot generated above.
+      </p>
+      <p>
+        So in order to determine if a point is on a diagonal line, we just need
+        to find the difference between the absolute values of its X and Y
+        coordinates. If it's zero, then we know it is on the diagonal.
+      </p>
+      <p>
+        This subtraction calculation also provides us with another info - an
+        approximate distance from the closest diagonal line.
+      </p>
+      <p>
+        Any point that has a difference greater than zero between its X and Y
+        coordinates are known to be present outside the line. This difference
+        provides us with an approximation of how far away the point is.
+      </p>
+      <p>
+        It will, in many cases, not equal to the closest distance between a
+        point and the closest diagonal line, but for our purposes it is a good
+        enough approximation.
+      </p>
+      <p>
+        Now that we can calculate the distance of a fragment from the closest
+        diagonal line, we can apply the same principles we learnt from the
+        previous shader example.
+      </p>
       <GlslCodeHighlight
         code={fourthFragmentShaderSource.trim()}
         type="Fragment"
       />
+      <p>
+        The first few lines in the shader are similar to the previous shader
+        example. After that, we first determine the normalized coordinates of
+        the fragment w.r.t the center of the tile.
+      </p>
+      <p>
+        This is done through simple subtraction of the normalized coordinates of
+        the center of the tile from the normalized coordinates of the fragment,
+        thanks to the properties of vector mathematics.
+      </p>
+      <p>
+        Since we don't care about the signs of the X and Y coordinates of the
+        fragment, just their absolute values, we remove the signs from the
+        resulting coordinate calculation. In GLSL, the built-in function{" "}
+        <code>abs</code> achieves this operation.
+      </p>
+      <p>
+        Next we determine the distance of the point from the diagonal through
+        the subtraction of the X and Y coordinates of the fragment. Only the
+        absolute value of this result matters, hence the use of the{" "}
+        <code>abs</code> function again.
+      </p>
+      <p>
+        Since the smaller this distance is, the closer the fragment is to the
+        diagonal, this value is subtracted from 1.0 so that points closer to the
+        diagonal are brighter (similar to the previous shader example).
+      </p>
+      <p>
+        This result is stored in a variable called <code>diagonalFactor</code>,
+        since this brightness factor is based on the distance from the diagonal.
+      </p>
+      <p>
+        From this point onwards, it is again similar to the previous shader -
+        using the brightness value to set the greyscale color of the fragment,
+        and exaggerating the color difference using <code>pow</code>.
+      </p>
+      <p>
+        Any pattern drawing that depends on tiling works on the same basics as
+        the two patterns shown - splitting the image into tiles, and then
+        operating within a single tile using the normalized coordinates w.r.t
+        the tile the fragment belongs to.
+      </p>
+      <p>
+        A pattern may not necessarily be created through a completely unique set
+        of rules. Multiple patterns can be combined to form new patterns that
+        produce interesting effects.
+      </p>
+      <p>
+        Let's look at an example where we combine our previous two patterns into
+        one and see the results.
+      </p>
       <h3>Pattern Example - A tiled combination pattern</h3>
       <RandomImageGenerationFifthExample />
       <h4>How it works</h4>
@@ -415,7 +640,98 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         code={fifthFragmentShaderSource.trim()}
         type="Fragment"
       />
-      <h3>Noise Example - Raw noise</h3>
+      <p>
+        In this example, we can see that we perform the calculations for the
+        center brightness factor and diagonal brightness factor exactly as shown
+        previously.
+      </p>
+      <p>
+        The results of these two factors are combined (or merged) through a
+        multiplication operation. This results in the image that you see above.
+      </p>
+      <p>Looking at the image, you can see the effects of both factors:</p>
+      <ul>
+        <li>
+          The diagonal lines are visible, but are sharpened at the edges due to
+          the effect of the center brightness factor.
+        </li>
+        <li>
+          The brightness decreases closer to the edges of the tiles, but it
+          produces a more "square-ish" shape than a circular one due to the
+          diagonal brightness factor.
+        </li>
+      </ul>
+      <p>
+        Here we see the effects of both the diagonal brightness factor and
+        center brightness factor, but neither dominating over each other. The
+        reason for this is due to the multiplication operation.
+      </p>
+      <p>
+        A question that might be raised is why addition wasn't used instead.
+        Addition is an operation that basically stacks such effects, but doesn't
+        "combine" them into one.
+      </p>
+      <p>
+        Here's an analogy to explain how the effects of addition and
+        multiplication:
+      </p>
+      <ul>
+        <li>
+          Addition is like taking a cake, applying a layer of frosting over it,
+          and then adding a layer of chocolate sprinkles on top.
+          <ul>
+            <li>
+              The frosting and sprinkles are in visibly separate layers, with
+              the texture properties of both present only in their respective
+              layers.
+            </li>
+            <li>The frosting and sprinkles can be separated with ease</li>
+            <li>
+              If enough sprinkles are spread evenly enough across the frosting,
+              it can obscure a majority of the frosting from the view.
+            </li>
+          </ul>
+        </li>
+        <li>
+          Multiplication is like taking a bowl, putting in the frosting and
+          chocolate sprinkles, and mixing it together into one mixture, and then
+          layering this mixture on top of the cake.
+          <ul>
+            <li>
+              The mixture combines the smooth texture of the frosting, and the
+              crunchy texture of the sprinkles.
+            </li>
+            <li>
+              The frosting and sprinkles are relatively much harder to separate.
+            </li>
+            <li>
+              A relatively much larger ratio of sprinkles vs frosting is
+              required to obscure the frosting.
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <p>
+        By performing an addition operation between the two factors, one factor
+        could completely dominate over the other in certain fragments, and
+        appear to stack over each other instead.
+      </p>
+      <p>
+        By contrast, performing a multiplication operation "melds" the two
+        factors together into a result where being able to separate the
+        individual effects is harder to do visually.
+      </p>
+      <p>
+        In these types of cases, an addition operation basically stacks effects
+        and factors, whereas a multiplication operation mixes effects and factos
+        into one.
+      </p>
+      <p>
+        So far, we've looked into images generated through the use of patterns,
+        specifically tiling and patterns within tiles. Next, let's look at how
+        images can be generated using randomness and noise.
+      </p>
+      <h3>Noise Example - Random noise</h3>
       <RandomImageGenerationSixthExample />
       <h4>How it works</h4>
       <GlslCodeHighlight
