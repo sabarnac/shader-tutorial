@@ -685,7 +685,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
               the texture properties of both present only in their respective
               layers.
             </li>
-            <li>The frosting and sprinkles can be separated with ease</li>
+            <li>The frosting and sprinkles can be separated with ease.</li>
             <li>
               If enough sprinkles are spread evenly enough across the frosting,
               it can obscure a majority of the frosting from the view.
@@ -698,8 +698,8 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
           layering this mixture on top of the cake.
           <ul>
             <li>
-              The mixture combines the smooth texture of the frosting, and the
-              crunchy texture of the sprinkles.
+              The mixture combines the texture of the frosting and the
+              sprinkles.
             </li>
             <li>
               The frosting and sprinkles are relatively much harder to separate.
@@ -722,8 +722,8 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         individual effects is harder to do visually.
       </p>
       <p>
-        In these types of cases, an addition operation basically stacks effects
-        and factors, whereas a multiplication operation mixes effects and factos
+        In these types of cases, an addition operation stacks effects and
+        factors, whereas a multiplication operation mixes effects and factors
         into one.
       </p>
       <p>
