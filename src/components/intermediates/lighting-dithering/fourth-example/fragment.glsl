@@ -8,7 +8,7 @@ uniform highp float ambientFactor;
 uniform sampler2D textureSampler;
 
 highp float random(vec2 coords) {
-   return fract(sin(dot(coords.xy,vec2(12.9898,78.233))) * 43758.5453);
+   return fract(sin(dot(coords.xy, vec2(12.9898,78.233))) * 43758.5453);
 }
 
 void main() {

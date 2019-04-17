@@ -99,12 +99,12 @@ const ColorPt2Page = ({ location: { pathname } }) => (
       <p>
         In this image we see a background of a white to black linear gradient
         starting from the top of the image and going down to the bottom. At the
-        center is a grey tile gradient that is slightly dark at the top and
+        center is a gray tile gradient that is slightly dark at the top and
         slightly light at the bottom.
       </p>
       <p>
         Actually, the last statement isn't accurate. At first glance, the inner
-        tile may look like a gradient, however, it is a tile of a constant grey
+        tile may look like a gradient, however, it is a tile of a constant gray
         color.
       </p>
       <p>
@@ -123,7 +123,7 @@ const ColorPt2Page = ({ location: { pathname } }) => (
         due to the relative brightness of the background at the top.
       </p>
       <p>
-        This example is with greyscale images, but the same issue applies with
+        This example is with grayscale images, but the same issue applies with
         color images, although it may not be as "strong". Here is an example
         image showing an example in color:
       </p>

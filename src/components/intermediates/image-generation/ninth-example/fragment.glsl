@@ -1,7 +1,7 @@
 uniform highp vec2 resolution;
 
 highp float random(vec2 coords) {
-   return fract(sin(dot(coords.xy,vec2(12.9898,78.233))) * 43758.5453);
+   return fract(sin(dot(coords.xy, vec2(12.9898,78.233))) * 43758.5453);
 }
 
 highp float invert_step(float edge, float x) {
@@ -15,9 +15,8 @@ void main() {
   highp vec2 blockCenter = vec2(0.5, 0.5);
   highp vec2 blockCoordinates = fract(coordinates * tilingResolution);
   highp vec2 tileCoord = floor(coordinates * tilingResolution);
-  highp vec2 tileCenter = tileCoord + blockCenter;
 
-  highp float randomFactor = random(tileCenter / tilingResolution);
+  highp float randomFactor = random(tileCoord / tilingResolution);
 
   highp vec2 coordFromCenter = blockCenter - blockCoordinates;
   highp float distanceFromDiagonal1 = abs(coordFromCenter.x - coordFromCenter.y);

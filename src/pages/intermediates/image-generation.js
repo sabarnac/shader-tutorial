@@ -82,7 +82,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         form of clip-space coordinates.
       </p>
       <GlslCodeHighlight code={firstVertexShaderSource.trim()} type="Vertex" />
-      <h3>Pattern Example - A coordinate gradient</h3>
+      <h3>Example - A coordinate gradient</h3>
       <RandomImageGenerationFirstExample />
       <h4>How it works</h4>
       <GlslCodeHighlight
@@ -126,7 +126,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       </p>
       <p>
         The color of the fragment is simply set as the product of the normalized
-        X and Y coordinates of the fragment, and in greyscale (since R, G, and B
+        X and Y coordinates of the fragment, and in grayscale (since R, G, and B
         components are all set to the same value).
       </p>
       <p>
@@ -135,7 +135,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         the value of Y increases as you go up.
       </p>
       <p>Let's now look at the next example, where we tile the image.</p>
-      <h3>Pattern Example - A tiled coordinate gradient</h3>
+      <h3>Example - A tiled coordinate gradient</h3>
       <RandomImageGenerationSecondExample />
       <h4>How it works</h4>
       <p>
@@ -189,19 +189,21 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <p>
         This means that the coordinates of the pixels don't exactly represent
         the position of that pixel, but instead a particular part of that pixel.
-        As is with graphs and plotting, the coordinate of the pixel represents
+        As is with graphs and plotting, the coordinates of the pixel represents
         where the lower-left corner of the pixel is positioned.
       </p>
       <p>
         Since fragments belong to a particular pixel, their position is
-        generally determined relative to each pixel. Since the coordinates of
-        each pixel in an image is represented as an integer, the coordinates of
-        the fragments within the pixel can be represented as decimal values of
-        that integer coordinate.
+        generally determined relative to each pixel.
+      </p>
+      <p>
+        Since the coordinates of each pixel in an image is represented as an
+        integer, the coordinates of the fragments within the pixel can be
+        represented as decimal values of the integer coordinates.
       </p>
       <p>
         For example, with the center pixel in our previous example, the
-        coordinate
+        coordinates
         {renderEquation(`(49, 49)`)} now represents the lower-left corner of
         that pixel. As the position of the fragment lies at the center of the
         pixel, its coordinates would become:
@@ -214,7 +216,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <p>
         <em>
           Note: Since the coordinates of two consecutive pixels will have a
-          difference of 1, a fragment within a pixel has to have a coordinate
+          difference of 1, a fragment within a pixel has to have coordinates
           within the range of 0 to 1 (excluding 1, including 0). As the fragment
           in our example is at the centre, its coordinates would be{" "}
           {renderEquation(`50% "of 1" = 0.5`)}.
@@ -238,7 +240,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       </p>
       <p>
         We saw that the coordinates of the center pixel of the image is{" "}
-        {renderEquation(`(49, 49)`)}. However, this coordinate is relative to
+        {renderEquation(`(49, 49)`)}. However, the coordinates are relative to
         the size of the image itself. If the size of the image changes, the
         coordinates of the center pixel would also change.
       </p>
@@ -253,11 +255,11 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       </p>
       <p>
         This can be done through a simple division operation of the pixel
-        coordinate and the resolution of the image. The calculation is:
+        coordinates and the resolution of the image. The calculation is:
       </p>
       <p className="util text-center">
         {renderEquation(
-          `text(normalized coordinates) = (text(pixel coordinate)_x / text(image resolution)_x, text(pixel coordinate)_y / text(image resolution)_y)`
+          `text(normalized coordinates) = (text(pixel coordinates)_x / text(image resolution)_x, text(pixel coordinates)_y / text(image resolution)_y)`
         )}
       </p>
       <p>
@@ -267,7 +269,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       </p>
       <p className="util text-center">
         {renderEquation(
-          `text(new coordinates) = (text(pixel coordinate)_x / text(new resolution)_x, text(pixel coordinate)_y / text(new resolution)_y)`
+          `text(new coordinates) = (text(pixel coordinates)_x / text(new resolution)_x, text(pixel coordinates)_y / text(new resolution)_y)`
         )}
       </p>
       <p>
@@ -330,8 +332,8 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         the fragment within that pixel.
       </p>
       <p>
-        We initially noted that the decimal part of the coordinate is the
-        normalized coordinate of the fragment. The reason for this is simple.
+        We initially noted that the decimal part of the coordinates are the
+        normalized coordinates of the fragment. The reason for this is simple.
       </p>
       <p>
         We've just discussed how with normalized coordinates, the integral part
@@ -340,27 +342,36 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <p>
         Similarly, with the fragment coordinates, since the decimal part
         determines where within a specific pixel the fragment is located, it can
-        be considered as the normalized coordinate relative to the pixel the
+        be considered as the normalized coordinates relative to the pixel the
         fragment belongs to.
       </p>
       <p>
         The concept of tiling uses these principles, with a tile representing a
-        pixel. When the coordinate of a fragment is normalized, it is grouped
+        pixel. When the coordinates of a fragment is normalized, it is grouped
         into a single tile.
       </p>
       <p>
-        By multiplying this normalized coordinate with the "tiling resolution"
+        By multiplying this normalized coordinates with the "tiling resolution"
         (number of tiles across the screen, similar to screen resolution and
         pixels), the fragment is then placed into the tile that it should belong
         to.
       </p>
       <p>
-        Using the final coordinates of the fragment, the tile the fragment it is
-        present in can be determined by looking at the integral part of its
-        coordinate, and its location within a tile (normalized coordinate w.r.t
-        the tile) can be determined by looking at the decimal part of the
-        coordinate.
+        Using the final coordinates of the fragment (which we'll refer to as the
+        tiling coordinates), we can:
       </p>
+      <ul>
+        <li>
+          Determine the tile the fragment is present in by looking at the
+          integral part of its tiling coordinates (which we'll refer to as tile
+          coordinates).
+        </li>
+        <li>
+          Determine its location within a tile (normalized coordinates w.r.t the
+          tile) by looking at the decimal part of its tiling coordinates (which
+          we'll refer to as tile normalized coordinates).
+        </li>
+      </ul>
       <GlslCodeHighlight
         code={secondFragmentShaderSource.trim()}
         type="Fragment"
@@ -368,16 +379,16 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <p>
         Looking at our code, we can see the application of the discussed
         concepts. We set a tiling resolution of ({renderEquation(`(12.0, 9.0)`)}
-        ). The normalized coordinate of the fragment is then calculated.
+        ). The normalized coordinates of the fragment are then calculated.
       </p>
       <p>
-        The coordinate of the fragment w.r.t. the tiling resolution is then
-        calculated through the multiplication operation.
+        The tiling coordinates of the fragment w.r.t. the tiling resolution is
+        then calculated through the multiplication operation.
       </p>
       <p>
-        However, for the color of the fragment, we only care about its
-        normalized coordinate within the tile it belongs to, so we grab the
-        decimal component of the resultant coordinate.
+        However, for the color of the fragment, we only care about its tile
+        normalized coordinates, so we grab the decimal component of the
+        resultant coordinates.
       </p>
       <p>
         In GLSL, this can be done using the built-in function <code>fract</code>
@@ -392,8 +403,8 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         . This is done to differentiate between them.
       </p>
       <p>
-        These "tile normalized" coordinates are then used to calculate the color
-        of the fragment, just like in the first example.
+        The tile normalized coordinates are then used to calculate the color of
+        the fragment, just like in the first example.
       </p>
       <p>Next, let's draw something else within the tiles.</p>
       <h3>Pattern Example - A tiled pattern with glowing center</h3>
@@ -409,9 +420,13 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         the edge is simple:
       </p>
       <ul>
-        <li>Determine the coordinate for the center of the circle.</li>
         <li>
-          Calculate the distance of the current coordinate from the center.
+          Determine the tile normalized coordinates for the center of the
+          circle.
+        </li>
+        <li>
+          Calculate the distance of the current fragments' tile normalized
+          coordinates from the center.
         </li>
         <li>
           The distance from the center determines the brightness of the
@@ -424,8 +439,8 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         type="Fragment"
       />
       <p>
-        First, we need to determine the center of a tile. In a tile, the
-        normalized coordinates of the center would be{" "}
+        First, we need to determine the tile normalized coordinates center of a
+        tile. In a tile, the tile normalized coordinates of the center would be{" "}
         {renderEquation(`(0.5, 0.5)`)}, since the center would be located at the
         50% width and height mark of a tile.
       </p>
@@ -447,14 +462,14 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         the center of the tile.
       </p>
       <p>
-        This brightness factor can now be set as the greyscale color of the
+        This brightness factor can now be set as the grayscale color of the
         fragment. This will result in fragments further away from the center of
         the tile becoming brighter.
       </p>
       <p>
         One thing to note is that the brightness factor is multiplied to the
         power of 3 (using the GLSL function <code>pow</code>), which is then set
-        as the greyscale color of the fragment.
+        as the grayscale color of the fragment.
       </p>
       <p>
         There are two reasons this was done, and are also interlinked with each
@@ -503,9 +518,9 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <RandomImageGenerationFourthExample />
       <h4>How it works</h4>
       <p>
-        Drawing a pattern of diagonal lines across a tile may seem complex, but
-        from the maths, we'll see that it's much more simple than it appears to
-        be.
+        Drawing a pattern of diagonal lines across a tile may seem complex but,
+        looking at the mathematics, we'll see that it's much more simple than it
+        appears to be.
       </p>
       <p>
         In this pattern, we wish for fragments to grow dimmer the further they
@@ -519,9 +534,9 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       </p>
       <p>
         Let's take the center of the tile as the origin of the graph. The tile
-        is a square, and the normalized coordinates of the center of the tile is{" "}
-        {renderEquation(`(0.5, 0.5)`)}. This results in the boundaries of the
-        tile in our graph being 0.5 units away from the origin.
+        is a square, and the tile normalized coordinates of the center of the
+        tile is {renderEquation(`(0.5, 0.5)`)}. This results in the boundaries
+        of the tile in our graph being 0.5 units away from the origin.
       </p>
       <p>The plot for this would be:</p>
       <p className="util text-center">
@@ -584,18 +599,19 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       />
       <p>
         The first few lines in the shader are similar to the previous shader
-        example. After that, we first determine the normalized coordinates of
-        the fragment w.r.t the center of the tile.
+        example. After that, we first determine the tile normalized coordinates
+        of the fragment.
       </p>
       <p>
-        This is done through simple subtraction of the normalized coordinates of
-        the center of the tile from the normalized coordinates of the fragment,
-        thanks to the properties of vector mathematics.
+        This is done through simple subtraction of the tile normalized
+        coordinates of the center of the tile from the tile normalized
+        coordinates of the fragment, thanks to the properties of vector
+        mathematics.
       </p>
       <p>
         Since we don't care about the signs of the X and Y coordinates of the
         fragment, just their absolute values, we remove the signs from the
-        resulting coordinate calculation. In GLSL, the built-in function{" "}
+        resulting coordinates calculation. In GLSL, the built-in function{" "}
         <code>abs</code> achieves this operation.
       </p>
       <p>
@@ -615,14 +631,13 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       </p>
       <p>
         From this point onwards, it is again similar to the previous shader -
-        using the brightness value to set the greyscale color of the fragment,
+        using the brightness value to set the grayscale color of the fragment,
         and exaggerating the color difference using <code>pow</code>.
       </p>
       <p>
         Any pattern drawing that depends on tiling works on the same basics as
         the two patterns shown - splitting the image into tiles, and then
-        operating within a single tile using the normalized coordinates w.r.t
-        the tile the fragment belongs to.
+        operating within a single tile using the tile normalized coordinates.
       </p>
       <p>
         A pattern may not necessarily be created through a completely unique set
@@ -731,20 +746,97 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         specifically tiling and patterns within tiles. Next, let's look at how
         images can be generated using randomness and noise.
       </p>
-      <h3>Noise Example - Random noise</h3>
+      <h3>Randomness Example - Random noise</h3>
       <RandomImageGenerationSixthExample />
       <h4>How it works</h4>
       <GlslCodeHighlight
         code={sixthFragmentShaderSource.trim()}
         type="Fragment"
       />
-      <h3>Noise Example - A tiled pattern of random colors</h3>
+      <p>
+        In this example, for each fragment a random number is generated within
+        the range of 0 - 1 (excluding 1, including 0). For this, a user-defined{" "}
+        <code>random</code> was used to create a number from given 2D
+        coordinates.
+      </p>
+      <p>
+        The function is provided with the normalized coordinates of the fragment
+        as a parameter, and the random number returned is used as the grayscale
+        color value for the fragment.
+      </p>
+      <p>
+        The <code>random</code> function used here will always generate the same
+        random number given the same input, which allows for consistency.
+      </p>
+      <p>
+        However, if it is required to always be unique, modifying the passed 2D
+        coordinates with the current time can be done to make sure a new random
+        value is generated for every render.
+      </p>
+      <p>
+        <em>
+          Note: The random function code was taken from{" "}
+          <a
+            href="https://github.com/PistonDevelopers/shaders/wiki/Some-useful-GLSL-functions"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            this GitHub Wiki page
+          </a>
+          .
+        </em>
+      </p>
+      <h3>Randomness Example - A tiled pattern of random (grayscale) colors</h3>
       <RandomImageGenerationSeventhExample />
       <h4>How it works</h4>
       <GlslCodeHighlight
         code={seventhFragmentShaderSource.trim()}
         type="Fragment"
       />
+      <p>
+        For setting up a tile of random grayscale colors, we first setup the
+        tiles as learnt in the previous pattern examples, but make certain
+        changes.
+      </p>
+      <p>
+        In the pattern examples, we were only concerned with working within the
+        block itself. So, when we generated the tile normalized coordinates of
+        the fragment (<code>coordinates * tilingResolution</code>
+        ), we ignored the integer component and only kept the decimal component
+        using the function <code>fract</code>.
+      </p>
+      <p>
+        However, in the current situation, we will use the tile coordinates of
+        the fragment to determine what color the tile will be. This requires the
+        integer part of the fragment coordinates to be taken, with the
+        fractional part ignored.
+      </p>
+      <p>
+        In GLSL, by using the built-in function <code>floor</code> to floor a
+        value (round a number to the nearest integer value at or below it), we
+        remove the decimal component of the coordinates.
+      </p>
+      <p>
+        The resultant coordinates are the tile coordinates of the fragment.
+        Next, this tiling coordinates needs to be converted into normalized
+        coordinates, since its value is currently dependent on the tiling
+        resolution.
+      </p>
+      <p>
+        By dividing the tile coordinates by the tiling resolution, we get back
+        the normalized coordinates of the tile itself (to be specific, the
+        lower-left corner of the tile).
+      </p>
+      <p>
+        These normalized coordinates are then passed to the <code>random</code>{" "}
+        function, whose returned value is then used as the grayscale color value
+        of the tile.
+      </p>
+      <p>
+        All fragments within a tile will have the same tile coordinates as they
+        all belong to the same tile. This means that they will generate the same
+        random number, ensuring that the entire tile is the same color.
+      </p>
       <h3>Combined Example - A tiled pattern with random centers</h3>
       <RandomImageGenerationEighthExample />
       <h4>How it works</h4>
@@ -752,6 +844,80 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         code={eighthFragmentShaderSource.trim()}
         type="Fragment"
       />
+      <p>
+        In this example, the concepts of the pattern example of glowing circles
+        is combined with the concepts of the random tile example to randomize
+        the position of the center of the circles.
+      </p>
+      <p>
+        In this example, instead of taking the standard tile normalized
+        coordinates of the center of the block {renderEquation(`(0.5, 0.5)`)},
+        we generate the tile normalized coordinate of the center randomly
+        instead.
+      </p>
+      <p>
+        We've seen in the previous example on how to generate a random number
+        for each tile. We then use this number to select a value within a range
+        of numbers.
+      </p>
+      <p>
+        In this example, the center will only be placed on the diagonal of the
+        tile that goes from the lower-left corner to the top-right corner, with
+        the range of its X and Y coordinates limited to 0.1 to 0.9. A value is
+        then selected within this range using the random number for the tile.
+      </p>
+      <p>
+        To select a value within the set range using the random number as a
+        factor, we can use a method called linear interpolation. But first,
+        let's see what linear interpolation is.
+      </p>
+      <p>
+        Let's consider a range 0.0 to 1.0. We need to get a number within this
+        range using a certain factor provided to us. From this factor, we figure
+        out how far into this range the number will be present, and return the
+        number at that point.
+      </p>
+      <p>
+        So if this value of this factor provided is 0.3, which is 30% in terms
+        of percentages. So, this factor tells us that we should move 30% across
+        the range of 0.0 - 1.0, starting at 0.0, and the number that is at this
+        30% mark should be returned.
+      </p>
+      <p>
+        The number that is present 30% away from 0.0 and 70% away from 1.0 would
+        be 0.3. Hence, the result of this calculation will be 0.3.
+      </p>
+      <p>
+        This method of generating a value by travelling through a certain range
+        of numbers by a certain factor, and returning the value at that point in
+        the range, is called linear interpolation.
+      </p>
+      <p>
+        The formula for this calculation is simple - given a range{" "}
+        {renderEquation(`X - Y`)} and a factor {renderEquation(`F`)} that is
+        within the range {renderEquation(`0.0 - 1.0`)}, the formula is:
+      </p>
+      <p className="util text-center">
+        {renderEquation(`(X times (1 - F)) + (Y times F)`)}
+      </p>
+      <p>
+        In GLSL, a built-in function <code>mix</code> can perform this
+        calculation, which we use to calculate the value of the tile normalized
+        coordinates for our random center, with the X and Y components being the
+        same.
+      </p>
+      <p>
+        Once the random center is calculated, the rest of the process is similar
+        to the original glowing circle pattern example.
+      </p>
+      <p>
+        In this example, we modified the position of the center of the circle,
+        thereby displacing it from the center within the tile.
+      </p>
+      <p>
+        In the next example, let's look at how the random factor can be used to
+        make "decisions" on what should and should not be shown.
+      </p>
       <h3>Combined Example - A tiled pattern with random diagonals</h3>
       <RandomImageGenerationNinthExample />
       <h4>How it works</h4>
@@ -759,27 +925,6 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         code={ninthFragmentShaderSource.trim()}
         type="Fragment"
       />
-      <p>
-        Looking at the fragment shader code, there is an addition of a new
-        function called <code>random</code>. This function generates a random
-        number between 0 and 1 using a given 2D coordinate, which means it
-        produces the same random number for the same coordinate.
-      </p>
-      <p>
-        <em>
-          Note: This random number generator function was taken from{" "}
-          <a
-            href="https://github.com/PistonDevelopers/shaders/wiki/Some-useful-GLSL-functions"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            here
-          </a>
-          . There are many other useful GLSL functions available there, and
-          functions of similar functionality can be found for other shading
-          languages.
-        </em>
-      </p>
       <h3>Summary</h3>
     </Content>
     <PageChange

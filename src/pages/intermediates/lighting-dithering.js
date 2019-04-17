@@ -761,7 +761,7 @@ const LightingDitheringPage = ({ location: { pathname } }) => (
       <p>
         Now, suppose the computer had to render a gradient of colors, going from
         white to black, as shown in the image above. Since the computer can only
-        show black and white, all the shades of grey in between cannot be
+        show black and white, all the shades of gray in between cannot be
         displayed by the computer.
       </p>
       <p className="util text-center">
@@ -827,8 +827,8 @@ const LightingDitheringPage = ({ location: { pathname } }) => (
       </p>
       <p>
         The image is just made from white and black pixels, but through the
-        introduction of noise into the image, shades of grey can be seen within
-        the image, although the color grey technically doesn't exist in the
+        introduction of noise into the image, shades of gray can be seen within
+        the image, although the color gray technically doesn't exist in the
         image.
       </p>
       <p>
