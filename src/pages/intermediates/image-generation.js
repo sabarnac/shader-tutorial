@@ -29,6 +29,7 @@ import { eighthFragmentShaderSource } from "../../components/intermediates/image
 import { ninthFragmentShaderSource } from "../../components/intermediates/image-generation/ninth-example-shaders"
 import tilePlot from "../../images/intermediates/tile-plot.png"
 import tileDiagonalPlot from "../../images/intermediates/tile-diagonal-plot.png"
+import { Link } from "gatsby"
 
 const ImageGenerationPage = ({ location: { pathname } }) => (
   <Layout>
@@ -739,6 +740,14 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         In these types of cases, an addition operation stacks effects and
         factors, whereas a multiplication operation mixes effects and factors
         into one.
+      </p>
+      <p>
+        The effects of multiplication and addition for combining and stacking
+        effects will be more apparent in the{" "}
+        <Link to="/intermediates/lighting-dithering/">
+          lighting and dithering chapter
+        </Link>
+        .
       </p>
       <p>
         So far, we've looked into images generated through the use of patterns,
