@@ -687,8 +687,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         "combine" them into one.
       </p>
       <p>
-        Here's an analogy to explain how the effects of addition and
-        multiplication:
+        Here's an analogy to explain the effects of addition and multiplication:
       </p>
       <ul>
         <li>
@@ -921,11 +920,226 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <h3>Combined Example - A tiled pattern with random diagonals</h3>
       <RandomImageGenerationNinthExample />
       <h4>How it works</h4>
+      <p>
+        In this example, either diagonal needs to be shown based upon the random
+        factor of the tile. First, let's look at the tile plot with the
+        diagonals again.
+      </p>
+      <p className="util text-center">
+        <img src={tileDiagonalPlot} alt="Tile With Diagonals Graph Plot" />
+        <br />
+        <a
+          href="https://www.transum.org/Maths/Activity/Graph/Desmos.asp"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Image Generation Source
+        </a>
+      </p>
+      <p>
+        Let's consider the diagonal starting from the lower-left corner and
+        ending at the upper-right corner as <code>diagonal 1</code>, and the
+        other diagonal as <code>diagonal 2</code>.
+      </p>
+      <p>
+        For the initial diagonal example, we were ignoring the sign of the
+        values of the coordinates of the diagonal points, which simplified
+        calculations to see if a point was on either diagonal, or how far away
+        it was from either diagonal.
+      </p>
+      <p>
+        However, in the current example, we need to separately calculate the
+        distance from <code>diagonal 1</code> and <code>diagonal 2</code> and,
+        depending on which diagonal is to be shown, use either result.
+      </p>
+      <p>
+        For <code>diagonal 1</code>, both X and Y components of points on the
+        diagonal increase together. By finding the difference between the X and
+        Y components, we find the distance from <code>diagonal 1</code>, which
+        is similar to the original diagonal pattern example.
+      </p>
+      <p>
+        For <code>diagonal 2</code>, the X and Y components of points on the
+        diagonal progress in opposite directions, the X components increases and
+        the Y component decreases, with the X component starting at the lowest
+        value, and the Y component starting at the highest value.
+      </p>
+      <p>
+        This also means that the signs of the X and Y components of the points
+        on the diagonal are also always opposite to each other. Looking at the
+        points on <code>diagonal 2</code>, this becomes apparent.
+      </p>
+      <p>
+        The coordinates of the top-left corner the square, which is the one of
+        the ends of <code>diagonal 2</code>, has coordinates{" "}
+        {renderEquation(`(-0.5, 0.5)`)}. Similarly, the coordinates of the other
+        end of the diagonal at the bottom-right corner are{" "}
+        {renderEquation(`(0.5, -0.5)`)}.
+      </p>
+      <p>
+        This difference compared to <code>diagonal 1</code> means that the
+        calculation of the distance from <code>diagonal 2</code> to be done as
+        an addition operation instead of a subtraction operation.
+      </p>
+      <p>
+        This change ensures that the opposite signs of the components of the
+        coordinates don't affect the end result.
+      </p>
+      <p>
+        Once the distance of the fragment from both diagonals are calculated, we
+        can use a decision factor to determine which one gets applied.
+      </p>
       <GlslCodeHighlight
         code={ninthFragmentShaderSource.trim()}
         type="Fragment"
       />
+      <p>
+        Looking at the code, you can see the principles we've discussed so far
+        applied. For calculating the distance from <code>diagonal 1</code>, we
+        subtract the X and Y components of the fragment coordinates, same as our
+        initial diagonal pattern example.
+      </p>
+      <p>
+        For <code>diagonal 2</code>, instead of performing a subtraction
+        operation, we perform the addition operation instead, due to the nature
+        of the X and Y components having opposite signs in{" "}
+        <code>diagonal 2</code>.
+      </p>
+      <p>
+        Once these two are calculated, we then calculate what the color of the
+        fragment would be respective to each diagonal, which is similar to the
+        original diagonal pattern example. After this, we calculate the random
+        factor for the tile, and then decide which diagonal to show.
+      </p>
+      <p>
+        Let's define a threshold of 0.5 on the random factor. If the random
+        factor is below this threshold, then we'll show only{" "}
+        <code>diagonal 2</code>. However, if this is not the case, then{" "}
+        <code>diagonal 1</code> will be shown instead.
+      </p>
+      <p>
+        In GLSL, a built-in function called <code>step</code> allows us to
+        achieve this objective. It is provided with the threshold and the value
+        to check as parameters. If the value is below the threshold, it returns
+        0, or else it returns 1.
+      </p>
+      <p>
+        By multiplying this result with the appropriate diagonal color, we
+        cancel out the color value w.r.t diagonal that shouldn't be shown, and
+        only maintain the color value w.r.t the diagonal which should be shown.
+      </p>
+      <p>
+        For <code>diagonal 1</code>, it should only be shown if the random
+        factor exceeds the threshold of 0.5. So for this, the final factor for{" "}
+        <code>diagonal 1</code> was calculated by checking whether the random
+        factor was exceeding the threshold using <code>step</code>, and
+        multiplying that result with the color value w.r.t.{" "}
+        <code>diagonal 1</code>.
+      </p>
+      <p>
+        If the random factor is less than 0.5, <code>step</code> will return 0,
+        meaning that the effective color factor of <code>diagonal 1</code> is 0.
+      </p>
+      <p>
+        If the factor is above 0.5, <code>step</code> will return 1, which means
+        the effective color factor for <code>diagonal 1</code> will be the
+        calculated color value for it.
+      </p>
+      <p>
+        Similar steps are followed for calculating the effective color factor
+        for <code>diagonal 2</code>, except we use the inverse of the value
+        returned by <code>step</code> (<code>1.0 - step(...)</code>) with the
+        same threshold, using the user-defined function <code>invert_step</code>
+        .
+      </p>
+      <p>
+        Since the factors for both diagonals use the same threshold value, only
+        either one of the diagonals will have a non-zero value, since if{" "}
+        <code>step</code> returns 1, then <code>invert_step</code> will return
+        0, and vice-versa.
+      </p>
+      <p>
+        The final diagonal factor of the fragment is chosen as the maximum value
+        between the effective factor of <code>diagonal 1</code> and{" "}
+        <code>diagonal 2</code>, since one of them will be 0, and the other will
+        be greater than 0. In GLSL, this can be done using the built-in function{" "}
+        <code>max</code>.
+      </p>
+      <p>
+        The final color value of the fragment is set using this final chosen
+        diagonal factor.
+      </p>
+      <p>
+        An additional case can be added where both diagonals can be shown. This
+        can be done by commenting lines 28 and 29, and uncommenting lines 30 and
+        31.
+      </p>
+      <p>
+        The threshold for showing <code>diagonal 1</code> becomes 0.4. If the
+        random factor is more than 0.4, then the diagonal will be shown.
+      </p>
+      <p>
+        Similaryly, the threshold for showing <code>diagonal 2</code> becomes
+        0.6. If the random factor is less than 0.6, then the diagonal will be
+        shown.
+      </p>
+      <p>
+        This results in a range 0.4 to 0.6, where if the random factor of the
+        tile lies within this range, then both diagonals will be shown on the
+        tile.
+      </p>
+      <p>
+        Since now there is a case where the effective color factor of both
+        diagonals can be non-zero at the same time, the final diagonal color
+        factor becomes whichever diagonal color factor is greater.
+      </p>
+      <p>
+        If the color factor of the <code>diagonal 1</code> is greater, this
+        means that the fragment is closer to <code>diagonal 1</code> than{" "}
+        <code>diagonal 2</code>, so the fragment should be colored w.r.t.{" "}
+        <code>diagonal 1</code>.
+      </p>
+      <p>
+        Similarly, if the color factor of the <code>diagonal 2</code> is
+        greater, this means that the fragment is closer to{" "}
+        <code>diagonal 2</code> than <code>diagonal 1</code>, so the fragment
+        should be colored w.r.t. <code>diagonal 2</code>.
+      </p>
+      <p>
+        Since we're already using the GLSL function <code>max</code> to select
+        the maximum value, this case is already accounted for. This means the
+        only change required is to change thresholds for either diagonal such
+        that there will be an overlap range where both diagonals can be shown
+        for a tile.
+      </p>
+      <h3>Additional Notes</h3>
+      <p>
+        The concepts taught so far show the basics of pattern image generation,
+        random noise image generation, and a combination of both. This concepts
+        can be further built upon to generate sub-patterns within patterns, or
+        multiple layers of randomness and patterns combined together.
+      </p>
+      <p>
+        These patterns and randomness can also be animated by including time as
+        a factor as well, which opens up options for dynamic and animated image
+        generation. Time can be used to influence the randomness of an image, or
+        the patterns of an image.
+      </p>
       <h3>Summary</h3>
+      <ul>
+        <li>
+          Images can be generated without using external data, but just using
+          some algorithmic logic within shaders.
+        </li>
+        <li>
+          Images can be generated using patterns and procedural code, or with
+          random values and noise.
+        </li>
+        <li>
+          Logic from pattern/procedural images and random images can be stacked
+          or combined with each other to create many more types of images.
+        </li>
+      </ul>
     </Content>
     <PageChange
       previous="/intermediates/color-2/"

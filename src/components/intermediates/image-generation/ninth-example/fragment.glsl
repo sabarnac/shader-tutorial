@@ -16,16 +16,19 @@ void main() {
   highp vec2 blockCoordinates = fract(coordinates * tilingResolution);
   highp vec2 tileCoord = floor(coordinates * tilingResolution);
 
-  highp float randomFactor = random(tileCoord / tilingResolution);
-
   highp vec2 coordFromCenter = blockCenter - blockCoordinates;
   highp float distanceFromDiagonal1 = abs(coordFromCenter.x - coordFromCenter.y);
   highp float distanceFromDiagonal2 = abs(coordFromCenter.x + coordFromCenter.y);
 
-  highp float diagonal1Factor = step(0.5, randomFactor) * (1.0 - distanceFromDiagonal1);
-  highp float diagonal2Factor = invert_step(0.5, randomFactor) * (1.0 - distanceFromDiagonal2);
-  // highp float diagonal1Factor = step(0.4, randomFactor) * (1.0 - distanceFromDiagonal1);
-  // highp float diagonal2Factor = invert_step(0.6, randomFactor) * (1.0 - distanceFromDiagonal2);
+  highp float diagonal1Color = (1.0 - distanceFromDiagonal1);
+  highp float diagonal2Color = (1.0 - distanceFromDiagonal2);
+
+  highp float randomFactor = random(tileCoord / tilingResolution);
+
+  highp float diagonal1Factor = step(0.5, randomFactor) * diagonal1Color;
+  highp float diagonal2Factor = invert_step(0.5, randomFactor) * diagonal2Color;
+  // highp float diagonal1Factor = step(0.4, randomFactor) * diagonal1Color;
+  // highp float diagonal2Factor = invert_step(0.6, randomFactor) * diagonal2Color;
   highp float diagonalFactor = max(diagonal1Factor, diagonal2Factor);
 
   highp float fragmentColor = pow(diagonalFactor, 3.0);
