@@ -931,8 +931,8 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <h4>How it works</h4>
       <p>
         In this example, either diagonal needs to be shown based upon the random
-        factor of the tile. First, let's look at the tile plot with the
-        diagonals again.
+        factor of the tile. First, let's take a look of the tile with diagonals
+        plot again.
       </p>
       <p className="util text-center">
         <img src={tileDiagonalPlot} alt="Tile With Diagonals Graph Plot" />
@@ -946,9 +946,9 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         </a>
       </p>
       <p>
-        Let's consider the diagonal starting from the lower-left corner and
-        ending at the upper-right corner as <code>diagonal 1</code>, and the
-        other diagonal as <code>diagonal 2</code>.
+        Let's name the diagonal starting from the lower-left corner and ending
+        at the upper-right corner <code>diagonal 1</code>, and name the other
+        diagonal <code>diagonal 2</code>.
       </p>
       <p>
         For the initial diagonal example, we were ignoring the sign of the
@@ -969,9 +969,10 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       </p>
       <p>
         For <code>diagonal 2</code>, the X and Y components of points on the
-        diagonal progress in opposite directions, the X components increases and
-        the Y component decreases, with the X component starting at the lowest
-        value, and the Y component starting at the highest value.
+        diagonal progress in opposite directions. The X components increases and
+        the Y component decreases as you go from left to right, with the X
+        component starting at the lowest value, and the Y component starting at
+        the highest value.
       </p>
       <p>
         This also means that the signs of the X and Y components of the points
@@ -987,12 +988,12 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       </p>
       <p>
         This difference compared to <code>diagonal 1</code> means that the
-        calculation of the distance from <code>diagonal 2</code> to be done as
-        an addition operation instead of a subtraction operation.
+        calculation of the distance from <code>diagonal 2</code> has to be done
+        as an addition operation instead of a subtraction operation.
       </p>
       <p>
-        This change ensures that the opposite signs of the components of the
-        coordinates don't affect the end result.
+        This change accounts for these differences and ensures that the result
+        of the calculation doesn't differ from what's expected.
       </p>
       <p>
         Once the distance of the fragment from both diagonals are calculated, we
@@ -1115,18 +1116,24 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         should be colored w.r.t. <code>diagonal 2</code>.
       </p>
       <p>
-        Since we're already using the GLSL function <code>max</code> to select
-        the maximum value, this case is already accounted for. This means the
-        only change required is to change thresholds for either diagonal such
-        that there will be an overlap range where both diagonals can be shown
-        for a tile.
+        Since we're already selecting the maximum color value w.r.t.{" "}
+        <code>diagonal 1</code> and <code>diagonal 2</code>, this case is
+        already accounted for.
+      </p>
+      <p>
+        The only change required is to change thresholds for either diagonal
+        such that there will be an overlapping range where both diagonals can be
+        shown for a tile.
       </p>
       <h3>Additional Notes</h3>
       <p>
         The concepts taught so far show the basics of pattern image generation,
-        random noise image generation, and a combination of both. This concepts
-        can be further built upon to generate sub-patterns within patterns, or
-        multiple layers of randomness and patterns combined together.
+        random noise image generation, and a combination of both.
+      </p>
+      <p>
+        These concepts can be further built upon to generate sub-patterns within
+        patterns, or multiple layers of randomness and patterns combined
+        together.
       </p>
       <p>
         These patterns and randomness can also be animated by including time as
