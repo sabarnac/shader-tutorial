@@ -1,11 +1,11 @@
 import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate } from "../../util"
+import { runOnPredicate, coordArrToString, uvArrToString } from "../../util"
 import {
-  fourthVertexShaderSource,
-  fourthFragmentShaderSource,
-} from "./fourth-example-shaders"
-import { mat4, vec3, vec4 } from "gl-matrix"
+  secondVertexShaderSource,
+  secondFragmentShaderSource,
+} from "./second-example-shaders"
+import { mat4 } from "gl-matrix"
 import texture from "../../../images/intermediates/texture.png"
 
 const shaderProgramInfo = {
@@ -13,53 +13,28 @@ const shaderProgramInfo = {
     attributeLocations: {
       vertexPosition: "vec4",
       vertexUv: "vec2",
-      vertexNormal: "vec4",
     },
     uniformLocations: {
-      modelMatrix: "mat4",
-      viewMatrix: "mat4",
-      projectionMatrix: "mat4",
-
-      lightPosition_worldSpace: "vec4",
-      lightColor: "vec3",
-      lightIntensity: "float",
-      surfaceReflectivity: "float",
+      mvpMatrix: "mat4",
     },
   },
   fragment: {
     attributeLocations: {},
     uniformLocations: {
-      resolution: "vec2",
-      ambientFactor: "float",
-      noiseGranularity: "float",
+      time: "float",
       textureSampler: "sampler2D",
     },
   },
 }
 
-const lightModelPosition = vec4.fromValues(0.0, 0.0, 4.0, 1.0)
-const lightColor = vec3.fromValues(1.0, 1.0, 1.0)
-const lightIntensity = 40.0
-
-const noiseGranularity = 0.5 / 255.0
-
 const cubeModelPosition = mat4.create()
-const cubeFaceUvs = [
-  [0.0, 0.0],
-  [1.0, 0.0],
-  [0.0, 1.0],
-  [1.0, 0.0],
-  [0.0, 1.0],
-  [1.0, 1.0],
-]
+const cubeFaceUvs = [[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]
 
-const LightingFourthExample = () => {
+const TexturingSecondExample = () => {
   const cube = {
     vertices: [
       // Front vertices
       [-1.0, -1.0, 1.0],
-      [-1.0, 1.0, 1.0],
-      [1.0, -1.0, 1.0],
       [-1.0, 1.0, 1.0],
       [1.0, -1.0, 1.0],
       [1.0, 1.0, 1.0],
@@ -67,13 +42,9 @@ const LightingFourthExample = () => {
       [-1.0, -1.0, 1.0],
       [-1.0, 1.0, 1.0],
       [-1.0, -1.0, -1.0],
-      [-1.0, 1.0, 1.0],
-      [-1.0, -1.0, -1.0],
       [-1.0, 1.0, -1.0],
       // Right vertices
       [1.0, -1.0, 1.0],
-      [1.0, 1.0, 1.0],
-      [1.0, -1.0, -1.0],
       [1.0, 1.0, 1.0],
       [1.0, -1.0, -1.0],
       [1.0, 1.0, -1.0],
@@ -81,23 +52,17 @@ const LightingFourthExample = () => {
       [-1.0, 1.0, 1.0],
       [1.0, 1.0, 1.0],
       [-1.0, 1.0, -1.0],
-      [1.0, 1.0, 1.0],
-      [-1.0, 1.0, -1.0],
       [1.0, 1.0, -1.0],
       // Bottom vertices
       [-1.0, -1.0, 1.0],
       [1.0, -1.0, 1.0],
       [-1.0, -1.0, -1.0],
-      [1.0, -1.0, 1.0],
-      [-1.0, -1.0, -1.0],
       [1.0, -1.0, -1.0],
       // Back vertices
-      [1.0, 1.0, -1.0],
-      [1.0, -1.0, -1.0],
-      [-1.0, 1.0, -1.0],
-      [1.0, -1.0, -1.0],
-      [-1.0, 1.0, -1.0],
       [-1.0, -1.0, -1.0],
+      [-1.0, 1.0, -1.0],
+      [1.0, -1.0, -1.0],
+      [1.0, 1.0, -1.0],
     ],
     uvs: [
       // Front UVs
@@ -113,61 +78,15 @@ const LightingFourthExample = () => {
       // Back UVs
       ...cubeFaceUvs,
     ],
-    normals: [
-      // Front normals
-      [0.0, 0.0, 1.0],
-      [0.0, 0.0, 1.0],
-      [0.0, 0.0, 1.0],
-      [0.0, 0.0, 1.0],
-      [0.0, 0.0, 1.0],
-      [0.0, 0.0, 1.0],
-      // Left normals
-      [-1.0, 0.0, 0.0],
-      [-1.0, 0.0, 0.0],
-      [-1.0, 0.0, 0.0],
-      [-1.0, 0.0, 0.0],
-      [-1.0, 0.0, 0.0],
-      [-1.0, 0.0, 0.0],
-      // Right normals
-      [1.0, 0.0, 0.0],
-      [1.0, 0.0, 0.0],
-      [1.0, 0.0, 0.0],
-      [1.0, 0.0, 0.0],
-      [1.0, 0.0, 0.0],
-      [1.0, 0.0, 0.0],
-      // Top normals
-      [0.0, 1.0, 0.0],
-      [0.0, 1.0, 0.0],
-      [0.0, 1.0, 0.0],
-      [0.0, 1.0, 0.0],
-      [0.0, 1.0, 0.0],
-      [0.0, 1.0, 0.0],
-      // Bottom normals
-      [0.0, -1.0, 0.0],
-      [0.0, -1.0, 0.0],
-      [0.0, -1.0, 0.0],
-      [0.0, -1.0, 0.0],
-      [0.0, -1.0, 0.0],
-      [0.0, -1.0, 0.0],
-      // Back normals
-      [0.0, 0.0, -1.0],
-      [0.0, 0.0, -1.0],
-      [0.0, 0.0, -1.0],
-      [0.0, 0.0, -1.0],
-      [0.0, 0.0, -1.0],
-      [0.0, 0.0, -1.0],
-    ],
     indices: [
-      [0, 1, 2, 3, 4, 5],
-      [6, 7, 8, 9, 10, 11],
-      [12, 13, 14, 15, 16, 17],
-      [18, 19, 20, 21, 22, 23],
-      [24, 25, 26, 27, 28, 29],
-      [30, 31, 32, 33, 34, 35],
+      [0, 1, 2, 3],
+      [4, 5, 6, 7],
+      [8, 9, 10, 11],
+      [12, 13, 14, 15],
+      [16, 17, 18, 19],
+      [20, 21, 22, 23],
     ],
     texture: texture,
-    ambientFactor: 0.3,
-    surfaceReflectivity: 5.0,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -175,11 +94,11 @@ const LightingFourthExample = () => {
   const [cubeBuffer, updateCubeBuffer] = useState({
     vertices: null,
     uvs: null,
-    normals: null,
     indices: null,
     texture: null,
   })
   const [shouldRender, updateShouldRender] = useState(true)
+  const [time, updateTime] = useState(performance.now())
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null && webGlRef === null) {
@@ -191,8 +110,8 @@ const LightingFourthExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          fourthVertexShaderSource,
-          fourthFragmentShaderSource
+          secondVertexShaderSource,
+          secondFragmentShaderSource
         )
       )
     }),
@@ -219,10 +138,6 @@ const LightingFourthExample = () => {
           cube.uvs.flat(),
           cubeBuffer.uvs
         ),
-        normals: webGlRef.createStaticDrawArrayBuffer(
-          cube.normals.flat(),
-          cubeBuffer.normals
-        ),
         indices: webGlRef.createElementArrayBuffer(
           cube.indices.flat(),
           cubeBuffer.indices
@@ -236,18 +151,25 @@ const LightingFourthExample = () => {
   useEffect(
     runOnPredicate(cubeBuffer.vertices !== null, () => {
       updateShouldRender(true)
+      let then = parseInt(performance.now().toString())
 
       const renderScene = () => {
         webGlRef.renderScene(
-          ({ gl, projectionMatrix, viewMatrix, modelMatrix, resolution }) => {
+          ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
             if (!shouldRender) {
               return
             }
 
-            const time = parseInt(performance.now().toString())
+            const currentTime = parseInt(performance.now().toString())
+
+            if (currentTime - then > 100) {
+              then = currentTime
+              updateTime(currentTime)
+            }
 
             const rotatedModelMatrix = mat4.create()
-            const rotationAngle = (((time / 30) % (360 * 6)) * Math.PI) / 180
+            const rotationAngle =
+              (((currentTime / 30) % (360 * 6)) * Math.PI) / 180
             mat4.rotateZ(rotatedModelMatrix, modelMatrix, rotationAngle)
             mat4.rotateX(
               rotatedModelMatrix,
@@ -259,6 +181,10 @@ const LightingFourthExample = () => {
               rotatedModelMatrix,
               rotationAngle / 3
             )
+
+            const mvpMatrix = mat4.create()
+            mat4.multiply(mvpMatrix, viewMatrix, rotatedModelMatrix)
+            mat4.multiply(mvpMatrix, projectionMatrix, mvpMatrix)
 
             gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.vertices)
             gl.vertexAttribPointer(
@@ -286,68 +212,16 @@ const LightingFourthExample = () => {
               shaderInfo.vertex.attributeLocations.vertexUv
             )
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.normals)
-            gl.vertexAttribPointer(
-              shaderInfo.vertex.attributeLocations.vertexNormal,
-              3,
-              gl.FLOAT,
-              false,
-              0,
-              0
-            )
-            gl.enableVertexAttribArray(
-              shaderInfo.vertex.attributeLocations.vertexNormal
-            )
-
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeBuffer.indices)
 
             gl.useProgram(shaderProgram)
 
             gl.uniformMatrix4fv(
-              shaderInfo.vertex.uniformLocations.projectionMatrix,
+              shaderInfo.vertex.uniformLocations.mvpMatrix,
               false,
-              projectionMatrix
+              mvpMatrix
             )
-            gl.uniformMatrix4fv(
-              shaderInfo.vertex.uniformLocations.viewMatrix,
-              false,
-              viewMatrix
-            )
-            gl.uniformMatrix4fv(
-              shaderInfo.vertex.uniformLocations.modelMatrix,
-              false,
-              rotatedModelMatrix
-            )
-
-            gl.uniform4fv(
-              shaderInfo.vertex.uniformLocations.lightPosition_worldSpace,
-              lightModelPosition
-            )
-            gl.uniform3fv(
-              shaderInfo.vertex.uniformLocations.lightColor,
-              lightColor
-            )
-            gl.uniform1f(
-              shaderInfo.vertex.uniformLocations.lightIntensity,
-              lightIntensity
-            )
-            gl.uniform1f(
-              shaderInfo.vertex.uniformLocations.surfaceReflectivity,
-              cube.surfaceReflectivity
-            )
-
-            gl.uniform2fv(
-              shaderInfo.fragment.uniformLocations.resolution,
-              resolution
-            )
-            gl.uniform1f(
-              shaderInfo.fragment.uniformLocations.ambientFactor,
-              cube.ambientFactor
-            )
-            gl.uniform1f(
-              shaderInfo.fragment.uniformLocations.noiseGranularity,
-              noiseGranularity
-            )
+            gl.uniform1f(shaderInfo.fragment.uniformLocations.time, currentTime)
 
             gl.activeTexture(gl.TEXTURE0)
             gl.bindTexture(gl.TEXTURE_2D, cubeBuffer.texture)
@@ -358,7 +232,7 @@ const LightingFourthExample = () => {
             )
 
             gl.drawElements(
-              gl.TRIANGLES,
+              gl.TRIANGLE_STRIP,
               cube.indices.length * cube.indices[0].length,
               gl.UNSIGNED_SHORT,
               0
@@ -380,9 +254,28 @@ const LightingFourthExample = () => {
       <canvas width="640" height="480" ref={canvasRef}>
         Cannot run WebGL examples (not supported)
       </canvas>
-      <pre className="util text-left">Noise Granularity: 0.5 / 255.0</pre>
+      <pre className="util text-left">
+        {`
+Cube:
+    Vertices:
+        Vertex 1: ${coordArrToString(cube.vertices[0])}
+        Vertex 2: ${coordArrToString(cube.vertices[1])}
+        Vertex 3: ${coordArrToString(cube.vertices[2])}
+        Vertex 4: ${coordArrToString(cube.vertices[3])}
+        Vertex 5: ${coordArrToString(cube.vertices[12])}
+        Vertex 6: ${coordArrToString(cube.vertices[13])}
+        Vertex 7: ${coordArrToString(cube.vertices[14])}
+        Vertex 8: ${coordArrToString(cube.vertices[15])}
+    Face UV:
+        Vertex 1: ${uvArrToString(cubeFaceUvs[0])}
+        Vertex 2: ${uvArrToString(cubeFaceUvs[1])}
+        Vertex 3: ${uvArrToString(cubeFaceUvs[2])}
+        Vertex 4: ${uvArrToString(cubeFaceUvs[3])}
+`.trim()}
+      </pre>
+      <pre className="util text-left">Time: {time}</pre>
     </div>
   )
 }
 
-export default LightingFourthExample
+export default TexturingSecondExample

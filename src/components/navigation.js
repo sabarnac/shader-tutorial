@@ -51,14 +51,10 @@ const Navigation = () => (
             <Link to="/intermediates/image-generation">Image Generation</Link>
           </li>
           <li>
-            <Link to="/intermediates/texturing-branching">
-              Texturing And Branching
-            </Link>
+            <Link to="/intermediates/texturing">Texturing</Link>
           </li>
           <li>
-            <Link to="/intermediates/lighting-dithering">
-              Lighting And Dithering
-            </Link>
+            <Link to="/intermediates/lighting">Lighting</Link>
           </li>
           <li>More Coming Soon...</li>
         </ul>
@@ -67,9 +63,16 @@ const Navigation = () => (
         <hr />
       </li>
       <li>
-        Advanced
+        <Link to="/advanced/">Advanced</Link>
         <ul>
-          <li>Coming Soon...</li>
+          <li>
+            <Link to="/advanced/branching">Branching</Link>
+          </li>
+          <li>
+            <Link to="/advanced/color-banding-dithering">
+              Color Banding and Dithering
+            </Link>
+          </li>
         </ul>
       </li>
       <li>

@@ -3,11 +3,13 @@ import React, { Fragment } from "react"
 import SyntaxHighlighter from "react-syntax-highlighter"
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs"
 
-const GlslCodeHighlight = ({ code, type }) => (
+const GlslCodeHighlight = ({ showHeader = true, code, type }) => (
   <Fragment>
-    <p>
-      <strong>{type} Shader:</strong>
-    </p>
+    {showHeader ? (
+      <p>
+        <strong>{type} Shader:</strong>
+      </p>
+    ) : null}
     <SyntaxHighlighter
       className="glsl-code"
       language="glsl"
@@ -30,8 +32,9 @@ const GlslCodeHighlight = ({ code, type }) => (
 )
 
 GlslCodeHighlight.propTypes = {
-  code: PropTypes.string,
-  type: PropTypes.string,
+  showHeader: PropTypes.bool,
+  code: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 }
 
 export default GlslCodeHighlight

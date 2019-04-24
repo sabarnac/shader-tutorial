@@ -4,38 +4,29 @@ import Layout from "../../components/layout"
 import Content from "../../components/content"
 import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
-import LightingNoLightExample from "../../components/intermediates/lighting-dithering/no-light-example.js"
-import LightingFirstExample from "../../components/intermediates/lighting-dithering/first-example"
-import LightingSecondExample from "../../components/intermediates/lighting-dithering/second-example"
-import LightingThirdExample from "../../components/intermediates/lighting-dithering/third-example"
-import LightingFourthExample from "../../components/intermediates/lighting-dithering/fourth-example"
-import LightingIssueExample from "../../components/intermediates/lighting-dithering/issue-example"
+import LightingNoLightExample from "../../components/intermediates/lighting/no-light-example.js"
+import LightingFirstExample from "../../components/intermediates/lighting/first-example"
+import LightingSecondExample from "../../components/intermediates/lighting/second-example"
+import LightingThirdExample from "../../components/intermediates/lighting/third-example"
 import { renderEquation } from "../../components/util"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import {
   firstVertexShaderSource,
   firstFragmentShaderSource,
-} from "../../components/intermediates/lighting-dithering/first-example-shaders"
+} from "../../components/intermediates/lighting/first-example-shaders"
 import { Link } from "gatsby"
-import { secondFragmentShaderSource } from "../../components/intermediates/lighting-dithering/second-example-shaders"
+import { secondFragmentShaderSource } from "../../components/intermediates/lighting/second-example-shaders"
 import {
   thirdVertexShaderSource,
   thirdFragmentShaderSource,
-} from "../../components/intermediates/lighting-dithering/third-example-shaders"
-import { fourthFragmentShaderSource } from "../../components/intermediates/lighting-dithering/fourth-example-shaders"
+} from "../../components/intermediates/lighting/third-example-shaders"
 import glslReflect from "../../images/intermediates/glsl-reflect.png"
-import banding from "../../images/intermediates/banded.png"
-import bandingExaggerated from "../../images/intermediates/banded-exaggerated.png"
-import noised from "../../images/intermediates/noised.png"
-import noisedExaggerated from "../../images/intermediates/noised-exaggerated.png"
-import actualGradient from "../../images/intermediates/actual-gradient.png"
-import bandedGradient from "../../images/intermediates/banded-gradient.png"
 
-const LightingDitheringPage = ({ location: { pathname } }) => (
+const LightingPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
       pathname={pathname}
-      title="Shader Intermediates - Lighting And Dithering"
+      title="Shader Intermediates - Lighting"
       description="A look into how lighting can be simulated on objects through shaders."
       keywords={[
         "lighting",
@@ -44,12 +35,10 @@ const LightingDitheringPage = ({ location: { pathname } }) => (
         "diffuse",
         "specular",
         "ambient",
-        "banding",
-        "dithering",
       ]}
     />
     <Content>
-      <h2>Shader Intermediates - Lighting And Dithering</h2>
+      <h2>Shader Intermediates - Lighting</h2>
       <p>
         While adding textures to color your objects helps to add more detail,
         simulating the lighting of the environment on the object adds further
@@ -690,234 +679,6 @@ const LightingDitheringPage = ({ location: { pathname } }) => (
         the light itself, which is shown as the white "shine" you can see on the
         cube occasionally as it rotates.
       </p>
-      <h3>Color Banding</h3>
-      <p>
-        An issue that can occur when performing these lighting calculations is
-        something called color banding. Let us look at an example using a cube
-        with some exaggerated lighting.
-      </p>
-      <h4>Example - Cube with color banding</h4>
-      <LightingIssueExample />
-      <p>
-        The issue may not be very obvious at first, so here's a screenshot of a
-        portion of the cube with the strength of the specular reflection slowly
-        decreasing from the bottom to the top.
-      </p>
-      <p className="util text-center">
-        <img src={banding} alt="Color Banding Screenshot Normal" />
-      </p>
-      <p>
-        We can modify this image by boosting the highlights to make the issue
-        more obvious.
-      </p>
-      <p className="util text-center">
-        <img
-          src={bandingExaggerated}
-          alt="Color Bithering Screenshot Exaggerated"
-        />
-      </p>
-      <p>
-        It appears that the surface of the cube has bands of colors going across
-        it. This shouldn't occur since the decrease of light from the bottom to
-        the top should be gradual and smooth.
-      </p>
-      <p>
-        This issue is called color banding, and it is a problem because it makes
-        a gradient of colors appear to be "chunky" rather than smooth, which is
-        an undesirable effect, especially when it comes to lighting.
-      </p>
-      <p>
-        We've previously discussed in the{" "}
-        <Link to="/intermediates/color-2/">color part 2 chapter</Link> that
-        computers are limited in what colors they have the ability to represent
-        and show.
-      </p>
-      <p>
-        This issue occurs mainly because the colors that are required to show
-        the colors transitioning smoothly just do not exist among the range of
-        colors that can form an image and a monitor can show.
-      </p>
-      <p>
-        This means that if a computer wished to show a gradient of colors, there
-        will be bands of colors forming instead of a smooth transition, since a
-        computer cannot show the colors in between the two bands.
-      </p>
-      <p>
-        This issue can be illustrated in a simple way. Suppose we could only
-        represent colors using a 1-bit value. This would mean a computer could
-        only show two colors, black and white.
-      </p>
-      <p className="util text-center">
-        <img src={actualGradient} alt="Actual Gradient" />
-        <br />
-        <a
-          href="https://www.xmple.com/wallpaper/black-white-gradient-linear--c2-000000-fffaf0-a-180-f-14-image/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Source
-        </a>
-      </p>
-      <p>
-        Now, suppose the computer had to render a gradient of colors, going from
-        white to black, as shown in the image above. Since the computer can only
-        show black and white, all the shades of gray in between cannot be
-        displayed by the computer.
-      </p>
-      <p className="util text-center">
-        <img src={bandedGradient} alt="Banded Gradient" />
-      </p>
-      <p>
-        This results in the computer showing a continues band of white, with a
-        sudden transition to a band of black. This is a case of color banding,
-        albeit an extreme one.
-      </p>
-      <h3>Dithering</h3>
-      <p>
-        The solution to this issue of not being able to represent intermediate
-        colors is called dithering. The{" "}
-        <a
-          href="https://en.wikipedia.org/wiki/Dither"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Wikipedia article on dithering
-        </a>
-        , as well as the YouTube video by{" "}
-        <a
-          href="https://www.youtube.com/channel/UC9-y-6csu5WGm29I7JiwpnA"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Computerphile
-        </a>{" "}
-        on{" "}
-        <a
-          href="https://youtu.be/IviNO7iICTM"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          ordered dithering
-        </a>{" "}
-        provide good explanations on what dithering is, but we'll also discuss
-        it here.
-      </p>
-      <p>
-        Dithering is the process of introducing noise into an image. By
-        introducing this noise in a certain way, you can overcome the
-        limitations of the detail that can be shown by the computer and screen.
-      </p>
-      <p>
-        Below is an example showing how introducing noise can improve the detail
-        of an image:
-      </p>
-      <p className="util text-center">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Michelangelo%27s_David_-_Floyd-Steinberg.png"
-          alt="Wikipedia Dithering Example"
-        />
-        <br />
-        <a
-          href="https://commons.wikimedia.org/wiki/File:Michelangelo%27s_David_-_Floyd-Steinberg.png"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Source
-        </a>
-      </p>
-      <p>
-        The image is just made from white and black pixels, but through the
-        introduction of noise into the image, shades of gray can be seen within
-        the image, although the color gray technically doesn't exist in the
-        image.
-      </p>
-      <p>
-        This is due to how colors interact with each other and affect how they
-        appear to us, as discussed in the{" "}
-        <Link to="/intermediates/color-2/">color part 2 chapter</Link>. This
-        interactions blends the noise of the colors together to appear as one
-        smooth band.
-      </p>
-      <p>
-        The noise does introduce a grainy effect, but the added detail in color
-        is a high benefit, and in multiple cases this added detail offsets the
-        issue of grain in the image.
-      </p>
-      <p>
-        The noise can be a lot harder to spot in certain issues where colors
-        that form bands are a lot closer to each other in the color spectrum,
-        like in our example of color banding above.
-      </p>
-      <p>
-        If we apply a noise to our image, it should cause dithering and allow
-        for the colors to blend together.
-      </p>
-      <p>
-        Since the colors forming the bands are already pretty close in the color
-        spectrum, the grainy effect introduced by dithering should be very hard
-        to spot, making it ideal to fix the banding issue.
-      </p>
-      <h4>Example - Cube with dithering</h4>
-      <LightingFourthExample />
-      <p>
-        Below is a zoomed in part of the cube, with the cube in approximately
-        the same lighting conditions and orientation as before.
-      </p>
-      <p className="util text-center">
-        <img src={noised} alt="Dithering Screenshot Normal" />
-      </p>
-      <p>
-        We can modify this image by boosting the highlights to make the issue
-        more obvious.
-      </p>
-      <p className="util text-center">
-        <img src={noisedExaggerated} alt="Dithering Screenshot Exaggerated" />
-      </p>
-      <p>
-        While with the color banding screenshots, the banding was noticeable
-        even in the non-altered image (unless your display isn't calibrated
-        well), with the dithered original screenshot there is no appearance of
-        banding or even noise in the image.
-      </p>
-      <p>
-        It is only when the highlights of the dithered screenshot is increased
-        are the noise patterns visible, but since the patterns are so close to
-        each other, they easily blend together and look smooth to your eyes.
-      </p>
-      <p>
-        Remember that the second image for banding exaggerates the noise. In the
-        first banding screenshot, the noise and patterns are practically
-        invisible, which is required to simulate a smooth gradient.
-      </p>
-      <GlslCodeHighlight code={fourthFragmentShaderSource} type="Fragment" />
-      <p>
-        A random number is generated using the coordinates of the fragment. In
-        GLSL, the 2D coordinates of a fragment is available through{" "}
-        <code>gl_FragCoord.xy</code>, where <code>gl_FragCoord</code> is a
-        global variable similar to <code>gl_FragColor</code>, but only read
-        only.
-      </p>
-      <p>
-        The range of granularity for the noise was set to a very small number (
-        <code>0.5/255.0</code>), to ensure that any shift in color due to the
-        noise would be minute and unnoticeable.
-      </p>
-      <p>
-        Using the GLSL function <code>mix</code>, a random value was linearly
-        interpolated within this noise granularity range using the generated
-        random number for the fragment and added to the fragment, resulting in
-        the color of the fragment being slightly modified.
-      </p>
-      <p>
-        Since the shift in color is random for every fragment, it results in
-        noise being added into the image, resulting in unordered/random
-        dithering.
-      </p>
-      <p>
-        This process of removes the chances of color banding occuring, as seen
-        in the dithering screenshots, and allows for color gradients to appear
-        much smoother than they really are.
-      </p>
       <h3>Additional Notes</h3>
       <p>
         One interesting point that may be noticed is that all lighting factors
@@ -982,20 +743,11 @@ const LightingDitheringPage = ({ location: { pathname } }) => (
             When the main three lighting components are combined, they simulate
             realistic lighting of an object in a basic form.
           </li>
-          <li>
-            Color banding is an issue that can occur when the computer cannot
-            simulate a transition between two colors since it cannot represent
-            the intermediate colors between the two.
-          </li>
-          <li>
-            Dithering is a process of adding noise to an image to remove color
-            pattern issues such as color banding.
-          </li>
         </li>
       </ul>
     </Content>
-    <PageChange previous="/intermediates/texturing-branching/" />
+    <PageChange previous="/intermediates/texturing/" />
   </Layout>
 )
 
-export default LightingDitheringPage
+export default LightingPage

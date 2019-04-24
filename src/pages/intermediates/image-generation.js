@@ -744,7 +744,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <p>
         The effects of multiplication and addition for combining and stacking
         effects will be more apparent in the{" "}
-        <Link to="/intermediates/lighting-dithering/">
+        <Link to="/intermediates/lighting/">
           lighting and dithering chapter
         </Link>
         .
@@ -1159,7 +1159,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
     </Content>
     <PageChange
       previous="/intermediates/color-2/"
-      next="/intermediates/texturing-branching/"
+      next="/intermediates/texturing/"
     />
   </Layout>
 )

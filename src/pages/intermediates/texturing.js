@@ -4,34 +4,26 @@ import Layout from "../../components/layout"
 import Content from "../../components/content"
 import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
-import TexturingBranchingFirstExample from "../../components/intermediates/texturing-branching/first-example"
-import TexturingBranchingSecondExample from "../../components/intermediates/texturing-branching/second-example"
+import TexturingFirstExample from "../../components/intermediates/texturing/first-example"
+import TexturingSecondExample from "../../components/intermediates/texturing/second-example"
 import {
   firstVertexShaderSource,
   firstFragmentShaderSource,
-} from "../../components/intermediates/texturing-branching/first-example-shaders"
+} from "../../components/intermediates/texturing/first-example-shaders"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import { Link } from "gatsby"
-import { secondFragmentShaderSource } from "../../components/intermediates/texturing-branching/second-example-shaders"
+import { secondFragmentShaderSource } from "../../components/intermediates/texturing/second-example-shaders"
 
-const TexturingBranchingPage = ({ location: { pathname } }) => (
+const TexturingPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
       pathname={pathname}
-      title="Shader Intermediates - Textures And Branching"
+      title="Shader Intermediates - Textures"
       description="A look into the how textures are used to color objects in shaders."
-      keywords={[
-        "texture",
-        "branching",
-        "branch",
-        "texturing",
-        "uv",
-        "shader",
-        "intermediates",
-      ]}
+      keywords={["texture", "texturing", "uv", "shader", "intermediates"]}
     />
     <Content>
-      <h2>Shader Intermediates - Textures And Branching</h2>
+      <h2>Shader Intermediates - Textures</h2>
       <p>
         So far we've passed direct color information of vertices to the fragment
         shader, which was then interpolated for each fragment and then set as
@@ -63,7 +55,7 @@ const TexturingBranchingPage = ({ location: { pathname } }) => (
         vertices.
       </p>
       <h3>An example - A cube</h3>
-      <TexturingBranchingFirstExample />
+      <TexturingFirstExample />
       <h4>How it works</h4>
       <p>
         GPUs follow an operation similar to UV mapping. They can accept a
@@ -106,7 +98,7 @@ const TexturingBranchingPage = ({ location: { pathname } }) => (
         specific coordinates.
       </p>
       <h3>Another example - A (mostly) pulsing cube</h3>
-      <TexturingBranchingSecondExample />
+      <TexturingSecondExample />
       <h4>How it works</h4>
       <p>
         Similar to how the pulsing triangle was made in the last example of the{" "}
@@ -166,97 +158,29 @@ const TexturingBranchingPage = ({ location: { pathname } }) => (
         are white have a color shift factor of 0, and the rest have a value of
         1.
       </p>
-      <h3>Branching in shaders</h3>
-      <p>
-        A question that might come up is why not just use conditions to check if
-        a color is white, and depending on the result, just return 0 or 1
-        accordingly. The reason this is not done is because using branches (if
-        conditions) is generally discouraged in shader code.
-      </p>
-      <p>
-        The reasons for this is when a GPU hits a branch, the common behavior of
-        GPUs is to run the code for all resulting scenarios, and then discard
-        the results of the scenario that wasn't the selected one. This can
-        significantly impact performance.
-      </p>
-      <p>
-        Since the GPU relies on many parallel calculations being executable at
-        once, having branches forces the GPU to waste time running multiple
-        scenarios for the same fragment, instead of using those resources
-        performing calculations for other fragments.
-      </p>
-      <p>
-        However, using branches is not always discouraged. Some examples are:
-      </p>
-      <ul>
-        <li>
-          If you're branching based on the value of a uniform, since such a
-          branch will always have the same result irrespective of which vertex
-          or fragment you're operating on, this shouldn't lead to a performance
-          bottleneck.
-        </li>
-        <li>
-          Similar to the last point, if you're branches are consistent (always
-          have the same outcome), there shouldn't be a performance bottleneck.
-        </li>
-        <li>
-          If branches are value selection branches (
-          <code>result = simpleCondition ? value1 : value2</code>) or similar,
-          then GPUs can optimize them to not perform any branching.
-        </li>
-        <li>
-          If you're branches are consistent over a group of pixels (ex: 8x8
-          group), there should not be a major performance penalty
-          <strong>*</strong>.
-        </li>
-        <li>
-          For certain cases of branching, they may be optimized to not have a
-          big impact on performance<strong>*</strong>.
-        </li>
-      </ul>
-      <p>
-        <strong>
-          * - This is GPU and driver dependent, so such code would require
-          extensive testing to verify.
-        </strong>
-      </p>
-      <p>
-        <em>
-          Note: <code>clamp</code> (and some other built-in functions) don't
-          have a performance impact although they are expected to cause
-          branching, because either OpenGL optimizes such functions, or the GPU
-          has special hardware or driver code optimizations to ensure that such
-          code would not have any performance impact. Some of such functions
-          (such as <code>clamp</code>) have been supported by GPUs before they
-          added support for branching in shader code.
-        </em>
-      </p>
       <h3>Summary</h3>
       <ul>
         <li>
           Textures are mapped onto objects through a process called UV mapping.
         </li>
         <li>
-          GPUs perform a similar process by receiving UV texture coordinates of
-          vertices, and interpolating them for each fragment, which is then used
-          to select the correct pixel color from the texture and use it.
-        </li>
-        <li>
-          Branching is generally discouraged to be performed in shaders and can
-          negatively impact performance except for certain scenarios.
-        </li>
-        <li>
-          Test to see if a branch in the code does affect performance, but
-          remember that it can be GPU and driver dependent. Preferrable use
-          branches only when you have to.
+          GPUs map a texture to an object through UV mapping.
+          <ul>
+            <li>A UV coordinate is received for each vertex.</li>
+            <li>The UV coordinate is interpolated for each fragment.</li>
+            <li>
+              The UV coordinate is used to get the right color value from a
+              pixel in a texture, which is then used to color the fragment.
+            </li>
+          </ul>
         </li>
       </ul>
     </Content>
     <PageChange
       previous="/intermediates/image-generation/"
-      next="/intermediates/lighting-dithering/"
+      next="/intermediates/lighting/"
     />
   </Layout>
 )
 
-export default TexturingBranchingPage
+export default TexturingPage
