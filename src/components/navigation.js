@@ -73,6 +73,7 @@ const Navigation = () => (
               Color Banding and Dithering
             </Link>
           </li>
+          <li>More Coming Soon...</li>
         </ul>
       </li>
       <li>
