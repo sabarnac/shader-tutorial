@@ -44,7 +44,7 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
       <h3>What is a fragment</h3>
       <p>
         As previously mentioned in the{" "}
-        <Link to="/basics/render-pipeline">render pipeline overview</Link>, a
+        <Link to="/basics/render-pipeline/">render pipeline overview</Link>, a
         fragment is a sample of a primitive that contains certain information
         required for coloring a pixel.
       </p>
@@ -338,7 +338,7 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange previous="/basics/color/" next="/basics/end" />
+    <PageChange previous="/basics/color/" next="/basics/end/" />
   </Layout>
 )
 

@@ -39,7 +39,7 @@
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "predeploy": "npm run build",
+    "predeploy": "rm -rf ./public && npm run build",
     "deploy": "gh-pages -d public"
   },
   "repository": {

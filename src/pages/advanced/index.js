@@ -17,10 +17,10 @@ const IntermediatesIndexPage = ({ location: { pathname } }) => (
       <h2>Table of Contents</h2>
       <ul className="toc">
         <li>
-          <Link to="/advanced/branching">Shader Advanced - Branching</Link>
+          <Link to="/advanced/branching/">Shader Advanced - Branching</Link>
         </li>
         <li>
-          <Link to="/advanced/color-banding-dithering">
+          <Link to="/advanced/color-banding-dithering/">
             Shader Advanced - Color Banding and Dithering
           </Link>
         </li>

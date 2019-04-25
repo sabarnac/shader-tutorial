@@ -34,7 +34,7 @@ const Navigation = () => (
             <Link to="/basics/color/">Color</Link>
           </li>
           <li>
-            <Link to="/basics/fragment-shader">Fragment Shader</Link>
+            <Link to="/basics/fragment-shader/">Fragment Shader</Link>
           </li>
         </ul>
       </li>
@@ -45,16 +45,16 @@ const Navigation = () => (
         <Link to="/intermediates/">Intermediates</Link>
         <ul>
           <li>
-            <Link to="/intermediates/color-2">Color Part 2</Link>
+            <Link to="/intermediates/color-2/">Color Part 2</Link>
           </li>
           <li>
-            <Link to="/intermediates/image-generation">Image Generation</Link>
+            <Link to="/intermediates/image-generation/">Image Generation</Link>
           </li>
           <li>
-            <Link to="/intermediates/texturing">Texturing</Link>
+            <Link to="/intermediates/texturing/">Texturing</Link>
           </li>
           <li>
-            <Link to="/intermediates/lighting">Lighting</Link>
+            <Link to="/intermediates/lighting/">Lighting</Link>
           </li>
           <li>More Coming Soon...</li>
         </ul>
@@ -66,10 +66,10 @@ const Navigation = () => (
         <Link to="/advanced/">Advanced</Link>
         <ul>
           <li>
-            <Link to="/advanced/branching">Branching</Link>
+            <Link to="/advanced/branching/">Branching</Link>
           </li>
           <li>
-            <Link to="/advanced/color-banding-dithering">
+            <Link to="/advanced/color-banding-dithering/">
               Color Banding and Dithering
             </Link>
           </li>
@@ -79,7 +79,7 @@ const Navigation = () => (
         <hr />
       </li>
       <li>
-        <Link to="/faq">FAQ</Link>
+        <Link to="/faq/">FAQ</Link>
       </li>
     </ul>
   </nav>

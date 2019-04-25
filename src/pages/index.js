@@ -32,7 +32,7 @@ const IndexPage = ({ location: { pathname } }) => (
       </p>
       <p>
         You can browse through the tutorial by clicking on the links in the
-        sidebar, or start from <Link to="/basics/introduction">here</Link>.
+        sidebar, or start from <Link to="/basics/introduction/">here</Link>.
       </p>
     </Content>
   </Layout>

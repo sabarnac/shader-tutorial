@@ -31,7 +31,7 @@ const TexturingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         As learnt in the{" "}
-        <Link to="/basics/fragment-shader">previous chapter</Link>, color
+        <Link to="/basics/fragment-shader/">fragment shader basics</Link>, color
         information can only be mapped to the vertices of an object, with color
         values of parts of the object between the vertices being interpolated.
       </p>
@@ -102,7 +102,7 @@ const TexturingPage = ({ location: { pathname } }) => (
       <h4>How it works</h4>
       <p>
         Similar to how the pulsing triangle was made in the last example of the{" "}
-        <Link to="/basics/fragment-shader">previous chapter</Link>, a{" "}
+        <Link to="/basics/fragment-shader/">fragment shader basics</Link>, a{" "}
         <code>colorShift</code> value is subtracted from the color values
         retrieved from the texture (except for alpha), and then set as the final
         color of the fragment.

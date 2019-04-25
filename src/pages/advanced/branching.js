@@ -115,7 +115,7 @@ const BranchingPage = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange next="/advanced/color-banding-dithering" />
+    <PageChange next="/advanced/color-banding-dithering/" />
   </Layout>
 )
 

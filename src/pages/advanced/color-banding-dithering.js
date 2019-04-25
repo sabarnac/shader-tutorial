@@ -3,7 +3,6 @@ import React from "react"
 import Layout from "../../components/layout"
 import Content from "../../components/content"
 import SEO from "../../components/seo"
-// import PageChange from "../../components/page-change"
 import DitheringExample from "../../components/advanced/color-banding-dithering/dithering-example"
 import BandingExample from "../../components/advanced/color-banding-dithering/banding-example"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
@@ -247,7 +246,7 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange previous="/advanced/branching" />
+    <PageChange previous="/advanced/branching/" />
   </Layout>
 )
 

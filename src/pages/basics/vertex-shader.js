@@ -212,7 +212,7 @@ const VertexShaderPage = ({ location: { pathname } }) => (
         <code>rotateZ</code> creates a rotation matrix that rotates around the
         Z-axis. The details about this matrix is in the reference link provided
         in the matrix mathematics section of the{" "}
-        <Link to="/basics/mathematics">mathematics primer</Link> chapter.
+        <Link to="/basics/mathematics/">mathematics primer</Link> chapter.
       </p>
       <p>
         The rotation matrix is multiplied with the model matrix to rotate the

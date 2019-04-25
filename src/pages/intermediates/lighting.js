@@ -336,8 +336,8 @@ const LightingPage = ({ location: { pathname } }) => (
       <p>
         The important things to note from them is that the results of the
         position of the vertex in the world space and view space (see the{" "}
-        <Link to="/basics/vertex-shader">Vertex Shader Basics</Link> if you need
-        to recollect) are saved in certain variables which will be required
+        <Link to="/basics/vertex-shader/">Vertex Shader Basics</Link> if you
+        need to recollect) are saved in certain variables which will be required
         later.
       </p>
       <p>
