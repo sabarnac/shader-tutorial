@@ -14,7 +14,7 @@ export default class WebGlWrapper {
   _viewMatrix = mat4.create()
   _modelMatrix = mat4.create()
 
-  constructor(canvas, modelPosition) {
+  constructor(canvas, modelPosition, disableDepth = false) {
     this._canvas = canvas
     this._canvasDimensions = {
       ...this._canvasDimensions,
@@ -30,7 +30,7 @@ export default class WebGlWrapper {
       this._showNotSupported()
     }
 
-    this._startSetup(modelPosition)
+    this._startSetup(modelPosition, disableDepth)
   }
 
   _showNotSupported = () => {
@@ -48,9 +48,22 @@ export default class WebGlWrapper {
     }
   }
 
-  _startSetup = modelPosition => {
-    this._webgl.enable(this._webgl.DEPTH_TEST)
-    this._webgl.depthFunc(this._webgl.LEQUAL)
+  _startSetup = (modelPosition, disableDepth) => {
+    if (!disableDepth) {
+      this._webgl.enable(this._webgl.DEPTH_TEST)
+      this._webgl.depthFunc(this._webgl.LEQUAL)
+    } else {
+      this._webgl.disable(this._webgl.DEPTH_TEST)
+      this._webgl.depthMask(false)
+    }
+
+    if (disableDepth) {
+      this._webgl.enable(this._webgl.BLEND)
+      this._webgl.blendFunc(
+        this._webgl.SRC_ALPHA,
+        this._webgl.ONE_MINUS_SRC_ALPHA
+      )
+    }
 
     this._clearScreen()
 
