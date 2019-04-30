@@ -18,7 +18,7 @@ const shaderProgramInfo = {
 
 const cubeModelPosition = mat4.create()
 
-const TransparencyFirstExample = () => {
+const TransparencyThirdExample = () => {
   const cube = {
     vertices: [
       // Red Face
@@ -100,7 +100,7 @@ const TransparencyFirstExample = () => {
           cubeBuffer.colors
         ),
         indices: webGlRef.createElementArrayBuffer(
-          cube.indices.reverse().flat(),
+          cube.indices.flat(),
           cubeBuffer.indices
         ),
       })
@@ -197,4 +197,4 @@ Cube:
   )
 }
 
-export default TransparencyFirstExample
+export default TransparencyThirdExample
