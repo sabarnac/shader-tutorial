@@ -21,30 +21,30 @@ const cubeModelPosition = mat4.create()
 const TransparencyFirstExample = () => {
   const cube = {
     vertices: [
-      // Back vertices
-      [1.0, 1.0, -1.0],
-      [1.0, -1.0, -1.0],
-      [-1.0, 1.0, -1.0],
-      [1.0, -1.0, -1.0],
-      [-1.0, 1.0, -1.0],
-      [-1.0, -1.0, -1.0],
-      // Front vertices
+      // Green Face
+      [1.5, 1.5, 1.0],
+      [1.5, -1.0, 1.0],
+      [-1.0, 1.5, 1.0],
+      [1.5, -1.0, 1.0],
+      [-1.0, 1.5, 1.0],
       [-1.0, -1.0, 1.0],
-      [-1.0, 1.0, 1.0],
-      [1.0, -1.0, 1.0],
-      [-1.0, 1.0, 1.0],
-      [1.0, -1.0, 1.0],
-      [1.0, 1.0, 1.0],
+      // Red Face
+      [-1.5, -1.5, -1.0],
+      [-1.5, 1.0, -1.0],
+      [1.0, -1.5, -1.0],
+      [-1.5, 1.0, -1.0],
+      [1.0, -1.5, -1.0],
+      [1.0, 1.0, -1.0],
     ],
     colors: [
-      // Back vertices
+      // Green Face
       [0.0, 1.0, 0.0],
       [0.0, 1.0, 0.0],
       [0.0, 1.0, 0.0],
       [0.0, 1.0, 0.0],
       [0.0, 1.0, 0.0],
       [0.0, 1.0, 0.0],
-      // Front vertices
+      // Red Face
       [1.0, 0.0, 0.0],
       [1.0, 0.0, 0.0],
       [1.0, 0.0, 0.0],
@@ -113,24 +113,15 @@ const TransparencyFirstExample = () => {
       updateShouldRender(true)
 
       const renderScene = () => {
-        webGlRef.renderScene(
-          ({ gl, projectionMatrix, viewMatrix, modelMatrix }) => {
+        webGlRef.renderSceneOrtho(
+          ({ gl, orthoMatrix, viewMatrix, modelMatrix }) => {
             if (!shouldRender) {
               return
             }
 
-            const rotatedModelMatrix = mat4.create()
-            const rotationAngle = (20 * Math.PI) / 180
-            mat4.rotateX(rotatedModelMatrix, modelMatrix, rotationAngle / 1.5)
-            mat4.rotateY(
-              rotatedModelMatrix,
-              rotatedModelMatrix,
-              rotationAngle * 10
-            )
-
             const mvpMatrix = mat4.create()
-            mat4.multiply(mvpMatrix, viewMatrix, rotatedModelMatrix)
-            mat4.multiply(mvpMatrix, projectionMatrix, mvpMatrix)
+            mat4.multiply(mvpMatrix, viewMatrix, modelMatrix)
+            mat4.multiply(mvpMatrix, orthoMatrix, mvpMatrix)
 
             gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.vertices)
             gl.vertexAttribPointer(
@@ -196,20 +187,10 @@ const TransparencyFirstExample = () => {
       <pre className="util text-left">
         {`
 Cube:
-    Front Face:
-        Vertices:
-            Vertex 1: ${coordArrToString(cube.vertices[0])}
-            Vertex 2: ${coordArrToString(cube.vertices[1])}
-            Vertex 3: ${coordArrToString(cube.vertices[2])}
-            Vertex 4: ${coordArrToString(cube.vertices[5])}
-        Color:  ${coordArrToString(cube.colors[0], colorCoords)}
     Back Face:
-        Vertices:
-            Vertex 1: ${coordArrToString(cube.vertices[6])}
-            Vertex 2: ${coordArrToString(cube.vertices[7])}
-            Vertex 3: ${coordArrToString(cube.vertices[8])}
-            Vertex 4: ${coordArrToString(cube.vertices[11])}
         Color:  ${coordArrToString(cube.colors[6], colorCoords)}
+    Front Face:
+        Color:  ${coordArrToString(cube.colors[0], colorCoords)}
 `.trim()}
       </pre>
     </div>

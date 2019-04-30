@@ -11,6 +11,7 @@ export default class WebGlWrapper {
     zFar: 100.0,
   }
   _projectionMatrix = mat4.create()
+  _orthoMatrix = mat4.create()
   _viewMatrix = mat4.create()
   _modelMatrix = mat4.create()
 
@@ -72,6 +73,7 @@ export default class WebGlWrapper {
 
     const { fov, aspect, zNear, zFar } = this._canvasDimensions
 
+    mat4.ortho(this._orthoMatrix, -2 * aspect, 2 * aspect, -2, 2, zNear, zFar)
     mat4.perspective(this._projectionMatrix, fov, aspect, zNear, zFar)
     mat4.lookAt(
       this._viewMatrix,
@@ -310,6 +312,23 @@ export default class WebGlWrapper {
     const renderInfo = {
       gl: this._webgl,
       projectionMatrix: this._projectionMatrix,
+      viewMatrix: this._viewMatrix,
+      modelMatrix: this._modelMatrix,
+      resolution: vec2.fromValues(
+        this._canvasDimensions.width,
+        this._canvasDimensions.height
+      ),
+    }
+    this._clearScreen()
+    renderer(renderInfo)
+  }
+
+  renderSceneOrtho = renderer => {
+    this._resizeCanvas()
+
+    const renderInfo = {
+      gl: this._webgl,
+      orthoMatrix: this._orthoMatrix,
       viewMatrix: this._viewMatrix,
       modelMatrix: this._modelMatrix,
       resolution: vec2.fromValues(
