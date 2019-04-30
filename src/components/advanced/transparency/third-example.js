@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react"
 import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate, coordArrToString } from "../../util"
+import { runOnPredicate } from "../../util"
 import { vertexShaderSource, fragmentShaderSource } from "./common-shaders"
 import { mat4 } from "gl-matrix"
 
@@ -22,19 +22,19 @@ const TransparencyThirdExample = () => {
   const cube = {
     vertices: [
       // Red Face
-      [-1.5, -1.5, -1.0],
-      [-1.5, 1.0, -1.0],
-      [1.0, -1.5, -1.0],
-      [-1.5, 1.0, -1.0],
-      [1.0, -1.5, -1.0],
-      [1.0, 1.0, -1.0],
+      [1.5, 1.5, -1.0],
+      [1.5, -1.0, -1.0],
+      [-1.0, 1.5, -1.0],
+      [1.5, -1.0, -1.0],
+      [-1.0, 1.5, -1.0],
+      [-1.0, -1.0, -1.0],
       // Green Face
-      [1.5, 1.5, 1.0],
-      [1.5, -1.0, 1.0],
-      [-1.0, 1.5, 1.0],
-      [1.5, -1.0, 1.0],
-      [-1.0, 1.5, 1.0],
-      [-1.0, -1.0, 1.0],
+      [-1.5, -1.5, 1.0],
+      [-1.5, 1.0, 1.0],
+      [1.0, -1.5, 1.0],
+      [-1.5, 1.0, 1.0],
+      [1.0, -1.5, 1.0],
+      [1.0, 1.0, 1.0],
     ],
     colors: [
       // Red Face
@@ -177,8 +177,6 @@ const TransparencyThirdExample = () => {
     [cubeBuffer]
   )
 
-  const colorCoords = { x: "r", y: "g", z: "b" }
-
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
       <canvas width="640" height="480" ref={canvasRef}>
@@ -186,11 +184,13 @@ const TransparencyThirdExample = () => {
       </canvas>
       <pre className="util text-left">
         {`
-Cube:
-    Back Face:
-        Color:  ${coordArrToString(cube.colors[6], colorCoords)}
-    Front Face:
-        Color:  ${coordArrToString(cube.colors[0], colorCoords)}
+Order of Faces:
+    Depth-wise:
+        Green Face (Front)
+        Red Face (Back)
+    Passed to GPU:
+        Green Face (First)
+        Red Face (Second)
 `.trim()}
       </pre>
     </div>
