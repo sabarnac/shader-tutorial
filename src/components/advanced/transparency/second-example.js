@@ -189,8 +189,8 @@ Order of Faces:
         Green Face (Front)
         Red Face (Back)
     Passed to GPU:
-        Red Face (First)
-        Green Face (Second)
+        Green Face (First)
+        Red Face (Second)
 `.trim()}
       </pre>
     </div>
