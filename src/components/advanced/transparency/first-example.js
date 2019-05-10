@@ -186,11 +186,11 @@ const TransparencyFirstExample = () => {
         {`
 Order of Faces:
     Depth-wise:
-        Red Face (Front)
-        Green Face (Back)
+        Red Square (Front)
+        Green Square (Back)
     Passed to GPU:
-        Green Face (First)
-        Red Face (Second)
+        Green Square (First)
+        Red Square (Second)
 `.trim()}
       </pre>
     </div>
