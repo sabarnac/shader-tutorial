@@ -3,7 +3,7 @@ import React from "react"
 const Notice = () => (
   <div className="row">
     <div className="column notice">
-      This site is still currently under development.
+      This site is currently under development.
     </div>
   </div>
 )
