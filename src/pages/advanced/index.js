@@ -24,6 +24,11 @@ const IntermediatesIndexPage = ({ location: { pathname } }) => (
             Shader Advanced - Color Banding and Dithering
           </Link>
         </li>
+        <li>
+          <Link to="/advanced/transparency/">
+            Shader Advanced - Transparency
+          </Link>
+        </li>
         <li>More Coming Soon...</li>
       </ul>
     </Content>

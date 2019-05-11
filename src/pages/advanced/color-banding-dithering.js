@@ -246,7 +246,10 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange previous="/advanced/branching/" />
+    <PageChange
+      previous="/advanced/branching/"
+      next="/advanced/transparency/"
+    />
   </Layout>
 )
 
