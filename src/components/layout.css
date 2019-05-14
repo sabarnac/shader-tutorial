@@ -32,16 +32,16 @@ h6 {
 }
 
 canvas {
-  background: #cccccc;
-  border: 1px solid #cccccc;
+  background: #dddddd;
+  border: 1px solid #dddddd;
   width: 100%;
   max-width: 800px;
 }
 
 a,
 a:visited {
-  color: #cccccc;
-  border-bottom: 1px dotted #cccccc;
+  color: #dddddd;
+  border-bottom: 1px dotted #dddddd;
 }
 
 a:hover,
