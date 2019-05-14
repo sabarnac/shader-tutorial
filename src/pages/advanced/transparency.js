@@ -218,6 +218,50 @@ const TransparencyPage = ({ location: { pathname } }) => (
         algorithm produces a different output, so we recommend experimenting to
         see which configuration works best for your use-case.
       </p>
+      <h3>Summary</h3>
+      <ul>
+        <li>
+          Transparency on the shader side is simple to add, through the use of
+          the 4th component of the color value, which represents the alpha (or
+          opacity) of the color.
+        </li>
+        <li>
+          The GPU needs to be told how colors should be blended together to form
+          a final color. This is required for color transparency, since
+          translucent colors need to be blended to form a resultant.
+        </li>
+        <li>
+          While graphics APIs have multiple functions to blend colors in various
+          ways, some of these have caveats that can cause significant
+          performance degregation if an accurate result is required.
+        </li>
+        <li>
+          To learn more about how transparency in various graphics APIs, check
+          out the links below:
+          <ul>
+            <li>
+              <a
+                href="https://www.opengl-tutorial.org/intermediate-tutorials/tutorial-10-transparency/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                OpenGL/WebGL
+              </a>
+              .
+            </li>
+            <li>
+              <a
+                href="http://www.directxtutorial.com/Lesson.aspx?lessonid=9-4-10"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                DirectX
+              </a>
+              .
+            </li>
+          </ul>
+        </li>
+      </ul>
     </Content>
     <PageChange previous="/advanced/color-banding-dithering/" />
   </Layout>
