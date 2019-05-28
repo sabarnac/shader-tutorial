@@ -1159,7 +1159,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
     </Content>
     <PageChange
       previous="/intermediates/color-2/"
-      next="/intermediates/texturing/"
+      next="/intermediates/mapping/"
     />
   </Layout>
 )

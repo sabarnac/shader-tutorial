@@ -27,8 +27,13 @@ const IntermediatesIndexPage = ({ location: { pathname } }) => (
           </Link>
         </li>
         <li>
-          <Link to="/intermediates/texturing/">
-            Shader Intermediates - Texturing
+          <Link to="/intermediates/mapping/">
+            Shader Intermediates - Mapping
+          </Link>
+        </li>
+        <li>
+          <Link to="/intermediates/color-mapping/">
+            Shader Intermediates - Color Mapping
           </Link>
         </li>
         <li>

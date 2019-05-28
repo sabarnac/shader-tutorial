@@ -4,26 +4,34 @@ import Layout from "../../components/layout"
 import Content from "../../components/content"
 import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
-import TexturingFirstExample from "../../components/intermediates/texturing/first-example"
-import TexturingSecondExample from "../../components/intermediates/texturing/second-example"
+import TexturingFirstExample from "../../components/intermediates/color-mapping/first-example"
+import TexturingSecondExample from "../../components/intermediates/color-mapping/second-example"
 import {
   firstVertexShaderSource,
   firstFragmentShaderSource,
-} from "../../components/intermediates/texturing/first-example-shaders"
+} from "../../components/intermediates/color-mapping/first-example-shaders"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import { Link } from "gatsby"
-import { secondFragmentShaderSource } from "../../components/intermediates/texturing/second-example-shaders"
+import { secondFragmentShaderSource } from "../../components/intermediates/color-mapping/second-example-shaders"
 
-const TexturingPage = ({ location: { pathname } }) => (
+const ColorMappingPage = ({ location: { pathname } }) => (
   <Layout>
     <SEO
       pathname={pathname}
-      title="Shader Intermediates - Textures"
-      description="A look into the how textures are used to color objects in shaders."
-      keywords={["texture", "texturing", "uv", "shader", "intermediates"]}
+      title="Shader Intermediates - Color Mapping"
+      description="A look into the how color textures are used to color objects in shaders."
+      keywords={[
+        "color",
+        "mapping",
+        "textures",
+        "texturing",
+        "uv",
+        "shader",
+        "intermediates",
+      ]}
     />
     <Content>
-      <h2>Shader Intermediates - Textures</h2>
+      <h2>Shader Intermediates - Color Mapping</h2>
       <p>
         So far we've passed direct color information of vertices to the fragment
         shader, which was then interpolated for each fragment and then set as
@@ -177,10 +185,10 @@ const TexturingPage = ({ location: { pathname } }) => (
       </ul>
     </Content>
     <PageChange
-      previous="/intermediates/image-generation/"
+      previous="/intermediates/mapping/"
       next="/intermediates/lighting/"
     />
   </Layout>
 )
 
-export default TexturingPage
+export default ColorMappingPage

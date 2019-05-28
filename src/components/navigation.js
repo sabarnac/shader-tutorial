@@ -51,7 +51,10 @@ const Navigation = () => (
             <Link to="/intermediates/image-generation/">Image Generation</Link>
           </li>
           <li>
-            <Link to="/intermediates/texturing/">Texturing</Link>
+            <Link to="/intermediates/mapping/">Mapping</Link>
+          </li>
+          <li>
+            <Link to="/intermediates/color-mapping/">Color Mapping</Link>
           </li>
           <li>
             <Link to="/intermediates/lighting/">Lighting</Link>
