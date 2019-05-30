@@ -6,6 +6,7 @@ import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
 import TexturingFirstExample from "../../components/intermediates/color-mapping/first-example"
 import TexturingSecondExample from "../../components/intermediates/color-mapping/second-example"
+import texture from "../../images/intermediates/texture.png"
 import {
   firstVertexShaderSource,
   firstFragmentShaderSource,
@@ -20,15 +21,7 @@ const ColorMappingPage = ({ location: { pathname } }) => (
       pathname={pathname}
       title="Shader Intermediates - Color Mapping"
       description="A look into the how color textures are used to color objects in shaders."
-      keywords={[
-        "color",
-        "mapping",
-        "textures",
-        "texturing",
-        "uv",
-        "shader",
-        "intermediates",
-      ]}
+      keywords={["color", "mapping", "texturing", "shader", "intermediates"]}
     />
     <Content>
       <h2>Shader Intermediates - Color Mapping</h2>
@@ -44,41 +37,51 @@ const ColorMappingPage = ({ location: { pathname } }) => (
         values of parts of the object between the vertices being interpolated.
       </p>
       <p>
-        However, now we wish to color an object using an image. This requires
-        the image to be stored as a texture on the GPU and the texture being
-        overlayed onto the object correctly.
-      </p>
-      <p>Let's first learn about how a texture is overlayed onto an object.</p>
-      <h3>UV Mapping</h3>
-      <p>
-        The process of overlaying a texture (2D plane) onto an object (3D
-        system) is known as UV mapping. Just as how the axes of a 3D system is
-        denoted as X, Y, and Z, the axes of a texture are denoted as U, and V
-        (because the other three are already taken).
+        However, as we learnt in the{" "}
+        <Link to="/intermediate/mapping/">mapping</Link> chapter, we can use a
+        texture to add much more detail to an object through the process of UV
+        mapping.
       </p>
       <p>
-        By mapping a vertex of an object to a particular texture coordinate
-        (giving the vertex a "UV coordinate"), a texture can be overlayed onto
-        an object by pinning points of the texture that to their mapped
-        vertices.
+        Color mapping is also called texturing, due to the fact that textures
+        only hold color data, and are primarily used to color fragments in an
+        image.
+      </p>
+      <p>
+        Let's look at an example of UV mapping where an image is used as a
+        texture to color the faces of a cube.
       </p>
       <h3>An example - A cube</h3>
       <TexturingFirstExample />
       <h4>How it works</h4>
       <p>
-        GPUs follow an operation similar to UV mapping. They can accept a
-        texture, and the vertices, along with their mapped UV coordinates, are
-        provided.
+        The following texture is used to color the each face of the rendered
+        cube:
+      </p>
+      <p className="util text-center">
+        <img src={texture} alt="Cube Face TExture" />
       </p>
       <p>
-        These coordinates are then passed through the vertex shader to the
-        fragment shader, with the GPU interpolating the coordinates as need for
-        each fragment.
+        The vertices of each face are mapped to the corners of the texture. You
+        can look at the cube details below the rendered image to see the UV
+        coordinates of the vertices of a single face.
       </p>
       <p>
-        The fragment shader can then take these coordinates and pull the
-        required pixel color value from the texture and set that as the final
-        color of the image.
+        These UV coordinates are passed as part of the vertex data to the GPU.
+        When these coordinates are passed to the fragment shader through the
+        vertex shader, the GPU interpolates the UV coordinates of the fragments.
+      </p>
+      <p>
+        So, for example, a fragment in the center of the face is equi-distant
+        from all four vertices of the face. Since the vertices are mapped to the
+        corners of the texture, the fragment will receive an interpolated UV
+        coordinate at the center of the texture.
+      </p>
+      <p>
+        Using these interpolated UV coordinates, the color of the texture at
+        that point can be read in the fragment shader, which will represent the
+        final color of that fragment, since that coordinate is where the
+        fragment is located on that texture.
       </p>
       <GlslCodeHighlight
         code={firstVertexShaderSource.trim()}
@@ -91,8 +94,8 @@ const ColorMappingPage = ({ location: { pathname } }) => (
       <p>
         In the vertex shader, the UV coordinates of the vertex is provided
         through the <code>vertexUv</code> attribute, which is then passed to the
-        fragment shader <code>uv</code>, allowing the GPU to interpolate the UV
-        coordinates for each fragment.
+        fragment shader through <code>uv</code>, allowing the GPU to interpolate
+        the UV coordinates for each fragment.
       </p>
       <p>
         In the fragment shader, the pixel color value of the texture at the
@@ -169,18 +172,17 @@ const ColorMappingPage = ({ location: { pathname } }) => (
       <h3>Summary</h3>
       <ul>
         <li>
-          Textures are mapped onto objects through a process called UV mapping.
+          Through the process of UV mapping, we can define the color of each
+          fragment of an object through the use of a texture.
         </li>
         <li>
-          GPUs map a texture to an object through UV mapping.
-          <ul>
-            <li>A UV coordinate is received for each vertex.</li>
-            <li>The UV coordinate is interpolated for each fragment.</li>
-            <li>
-              The UV coordinate is used to get the right color value from a
-              pixel in a texture, which is then used to color the fragment.
-            </li>
-          </ul>
+          Each vertex is assigned a UV coordinate on the texture, which is then
+          interpolated by the GPU for each fragment.
+        </li>
+        <li>
+          The fragment shader can then read the color value of the texture at
+          the interpolated UV coordinate for the fragment to determine and set
+          the final color of that fragment.
         </li>
       </ul>
     </Content>

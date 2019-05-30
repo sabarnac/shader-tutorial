@@ -4,8 +4,9 @@ import Layout from "../../components/layout"
 import Content from "../../components/content"
 import SEO from "../../components/seo"
 import PageChange from "../../components/page-change"
-// import GlslCodeHighlight from "../../components/glsl-code-highlight"
-// import { Link } from "gatsby"
+import triangle from "../../images/intermediates/triangle.png"
+import triangleTexture from "../../images/intermediates/triangle-texture.png"
+import triangleTextureMapped from "../../images/intermediates/triangle-texture-mapped.png"
 
 const MappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -13,14 +14,7 @@ const MappingPage = ({ location: { pathname } }) => (
       pathname={pathname}
       title="Shader Intermediates - Mapping"
       description="A look into the how textures are used to add additional detail in shaders."
-      keywords={[
-        "mapping",
-        "textures",
-        "texturing",
-        "uv",
-        "shader",
-        "intermediates",
-      ]}
+      keywords={["mapping", "textures", "uv", "shader", "intermediates"]}
     />
     <Content>
       <h2>Shader Intermediates - Mapping</h2>
@@ -37,9 +31,9 @@ const MappingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         However, GPUs accept another form of data that is directly accessible in
-        fragment shaders - textures! Textures are color data that can be
-        directly read in fragment shaders to produce more detail than can be
-        passed as vertex data.
+        fragment shaders - textures! Textures are an array of color data that
+        can be directly read in fragment shaders to produce more detail than can
+        be passed as vertex data.
       </p>
       <p>
         Textures are used in multiple ways when rendering objects in an image.
@@ -70,13 +64,96 @@ const MappingPage = ({ location: { pathname } }) => (
         cannot be expressed through normal vertex data.
       </p>
       <p>
-        In order to use textures on objects, we first need to define a way for
-        how a texture is placed or "mapped" onto an object. This process is
-        called UV mapping.
+        In order to use textures on objects, we first need to learn how a
+        texture is overlayed onto on object.
       </p>
       <h3>UV Mapping</h3>
+      <p>
+        The process of overlaying, or "mapping", a texture (2D plane) onto an
+        object (3D system) is known as UV mapping. Just as how the axes of a 3D
+        system is denoted as X, Y, and Z, the axes of a texture are denoted as
+        U, and V.
+      </p>
+      <p>
+        By mapping a vertex of an object to a particular texture coordinate
+        (giving the vertex a "UV coordinate"), a texture can be overlayed onto
+        an object by pinning points of the texture to their mapped vertices.
+      </p>
+      <p>For example, suppose we have the following triangle:</p>
+      <p className="util text-center">
+        <img src={triangle} alt="Triangle - UV Mapping Example" />
+      </p>
+      <p>
+        And we wish to map a part of the following texture onto the triangle:
+      </p>
+      <p className="util text-center">
+        <img
+          src={triangleTexture}
+          alt="Triangle Texture - UV Mapping Example"
+        />
+      </p>
+      <p>
+        We can first overlay the triangle on top of the image and adjust the
+        corners of the triangle, such that the triangle covers the area of the
+        texture that needs to be used to color it, and the corners are also
+        placed in the correct positions that represent what color they should
+        be.
+      </p>
+      <p className="util text-center">
+        <img
+          src={triangleTextureMapped}
+          alt="Mapped Triangle Texture - UV Mapping Example"
+        />
+      </p>
+      <p>
+        <em>
+          Note: For the sake of simplicity, in this example we've overlayed the
+          triangle with no modification in position of the corners.
+        </em>
+      </p>
+      <p>
+        We can then note down the coordinates of the corners of the triangle
+        within the texture, relative to an origin (generally either the top left
+        corner or bottom left corner of the image).
+      </p>
+      <p>These become the UV coordinates of the vertices in the texture.</p>
+      <p>
+        The UV coordinates can be passed along with the rest of the vertex data.
+        When passing the coordinates to the fragment shader, these values can be
+        easily interpolated by the GPU per fragment, providing an accurate UV
+        coordinate of the fragment within the texture.
+      </p>
+      <p>
+        The value of the texture at the interpolated coordinate can then be read
+        within the fragment shader and be used for any operation.
+      </p>
+      <p>
+        In the next chapter, we'll look at the use of texture mapping to color
+        objects, the process being called color mapping, or texturing (for
+        simplicity).
+      </p>
       <h3>Summary</h3>
-      <ul />
+      <ul>
+        <li>
+          GPU can only be provided with raw data at the vertex level. This
+          creates a problem when more detail is required in the image.
+        </li>
+        <li>
+          However, GPUs also accept a separate type of data known as textures,
+          which contains an array of color data.
+        </li>
+        <li>
+          A texture can be overlayed onto an object through the process of UV
+          mapping, where each vertex of the object is mapped to a coordinate in
+          the texture.
+        </li>
+        <li>
+          By passing the UV coordinates as part of the vertex data, the
+          fragments inside the polygons can have their UV coordinates
+          interpolated by the GPU. These can be used to read values from the
+          texture, which can then be used during operations and rendering.
+        </li>
+      </ul>
     </Content>
     <PageChange
       previous="/intermediates/image-generation/"
