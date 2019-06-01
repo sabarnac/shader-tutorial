@@ -3,6 +3,7 @@ import React from "react"
 import Layout from "../components/layout"
 import Content from "../components/content"
 import SEO from "../components/seo"
+import { Link } from "gatsby"
 
 const FaqPage = ({ location: { pathname } }) => (
   <Layout>
@@ -35,7 +36,7 @@ const FaqPage = ({ location: { pathname } }) => (
             >
               GitHub repository
             </a>
-            .
+            . For other things, my email is available on GitHub.
           </p>
         </dd>
         <dt>How can I run these GPU shader code snippets?</dt>
@@ -55,7 +56,7 @@ const FaqPage = ({ location: { pathname } }) => (
             results.
           </p>
           <p>
-            There are plans to{" "}
+            There is an open issue to{" "}
             <a
               href="https://github.com/sabarnac/shader-tutorial/issues/9"
               target="_blank"
@@ -71,7 +72,7 @@ const FaqPage = ({ location: { pathname } }) => (
           <p>
             The procedural nature and the syntax of the language make it easy to
             explain concepts efficiently. This also allows the concepts shown
-            through the language to be transplated into other languages with
+            through the language to be translatable into other languages with
             relative ease, since the procedural nature of the code is very easy
             to convert into other programming language paradigms.
           </p>
@@ -82,7 +83,7 @@ const FaqPage = ({ location: { pathname } }) => (
             tutorial to be language agnostic.
           </p>
           <p>
-            However, there are plans to{" "}
+            However, there is an open issue to{" "}
             <a
               href="https://github.com/sabarnac/shader-tutorial/issues/2"
               target="_blank"
@@ -91,7 +92,9 @@ const FaqPage = ({ location: { pathname } }) => (
               add in code snippets in other languages
             </a>
             that are hidden by default, and can be viewed by clicking a link
-            that reveals them.
+            that reveals them. This is done in certain chapters (eg:{" "}
+            <Link href="/advanced/transparency/">transparency chapter</Link>)
+            already.
           </p>
         </dd>
         <dt>How can I debug shader code?</dt>
@@ -99,12 +102,12 @@ const FaqPage = ({ location: { pathname } }) => (
           <p>
             Unlike normal software development, where one can use a debugger or
             even output data to cehck the behaviour of applications, shaders are
-            not as easy to debug and fix.
+            not as easy to debug and fix with certain graphics APIs.
           </p>
           <p>
             There are multiple tools available that can be attached to
             applications to provide some utilities to debug shaders, but a lot
-            of debugging can still be based on trial and error.
+            of debugging is still be based on trial and error.
           </p>
           <p>
             If there is an obvious code error in the shader, like a syntax
