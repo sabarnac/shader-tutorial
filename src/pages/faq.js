@@ -90,7 +90,7 @@ const FaqPage = ({ location: { pathname } }) => (
               rel="noopener noreferrer"
             >
               add in code snippets in other languages
-            </a>
+            </a>{" "}
             that are hidden by default, and can be viewed by clicking a link
             that reveals them. This is done in certain chapters (eg:{" "}
             <Link href="/advanced/transparency/">transparency chapter</Link>)
