@@ -19,9 +19,9 @@ const MappingPage = ({ location: { pathname } }) => (
     <Content>
       <h2>Shader Intermediates - Mapping</h2>
       <p>
-        A major concern when rendering objects in shaders is that all the
-        details that can be defined and passed to the shaders have to be defined
-        on a per-vertex level.
+        A major concern when rendering objects in shaders is that all object
+        details that can be defined and passed to shaders have to be defined on
+        a per-vertex level.
       </p>
       <p>
         This makes it harder to define detail inside a polygon, unless the
@@ -30,10 +30,10 @@ const MappingPage = ({ location: { pathname } }) => (
         passing to the fragment shader.
       </p>
       <p>
-        However, GPUs accept another form of data that is directly accessible in
-        fragment shaders - textures! Textures are an array of color data that
-        can be directly read in fragment shaders to produce more detail than can
-        be passed as vertex data.
+        However, GPUs accept another form of data, one that is directly
+        accessible in fragment shaders - textures! Textures are images, i.e.,
+        array of color data, whose values can be read at specific coordinates
+        and then used in various operations.
       </p>
       <p>
         Textures are used in multiple ways when rendering objects in an image.
@@ -60,8 +60,8 @@ const MappingPage = ({ location: { pathname } }) => (
         <li>And a lot more...</li>
       </ul>
       <p>
-        Simply put, textures can be used to add more detail to an image that
-        cannot be expressed through normal vertex data.
+        Simply put, textures can be used to add more detail to an object that
+        cannot be expressed through vertex data.
       </p>
       <p>
         In order to use textures on objects, we first need to learn how a
@@ -95,9 +95,8 @@ const MappingPage = ({ location: { pathname } }) => (
       <p>
         We can first overlay the triangle on top of the image and adjust the
         corners of the triangle, such that the triangle covers the area of the
-        texture that needs to be used to color it, and the corners are also
-        placed in the correct positions that represent what color they should
-        be.
+        texture that needs to be used to color it. The corners are also placed
+        in the correct positions that represent what color they should be.
       </p>
       <p className="util text-center">
         <img
@@ -113,8 +112,9 @@ const MappingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         We can then note down the coordinates of the corners of the triangle
-        within the texture, relative to an origin (generally either the top left
-        corner or bottom left corner of the image).
+        within the texture, relative to an origin. Generally, the origin is
+        either the top left corner or bottom left corner of the image, depending
+        on the graphics API you use.
       </p>
       <p>These become the UV coordinates of the vertices in the texture.</p>
       <p>

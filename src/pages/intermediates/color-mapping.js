@@ -43,12 +43,16 @@ const ColorMappingPage = ({ location: { pathname } }) => (
         mapping.
       </p>
       <p>
-        Color mapping is also called texturing, due to the fact that textures
-        only hold color data, and are primarily used to color fragments in an
-        image.
+        We can use the process of mapping to map colors of a fragment from the
+        color data stored in a texture. This process is called color mapping.
       </p>
       <p>
-        Let's look at an example of UV mapping where an image is used as a
+        Color mapping is also referred to as texturing due to the fact that
+        textures only hold color data, and are primarily used to color fragments
+        in an image.
+      </p>
+      <p>
+        Let's look at an example of color mapping where an image is used as a
         texture to color the faces of a cube.
       </p>
       <h3>An example - A cube</h3>
@@ -67,21 +71,30 @@ const ColorMappingPage = ({ location: { pathname } }) => (
         coordinates of the vertices of a single face.
       </p>
       <p>
+        <em>
+          Note: For OpenGL/WebGL, the origin for UV coordinates is the
+          lower-left corner of an image. For DirectX, the origin for UV
+          coordinates is the upper-left corner of an image. When translating
+          shader code between these languages, take care of the Y-axis values of
+          the UV coordinates.
+        </em>
+      </p>
+      <p>
         These UV coordinates are passed as part of the vertex data to the GPU.
         When these coordinates are passed to the fragment shader through the
         vertex shader, the GPU interpolates the UV coordinates of the fragments.
       </p>
       <p>
-        So, for example, a fragment in the center of the face is equi-distant
-        from all four vertices of the face. Since the vertices are mapped to the
+        For example, a fragment in the center of the face is equi-distant from
+        all four vertices of the face. Since the vertices are mapped to the
         corners of the texture, the fragment will receive an interpolated UV
         coordinate at the center of the texture.
       </p>
       <p>
         Using these interpolated UV coordinates, the color of the texture at
-        that point can be read in the fragment shader, which will represent the
-        final color of that fragment, since that coordinate is where the
-        fragment is located on that texture.
+        that point can be read by the fragment shader, which will represent the
+        final color of that fragment, since the UV coordinate represents the
+        location of the fragment within the texture.
       </p>
       <GlslCodeHighlight
         code={firstVertexShaderSource.trim()}
@@ -92,10 +105,10 @@ const ColorMappingPage = ({ location: { pathname } }) => (
         type={"Fragment"}
       />
       <p>
-        In the vertex shader, the UV coordinates of the vertex is provided
-        through the <code>vertexUv</code> attribute, which is then passed to the
-        fragment shader through <code>uv</code>, allowing the GPU to interpolate
-        the UV coordinates for each fragment.
+        In the vertex shader code above, the UV coordinates of the vertex is
+        provided through the <code>vertexUv</code> attribute, which is then
+        passed to the fragment shader through <code>uv</code>, allowing the GPU
+        to interpolate the UV coordinates for each fragment.
       </p>
       <p>
         In the fragment shader, the pixel color value of the texture at the
