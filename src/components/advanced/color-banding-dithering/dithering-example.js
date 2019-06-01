@@ -181,11 +181,14 @@ const DitheringExample = () => {
   })
   const [shouldRender, updateShouldRender] = useState(true)
 
-  const canvasRef = useCallback(canvas => {
-    if (canvas !== null && webGlRef === null) {
-      updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
-    }
-  }, [])
+  const canvasRef = useCallback(
+    canvas => {
+      if (canvas !== null) {
+        updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
+      }
+    },
+    [ditheringVertexShaderSource, ditheringFragmentShaderSource]
+  )
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

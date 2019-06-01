@@ -178,6 +178,9 @@ export default class WebGlWrapper {
     this._webgl.attachShader(shaderProgram, fragmentShader)
     this._webgl.linkProgram(shaderProgram)
 
+    this._webgl.deleteShader(vertexShader)
+    this._webgl.deleteShader(fragmentShader)
+
     if (
       !this._webgl.getProgramParameter(shaderProgram, this._webgl.LINK_STATUS)
     ) {

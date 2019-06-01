@@ -7,6 +7,10 @@ import {
 } from "./third-example-shaders"
 import { mat4, vec3, vec4 } from "gl-matrix"
 import texture from "../../../images/intermediates/texture.png"
+import {
+  secondVertexShaderSource,
+  secondFragmentShaderSource,
+} from "./second-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -177,11 +181,14 @@ const LightingThirdExample = () => {
   })
   const [shouldRender, updateShouldRender] = useState(true)
 
-  const canvasRef = useCallback(canvas => {
-    if (canvas !== null && webGlRef === null) {
-      updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
-    }
-  }, [])
+  const canvasRef = useCallback(
+    canvas => {
+      if (canvas !== null) {
+        updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
+      }
+    },
+    [thirdVertexShaderSource, thirdFragmentShaderSource]
+  )
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

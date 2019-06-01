@@ -39,11 +39,14 @@ const RandomImageGenerationNinthExample = () => {
   const [screenBuffer, updateScreenBuffer] = useState({ vertices: null })
   const [shouldRender, updateShouldRender] = useState(true)
 
-  const canvasRef = useCallback(canvas => {
-    if (canvas !== null && webGlRef === null) {
-      updateWebGlRef(new WebGlWrapper(canvas, screenModelPosition))
-    }
-  }, [])
+  const canvasRef = useCallback(
+    canvas => {
+      if (canvas !== null) {
+        updateWebGlRef(new WebGlWrapper(canvas, screenModelPosition))
+      }
+    },
+    [ninthVertexShaderSource, ninthFragmentShaderSource]
+  )
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

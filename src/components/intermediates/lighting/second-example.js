@@ -175,11 +175,14 @@ const LightingSecondExample = () => {
   })
   const [shouldRender, updateShouldRender] = useState(true)
 
-  const canvasRef = useCallback(canvas => {
-    if (canvas !== null && webGlRef === null) {
-      updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
-    }
-  }, [])
+  const canvasRef = useCallback(
+    canvas => {
+      if (canvas !== null) {
+        updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
+      }
+    },
+    [secondVertexShaderSource, secondFragmentShaderSource]
+  )
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

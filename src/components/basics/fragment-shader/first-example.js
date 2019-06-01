@@ -34,11 +34,14 @@ const FragmentShaderFirstExample = () => {
   const [triangleBuffer, updateTriangleBuffer] = useState({ vertices: null })
   const [shouldRender, updateShouldRender] = useState(true)
 
-  const canvasRef = useCallback(canvas => {
-    if (canvas !== null && webGlRef === null) {
-      updateWebGlRef(new WebGlWrapper(canvas, triangleModelPosition))
-    }
-  }, [])
+  const canvasRef = useCallback(
+    canvas => {
+      if (canvas !== null) {
+        updateWebGlRef(new WebGlWrapper(canvas, triangleModelPosition))
+      }
+    },
+    [firstVertexShaderSource, firstFragmentShaderSource]
+  )
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

@@ -100,11 +100,14 @@ const TexturingSecondExample = () => {
   const [shouldRender, updateShouldRender] = useState(true)
   const [time, updateTime] = useState(performance.now())
 
-  const canvasRef = useCallback(canvas => {
-    if (canvas !== null && webGlRef === null) {
-      updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
-    }
-  }, [])
+  const canvasRef = useCallback(
+    canvas => {
+      if (canvas !== null) {
+        updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
+      }
+    },
+    [secondVertexShaderSource, secondFragmentShaderSource]
+  )
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {
