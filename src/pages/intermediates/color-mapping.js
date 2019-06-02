@@ -44,7 +44,8 @@ const ColorMappingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         We can use the process of mapping to map colors of a fragment from the
-        color data stored in a texture. This process is called color mapping.
+        color data stored in a texture/color map. This process is called color
+        mapping.
       </p>
       <p>
         Color mapping is also referred to as texturing due to the fact that
