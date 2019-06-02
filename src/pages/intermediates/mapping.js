@@ -13,7 +13,7 @@ const MappingPage = ({ location: { pathname } }) => (
     <SEO
       pathname={pathname}
       title="Shader Intermediates - Mapping"
-      description="A look into the how textures are used to add additional detail in shaders."
+      description="A look into the how textures/maps are used to add additional detail in shaders."
       keywords={["mapping", "textures", "uv", "shader", "intermediates"]}
     />
     <Content>
@@ -126,6 +126,12 @@ const MappingPage = ({ location: { pathname } }) => (
       <p>
         The value of the texture at the interpolated coordinate can then be read
         within the fragment shader and be used for any operation.
+      </p>
+      <p>
+        Textures used for operations other than coloring are referred to as
+        "maps", since they act as a map upon which the fragment being drawn is
+        present within, and needs to be found using the UV coordinates of that
+        fragment.
       </p>
       <p>
         In the next chapter, we'll look at the use of texture mapping to color
