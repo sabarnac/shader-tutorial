@@ -33,18 +33,18 @@ const BranchingPage = ({ location: { pathname } }) => (
       <hr />
       <p>
         The reasons for this is when a GPU hits a branch, the common behavior of
-        GPUs is to run the code for all resulting possibility, and then discard
-        the results of the possibilities that wasn't the determined outcome.
+        GPUs is to run the code for all possible branch outcomes, and then only
+        keep the results of the final outcome.
       </p>
       <p>
         Since the GPU relies on many parallel calculations being executable at
-        once, having branches forces the GPU to waste time running multiple
-        possible operations for the same vertex/fragment, instead of using those
-        resources performing calculations for other vertices/fragments.
+        once, branches force the GPU to waste time executing the same shader
+        code multiple times for a single vertex/fragment, instead of for other
+        vertices/fragments.
       </p>
       <p>
         This means that if there is a significant amount of code that is only
-        run based upon a condition, then a lot of time is wasted by the GPU
+        executed based upon a condition, then a lot of time is wasted by the GPU
         executing a lot of code that may not be required.
       </p>
       <p>
@@ -52,14 +52,14 @@ const BranchingPage = ({ location: { pathname } }) => (
       </p>
       <ul>
         <li>
-          If you're branching based on the value of a uniform, since such a
-          branch will always have the same result irrespective of which vertex
-          or fragment you're operating on, this shouldn't lead to a performance
-          bottleneck.
+          Branches that are based on the value of a uniform shouldn't lead to a
+          performance bottleneck, since such a branch will always have the same
+          result, irrespective of which vertex or fragment is being operated on.
         </li>
         <li>
-          Similar to the last point, if you're branches are consistent (always
-          have the same outcome), there shouldn't be a performance bottleneck.
+          Similar to the last point, if the branch results are consistent
+          (always have the same outcome), there shouldn't be a performance
+          bottleneck.
         </li>
         <li>
           Branches that are used to set the value for a variable (ex:{" "}
@@ -67,13 +67,13 @@ const BranchingPage = ({ location: { pathname } }) => (
           efficiently by GPUs.
         </li>
         <li>
-          If you're branches are consistent over a group of pixels (ex: 8x8
-          group), there should not be a major performance penalty
+          Branches that are consistent over a group of pixels (ex: 8x8 group)
+          should not produce a major performance penalty
           <strong>*</strong>.
         </li>
         <li>
           For certain other cases of branching, they may be optimized to not
-          have a big impact on performance<strong>*</strong>.
+          cause major performance degredation<strong>*</strong>.
         </li>
       </ul>
       <p>
@@ -84,8 +84,8 @@ const BranchingPage = ({ location: { pathname } }) => (
       </p>
       <p style={{ paddingLeft: "5rem" }}>
         <em>
-          Note: Certain GLSL functions used so far (ex: <code>clamp</code>)don't
-          have a performance impact although they are expected to cause
+          Note: Certain GLSL functions used so far (ex: <code>clamp</code>)
+          don't have a performance impact although they are expected to cause
           branching.
         </em>
       </p>
@@ -106,12 +106,12 @@ const BranchingPage = ({ location: { pathname } }) => (
       <ul>
         <li>
           Branching is generally discouraged to be performed in shaders and can
-          negatively impact performance except for certain scenarios.
+          negatively impact performance except in certain scenarios.
         </li>
         <li>
-          Test to see if a branch in the code does affect performance, but
-          remember that it can be GPU and driver dependent. Preferrably use
-          branches only when you have to.
+          Test to see if a branch affects performance, but remember that it can
+          be GPU and driver dependent. Preferrably use branches only when you
+          have to.
         </li>
       </ul>
     </Content>
