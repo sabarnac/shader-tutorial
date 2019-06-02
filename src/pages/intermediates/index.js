@@ -41,7 +41,11 @@ const IntermediatesIndexPage = ({ location: { pathname } }) => (
             Shader Intermediates - Lighting
           </Link>
         </li>
-        <li>More Coming Soon...</li>
+        <li>
+          <Link to="/intermediates/normal-mapping/">
+            Shader Intermediates - Normal Mapping
+          </Link>
+        </li>
       </ul>
     </Content>
   </Layout>

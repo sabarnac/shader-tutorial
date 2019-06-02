@@ -779,7 +779,10 @@ const LightingPage = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange previous="/intermediates/color-mapping/" />
+    <PageChange
+      previous="/intermediates/color-mapping/"
+      next="/intermediates/normal-mapping/"
+    />
   </Layout>
 )
 
