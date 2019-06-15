@@ -5,7 +5,7 @@ import {
   firstVertexShaderSource,
   firstFragmentShaderSource,
 } from "./first-example-shaders"
-import { mat4 } from "gl-matrix"
+import { mat4, vec3, vec4 } from "gl-matrix"
 import texture from "../../../images/intermediates/texture-2.png"
 
 const shaderProgramInfo = {
@@ -13,11 +13,17 @@ const shaderProgramInfo = {
     attributeLocations: {
       vertexPosition: "vec4",
       vertexUv: "vec2",
+      vertexNormal: "vec3",
     },
     uniformLocations: {
       modelMatrix: "mat4",
       viewMatrix: "mat4",
       projectionMatrix: "mat4",
+
+      lightPosition_worldSpace: "vec4",
+      lightColor: "vec3",
+      lightIntensity: "float",
+      surfaceReflectivity: "float",
     },
   },
   fragment: {
@@ -27,6 +33,10 @@ const shaderProgramInfo = {
     },
   },
 }
+
+const lightModelPosition = vec4.fromValues(4.0, 0.0, 4.0, 1.0)
+const lightColor = vec3.fromValues(1.0, 1.0, 1.0)
+const lightIntensity = 50.0
 
 const squareModelPosition = mat4.create()
 
@@ -48,8 +58,17 @@ const NormalMappingFirstExample = () => {
       [1.0, 0.0],
       [1.0, 1.0],
     ],
+    normals: [
+      [0.0, 0.0, 1.0],
+      [0.0, 0.0, 1.0],
+      [0.0, 0.0, 1.0],
+      [0.0, 0.0, 1.0],
+      [0.0, 0.0, 1.0],
+      [0.0, 0.0, 1.0],
+    ],
     indices: [[0, 1, 2, 3, 4, 5]],
     texture: texture,
+    surfaceReflectivity: 50.0,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -57,6 +76,7 @@ const NormalMappingFirstExample = () => {
   const [squareBuffer, updatesquareBuffer] = useState({
     vertices: null,
     uvs: null,
+    normals: null,
     indices: null,
     texture: null,
   })
@@ -102,6 +122,10 @@ const NormalMappingFirstExample = () => {
         uvs: webGlRef.createStaticDrawArrayBuffer(
           square.uvs.flat(),
           squareBuffer.uvs
+        ),
+        normals: webGlRef.createStaticDrawArrayBuffer(
+          square.normals.flat(),
+          squareBuffer.normals
         ),
         indices: webGlRef.createElementArrayBuffer(
           square.indices.flat(),
@@ -158,6 +182,19 @@ const NormalMappingFirstExample = () => {
               shaderInfo.vertex.attributeLocations.vertexUv
             )
 
+            gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer.normals)
+            gl.vertexAttribPointer(
+              shaderInfo.vertex.attributeLocations.vertexNormal,
+              3,
+              gl.FLOAT,
+              false,
+              0,
+              0
+            )
+            gl.enableVertexAttribArray(
+              shaderInfo.vertex.attributeLocations.vertexNormal
+            )
+
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareBuffer.indices)
 
             gl.useProgram(shaderProgram)
@@ -176,6 +213,23 @@ const NormalMappingFirstExample = () => {
               shaderInfo.vertex.uniformLocations.modelMatrix,
               false,
               rotatedModelMatrix
+            )
+
+            gl.uniform4fv(
+              shaderInfo.vertex.uniformLocations.lightPosition_worldSpace,
+              lightModelPosition
+            )
+            gl.uniform3fv(
+              shaderInfo.vertex.uniformLocations.lightColor,
+              lightColor
+            )
+            gl.uniform1f(
+              shaderInfo.vertex.uniformLocations.lightIntensity,
+              lightIntensity
+            )
+            gl.uniform1f(
+              shaderInfo.vertex.uniformLocations.surfaceReflectivity,
+              square.surfaceReflectivity
             )
 
             gl.activeTexture(gl.TEXTURE0)
@@ -200,6 +254,8 @@ const NormalMappingFirstExample = () => {
     [squareBuffer]
   )
 
+  const colorCoords = { x: "r", y: "g", z: "b" }
+
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
       <canvas width="640" height="480" ref={canvasRef}>
@@ -209,6 +265,16 @@ const NormalMappingFirstExample = () => {
         {`
 Square:
     World Position: ${coordArrToString([0.0, 0.0, 0.0])}
+    Lighting:
+        Surface Reflectivity: ${square.surfaceReflectivity}
+`.trim()}
+      </pre>
+      <pre className="util text-left">
+        {`
+Light:
+    World Position: ${coordArrToString(lightModelPosition)}
+    Color: ${coordArrToString(lightColor, colorCoords)}
+    Intensity: ${lightIntensity}
 `.trim()}
       </pre>
     </div>

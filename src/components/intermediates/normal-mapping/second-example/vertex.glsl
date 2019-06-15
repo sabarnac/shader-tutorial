@@ -1,6 +1,8 @@
 attribute vec4 vertexPosition;
 attribute vec2 vertexUv;
 attribute vec3 vertexNormal;
+attribute vec3 vertexTangent;
+attribute vec3 vertexBiTangent;
 
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
@@ -13,8 +15,8 @@ uniform highp vec3 specularColor;
 uniform highp float surfaceReflectivity;
 
 varying highp vec2 uv;
+varying highp mat3 tbnMatrix;
 varying highp vec4 vertexPosition_viewSpace;
-varying highp vec3 normal_viewSpace;
 varying highp vec3 lightDirection_viewSpace;
 varying highp float distanceFromLight;
 
@@ -25,7 +27,13 @@ void main() {
 
   uv = vertexUv;
 
+  tbnMatrix = mat3(viewMatrix * modelMatrix * mat4(
+    vec4(normalize(vertexTangent), 0.0),
+    vec4(normalize(vertexBiTangent), 0.0),
+    vec4(normalize(vertexNormal), 0.0),
+    vec4(0.0)
+  ));
+
   distanceFromLight = distance(vertexPosition_worldSpace, lightPosition_worldSpace);
-  normal_viewSpace = normalize((viewMatrix * modelMatrix * vec4(vertexNormal, 0.0)).xyz);
   lightDirection_viewSpace = normalize(((viewMatrix * lightPosition_worldSpace) - vertexPosition_viewSpace).xyz);
 }
