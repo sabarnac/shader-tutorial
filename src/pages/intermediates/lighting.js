@@ -186,7 +186,7 @@ const LightingPage = ({ location: { pathname } }) => (
         These four factors combined together affect how the diffuse reflection
         will finally appear.
       </p>
-      <h3>Example - Cube with diffused reflection</h3>
+      <h3>Example - Cube with diffused reflections</h3>
       <LightingFirstExample />
       <h4>How it works</h4>
       <p>
@@ -424,7 +424,7 @@ const LightingPage = ({ location: { pathname } }) => (
         environment, the diffuse lighting component adds on top of the ambient
         component.
       </p>
-      <h3>Example - Cube with ambient and diffuse lighting</h3>
+      <h3>Example - Cube with ambient and diffuse reflections</h3>
       <LightingSecondExample />
       <GlslCodeHighlight
         code={secondFragmentShaderSource.trim()}

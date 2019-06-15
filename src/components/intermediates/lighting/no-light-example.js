@@ -245,11 +245,7 @@ const LightingNoLightExample = () => {
 
             gl.activeTexture(gl.TEXTURE0)
             gl.bindTexture(gl.TEXTURE_2D, cubeBuffer.texture)
-            gl.uniform1i(
-              shaderInfo.fragment.uniformLocations.textureSampler,
-              false,
-              gl.TEXTURE0
-            )
+            gl.uniform1i(shaderInfo.fragment.uniformLocations.textureSampler, 0)
 
             gl.drawElements(
               gl.TRIANGLES,

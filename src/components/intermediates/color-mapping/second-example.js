@@ -30,7 +30,7 @@ const shaderProgramInfo = {
 const cubeModelPosition = mat4.create()
 const cubeFaceUvs = [[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]
 
-const TexturingSecondExample = () => {
+const ColorMappingSecondExample = () => {
   const cube = {
     vertices: [
       // Front vertices
@@ -228,11 +228,7 @@ const TexturingSecondExample = () => {
 
             gl.activeTexture(gl.TEXTURE0)
             gl.bindTexture(gl.TEXTURE_2D, cubeBuffer.texture)
-            gl.uniform1i(
-              shaderInfo.fragment.uniformLocations.textureSampler,
-              false,
-              gl.TEXTURE0
-            )
+            gl.uniform1i(shaderInfo.fragment.uniformLocations.textureSampler, 0)
 
             gl.drawElements(
               gl.TRIANGLE_STRIP,
@@ -281,4 +277,4 @@ Cube:
   )
 }
 
-export default TexturingSecondExample
+export default ColorMappingSecondExample
