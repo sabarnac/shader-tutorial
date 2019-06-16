@@ -10,11 +10,11 @@ uniform highp vec4 lightPosition_worldSpace;
 uniform highp vec3 lightColor;
 uniform highp float lightIntensity;
 uniform highp vec3 specularColor;
-uniform highp float surfaceReflectivity;
+uniform highp float specularLobeFactor;
 
 varying highp vec2 uv;
-varying highp vec3 diffuseFactor;
-varying highp vec3 specularFactor;
+varying highp vec3 diffuseLight;
+varying highp vec3 specularLight;
 
 void main() {
   highp vec4 vertexPosition_worldSpace = modelMatrix * vertexPosition;
@@ -29,11 +29,11 @@ void main() {
   highp vec3 lightDirection_viewSpace = normalize(((viewMatrix * lightPosition_worldSpace) - vertexPosition_viewSpace).xyz);
 
   highp float diffuseStrength = clamp(dot(normal_viewSpace, lightDirection_viewSpace), 0.0, 1.0);
-  diffuseFactor = (lightColorIntensity * diffuseStrength) / (distanceFromLight * distanceFromLight);
+  diffuseLight = (lightColorIntensity * diffuseStrength) / (distanceFromLight * distanceFromLight);
 
   highp vec3 viewDirection_viewSpace = normalize(vertexPosition_viewSpace.xyz - vec3(0.0, 0.0, 0.0));
   highp vec3 lightReflection_viewSpace = reflect(lightDirection_viewSpace, normal_viewSpace);
 
   highp float specularStrength = clamp(dot(viewDirection_viewSpace, lightReflection_viewSpace), 0.0, 1.0);
-  specularFactor = (lightColorIntensity * pow(specularStrength, surfaceReflectivity)) / (distanceFromLight * distanceFromLight);
+  specularLight = (lightColorIntensity * pow(specularStrength, specularLobeFactor)) / (distanceFromLight * distanceFromLight);
 }

@@ -11,7 +11,7 @@ uniform highp vec3 lightColor;
 uniform highp float lightIntensity;
 
 varying highp vec2 uv;
-varying highp vec3 diffuseFactor;
+varying highp vec3 diffuseLight;
 
 void main() {
   highp vec4 vertexPosition_worldSpace = modelMatrix * vertexPosition;
@@ -26,5 +26,5 @@ void main() {
   highp vec3 lightDirection_viewSpace = normalize(((viewMatrix * lightPosition_worldSpace) - vertexPosition_viewSpace).xyz);
 
   highp float diffuseStrength = clamp(dot(normal_viewSpace, lightDirection_viewSpace), 0.0, 1.0);
-  diffuseFactor = (lightColorIntensity * diffuseStrength) / (distanceFromLight * distanceFromLight);
+  diffuseLight = (lightColorIntensity * diffuseStrength) / (distanceFromLight * distanceFromLight);
 }

@@ -186,7 +186,12 @@ const LightingPage = ({ location: { pathname } }) => (
         These four factors combined together affect how the diffuse reflection
         will finally appear.
       </p>
-      <h3>Example - Cube with diffused reflections</h3>
+      <p>
+        Since the diffuse component is what shows the color of an object, the
+        color map used to color an object is also called a diffuse map, since it
+        provides the color that the diffuse reflection is supposed to show.
+      </p>
+      <h3>Example - Cube with diffused reflection</h3>
       <LightingFirstExample />
       <h4>How it works</h4>
       <p>
@@ -310,7 +315,7 @@ const LightingPage = ({ location: { pathname } }) => (
       </p>
       <p className="util text-center">
         {renderEquation(
-          `"diffuseFactor" = ((hat "lightDirection" cdot hat "surfaceNormal") times "lightColor" times "lightIntensity") / "distance" ^ 2`
+          `"diffuseLight" = ((hat "lightDirection" cdot hat "surfaceNormal") times "lightColor" times "lightIntensity") / "distance" ^ 2`
         )}
       </p>
       <p>
@@ -477,8 +482,8 @@ const LightingPage = ({ location: { pathname } }) => (
         the object has a shiny surface. This is specular reflection.
       </p>
       <p>
-        Just like how with diffuse reflection the brightness was dependent on
-        the angle of the light and the surface, with specular reflection the
+        Just like how with diffuse reflection the brightness is dependent on the
+        angle of the light and the surface, with specular reflection the
         brightness is dependent on the direction of the reflected light and the
         direction of the camera.
       </p>
@@ -565,8 +570,14 @@ const LightingPage = ({ location: { pathname } }) => (
       </p>
       <p className="util text-center">
         {renderEquation(
-          `"specularFactor" = ((hat "lightDirection" cdot hat "cameraDirection") times "lightColor" times "lightIntensity") / "distance" ^ 2`
+          `"specularLight" = ((hat "lightDirection" cdot hat "cameraDirection")^"Lobe Density" times "lightColor" times "lightIntensity") / "distance" ^ 2`
         )}
+      </p>
+      <p>
+        The lobe density defines how concentrated thhe specular reflection is
+        over a surface. A lower value means that the light is reflecting over a
+        larger surface area, and a higher value means that the light is
+        reflecting over a smaller surface area.
       </p>
       <p>Let us look at the code to see how this equation is implemented.</p>
       <GlslCodeHighlight
@@ -648,10 +659,10 @@ const LightingPage = ({ location: { pathname } }) => (
         light source from the object.
       </p>
       <p>
-        Since the specular strength is also dependent on how reflective the
-        surface is, it is increased to the power of the surface reflectivity. So
-        the more reflective a surface is, the specular strength of the surface
-        increases exponentially.
+        Since the specular factor is also dependent on the specular lobe density
+        of the light, it is increased to the power of the lobe density. So the
+        more dense the light specular lobe is, the specular factor of the light
+        on the surface increases exponentially.
       </p>
       <p>
         The result is then passed to the fragment shader, allowing it to be
@@ -681,10 +692,34 @@ const LightingPage = ({ location: { pathname } }) => (
       </p>
       <h3>Additional Notes</h3>
       <p>
-        One interesting point that may be noticed is that all lighting factors
-        are calculated on the vertex shader, which is then passed to the
-        fragment shader, allowing the GPU to interpolate the factor for each
-        fragment.
+        The specular and diffuse lighting values shown in the example code are
+        added at full strength. However, these values should be combined with
+        roughness and reflectiveness factors of the surface material of the
+        object, which would give a more accurate appearance.
+      </p>
+      <p>So if the original equation for the lighting model discussed is:</p>
+      <p className="util text-center">
+        {renderEquation(
+          `"light" = "diffuseLight" + "specularLight" + "ambientLight"`
+        )}
+      </p>
+      <p>Then the more accurate version would be:</p>
+      <p className="util text-center">
+        {renderEquation(
+          `"light" = ("surfaceRoughness" times "diffuseLight") + ("surfaceReflectivity" times "specularLight") + "ambientLight"`
+        )}
+      </p>
+      <p>
+        Where {renderEquation(`"surfaceRoughness"`)} and{" "}
+        {renderEquation(`"surfaceReflectivity"`)} are values ranging from 0 to
+        1, and affect how much of the {renderEquation(`"diffuseLight"`)} and{" "}
+        {renderEquation(`"specularLight"`)} affect the lighting of the object,
+        and are based upon the surface material of the object.
+      </p>
+      <p>
+        Another point of note is that all lighting factors are calculated on the
+        vertex shader, which is then passed to the fragment shader, allowing the
+        GPU to interpolate the factor for each fragment.
       </p>
       <p>
         The reason that this is done on the vertex shader and not the fragment
@@ -709,9 +744,13 @@ const LightingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         This optimization reduces the number of overall computations performed
-        and relies on the GPU interpolating values correctly. If it is seen that
-        the interpolation is inaccurate, then it is acceptable to keep the
-        calculation in the fragment shader.
+        and relies on the GPU interpolating values correctly.
+      </p>
+      <p>
+        If it is seen that the interpolation is inaccurate, or that there are
+        certain requirements that prevent the calculation from being performed
+        in the vertex shader, then the calculation can be performed in the
+        fragment shader.
       </p>
       <h3>Summary</h3>
       <ul>

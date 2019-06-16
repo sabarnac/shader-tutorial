@@ -23,7 +23,7 @@ const shaderProgramInfo = {
       lightPosition_worldSpace: "vec4",
       lightColor: "vec3",
       lightIntensity: "float",
-      surfaceReflectivity: "float",
+      specularLobeFactor: "float",
     },
   },
   fragment: {
@@ -163,7 +163,7 @@ const LightingThirdExample = () => {
     ],
     texture: texture,
     ambientFactor: 0.1,
-    surfaceReflectivity: 5.0,
+    specularLobeFactor: 5.0,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -331,8 +331,8 @@ const LightingThirdExample = () => {
               lightIntensity
             )
             gl.uniform1f(
-              shaderInfo.vertex.uniformLocations.surfaceReflectivity,
-              cube.surfaceReflectivity
+              shaderInfo.vertex.uniformLocations.specularLobeFactor,
+              cube.specularLobeFactor
             )
 
             gl.uniform1f(
@@ -375,7 +375,7 @@ Cube:
     World Position: ${coordArrToString([0.0, 0.0, 0.0])}
     Lighting:
         Ambient Factor: ${cube.ambientFactor}
-        Surface Reflectivity: ${cube.surfaceReflectivity}
+        Lobe Density: ${cube.specularLobeFactor}
 `.trim()}
       </pre>
       <pre className="util text-left">
