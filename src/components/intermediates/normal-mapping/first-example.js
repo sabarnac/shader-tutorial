@@ -23,7 +23,7 @@ const shaderProgramInfo = {
       lightPosition_worldSpace: "vec4",
       lightColor: "vec3",
       lightIntensity: "float",
-      surfaceReflectivity: "float",
+      specularLobeFactor: "float",
     },
   },
   fragment: {
@@ -51,12 +51,12 @@ const NormalMappingFirstExample = () => {
       [1.0, 1.0, 0.0],
     ],
     uvs: [
+      [0.0, 1.0],
       [0.0, 0.0],
-      [0.0, 1.0],
-      [1.0, 0.0],
-      [0.0, 1.0],
-      [1.0, 0.0],
       [1.0, 1.0],
+      [0.0, 0.0],
+      [1.0, 1.0],
+      [1.0, 0.0],
     ],
     normals: [
       [0.0, 0.0, 1.0],
@@ -68,7 +68,7 @@ const NormalMappingFirstExample = () => {
     ],
     indices: [[0, 1, 2, 3, 4, 5]],
     texture: texture,
-    surfaceReflectivity: 50.0,
+    specularLobeFactor: 50.0,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -228,8 +228,8 @@ const NormalMappingFirstExample = () => {
               lightIntensity
             )
             gl.uniform1f(
-              shaderInfo.vertex.uniformLocations.surfaceReflectivity,
-              square.surfaceReflectivity
+              shaderInfo.vertex.uniformLocations.specularLobeFactor,
+              square.specularLobeFactor
             )
 
             gl.activeTexture(gl.TEXTURE0)
@@ -266,7 +266,7 @@ const NormalMappingFirstExample = () => {
 Square:
     World Position: ${coordArrToString([0.0, 0.0, 0.0])}
     Lighting:
-        Surface Reflectivity: ${square.surfaceReflectivity}
+        Lobe Density: ${square.specularLobeFactor}
 `.trim()}
       </pre>
       <pre className="util text-left">

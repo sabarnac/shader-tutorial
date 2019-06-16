@@ -26,7 +26,7 @@ const shaderProgramInfo = {
       lightPosition_worldSpace: "vec4",
       lightColor: "vec3",
       lightIntensity: "float",
-      surfaceReflectivity: "float",
+      specularLobeFactor: "float",
     },
   },
   fragment: {
@@ -55,12 +55,12 @@ const NormalMappingSecondExample = () => {
       [1.0, 1.0, 0.0],
     ],
     uvs: [
+      [0.0, 1.0],
       [0.0, 0.0],
-      [0.0, 1.0],
-      [1.0, 0.0],
-      [0.0, 1.0],
-      [1.0, 0.0],
       [1.0, 1.0],
+      [0.0, 0.0],
+      [1.0, 1.0],
+      [1.0, 0.0],
     ],
     normals: [
       [0.0, 0.0, 1.0],
@@ -75,7 +75,7 @@ const NormalMappingSecondExample = () => {
     indices: [[0, 1, 2, 3, 4, 5]],
     texture: texture,
     normalTexture: normalTexture,
-    surfaceReflectivity: 50.0,
+    specularLobeFactor: 50.0,
   }
   for (let i = 0; i < square.vertices.length; i += 3) {
     const v0 = vec3.clone(square.vertices[i + 0])
@@ -334,8 +334,8 @@ const NormalMappingSecondExample = () => {
               lightIntensity
             )
             gl.uniform1f(
-              shaderInfo.vertex.uniformLocations.surfaceReflectivity,
-              square.surfaceReflectivity
+              shaderInfo.vertex.uniformLocations.specularLobeFactor,
+              square.specularLobeFactor
             )
 
             gl.activeTexture(gl.TEXTURE0)
@@ -379,7 +379,7 @@ const NormalMappingSecondExample = () => {
 Square:
     World Position: ${coordArrToString([0.0, 0.0, 0.0])}
     Lighting:
-        Surface Reflectivity: ${square.surfaceReflectivity}
+        Lobe Density: ${square.specularLobeFactor}
 `.trim()}
       </pre>
       <pre className="util text-left">
