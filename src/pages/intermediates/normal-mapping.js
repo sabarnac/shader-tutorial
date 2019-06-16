@@ -154,18 +154,18 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         </li>
         <li>
           The x-axis component of the normal is encoded as the red color of the
-          pixel, with the color values 0 to 255 mapping into -1 to 1 on the
-          x-axis.
+          pixel, with the color values 0 to 255 (0.0 - 1.0 in float) mapping
+          into the range -1 to 1 on the x-axis.
         </li>
         <li>
           The y-axis component of the normal is encoded as the green color of
-          the pixel, with the color values 0 to 255 mapping into -1 to 1 on the
-          y-axis.
+          the pixel, with the color values 0 to 255 (0.0 - 1.0 in float) mapping
+          into the range -1 to 1 on the y-axis.
         </li>
         <li>
           The z-axis component of the normal is encoded as the blue color of the
-          pixel, with the color values 128 to 255 mapping into 0 to 1 on the
-          z-axis.
+          pixel, with the color values 128 to 255 (0.5 - 1.0 in float) mapping
+          into the range 0 to 1 on the z-axis.
         </li>
       </ul>
       <p>
