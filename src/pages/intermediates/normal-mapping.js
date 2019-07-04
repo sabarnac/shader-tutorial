@@ -174,7 +174,70 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         pointing away from the view of the user, meaning that it would never be
         visible to the user anyways.
       </p>
-      <p></p>
+      <p>
+        The values in the normal map are stored in a 2D space called
+        "tangent-space".
+      </p>
+      <p>
+        Consider a sphere. A plane (a flat 2D surface) is considered "tangent"
+        to a point on the sphere if the plane only touches the sphere aat that
+        point, and does not touch it at any other neighbouring points.
+      </p>
+      <p className="util text-center">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Image_Tangent-plane.svg/2560px-Image_Tangent-plane.svg.png"
+          alt="Wikipedia Tangent Plane Example"
+          style={{ maxWidth: "750px" }}
+        />
+        <br />
+        <a
+          href="https://en.wikipedia.org/wiki/Tangent#/media/File:Image_Tangent-plane.svg"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Source
+        </a>
+        <p>
+          <small>
+            The plane shown here is the plane that is tangent to the point
+            marked on the sphere. In other words, it is the tangent plane of the
+            marked point on the sphere.
+          </small>
+        </p>
+      </p>
+      <p>
+        This 2D plane is what is considered as the tangent space for that point
+        of the sphere. In order to store the information of the normals of all
+        points of that sphere, the values of the normals have to be recorded
+        w.r.t the tangent space of the point they belong to.
+      </p>
+      <p>
+        Since the calculations we've seen in previous chapters are done in a
+        space that is not the tangent-space, in order to use a normal map a
+        transformation of values has to occur to ensure that the calculation
+        occurs in the same "space" to be valid.
+      </p>
+      <p>
+        There are two potential options in order to fix calculations into a
+        specific space:
+      </p>
+      <ul>
+        <li>
+          Keep other values as is, transform the normal map values from tangent
+          space into the other spaces, and perform the calculations in the other
+          spaces.
+        </li>
+        <li>
+          Keep the normal map values as is, transform all other values from
+          other spaaces into tangent space, and perform the calculations in
+          tangent space.
+        </li>
+      </ul>
+      <p>
+        Just like with the model, view, and projection matrices, in order to
+        transform values either into (or out of) tangent space, a matrix called
+        the TBN (Tangent Bi-Tangent Normal) matrix is required.
+      </p>
       <NormalMappingSecondExample />
       <NormalMappingThirdExample />
       <h3>Summary</h3>
