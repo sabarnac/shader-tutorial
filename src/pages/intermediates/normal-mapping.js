@@ -11,7 +11,12 @@ import surface1 from "../../images/intermediates/surface-1.png"
 import surface2 from "../../images/intermediates/surface-2.png"
 import texture from "../../images/intermediates/texture-2.png"
 import normalTexture from "../../images/intermediates/normal.png"
+import {
+  secondVertexShaderSource,
+  secondFragmentShaderSource,
+} from "../../components/intermediates/normal-mapping/second-example-shaders"
 import { Link } from "gatsby"
+import GlslCodeHighlight from "../../components/glsl-code-highlight"
 
 const NormalMappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -29,7 +34,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         is that the entire surface of the object had the same appearance, making
         it appear flat.
       </p>
-      <h3>Example - A stone wall</h3>
+      <h3>Example - Stone wall</h3>
       <NormalMappingFirstExample />
       <p>
         In the shown example of the stone wall, we've applied our naive approach
@@ -123,7 +128,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         of an object is called a normal map, and the process of mapping to map
         normals of a fragment from a texture is called normal mapping.
       </p>
-      <h3>Example - Normal mapped stone wall</h3>
+      <h3>Normal Maps</h3>
       <p>The texture maps that will be used to color and light the wall are:</p>
       <p className="util text-center">
         <img
@@ -197,13 +202,12 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         >
           Source
         </a>
-        <p>
-          <small>
-            The plane shown here is the plane that is tangent to the point
-            marked on the sphere. In other words, it is the tangent plane of the
-            marked point on the sphere.
-          </small>
-        </p>
+        <br />
+        <small>
+          The plane shown here is the plane that is tangent to the point marked
+          on the sphere. In other words, it is the tangent plane of the marked
+          point on the sphere.
+        </small>
       </p>
       <p>
         This 2D plane is what is considered as the tangent space for that point
@@ -233,12 +237,47 @@ const NormalMappingPage = ({ location: { pathname } }) => (
           tangent space.
         </li>
       </ul>
+      <h3>TBN Matrix</h3>
       <p>
         Just like with the model, view, and projection matrices, in order to
         transform values either into (or out of) tangent space, a matrix called
         the TBN (Tangent Bi-Tangent Normal) matrix is required.
       </p>
+      <p>
+        A TBN matrix for a vertex is calculated by generating a 3x3 matrix using
+        the tangent, bi-tangent, and normal direction values of a vertex.
+      </p>
+      <p>
+        Similar to how a model matrix can transform a point or direction from
+        model/obejct space into world space, a TBN matrix can transform a point
+        or direction from tangent space into model/object space.
+      </p>
+      <p>
+        Similarly, if the inverse of the TBN matrix is used instead, then the
+        matrix can transform a point or direction from model/object space into
+        tangent space. This is useful if you wish to keep calculations present
+        in tangent space.
+      </p>
+      <p>
+        Since the TBN matrix is calculated for each vertex, the matrix value for
+        each fragment is interpolated from the matrix values for each vertex
+        that forms the polygon the fragment belongs to.
+      </p>
+      <p>
+        Let's look at an example where the calculation for lighting using the
+        normal values in the normal map are done in view/camera space using the
+        TBN matrix.
+      </p>
+      <h3>Example - Normal-mapped stone wall (in view/camera space)</h3>
       <NormalMappingSecondExample />
+      <GlslCodeHighlight
+        code={secondVertexShaderSource.trim()}
+        type={"Vertex"}
+      />
+      <GlslCodeHighlight
+        code={secondFragmentShaderSource.trim()}
+        type={"Fragment"}
+      />
       <NormalMappingThirdExample />
       <h3>Summary</h3>
     </Content>
