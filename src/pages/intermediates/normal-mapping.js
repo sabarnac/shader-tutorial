@@ -15,6 +15,10 @@ import {
   secondVertexShaderSource,
   secondFragmentShaderSource,
 } from "../../components/intermediates/normal-mapping/second-example-shaders"
+import {
+  thirdVertexShaderSource,
+  thirdFragmentShaderSource,
+} from "../../components/intermediates/normal-mapping/third-example-shaders"
 import { Link } from "gatsby"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 
@@ -278,7 +282,16 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         code={secondFragmentShaderSource.trim()}
         type={"Fragment"}
       />
+      <h3>Example - Normal-mapped stone wall (in tangent space)</h3>
       <NormalMappingThirdExample />
+      <GlslCodeHighlight
+        code={thirdVertexShaderSource.trim()}
+        type={"Vertex"}
+      />
+      <GlslCodeHighlight
+        code={thirdFragmentShaderSource.trim()}
+        type={"Fragment"}
+      />
       <h3>Summary</h3>
     </Content>
     <PageChange previous="/intermediates/lighting/" />
