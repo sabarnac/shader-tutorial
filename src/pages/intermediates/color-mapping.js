@@ -64,7 +64,7 @@ const ColorMappingPage = ({ location: { pathname } }) => (
         cube:
       </p>
       <p className="util text-center">
-        <img src={texture} alt="Cube Face TExture" />
+        <img src={texture} alt="Cube Face Texture" />
       </p>
       <p>
         The vertices of each face are mapped to the corners of the texture. You
