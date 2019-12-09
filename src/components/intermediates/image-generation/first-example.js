@@ -45,7 +45,7 @@ const RandomImageGenerationFirstExample = () => {
         updateWebGlRef(new WebGlWrapper(canvas, screenModelPosition))
       }
     },
-    [firstVertexShaderSource, firstFragmentShaderSource]
+    []
   )
 
   useEffect(

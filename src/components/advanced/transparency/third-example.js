@@ -70,7 +70,7 @@ const TransparencyThirdExample = () => {
         updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition, true))
       }
     },
-    [vertexShaderSource, fragmentShaderSource]
+    []
   )
 
   useEffect(

@@ -187,7 +187,7 @@ const DitheringExample = () => {
         updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
       }
     },
-    [ditheringVertexShaderSource, ditheringFragmentShaderSource]
+    []
   )
 
   useEffect(

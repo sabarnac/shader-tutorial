@@ -45,7 +45,7 @@ const RandomImageGenerationNinthExample = () => {
         updateWebGlRef(new WebGlWrapper(canvas, screenModelPosition))
       }
     },
-    [ninthVertexShaderSource, ninthFragmentShaderSource]
+    []
   )
 
   useEffect(

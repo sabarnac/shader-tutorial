@@ -45,7 +45,7 @@ const RandomImageGenerationBandingExample = () => {
         updateWebGlRef(new WebGlWrapper(canvas, screenModelPosition))
       }
     },
-    [bandingVertexShaderSource, bandingFragmentShaderSource]
+    []
   )
 
   useEffect(

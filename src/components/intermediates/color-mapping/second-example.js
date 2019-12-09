@@ -106,7 +106,7 @@ const ColorMappingSecondExample = () => {
         updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
       }
     },
-    [secondVertexShaderSource, secondFragmentShaderSource]
+    []
   )
 
   useEffect(

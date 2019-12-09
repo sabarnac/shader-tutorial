@@ -125,7 +125,7 @@ const LightingNoLightExample = () => {
         updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
       }
     },
-    [noLightVertexShaderSource, noLightFragmentShaderSource]
+    []
   )
 
   useEffect(

@@ -44,7 +44,7 @@ const VertexShaderSecondExample = () => {
         updateWebGlRef(new WebGlWrapper(canvas, triangleModelPosition))
       }
     },
-    [secondVertexShaderSource, secondFragmentShaderSource]
+    []
   )
 
   useEffect(

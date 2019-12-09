@@ -181,7 +181,7 @@ const LightingSecondExample = () => {
         updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
       }
     },
-    [secondVertexShaderSource, secondFragmentShaderSource]
+    []
   )
 
   useEffect(

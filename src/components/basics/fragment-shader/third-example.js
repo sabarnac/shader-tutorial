@@ -48,7 +48,7 @@ const FragmentShaderThirdExample = () => {
         updateWebGlRef(new WebGlWrapper(canvas, triangleModelPosition))
       }
     },
-    [thirdVertexShaderSource, thirdFragmentShaderSource]
+    []
   )
 
   useEffect(
