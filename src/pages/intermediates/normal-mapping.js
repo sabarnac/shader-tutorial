@@ -1,26 +1,26 @@
-import React from "react"
+import { Link } from "gatsby";
+import React from "react";
 
-import Layout from "../../components/layout"
-import Content from "../../components/content"
-import SEO from "../../components/seo"
-import PageChange from "../../components/page-change"
-import NormalMappingFirstExample from "../../components/intermediates/normal-mapping/first-example"
-import NormalMappingSecondExample from "../../components/intermediates/normal-mapping/second-example"
-import NormalMappingThirdExample from "../../components/intermediates/normal-mapping/third-example"
-import surface1 from "../../images/intermediates/surface-1.png"
-import surface2 from "../../images/intermediates/surface-2.png"
-import texture from "../../images/intermediates/texture-2.png"
-import normalTexture from "../../images/intermediates/normal.png"
+import Content from "../../components/content";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import NormalMappingFirstExample from "../../components/intermediates/normal-mapping/first-example";
+import NormalMappingSecondExample from "../../components/intermediates/normal-mapping/second-example";
 import {
-  secondVertexShaderSource,
   secondFragmentShaderSource,
-} from "../../components/intermediates/normal-mapping/second-example-shaders"
+  secondVertexShaderSource,
+} from "../../components/intermediates/normal-mapping/second-example-shaders";
+import NormalMappingThirdExample from "../../components/intermediates/normal-mapping/third-example";
 import {
-  thirdVertexShaderSource,
   thirdFragmentShaderSource,
-} from "../../components/intermediates/normal-mapping/third-example-shaders"
-import { Link } from "gatsby"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
+  thirdVertexShaderSource,
+} from "../../components/intermediates/normal-mapping/third-example-shaders";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import SEO from "../../components/seo";
+import normalTexture from "../../images/intermediates/normal.png";
+import surface1 from "../../images/intermediates/surface-1.png";
+import surface2 from "../../images/intermediates/surface-2.png";
+import texture from "../../images/intermediates/texture-2.png";
 
 const NormalMappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -41,16 +41,16 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       <h3>Example - Stone wall</h3>
       <NormalMappingFirstExample />
       <p>
-        In the shown example of the stone wall, we've applied our naive approach
+        In the above example of the stone wall, we've applied our naive approach
         to lighting the surface of the wall. The result is the appearance of a
-        wall with detailed color, but still looking very flat due to the simple
-        form of lighting.
+        wall with detailed color, but looking very flat due to the simple form
+        of lighting.
       </p>
       <p>
-        However, the wall shouldn't appear as flat. It has bumps, scratches,
-        grooves, etc. that all interact with the light in a different way. This
-        should result in detailed lighting to highlight the roughness and
-        imperfections on the surface, giving it "depth".
+        The wall shouldn't appear as flat since it has bumps, scratches,
+        grooves, etc. These interact with light in different ways resulting in a
+        surface that highlights the roughness and imperfections on it, giving it
+        "depth".
       </p>
       <p>
         A similar situation was discussed and solved in the chapter on{" "}
@@ -60,16 +60,16 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         The same concept of mapping can be used to add better lighting detail
-        without increasing the complexity of the object. By modifying the way
-        the light interacts with the surface using a texture, the wall can be
-        made to appear rough instead of a smooth flat surface.
+        without increasing the complexity of the object. By changing the way the
+        light interacts with the surface using a texture, the wall can be made
+        to appear rough instead of a smooth and flat.
       </p>
       <h3>What is a normal map?</h3>
       <p>
         If we look into the{" "}
         <Link to="/intermediates/lighting/">lighting chapter</Link>, we see that
         there are three main components being used to describe the object
-        through its vertices
+        through its vertices.
       </p>
       <ul>
         <li>The vertex position.</li>
@@ -113,23 +113,23 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         In contrast, a rough and bumpy surface has points with normals pointing
         towards different directions. This results in certain spots reflecting a
         lot more light towards the users view, while other spots reflect less,
-        or completely reflect away light from the users view.
+        or completely reflect light away from the users view.
       </p>
       <p>
         We can mimic the look of a rough surface by defining the normals of each
-        fragment through the use of a texture, similar to how the color of each
-        fragment of a surface was done when{" "}
-        <Link to="/intermediates/color-mapping/">color mappping</Link>.
+        point through the use of a texture, similar to how the color of each
+        point of a surface was defined the same way in the{" "}
+        <Link to="/intermediates/color-mapping/">color mappping</Link> chapter.
       </p>
       <p>
         This provides the ability to generate lighting detail similar to if the
-        object was modeled with its roughness described through the polygons,
-        but without the additional complexity and processing to deal with those
-        additional polygons.
+        object was modeled with its roughness described through polygons, but
+        without the additional complexity and processing to deal with those
+        polygons.
       </p>
       <p>
-        Just like with a color map, a texture map used to describe the normals
-        of an object is called a normal map, and the process of mapping to map
+        Just like with a color/diffuse map, a texture map used to describe the
+        normals of an object is called a normal map, and the process of mapping
         normals of a fragment from a texture is called normal mapping.
       </p>
       <h3>Normal Maps</h3>
@@ -189,8 +189,8 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         Consider a sphere. A plane (a flat 2D surface) is considered "tangent"
-        to a point on the sphere if the plane only touches the sphere aat that
-        point, and does not touch it at any other neighbouring points.
+        to a point on the sphere if the plane only touches the sphere at that
+        point and not at any other neighbouring points.
       </p>
       <p className="util text-center">
         <img
@@ -237,10 +237,15 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         </li>
         <li>
           Keep the normal map values as is, transform all other values from
-          other spaaces into tangent space, and perform the calculations in
+          other spaces into tangent space, and perform the calculations in
           tangent space.
         </li>
       </ul>
+      <p>
+        In order to perform either of these, we'll need a certain matrix to
+        perform the transformation. This matrix is called the
+        Tangent-Bitangent-Normal matrix (or TBN matrix).
+      </p>
       <h3>TBN Matrix</h3>
       <p>
         Just like with the model, view, and projection matrices, in order to
@@ -265,7 +270,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       <p>
         Since the TBN matrix is calculated for each vertex, the matrix value for
         each fragment is interpolated from the matrix values for each vertex
-        that forms the polygon the fragment belongs to.
+        that forms the polygon that the fragment belongs to.
       </p>
       <p>
         Let's look at an example where the calculation for lighting using the

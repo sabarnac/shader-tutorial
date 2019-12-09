@@ -1,6 +1,5 @@
 varying highp vec2 uv;
 
-varying highp mat3 tbnMatrix_tangentSpace;
 varying highp vec3 vertexPosition_tangentSpace;
 varying highp vec3 lightDirection_tangentSpace;
 varying highp float distanceFromLight;

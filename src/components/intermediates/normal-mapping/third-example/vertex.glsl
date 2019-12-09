@@ -15,7 +15,6 @@ uniform vec3 specularColor;
 uniform float surfaceReflectivity;
 
 varying highp vec2 uv;
-varying highp mat3 tbnMatrix_tangentSpace;
 varying highp vec3 vertexPosition_tangentSpace;
 varying highp vec3 lightDirection_tangentSpace;
 varying highp float distanceFromLight;
@@ -38,7 +37,7 @@ void main() {
   highp vec3 vertexBiTangent_viewSpace = modelViewMatrix_3x3 * normalize(vertexBiTangent);
   highp vec3 vertexNormal_viewSpace = modelViewMatrix_3x3 * normalize(vertexNormal);
 
-  tbnMatrix_tangentSpace = transpose(mat3(
+  highp mat3 tbnMatrix_tangentSpace = transpose(mat3(
     vertexTangent_viewSpace,
     vertexBiTangent_viewSpace,
     vertexNormal_viewSpace
