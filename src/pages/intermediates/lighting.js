@@ -778,10 +778,10 @@ const LightingPage = ({ location: { pathname } }) => (
               surface.
             </li>
           </ul>
-          <li>
-            When the main three lighting components are combined, they simulate
-            realistic lighting of an object in a basic form.
-          </li>
+        </li>
+        <li>
+          When the main three lighting components are combined, they simulate
+          realistic lighting of an object in a basic form.
         </li>
       </ul>
     </Content>
