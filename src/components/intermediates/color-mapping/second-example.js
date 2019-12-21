@@ -26,7 +26,12 @@ const shaderProgramInfo = {
 }
 
 const cubeModelPosition = mat4.create()
-const cubeFaceUvs = [[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]
+const cubeFaceUvs = [
+  [0.0, 0.0],
+  [1.0, 0.0],
+  [0.0, 1.0],
+  [1.0, 1.0],
+]
 
 const ColorMappingSecondExample = () => {
   const cube = {
@@ -96,7 +101,9 @@ const ColorMappingSecondExample = () => {
     texture: null,
   })
   const [shouldRender, updateShouldRender] = useState(true)
-  const [time, updateTime] = useState(performance.now())
+  const [time, updateTime] = useState(
+    typeof performance !== "undefined" ? performance.now() : 0.0
+  )
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
@@ -149,7 +156,11 @@ const ColorMappingSecondExample = () => {
   useEffect(
     runOnPredicate(cubeBuffer.vertices !== null, () => {
       updateShouldRender(true)
-      let then = parseInt(performance.now().toString())
+      let then = parseInt(
+        typeof performance !== "undefined"
+          ? performance.now()
+          : (0.0).toString()
+      )
 
       const renderScene = () => {
         webGlRef.renderScene(
@@ -158,7 +169,11 @@ const ColorMappingSecondExample = () => {
               return
             }
 
-            const currentTime = parseInt(performance.now().toString())
+            const currentTime = parseInt(
+              typeof performance !== "undefined"
+                ? performance.now()
+                : (0.0).toString()
+            )
 
             if (currentTime - then > 100) {
               then = currentTime

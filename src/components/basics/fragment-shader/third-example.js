@@ -27,8 +27,16 @@ const triangleModelPosition = mat4.create()
 
 const FragmentShaderThirdExample = () => {
   const triangle = {
-    vertices: [[0.0, 1.0, 0.0], [-0.866, -0.5, 0.0], [0.866, -0.5, 0.0]],
-    colors: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+    vertices: [
+      [0.0, 1.0, 0.0],
+      [-0.866, -0.5, 0.0],
+      [0.866, -0.5, 0.0],
+    ],
+    colors: [
+      [1.0, 0.0, 0.0],
+      [0.0, 1.0, 0.0],
+      [0.0, 0.0, 1.0],
+    ],
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -38,7 +46,9 @@ const FragmentShaderThirdExample = () => {
     colors: null,
   })
   const [shouldRender, updateShouldRender] = useState(true)
-  const [time, updateTime] = useState(performance.now())
+  const [time, updateTime] = useState(
+    typeof performance !== "undefined" ? performance.now() : 0.0
+  )
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
@@ -86,7 +96,11 @@ const FragmentShaderThirdExample = () => {
   useEffect(
     runOnPredicate(triangleBuffer.vertices !== null, () => {
       updateShouldRender(true)
-      let then = parseInt(performance.now().toString())
+      let then = parseInt(
+        typeof performance !== "undefined"
+          ? performance.now()
+          : (0.0).toString()
+      )
 
       const renderScene = () => {
         webGlRef.renderScene(
@@ -95,7 +109,11 @@ const FragmentShaderThirdExample = () => {
               return
             }
 
-            const currentTime = parseInt(performance.now().toString())
+            const currentTime = parseInt(
+              typeof performance !== "undefined"
+                ? performance.now()
+                : (0.0).toString()
+            )
 
             if (currentTime - then > 100) {
               then = currentTime

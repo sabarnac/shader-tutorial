@@ -176,7 +176,11 @@ const LightingNoLightExample = () => {
               return
             }
 
-            const time = parseInt(performance.now().toString())
+            const time = parseInt(
+              typeof performance !== "undefined"
+                ? performance.now()
+                : (0.0).toString()
+            )
 
             const rotatedModelMatrix = mat4.create()
             const rotationAngle = (((time / 30) % (360 * 6)) * Math.PI) / 180

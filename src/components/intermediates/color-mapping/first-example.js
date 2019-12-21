@@ -25,7 +25,12 @@ const shaderProgramInfo = {
 }
 
 const cubeModelPosition = mat4.create()
-const cubeFaceUvs = [[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]
+const cubeFaceUvs = [
+  [0.0, 0.0],
+  [1.0, 0.0],
+  [0.0, 1.0],
+  [1.0, 1.0],
+]
 
 const ColorMappingFirstExample = () => {
   const cube = {
@@ -155,7 +160,11 @@ const ColorMappingFirstExample = () => {
               return
             }
 
-            const time = parseInt(performance.now().toString())
+            const time = parseInt(
+              typeof performance !== "undefined"
+                ? performance.now()
+                : (0.0).toString()
+            )
 
             const rotatedModelMatrix = mat4.create()
             const rotationAngle = (((time / 30) % (360 * 6)) * Math.PI) / 180
