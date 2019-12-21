@@ -1,11 +1,9 @@
-import React, { useCallback, useState, useEffect } from "react"
-import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate } from "../../util"
-import {
-  eighthVertexShaderSource,
-  eighthFragmentShaderSource,
-} from "./eighth-example-shaders"
-import { mat4 } from "gl-matrix"
+import { mat4 } from "gl-matrix";
+import React, { useCallback, useEffect, useState } from "react";
+
+import { runOnPredicate } from "../../util";
+import WebGlWrapper from "../../webgl-wrapper";
+import { eighthFragmentShaderSource, eighthVertexShaderSource } from "./eighth-example-shaders";
 
 const shaderProgramInfo = {
   vertex: {
@@ -39,14 +37,11 @@ const RandomImageGenerationEighthExample = () => {
   const [screenBuffer, updateScreenBuffer] = useState({ vertices: null })
   const [shouldRender, updateShouldRender] = useState(true)
 
-  const canvasRef = useCallback(
-    canvas => {
-      if (canvas !== null) {
-        updateWebGlRef(new WebGlWrapper(canvas, screenModelPosition))
-      }
-    },
-    []
-  )
+  const canvasRef = useCallback(canvas => {
+    if (canvas !== null) {
+      updateWebGlRef(new WebGlWrapper(canvas, screenModelPosition))
+    }
+  }, [])
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

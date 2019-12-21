@@ -1,12 +1,10 @@
-import React, { useCallback, useState, useEffect } from "react"
-import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate, coordArrToString, uvArrToString } from "../../util"
-import {
-  secondVertexShaderSource,
-  secondFragmentShaderSource,
-} from "./second-example-shaders"
-import { mat4 } from "gl-matrix"
-import texture from "../../../images/intermediates/texture.png"
+import { mat4 } from "gl-matrix";
+import React, { useCallback, useEffect, useState } from "react";
+
+import texture from "../../../images/intermediates/texture.png";
+import { coordArrToString, runOnPredicate, uvArrToString } from "../../util";
+import WebGlWrapper from "../../webgl-wrapper";
+import { secondFragmentShaderSource, secondVertexShaderSource } from "./second-example-shaders";
 
 const shaderProgramInfo = {
   vertex: {
@@ -100,14 +98,11 @@ const ColorMappingSecondExample = () => {
   const [shouldRender, updateShouldRender] = useState(true)
   const [time, updateTime] = useState(performance.now())
 
-  const canvasRef = useCallback(
-    canvas => {
-      if (canvas !== null) {
-        updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
-      }
-    },
-    []
-  )
+  const canvasRef = useCallback(canvas => {
+    if (canvas !== null) {
+      updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
+    }
+  }, [])
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

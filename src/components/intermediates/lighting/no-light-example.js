@@ -1,12 +1,10 @@
-import React, { useCallback, useState, useEffect } from "react"
-import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate } from "../../util"
-import {
-  noLightVertexShaderSource,
-  noLightFragmentShaderSource,
-} from "./no-light-example-shaders"
-import { mat4 } from "gl-matrix"
-import texture from "../../../images/intermediates/texture.png"
+import { mat4 } from "gl-matrix";
+import React, { useCallback, useEffect, useState } from "react";
+
+import texture from "../../../images/intermediates/texture.png";
+import { runOnPredicate } from "../../util";
+import WebGlWrapper from "../../webgl-wrapper";
+import { noLightFragmentShaderSource, noLightVertexShaderSource } from "./no-light-example-shaders";
 
 const shaderProgramInfo = {
   vertex: {
@@ -119,14 +117,11 @@ const LightingNoLightExample = () => {
   })
   const [shouldRender, updateShouldRender] = useState(true)
 
-  const canvasRef = useCallback(
-    canvas => {
-      if (canvas !== null) {
-        updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
-      }
-    },
-    []
-  )
+  const canvasRef = useCallback(canvas => {
+    if (canvas !== null) {
+      updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
+    }
+  }, [])
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

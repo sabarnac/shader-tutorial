@@ -1,11 +1,11 @@
-import React from "react"
+import React from "react";
 
-import Layout from "../../components/layout"
-import Content from "../../components/content"
-import SEO from "../../components/seo"
-import PageChange from "../../components/page-change"
-import interaction1 from "../../images/intermediates/interaction-1.png"
-import interaction2 from "../../images/intermediates/interaction-2.png"
+import Content from "../../components/content";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import SEO from "../../components/seo";
+import interaction1 from "../../images/intermediates/interaction-1.png";
+import interaction2 from "../../images/intermediates/interaction-2.png";
 
 const ColorPt2Page = ({ location: { pathname } }) => (
   <Layout>

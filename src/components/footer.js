@@ -1,6 +1,7 @@
-import React from "react"
-import twitter from "../images/twitter.png"
-import github from "../images/github.png"
+import React from "react";
+
+import github from "../images/github.png";
+import twitter from "../images/twitter.png";
 
 const Footer = () => (
   <div className="row">

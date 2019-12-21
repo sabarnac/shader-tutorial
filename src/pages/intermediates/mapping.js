@@ -1,12 +1,12 @@
-import React from "react"
+import React from "react";
 
-import Layout from "../../components/layout"
-import Content from "../../components/content"
-import SEO from "../../components/seo"
-import PageChange from "../../components/page-change"
-import triangle from "../../images/intermediates/triangle.png"
-import triangleTexture from "../../images/intermediates/triangle-texture.png"
-import triangleTextureMapped from "../../images/intermediates/triangle-texture-mapped.png"
+import Content from "../../components/content";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import SEO from "../../components/seo";
+import triangleTextureMapped from "../../images/intermediates/triangle-texture-mapped.png";
+import triangleTexture from "../../images/intermediates/triangle-texture.png";
+import triangle from "../../images/intermediates/triangle.png";
 
 const MappingPage = ({ location: { pathname } }) => (
   <Layout>

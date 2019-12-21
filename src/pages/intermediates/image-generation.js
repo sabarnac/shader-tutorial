@@ -1,35 +1,32 @@
-import React from "react"
+import { Link } from "gatsby";
+import React from "react";
 
-import Layout from "../../components/layout"
-import Content from "../../components/content"
-import SEO from "../../components/seo"
-import PageChange from "../../components/page-change"
-import RandomImageGenerationFirstExample from "../../components/intermediates/image-generation/first-example"
-import RandomImageGenerationSecondExample from "../../components/intermediates/image-generation/second-example"
-import RandomImageGenerationThirdExample from "../../components/intermediates/image-generation/third-example"
-import RandomImageGenerationFourthExample from "../../components/intermediates/image-generation/fourth-example"
-import RandomImageGenerationFifthExample from "../../components/intermediates/image-generation/fifth-example"
-import RandomImageGenerationSixthExample from "../../components/intermediates/image-generation/sixth-example"
-import RandomImageGenerationSeventhExample from "../../components/intermediates/image-generation/seventh-example"
-import RandomImageGenerationEighthExample from "../../components/intermediates/image-generation/eighth-example"
-import RandomImageGenerationNinthExample from "../../components/intermediates/image-generation/ninth-example"
-import { renderEquation } from "../../components/util"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import {
-  firstVertexShaderSource,
-  firstFragmentShaderSource,
-} from "../../components/intermediates/image-generation/first-example-shaders"
-import { secondFragmentShaderSource } from "../../components/intermediates/image-generation/second-example-shaders"
-import { thirdFragmentShaderSource } from "../../components/intermediates/image-generation/third-example-shaders"
-import { fourthFragmentShaderSource } from "../../components/intermediates/image-generation/fourth-example-shaders"
-import { fifthFragmentShaderSource } from "../../components/intermediates/image-generation/fifth-example-shaders"
-import { sixthFragmentShaderSource } from "../../components/intermediates/image-generation/sixth-example-shaders"
-import { seventhFragmentShaderSource } from "../../components/intermediates/image-generation/seventh-example-shaders"
-import { eighthFragmentShaderSource } from "../../components/intermediates/image-generation/eighth-example-shaders"
-import { ninthFragmentShaderSource } from "../../components/intermediates/image-generation/ninth-example-shaders"
-import tilePlot from "../../images/intermediates/tile-plot.png"
-import tileDiagonalPlot from "../../images/intermediates/tile-diagonal-plot.png"
-import { Link } from "gatsby"
+import Content from "../../components/content";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import RandomImageGenerationEighthExample from "../../components/intermediates/image-generation/eighth-example";
+import { eighthFragmentShaderSource } from "../../components/intermediates/image-generation/eighth-example-shaders";
+import RandomImageGenerationFifthExample from "../../components/intermediates/image-generation/fifth-example";
+import { fifthFragmentShaderSource } from "../../components/intermediates/image-generation/fifth-example-shaders";
+import RandomImageGenerationFirstExample from "../../components/intermediates/image-generation/first-example";
+import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/image-generation/first-example-shaders";
+import RandomImageGenerationFourthExample from "../../components/intermediates/image-generation/fourth-example";
+import { fourthFragmentShaderSource } from "../../components/intermediates/image-generation/fourth-example-shaders";
+import RandomImageGenerationNinthExample from "../../components/intermediates/image-generation/ninth-example";
+import { ninthFragmentShaderSource } from "../../components/intermediates/image-generation/ninth-example-shaders";
+import RandomImageGenerationSecondExample from "../../components/intermediates/image-generation/second-example";
+import { secondFragmentShaderSource } from "../../components/intermediates/image-generation/second-example-shaders";
+import RandomImageGenerationSeventhExample from "../../components/intermediates/image-generation/seventh-example";
+import { seventhFragmentShaderSource } from "../../components/intermediates/image-generation/seventh-example-shaders";
+import RandomImageGenerationSixthExample from "../../components/intermediates/image-generation/sixth-example";
+import { sixthFragmentShaderSource } from "../../components/intermediates/image-generation/sixth-example-shaders";
+import RandomImageGenerationThirdExample from "../../components/intermediates/image-generation/third-example";
+import { thirdFragmentShaderSource } from "../../components/intermediates/image-generation/third-example-shaders";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import SEO from "../../components/seo";
+import { renderEquation } from "../../components/util";
+import tileDiagonalPlot from "../../images/intermediates/tile-diagonal-plot.png";
+import tilePlot from "../../images/intermediates/tile-plot.png";
 
 const ImageGenerationPage = ({ location: { pathname } }) => (
   <Layout>

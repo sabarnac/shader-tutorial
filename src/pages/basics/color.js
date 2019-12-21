@@ -1,9 +1,9 @@
-import React from "react"
+import React from "react";
 
-import Layout from "../../components/layout"
-import Content from "../../components/content"
-import SEO from "../../components/seo"
-import PageChange from "../../components/page-change"
+import Content from "../../components/content";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import SEO from "../../components/seo";
 
 const ColorPage = ({ location: { pathname } }) => (
   <Layout>

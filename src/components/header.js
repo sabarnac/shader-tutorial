@@ -1,7 +1,8 @@
-import PropTypes from "prop-types"
-import React from "react"
-import Navigation from "./navigation"
-import icon from "../images/icon.png"
+import PropTypes from "prop-types";
+import React from "react";
+
+import icon from "../images/icon.png";
+import Navigation from "./navigation";
 
 const Header = ({ siteTitle }) => (
   <header className="column column-25">

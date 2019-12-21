@@ -1,21 +1,21 @@
-import React from "react"
+import { Link } from "gatsby";
+import React from "react";
 
-import Layout from "../../components/layout"
-import Content from "../../components/content"
-import SEO from "../../components/seo"
-import DitheringExample from "../../components/advanced/color-banding-dithering/dithering-example"
-import BandingExample from "../../components/advanced/color-banding-dithering/banding-example"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import { Link } from "gatsby"
-import { bandingFragmentShaderSource } from "../../components/advanced/color-banding-dithering/banding-example-shaders"
-import { ditheringFragmentShaderSource } from "../../components/advanced/color-banding-dithering/dithering-example-shaders"
-import banding from "../../images/advanced/banded.png"
-import bandingExaggerated from "../../images/advanced/banded-exaggerated.png"
-import noised from "../../images/advanced/noised.png"
-import noisedExaggerated from "../../images/advanced/noised-exaggerated.png"
-import actualGradient from "../../images/advanced/actual-gradient.png"
-import bandedGradient from "../../images/advanced/banded-gradient.png"
-import PageChange from "../../components/page-change"
+import BandingExample from "../../components/advanced/color-banding-dithering/banding-example";
+import { bandingFragmentShaderSource } from "../../components/advanced/color-banding-dithering/banding-example-shaders";
+import DitheringExample from "../../components/advanced/color-banding-dithering/dithering-example";
+import { ditheringFragmentShaderSource } from "../../components/advanced/color-banding-dithering/dithering-example-shaders";
+import Content from "../../components/content";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import SEO from "../../components/seo";
+import actualGradient from "../../images/advanced/actual-gradient.png";
+import bandingExaggerated from "../../images/advanced/banded-exaggerated.png";
+import bandedGradient from "../../images/advanced/banded-gradient.png";
+import banding from "../../images/advanced/banded.png";
+import noisedExaggerated from "../../images/advanced/noised-exaggerated.png";
+import noised from "../../images/advanced/noised.png";
 
 const ColorBandingDitheringPage = ({ location: { pathname } }) => (
   <Layout>

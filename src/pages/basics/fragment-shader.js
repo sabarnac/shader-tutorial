@@ -1,23 +1,20 @@
-import React from "react"
+import { Link } from "gatsby";
+import React from "react";
 
-import Layout from "../../components/layout"
-import Content from "../../components/content"
-import SEO from "../../components/seo"
-import PageChange from "../../components/page-change"
-import fragment1Img from "../../images/basics/fragment-1.png"
-import fragment2Img from "../../images/basics/fragment-2.png"
-import fragment3Img from "../../images/basics/fragment-3.png"
-import FragmentShaderFirstExample from "../../components/basics/fragment-shader/first-example"
-import { firstFragmentShaderSource } from "../../components/basics/fragment-shader/first-example-shaders"
-import {
-  secondVertexShaderSource,
-  secondFragmentShaderSource,
-} from "../../components/basics/fragment-shader/second-example-shaders"
-import { thirdFragmentShaderSource } from "../../components/basics/fragment-shader/third-example-shaders"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import FragmentShaderSecondExample from "../../components/basics/fragment-shader/second-example"
-import FragmentShaderThirdExample from "../../components/basics/fragment-shader/third-example"
-import { Link } from "gatsby"
+import FragmentShaderFirstExample from "../../components/basics/fragment-shader/first-example";
+import { firstFragmentShaderSource } from "../../components/basics/fragment-shader/first-example-shaders";
+import FragmentShaderSecondExample from "../../components/basics/fragment-shader/second-example";
+import { secondFragmentShaderSource, secondVertexShaderSource } from "../../components/basics/fragment-shader/second-example-shaders";
+import FragmentShaderThirdExample from "../../components/basics/fragment-shader/third-example";
+import { thirdFragmentShaderSource } from "../../components/basics/fragment-shader/third-example-shaders";
+import Content from "../../components/content";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import SEO from "../../components/seo";
+import fragment1Img from "../../images/basics/fragment-1.png";
+import fragment2Img from "../../images/basics/fragment-2.png";
+import fragment3Img from "../../images/basics/fragment-3.png";
 
 const FragmentShaderPage = ({ location: { pathname } }) => (
   <Layout>

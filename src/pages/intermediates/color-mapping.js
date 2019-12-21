@@ -1,19 +1,16 @@
-import React from "react"
+import { Link } from "gatsby";
+import React from "react";
 
-import Layout from "../../components/layout"
-import Content from "../../components/content"
-import SEO from "../../components/seo"
-import PageChange from "../../components/page-change"
-import TexturingFirstExample from "../../components/intermediates/color-mapping/first-example"
-import TexturingSecondExample from "../../components/intermediates/color-mapping/second-example"
-import texture from "../../images/intermediates/texture.png"
-import {
-  firstVertexShaderSource,
-  firstFragmentShaderSource,
-} from "../../components/intermediates/color-mapping/first-example-shaders"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import { Link } from "gatsby"
-import { secondFragmentShaderSource } from "../../components/intermediates/color-mapping/second-example-shaders"
+import Content from "../../components/content";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import TexturingFirstExample from "../../components/intermediates/color-mapping/first-example";
+import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/color-mapping/first-example-shaders";
+import TexturingSecondExample from "../../components/intermediates/color-mapping/second-example";
+import { secondFragmentShaderSource } from "../../components/intermediates/color-mapping/second-example-shaders";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import SEO from "../../components/seo";
+import texture from "../../images/intermediates/texture.png";
 
 const ColorMappingPage = ({ location: { pathname } }) => (
   <Layout>

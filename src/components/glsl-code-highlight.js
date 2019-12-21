@@ -1,6 +1,7 @@
-import PropTypes from "prop-types"
-import React from "react"
-import GenericCodeHighlight from "./generic-code-highlight"
+import PropTypes from "prop-types";
+import React from "react";
+
+import GenericCodeHighlight from "./generic-code-highlight";
 
 const GlslCodeHighlight = props => (
   <GenericCodeHighlight

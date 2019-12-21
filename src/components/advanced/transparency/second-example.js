@@ -1,8 +1,9 @@
-import React, { useCallback, useState, useEffect } from "react"
-import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate } from "../../util"
-import { vertexShaderSource, fragmentShaderSource } from "./common-shaders"
-import { mat4 } from "gl-matrix"
+import { mat4 } from "gl-matrix";
+import React, { useCallback, useEffect, useState } from "react";
+
+import { runOnPredicate } from "../../util";
+import WebGlWrapper from "../../webgl-wrapper";
+import { fragmentShaderSource, vertexShaderSource } from "./common-shaders";
 
 const shaderProgramInfo = {
   vertex: {
@@ -64,14 +65,11 @@ const TransparencyFirstExample = () => {
   })
   const [shouldRender, updateShouldRender] = useState(true)
 
-  const canvasRef = useCallback(
-    canvas => {
-      if (canvas !== null) {
-        updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition, true))
-      }
-    },
-    []
-  )
+  const canvasRef = useCallback(canvas => {
+    if (canvas !== null) {
+      updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition, true))
+    }
+  }, [])
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

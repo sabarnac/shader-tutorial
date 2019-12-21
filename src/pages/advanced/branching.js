@@ -1,12 +1,12 @@
-import React from "react"
+import example1 from "!raw-loader!../../components/advanced/branching/example-1.glsl";
+import example2 from "!raw-loader!../../components/advanced/branching/example-2.glsl";
+import React from "react";
 
-import Layout from "../../components/layout"
-import Content from "../../components/content"
-import SEO from "../../components/seo"
-import PageChange from "../../components/page-change"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import example1 from "!raw-loader!../../components/advanced/branching/example-1.glsl"
-import example2 from "!raw-loader!../../components/advanced/branching/example-2.glsl"
+import Content from "../../components/content";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import SEO from "../../components/seo";
 
 const BranchingPage = ({ location: { pathname } }) => (
   <Layout>

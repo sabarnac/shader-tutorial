@@ -1,11 +1,9 @@
-import React, { useCallback, useState, useEffect } from "react"
-import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate, coordArrToString } from "../../util"
-import {
-  firstVertexShaderSource,
-  firstFragmentShaderSource,
-} from "./first-example-shaders"
-import { mat4 } from "gl-matrix"
+import { mat4 } from "gl-matrix";
+import React, { useCallback, useEffect, useState } from "react";
+
+import { coordArrToString, runOnPredicate } from "../../util";
+import WebGlWrapper from "../../webgl-wrapper";
+import { firstFragmentShaderSource, firstVertexShaderSource } from "./first-example-shaders";
 
 const shaderProgramInfo = {
   vertex: {
@@ -36,14 +34,11 @@ const VertexShaderFirstExample = () => {
   const [triangleBuffer, updateTriangleBuffer] = useState({ vertices: null })
   const [shouldRender, updateShouldRender] = useState(true)
 
-  const canvasRef = useCallback(
-    canvas => {
-      if (canvas !== null) {
-        updateWebGlRef(new WebGlWrapper(canvas, triangleModelPosition))
-      }
-    },
-    []
-  )
+  const canvasRef = useCallback(canvas => {
+    if (canvas !== null) {
+      updateWebGlRef(new WebGlWrapper(canvas, triangleModelPosition))
+    }
+  }, [])
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

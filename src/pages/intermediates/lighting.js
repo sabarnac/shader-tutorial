@@ -1,26 +1,20 @@
-import React from "react"
+import { Link } from "gatsby";
+import React from "react";
 
-import Layout from "../../components/layout"
-import Content from "../../components/content"
-import SEO from "../../components/seo"
-import PageChange from "../../components/page-change"
-import LightingNoLightExample from "../../components/intermediates/lighting/no-light-example.js"
-import LightingFirstExample from "../../components/intermediates/lighting/first-example"
-import LightingSecondExample from "../../components/intermediates/lighting/second-example"
-import LightingThirdExample from "../../components/intermediates/lighting/third-example"
-import { renderEquation } from "../../components/util"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import {
-  firstVertexShaderSource,
-  firstFragmentShaderSource,
-} from "../../components/intermediates/lighting/first-example-shaders"
-import { Link } from "gatsby"
-import { secondFragmentShaderSource } from "../../components/intermediates/lighting/second-example-shaders"
-import {
-  thirdVertexShaderSource,
-  thirdFragmentShaderSource,
-} from "../../components/intermediates/lighting/third-example-shaders"
-import glslReflect from "../../images/intermediates/glsl-reflect.png"
+import Content from "../../components/content";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import LightingFirstExample from "../../components/intermediates/lighting/first-example";
+import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/lighting/first-example-shaders";
+import LightingNoLightExample from "../../components/intermediates/lighting/no-light-example.js";
+import LightingSecondExample from "../../components/intermediates/lighting/second-example";
+import { secondFragmentShaderSource } from "../../components/intermediates/lighting/second-example-shaders";
+import LightingThirdExample from "../../components/intermediates/lighting/third-example";
+import { thirdFragmentShaderSource, thirdVertexShaderSource } from "../../components/intermediates/lighting/third-example-shaders";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import SEO from "../../components/seo";
+import { renderEquation } from "../../components/util";
+import glslReflect from "../../images/intermediates/glsl-reflect.png";
 
 const LightingPage = ({ location: { pathname } }) => (
   <Layout>

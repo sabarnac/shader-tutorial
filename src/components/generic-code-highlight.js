@@ -1,7 +1,7 @@
-import PropTypes from "prop-types"
-import React, { Fragment } from "react"
-import SyntaxHighlighter from "react-syntax-highlighter"
-import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs"
+import PropTypes from "prop-types";
+import React, { Fragment } from "react";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 const GenericCodeHighlight = ({ showHeader = true, code, type, language }) => (
   <Fragment>

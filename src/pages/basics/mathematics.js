@@ -1,10 +1,10 @@
-import React from "react"
+import React from "react";
 
-import Layout from "../../components/layout"
-import Content from "../../components/content"
-import SEO from "../../components/seo"
-import PageChange from "../../components/page-change"
-import { renderEquation } from "../../components/util"
+import Content from "../../components/content";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import SEO from "../../components/seo";
+import { renderEquation } from "../../components/util";
 
 const MathematicsPage = ({ location: { pathname } }) => (
   <Layout>

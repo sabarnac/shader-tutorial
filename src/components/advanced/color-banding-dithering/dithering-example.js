@@ -1,12 +1,10 @@
-import React, { useCallback, useState, useEffect } from "react"
-import WebGlWrapper from "../../webgl-wrapper"
-import { runOnPredicate } from "../../util"
-import {
-  ditheringVertexShaderSource,
-  ditheringFragmentShaderSource,
-} from "./dithering-example-shaders"
-import { mat4, vec3, vec4 } from "gl-matrix"
-import texture from "../../../images/advanced/texture.png"
+import { mat4, vec3, vec4 } from "gl-matrix";
+import React, { useCallback, useEffect, useState } from "react";
+
+import texture from "../../../images/advanced/texture.png";
+import { runOnPredicate } from "../../util";
+import WebGlWrapper from "../../webgl-wrapper";
+import { ditheringFragmentShaderSource, ditheringVertexShaderSource } from "./dithering-example-shaders";
 
 const shaderProgramInfo = {
   vertex: {
@@ -181,14 +179,11 @@ const DitheringExample = () => {
   })
   const [shouldRender, updateShouldRender] = useState(true)
 
-  const canvasRef = useCallback(
-    canvas => {
-      if (canvas !== null) {
-        updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
-      }
-    },
-    []
-  )
+  const canvasRef = useCallback(canvas => {
+    if (canvas !== null) {
+      updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
+    }
+  }, [])
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

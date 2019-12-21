@@ -1,5 +1,5 @@
-import React from "react"
-import MathJax from "react-mathjax2"
+import React from "react";
+import MathJax from "react-mathjax2";
 
 export const runOnPredicate = (predicate, action) => () =>
   predicate ? action() : undefined
@@ -28,6 +28,8 @@ export const renderEquation = text => (
   <code
     style={{ display: "inline-block", padding: "0.5rem", margin: "0.5rem" }}
   >
-    <MathJax.Node inline>{text}</MathJax.Node>
+    <MathJax.Context input="ascii">
+      <MathJax.Node inline>{text}</MathJax.Node>
+    </MathJax.Context>
   </code>
 )
