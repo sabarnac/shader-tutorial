@@ -334,7 +334,7 @@ const LightingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         The important things to note from them is that the results of the
-        position of the vertex in the world space and view space (see the{" "}
+        position of the vertex in the world-space and view-space (see the{" "}
         <Link to="/basics/vertex-shader/">Vertex Shader Basics</Link> if you
         need to recollect) are saved in certain variables which will be required
         later.
@@ -568,7 +568,7 @@ const LightingPage = ({ location: { pathname } }) => (
         )}
       </p>
       <p>
-        The lobe density defines how concentrated thhe specular reflection is
+        The lobe density defines how concentrated the specular reflection is
         over a surface. A lower value means that the light is reflecting over a
         larger surface area, and a higher value means that the light is
         reflecting over a smaller surface area.

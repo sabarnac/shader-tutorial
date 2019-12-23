@@ -266,7 +266,7 @@ const ColorPage = ({ location: { pathname } }) => (
       <p>
         In future chapters, we will primarily work with RGB(A) colors and
         textures, but this knowledge is available if you wish to work in HSV
-        color space if it simplifies dealing with color.
+        color-space if it simplifies dealing with color.
       </p>
       <p>
         Many color pickers and wheels generally provide a HSV-type interface,
@@ -306,7 +306,7 @@ const ColorPage = ({ location: { pathname } }) => (
           HSL.
         </li>
         <li>
-          When working with colors in the HSV or HSL color space, they need to
+          When working with colors in the HSV or HSL color-space, they need to
           be converted to RGB so that computers can actually display them.
         </li>
       </ul>

@@ -181,7 +181,7 @@ const TransparencyPage = ({ location: { pathname } }) => (
       <p>
         This issue can further be aggravated by a moving camera. Since all
         transparent polygons have to be sorted by depth w.r.t. the camera, a
-        moving camera requires sorting each polygon in model-view space, which
+        moving camera requires sorting each polygon in model-view-space, which
         is expensive.
       </p>
       <p>

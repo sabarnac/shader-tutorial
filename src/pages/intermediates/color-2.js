@@ -72,12 +72,12 @@ const ColorPt2Page = ({ location: { pathname } }) => (
         human eye can see using just 8-bits per channel.
       </p>
       <p>
-        This is the reason why the HDR (high dynamic range) color space was
+        This is the reason why the HDR (high dynamic range) color-space was
         created. The increase in the range of values that can be represented
         allows for more colors to be shown by computers.
       </p>
       <p>
-        Another benefit is that the increase in color space allows for more
+        Another benefit is that the increase in color-space allows for more
         detail to be shown, since previously certain colors within an image
         could not be shown because there was no value for it.
       </p>

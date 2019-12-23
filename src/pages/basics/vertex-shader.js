@@ -182,9 +182,9 @@ const VertexShaderPage = ({ location: { pathname } }) => (
       <h3>Another example - A rotating triangle</h3>
       <p>
         Since the vertex shader determines where each vertex is w.r.t the
-        perspective space of the screen, by passing it the necessary
+        perspective-space of the screen, by passing it the necessary
         transformations to apply to the vertices, it can move their positions as
-        requried.
+        required.
       </p>
       <VertexShaderSecondExample />
       <h4>How it works</h4>
