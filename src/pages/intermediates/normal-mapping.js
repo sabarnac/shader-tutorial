@@ -5,15 +5,9 @@ import Content from "../../components/content";
 import GlslCodeHighlight from "../../components/glsl-code-highlight";
 import NormalMappingFirstExample from "../../components/intermediates/normal-mapping/first-example";
 import NormalMappingSecondExample from "../../components/intermediates/normal-mapping/second-example";
-import {
-  secondFragmentShaderSource,
-  secondVertexShaderSource,
-} from "../../components/intermediates/normal-mapping/second-example-shaders";
+import { secondFragmentShaderSource, secondVertexShaderSource } from "../../components/intermediates/normal-mapping/second-example-shaders";
 import NormalMappingThirdExample from "../../components/intermediates/normal-mapping/third-example";
-import {
-  thirdFragmentShaderSource,
-  thirdVertexShaderSource,
-} from "../../components/intermediates/normal-mapping/third-example-shaders";
+import { thirdFragmentShaderSource, thirdVertexShaderSource } from "../../components/intermediates/normal-mapping/third-example-shaders";
 import Layout from "../../components/layout";
 import PageChange from "../../components/page-change";
 import SEO from "../../components/seo";
@@ -214,10 +208,10 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         </small>
       </p>
       <p>
-        This 2D plane is what is considered as the tangent space for that point
+        This 2D plane is what is considered as the tangent-space for that point
         of the sphere. In order to store the information of the normals of all
         points of that sphere, the values of the normals have to be recorded
-        w.r.t the tangent space of the point they belong to.
+        w.r.t the tangent-space of the point they belong to.
       </p>
       <p>
         Since the calculations we've seen in previous chapters are done in a
@@ -231,14 +225,14 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       </p>
       <ul>
         <li>
-          Keep other values as is, transform the normal map values from tangent
-          space into the other spaces, and perform the calculations in the other
-          spaces.
+          Keep other values as is, transform the normal map values from
+          tangent-space into the other spaces, and perform the calculations in
+          the other spaces.
         </li>
         <li>
           Keep the normal map values as is, transform all other values from
-          other spaces into tangent space, and perform the calculations in
-          tangent space.
+          other spaces into tangent-space, and perform the calculations in
+          tangent-space.
         </li>
       </ul>
       <p>
@@ -249,7 +243,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       <h3>TBN Matrix</h3>
       <p>
         Just like with the model, view, and projection matrices, in order to
-        transform values either into (or out of) tangent space, a matrix called
+        transform values either into (or out of) tangent-space, a matrix called
         the TBN (Tangent Bi-Tangent Normal) matrix is required.
       </p>
       <p>
@@ -258,14 +252,14 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         Similar to how a model matrix can transform a point or direction from
-        model/obejct space into world space, a TBN matrix can transform a point
-        or direction from tangent space into model/object space.
+        model-space into world-space, a TBN matrix can transform a point or
+        direction from tangent-space into model-space.
       </p>
       <p>
         Similarly, if the inverse of the TBN matrix is used instead, then the
-        matrix can transform a point or direction from model/object space into
-        tangent space. This is useful if you wish to keep calculations present
-        in tangent space.
+        matrix can transform a point or direction from model-space into
+        tangent-space. This is useful if you wish to keep calculations present
+        in tangent-space.
       </p>
       <p>
         Since the TBN matrix is calculated for each vertex, the matrix value for
@@ -274,10 +268,10 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         Let's look at an example where the calculation for lighting using the
-        normal values in the normal map are done in view/camera space using the
-        TBN matrix.
+        normal values in the normal map are done in view-space using the TBN
+        matrix.
       </p>
-      <h3>Example - Normal-mapped stone wall (in view/camera space)</h3>
+      <h3>Example - Normal-mapped stone wall (in view-space)</h3>
       <NormalMappingSecondExample />
       <GlslCodeHighlight
         code={secondVertexShaderSource.trim()}
@@ -287,7 +281,26 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         code={secondFragmentShaderSource.trim()}
         type={"Fragment"}
       />
-      <h3>Example - Normal-mapped stone wall (in tangent space)</h3>
+      <p>
+        The shaders are written similar to the final shader in the{" "}
+        <Link to="/intermediates/lighting/">lighting chapter</Link>, but with
+        all the main lighting calculation moved to the fragment shader. The
+        reason for this is since we'd be grabbing the normal of the surface at
+        the fragment level, the lighting can only be calculated in the fragment
+        shader.
+      </p>
+      <p>
+        The first step is to calculate the TBN matrix which we need for
+        transforming the normal values from tangent-space into view-space. This
+        is done from line 30 onwards in the vertex shader.
+      </p>
+      <p>
+        The tangent, bi-tangent and normal values for each vertex in a model is
+        known beforehand. These values are in model-space, and so need to be
+        converted to view-space in order to calculate the TBN matrix in
+        view-space.
+      </p>
+      <h3>Example - Normal-mapped stone wall (in tangent-space)</h3>
       <NormalMappingThirdExample />
       <GlslCodeHighlight
         code={thirdVertexShaderSource.trim()}
