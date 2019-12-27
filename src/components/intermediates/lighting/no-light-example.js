@@ -21,7 +21,7 @@ const shaderProgramInfo = {
   fragment: {
     attributeLocations: {},
     uniformLocations: {
-      textureSampler: "sampler2D",
+      colorTextureSampler: "sampler2D",
     },
   },
 }
@@ -244,7 +244,7 @@ const LightingNoLightExample = () => {
 
             gl.activeTexture(gl.TEXTURE0)
             gl.bindTexture(gl.TEXTURE_2D, cubeBuffer.texture)
-            gl.uniform1i(shaderInfo.fragment.uniformLocations.textureSampler, 0)
+            gl.uniform1i(shaderInfo.fragment.uniformLocations.colorTextureSampler, 0)
 
             gl.drawElements(
               gl.TRIANGLES,

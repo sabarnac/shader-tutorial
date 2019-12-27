@@ -111,13 +111,13 @@ const ColorMappingPage = ({ location: { pathname } }) => (
       <p>
         In the fragment shader, the pixel color value of the texture at the
         given UV coordinates is retrieved through the 2D sampler{" "}
-        <code>textureSampler</code>, which is then the final color assigned to
-        the fragment.
+        <code>colorTextureSampler</code>, which is then the final color assigned
+        to the fragment.
       </p>
       <p>
-        <code>textureSampler</code> is defined as <code>sampler2D</code> because
-        the texture is a 2D image which is being sampled for color values at
-        specific coordinates.
+        <code>colorTextureSampler</code> is defined as <code>sampler2D</code>{" "}
+        because the texture is a 2D image which is being sampled for color
+        values at specific coordinates.
       </p>
       <h3>Another example - A (mostly) pulsing cube</h3>
       <TexturingSecondExample />
