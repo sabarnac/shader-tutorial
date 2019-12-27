@@ -33,17 +33,17 @@ void main() {
   uv = vertexUv;
 
   highp mat3 modelViewMatrix_3x3 = mat3(viewMatrix * modelMatrix);
-  highp vec3 vertexTangent_viewSpace = modelViewMatrix_3x3 * normalize(vertexTangent);
-  highp vec3 vertexBiTangent_viewSpace = modelViewMatrix_3x3 * normalize(vertexBiTangent);
-  highp vec3 vertexNormal_viewSpace = modelViewMatrix_3x3 * normalize(vertexNormal);
+  highp vec3 vertexTangent = normalize(vertexTangent);
+  highp vec3 vertexBiTangent = normalize(vertexBiTangent);
+  highp vec3 vertexNormal = normalize(vertexNormal);
 
-  highp mat3 tbnMatrix_tangentSpace = transpose(mat3(
-    vertexTangent_viewSpace,
-    vertexBiTangent_viewSpace,
-    vertexNormal_viewSpace
+  highp mat3 tbnMatrix_tangentSpace = transpose(modelViewMatrix_3x3 * mat3(
+    vertexTangent,
+    vertexBiTangent,
+    vertexNormal
   ));
 
-  vertexPosition_tangentSpace = tbnMatrix_tangentSpace * (viewMatrix * vertexPosition_worldSpace).xyz;
   distanceFromLight = distance(vertexPosition_worldSpace, lightPosition_worldSpace);
+  vertexPosition_tangentSpace = tbnMatrix_tangentSpace * (viewMatrix * vertexPosition_worldSpace).xyz;
   lightDirection_tangentSpace = tbnMatrix_tangentSpace * normalize(((viewMatrix * lightPosition_worldSpace) - vertexPosition_viewSpace).xyz);
 }

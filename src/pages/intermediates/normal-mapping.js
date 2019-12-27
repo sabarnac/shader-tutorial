@@ -11,6 +11,7 @@ import { thirdFragmentShaderSource, thirdVertexShaderSource } from "../../compon
 import Layout from "../../components/layout";
 import PageChange from "../../components/page-change";
 import SEO from "../../components/seo";
+import { renderEquation } from "../../components/util";
 import normalTexture from "../../images/intermediates/normal.png";
 import surface1 from "../../images/intermediates/surface-1.png";
 import surface2 from "../../images/intermediates/surface-2.png";
@@ -251,6 +252,15 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         the tangent, bi-tangent, and normal direction values of a vertex.
       </p>
       <p>
+        If we represent the tangent vector as T, bi-tangent vector as B, and
+        normal vector as N, the TBN matrix would look like:
+      </p>
+      <p className="util text-center">
+        {renderEquation(
+          `TBN = [[T_x, B_x, N_x], [T_y, B_y, N_y], [T_z, B_z, N_z]]`
+        )}
+      </p>
+      <p>
         Similar to how a model matrix can transform a point or direction from
         model-space into world-space, a TBN matrix can transform a point or
         direction from tangent-space into model-space.
@@ -300,6 +310,105 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         converted to view-space in order to calculate the TBN matrix in
         view-space.
       </p>
+      <p>
+        The tangent, bi-tangent and normal values are first normalized
+        (converted into a unit vector), and then a 3x3 matrix is constructed
+        using them, as explained previously.
+      </p>
+      <p>
+        The resultant matrix is a TBN matrix that transforms vectors from
+        tangent-space to model-space. Since we want to work in view-space
+        instead, we multiply the model-view matrix against the TBN matrix to get
+        a TBN matrix in view-space.
+      </p>
+      <p>
+        However, if you notice carefully, the TBN matrix is a 3x3 matrix,
+        whereas a model-view matrix is a 4x4 matrix.
+      </p>
+      <p>
+        To transform the TBN matrix into view-space, the last column and last
+        row of the model-view matrix can be removed in order to multiply it
+        against the TBN matrix. This is fine because those fields don't contain
+        any values that affect the calculation.
+      </p>
+      <p>
+        Alternatively, the TBN matrix can be converted into a 4x4 matrix, but
+        this wouldn't provide much benefit as the resultant matrix would be used
+        with vectors with three dimensions, not four.
+      </p>
+      <p>
+        The calculated TBN matrix in view-space is now passed to the fragment
+        shader, along with certain other values that can still be calculated in
+        the vertex shader (<code>distanceFromLight</code> and{" "}
+        <code>lightDirection_viewSpace</code>).
+      </p>
+      <p>
+        In the fragment shader, the normal value of the fragment is retrieved
+        the normal map, similar to how the color value is retrieved from tge
+        color map
+      </p>
+      <p>
+        Once the normal color value is retrieved, it needs to be converted into
+        an actual normal vector (in tangent-space). Since we know what the range
+        of the color values are supposed to represent, we can perform the
+        conversion using a simple mathematical formula.
+      </p>
+      <p className="util text-center">
+        {renderEquation(`"normal" = ("normalColor" * 2.0) - 1.0`)}
+      </p>
+      <p>
+        Let's take a color value of whose RGB value is{" "}
+        {renderEquation(`"normalColor" = [128, 128, 128]`)}. In OpenGL, the
+        colors are represented in a range of 0 - 1 instead of 0 - 255, so the
+        RGB value would actually be{" "}
+        {renderEquation(`"normalColor" = [0.5, 0.5, 0.5]`)}.
+      </p>
+      <p>
+        This color value is right in the middle of the color range, so it should
+        represent a normal vector {renderEquation(`"normal" = [0.0, 0.0, 0.0]`)}
+        .
+      </p>
+      <p>
+        When we plug in the normal color value into our formula for calculating
+        the normal, we get:
+      </p>
+      <p className="util text-center">
+        {renderEquation(
+          `"normal" = ([0.5, 0.5, 0.5] * 2.0) - 1.0 = [1.0, 1.0, 1.0] - 1.0 = [0.0, 0.0, 0.0]`
+        )}
+      </p>
+      <p>Which matches perfectly with what we expect to get!</p>
+      <p>
+        Just to further verify the formula, let's take a color value{" "}
+        {renderEquation(`"normalColor" = [64, 64, 192]`)}. In OpenGL, this would
+        be {renderEquation(`"normalColor" = [0.25, 0.25, 0.75]`)}, which should
+        represent a normal {renderEquation(`"normal" = [-0.5, -0.5, 0.5]`)}.
+      </p>
+      <p>Plugging this color value into the formula returns:</p>
+      <p className="util text-center">
+        {renderEquation(
+          `"normal" = ([0.25, 0.25, 0.75] * 2.0) - 1.0 = [0.5, 0.5, 1.5] - 1.0 = [-0.5, -0.5, 0.5]`
+        )}
+      </p>
+      <p>Which again equals to the expected normal vector.</p>
+      <p>
+        Once the normal vector in tangent-space is calculated, it can now be
+        transformed into view-space by multiplying the TBN matrix against it.
+      </p>
+      <p className="util text-center">
+        {renderEquation(`"normal"_"viewSpace" = "TBN" times "normal"`)}
+      </p>
+      <p>
+        Once this is calculated, the rest of the lighting calculations use this
+        normal value to calculate the lighting on the fragment. This is similar
+        to what was taught in the{" "}
+        <Link to="/intermediates/lighting/">lighting chapter</Link>, except the
+        majority of the calculation is done in the fragment shader.
+      </p>
+      <p>
+        Now that we've seen what the calculation looks like in view-space, let's
+        now look at how the calculation would appear in tangent-space.
+      </p>
       <h3>Example - Normal-mapped stone wall (in tangent-space)</h3>
       <NormalMappingThirdExample />
       <GlslCodeHighlight
@@ -310,6 +419,37 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         code={thirdFragmentShaderSource.trim()}
         type={"Fragment"}
       />
+      <p>
+        Since the TBN matrix we previously had transformed vectors from
+        tangent-space to view-space, in order to transform values the other way
+        we need to calculate the transpose of the TBN matrix we previously
+        calculated. This is done in line 40 of the vertex shader.
+      </p>
+      <p>
+        Once the new TBN matrix is calculated, we now transform all the values
+        we were previously using in view-space into tangent space. In lines 47
+        and 48 the <code>vertexPosition</code> and <code>lightDirection</code>{" "}
+        are transformed into tangent-space.
+      </p>
+      <p>
+        Notice that we're not passing the TBN matrix to the fragment shader.
+        This is because no values need to be transformed within the fragment
+        shader, all the required tangent-space transformations have been done in
+        the vertex shader itself.
+      </p>
+      <p>
+        Once in the fragment shader, we grab the normal vector from the normal
+        map as we did in the previous example. Since the lighting calculations
+        are being done in tangent-space, the transformation of the normal vector
+        into view-space is not required. Only the conversion from the color
+        value to the vector value is required.
+      </p>
+      <p>
+        Since all the variables we require for calculating lighting are in
+        tangent-space, we can perform the lighting calculations in the exact
+        same way as in the previous example. The resultant lighting value will
+        be the same!
+      </p>
       <h3>Summary</h3>
     </Content>
     <PageChange previous="/intermediates/lighting/" />

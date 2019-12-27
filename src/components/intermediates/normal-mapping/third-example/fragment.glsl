@@ -12,14 +12,14 @@ uniform highp float lightIntensity;
 uniform highp vec3 specularColor;
 uniform highp float specularLobeFactor;
 
-uniform sampler2D textureSampler;
+uniform sampler2D colorTextureSampler;
 uniform sampler2D normalTextureSampler;
 
 void main() {
   highp vec3 lightColorIntensity = lightColor * lightIntensity;
 
   highp vec4 normalColor = texture2D(normalTextureSampler, uv);
-  highp vec4 textureColor = texture2D(textureSampler, uv);
+  highp vec4 textureColor = texture2D(colorTextureSampler, uv);
 
   highp vec3 normal_tangentSpace = normalize((normalColor.xyz * 2.0) - 1.0);
 

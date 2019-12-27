@@ -28,14 +28,14 @@ void main() {
   uv = vertexUv;
 
   highp mat3 modelViewMatrix_3x3 = mat3(viewMatrix * modelMatrix);
-  highp vec3 vertexTangent_viewSpace = modelViewMatrix_3x3 * normalize(vertexTangent);
-  highp vec3 vertexBiTangent_viewSpace = modelViewMatrix_3x3 * normalize(vertexBiTangent);
-  highp vec3 vertexNormal_viewSpace = modelViewMatrix_3x3 * normalize(vertexNormal);
+  highp vec3 vertexTangent = normalize(vertexTangent);
+  highp vec3 vertexBiTangent = normalize(vertexBiTangent);
+  highp vec3 vertexNormal = normalize(vertexNormal);
 
-  tbnMatrix_viewSpace = mat3(
-    vertexTangent_viewSpace,
-    vertexBiTangent_viewSpace,
-    vertexNormal_viewSpace
+  tbnMatrix_viewSpace = modelViewMatrix_3x3 * mat3(
+    vertexTangent,
+    vertexBiTangent,
+    vertexNormal
   );
 
   distanceFromLight = distance(vertexPosition_worldSpace, lightPosition_worldSpace);

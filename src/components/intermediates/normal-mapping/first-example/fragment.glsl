@@ -10,7 +10,7 @@ uniform highp float lightIntensity;
 uniform highp vec3 specularColor;
 uniform highp float specularLobeFactor;
 
-uniform sampler2D textureSampler;
+uniform sampler2D colorTextureSampler;
 
 void main() {
   highp vec3 lightColorIntensity = lightColor * lightIntensity;
@@ -24,7 +24,7 @@ void main() {
   highp float specularStrength = clamp(dot(viewDirection_viewSpace, lightReflection_viewSpace), 0.0, 1.0);
   highp vec3 specularLight = (lightColorIntensity * pow(specularStrength, specularLobeFactor)) / (distanceFromLight * distanceFromLight);
 
-  highp vec4 textureColor = texture2D(textureSampler, uv);
+  highp vec4 textureColor = texture2D(colorTextureSampler, uv);
   gl_FragColor.rgb = (textureColor.rgb * diffuseLight) + (specularLight);
   gl_FragColor.a = textureColor.a;
 }
