@@ -30,8 +30,8 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       <p>
         An issue with the lighting examples seen in the{" "}
         <Link to="/intermediates/lighting/">previous chapter on lighting</Link>{" "}
-        is that the entire surface of the object had the same appearance, making
-        it appear flat.
+        is that the entire surface of the object has a uniform appearance,
+        making it appear flat.
       </p>
       <h3>Example - Stone wall</h3>
       <NormalMappingFirstExample />
@@ -191,7 +191,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Image_Tangent-plane.svg/2560px-Image_Tangent-plane.svg.png"
           alt="Wikipedia Tangent Plane Example"
-          style={{ maxWidth: "750px" }}
+          style={{ width: "65%" }}
         />
         <br />
         <a
@@ -451,6 +451,25 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         be the same!
       </p>
       <h3>Summary</h3>
+      <ul>
+        <li>
+          Similar to color mapping, normal mapping can be used to map normals to
+          fragments inside a polygon to add more detail to a surface.
+        </li>
+        <li>
+          Normal maps add the appearance of roughness or small bumps on the
+          surface of objects.
+        </li>
+        <li>
+          The normals of each point are stored in an image in "tangent-space"
+          with the X, Y, and Z coordinates represented using RGB color values.
+        </li>
+        <li>
+          The color values representing the normals for each fragment are
+          retrieved from the texture and then converted into normal vectors,
+          which are then used to perform lighting calculations.
+        </li>
+      </ul>
     </Content>
     <PageChange previous="/intermediates/lighting/" />
   </Layout>
