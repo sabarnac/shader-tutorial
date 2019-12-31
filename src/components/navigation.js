@@ -62,6 +62,7 @@ const Navigation = () => (
           <li>
             <Link to="/intermediates/normal-mapping/">Normal Mapping</Link>
           </li>
+          <li>More Coming Soon...</li>
         </ul>
       </li>
       <li>
