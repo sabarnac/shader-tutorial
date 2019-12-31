@@ -5,9 +5,15 @@ import Content from "../../components/content";
 import GlslCodeHighlight from "../../components/glsl-code-highlight";
 import NormalMappingFirstExample from "../../components/intermediates/normal-mapping/first-example";
 import NormalMappingSecondExample from "../../components/intermediates/normal-mapping/second-example";
-import { secondFragmentShaderSource, secondVertexShaderSource } from "../../components/intermediates/normal-mapping/second-example-shaders";
+import {
+  secondFragmentShaderSource,
+  secondVertexShaderSource,
+} from "../../components/intermediates/normal-mapping/second-example-shaders";
 import NormalMappingThirdExample from "../../components/intermediates/normal-mapping/third-example";
-import { thirdFragmentShaderSource, thirdVertexShaderSource } from "../../components/intermediates/normal-mapping/third-example-shaders";
+import {
+  thirdFragmentShaderSource,
+  thirdVertexShaderSource,
+} from "../../components/intermediates/normal-mapping/third-example-shaders";
 import Layout from "../../components/layout";
 import PageChange from "../../components/page-change";
 import SEO from "../../components/seo";
@@ -57,7 +63,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         The same concept of mapping can be used to add better lighting detail
         without increasing the complexity of the object. By changing the way the
         light interacts with the surface using a texture, the wall can be made
-        to appear rough instead of a smooth and flat.
+        to appear rough instead of smooth and flat.
       </p>
       <h3>What is a normal map?</h3>
       <p>
@@ -77,10 +83,10 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         The reason for this is simple - the normal of a surface defines what
-        direction the surface is facing, which is crucial for lighting.
+        direction the surface is facing, which is important for lighting.
       </p>
       <p>
-        Since the direction of the surface determines what amount of, and how
+        Since the direction of the surface determines what amount of and how
         light will bounce and fall onto your eyes, this value can affect how a
         surface looks.
       </p>
@@ -153,8 +159,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       </p>
       <ul>
         <li>
-          The value of the normals are stored in the texture as their unit
-          vectors.
+          The value of the normals are stored in the map as their unit vectors.
         </li>
         <li>
           The x-axis component of the normal is encoded as the red color of the
@@ -179,8 +184,8 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         visible to the user anyways.
       </p>
       <p>
-        The values in the normal map are stored in a 2D space called
-        "tangent-space".
+        The values of the normals in the normal map are stored in a 2.5D space
+        called "tangent-space".
       </p>
       <p>
         Consider a sphere. A plane (a flat 2D surface) is considered "tangent"
@@ -209,10 +214,15 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         </small>
       </p>
       <p>
-        This 2D plane is what is considered as the tangent-space for that point
-        of the sphere. In order to store the information of the normals of all
-        points of that sphere, the values of the normals have to be recorded
-        w.r.t the tangent-space of the point they belong to.
+        This plane is what is considered as XY-axis part of the tangent-space
+        for that point of the sphere, with the Z-axis protruding outwards and
+        away from the sphere (the direction of the normal of that point on the
+        sphere).
+      </p>
+      <p>
+        In order to store the information of the normals of all points of that
+        sphere, the values of the normals have to be recorded w.r.t the
+        tangent-space of the point they belong to.
       </p>
       <p>
         Since the calculations we've seen in previous chapters are done in a
@@ -468,6 +478,18 @@ const NormalMappingPage = ({ location: { pathname } }) => (
           The color values representing the normals for each fragment are
           retrieved from the texture and then converted into normal vectors,
           which are then used to perform lighting calculations.
+        </li>
+        <li>
+          Check out{" "}
+          <a
+            href="http://www.mattrittman.com/create-normal-map-photoshop/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            this guide by Matt Rittman
+          </a>{" "}
+          on how to generate a normal map in Photoshop. You should find other
+          references for generating normal maps online.
         </li>
       </ul>
     </Content>
