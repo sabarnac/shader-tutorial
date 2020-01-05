@@ -65,7 +65,6 @@ const Navigation = () => (
           <li>
             <Link to="/intermediates/specular-mapping/">Specular Mapping</Link>
           </li>
-          <li>More Coming Soon...</li>
         </ul>
       </li>
       <li>
