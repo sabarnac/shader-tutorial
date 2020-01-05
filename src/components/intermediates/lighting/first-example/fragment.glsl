@@ -4,8 +4,8 @@ varying highp vec3 diffuseLight;
 uniform sampler2D colorTextureSampler;
 
 void main() {
-  highp vec4 diffuseColor = texture2D(colorTextureSampler, uv);
+  highp vec4 surfaceColor = texture2D(colorTextureSampler, uv);
 
-  gl_FragColor.rgb = diffuseColor.rgb * diffuseLight;
-  gl_FragColor.a = diffuseColor.a;
+  gl_FragColor.rgb = surfaceColor.rgb * diffuseLight;
+  gl_FragColor.a = surfaceColor.a;
 }

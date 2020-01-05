@@ -394,14 +394,7 @@ const LightingPage = ({ location: { pathname } }) => (
         allowing the value to be interpolated per fragment.
       </p>
       <p>
-        The diffuse color of an object is the color produced when the object is
-        hit with diffused lighting. This color is what we normally refer to when
-        speaking about the "color" of an object in real life (ex: an apple being
-        red in color). This is also the color that is stored in the standard
-        color/diffuse map.
-      </p>
-      <p>
-        The diffuse factor is multiplied with the diffuse color of the fragment
+        The diffuse factor is multiplied with the surface color of the fragment
         to determine the final color of that fragment.
       </p>
       <p>

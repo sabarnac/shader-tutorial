@@ -59,7 +59,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         light interacts with the surface using a texture, the wall can be made
         to appear rough instead of smooth and flat.
       </p>
-      <h3>What is a normal map?</h3>
+      <h3>Why store normals in a map?</h3>
       <p>
         If we look into the{" "}
         <Link to="/intermediates/lighting/">lighting chapter</Link>, we see that
@@ -123,9 +123,9 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         polygons.
       </p>
       <p>
-        Just like with a color/diffuse map, a texture map used to describe the
-        normals of an object is called a normal map, and the process of mapping
-        normals of a fragment from a texture is called normal mapping.
+        Just like with a diffuse map, a texture map used to describe the normals
+        of an object is called a normal map, and the process of mapping normals
+        of a fragment from a texture is called normal mapping.
       </p>
       <h3>Normal Maps</h3>
       <p>The texture maps that will be used to color and light the wall are:</p>
@@ -136,7 +136,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
           src={texture}
         />
         <br />
-        Color/Diffuse map
+        Diffuse map
       </p>
       <p className="util text-center">
         <img
@@ -181,6 +181,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         The values of the normals in the normal map are stored in a 2.5D space
         called "tangent-space".
       </p>
+      <h4>Tangent-Space</h4>
       <p>
         Consider a sphere. A plane (a flat 2D surface) is considered "tangent"
         to a point on the sphere if the plane only touches the sphere at that
@@ -218,6 +219,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         sphere, the values of the normals have to be recorded w.r.t the
         tangent-space of the point they belong to.
       </p>
+      <h3>Calculating the lighting</h3>
       <p>
         Since the calculations we've seen in previous chapters are done in a
         space that is not the tangent-space, in order to use a normal map a
@@ -245,7 +247,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         perform the transformation. This matrix is called the
         Tangent-Bitangent-Normal matrix (or TBN matrix).
       </p>
-      <h3>TBN Matrix</h3>
+      <h4>TBN Matrix</h4>
       <p>
         Just like with the model, view, and projection matrices, in order to
         transform values either into (or out of) tangent-space, a matrix called

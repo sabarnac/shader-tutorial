@@ -7,9 +7,9 @@ uniform highp float specularReflectivity;
 uniform sampler2D colorTextureSampler;
 
 void main() {
-  highp vec4 diffuseColor = texture2D(colorTextureSampler, uv);
-  highp vec4 ambientColor = vec4(diffuseColor);
+  highp vec4 surfaceColor = texture2D(colorTextureSampler, uv);
+  highp vec4 ambientColor = vec4(surfaceColor);
   
-  gl_FragColor.rgb = (ambientColor.rgb * ambientFactor) + (diffuseColor.rgb * diffuseLight) + (specularReflectivity * specularLight);
-  gl_FragColor.a = diffuseColor.a;
+  gl_FragColor.rgb = (ambientColor.rgb * ambientFactor) + (surfaceColor.rgb * diffuseLight) + (specularReflectivity * specularLight);
+  gl_FragColor.a = surfaceColor.a;
 }
