@@ -27,7 +27,8 @@ const shaderProgramInfo = {
   fragment: {
     attributeLocations: {},
     uniformLocations: {
-      colorTextureSampler: "sampler2D",
+      specularReflectivity: "float",
+      diffuseTextureSampler: "sampler2D",
     },
   },
 }
@@ -66,6 +67,7 @@ const NormalMappingFirstExample = () => {
     ],
     indices: [[0, 1, 2, 3, 4, 5]],
     texture: texture,
+    specularReflectivity: 0.5,
     specularLobeFactor: 50.0,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
@@ -223,13 +225,20 @@ const NormalMappingFirstExample = () => {
               lightIntensity
             )
             gl.uniform1f(
+              shaderInfo.fragment.uniformLocations.specularReflectivity,
+              square.specularReflectivity
+            )
+            gl.uniform1f(
               shaderInfo.vertex.uniformLocations.specularLobeFactor,
               square.specularLobeFactor
             )
 
             gl.activeTexture(gl.TEXTURE0)
             gl.bindTexture(gl.TEXTURE_2D, squareBuffer.texture)
-            gl.uniform1i(shaderInfo.fragment.uniformLocations.colorTextureSampler, 0)
+            gl.uniform1i(
+              shaderInfo.fragment.uniformLocations.diffuseTextureSampler,
+              0
+            )
 
             gl.drawElements(
               gl.TRIANGLES,
@@ -261,6 +270,7 @@ const NormalMappingFirstExample = () => {
 Square:
     World Position: ${coordArrToString([0.0, 0.0, 0.0])}
     Lighting:
+        Specular Reflectivity: ${square.specularReflectivity}
         Lobe Density: ${square.specularLobeFactor}
 `.trim()}
       </pre>

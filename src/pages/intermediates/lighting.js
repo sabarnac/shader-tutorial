@@ -391,9 +391,18 @@ const LightingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         This final diffuse factor is then passed to the fragment shader,
-        allowing the value to be interpolated per fragment. The diffuse factor
-        is multiplied with the color of the fragment to determine how bright
-        that fragment will be.
+        allowing the value to be interpolated per fragment.
+      </p>
+      <p>
+        The diffuse color of an object is the color produced when the object is
+        hit with diffused lighting. This color is what we normally refer to when
+        speaking about the "color" of an object in real life (ex: an apple being
+        red in color). This is also the color that is stored in the standard
+        color/diffuse map.
+      </p>
+      <p>
+        The diffuse factor is multiplied with the diffuse color of the fragment
+        to determine the final color of that fragment.
       </p>
       <p>
         Do note that the alpha value of the fragment color is not multiplied,
@@ -436,9 +445,16 @@ const LightingPage = ({ location: { pathname } }) => (
         calculation, so the vertex shader requires no modification.
       </p>
       <p>
+        The ambient color is the color that the object produces when hit with
+        ambient light. This is the same as the diffuse color of an object in
+        most cases, which is why we're setting the ambient color the same as the
+        diffuse color. However, you could set this to a different color to
+        create interesting effects.
+      </p>
+      <p>
         The ambient factor of the environment is directly passed to the fragment
-        shader, which is then multiplied with the color of the fragment to
-        introduce the minimum brightness.
+        shader, which is then multiplied with the ambient color of the fragment
+        to introduce the minimum brightness.
       </p>
       <p>
         This is then added along with the diffusion component of lighting, since
@@ -660,9 +676,37 @@ const LightingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         The result is then passed to the fragment shader, allowing it to be
-        interpolated per fragment, and this factor is directly added to the
-        other lighting reflection components to set the final color value of the
-        fragment.
+        interpolated per fragment.
+      </p>
+      <p>
+        The specular reflectivity is the value that determines how reflective or
+        smooth the surface of the object is.
+      </p>
+      <p>
+        The surfaces of objects aren't always perfectly smooth, but have very
+        small bumps in them. When light falls on an object, only a portion of
+        the light would be reflected by these bumps perfectly towards the
+        camera. The rest of the light would be reflected in other directions and
+        not contribute to the specular lighting component.
+      </p>
+      <p>
+        If we set the specular reflectivity of the surface to 1.0, it means that
+        all of the light is reflected by the surface of the object towards the
+        camera, making the surface of the object perfectly smooth.
+      </p>
+      <p>
+        However, if we set the specular reflectivity to 0.5, only 50% of the
+        light is reflected towards the camera by the surface of the object, with
+        the rest being reflected in other directions.
+      </p>
+      <p>
+        In our case, we've set the specular reflectivity to 0.5, meaning that
+        the cube only reflects 50% of the light falling on it.
+      </p>
+      <p>
+        The specular factor is multiplied against the specular reflectivity of
+        the fragment, and then added to the other lighting reflection components
+        to set the final color value of the fragment.
       </p>
       <p>
         The reason why the specular factor is not combined with the color of the
@@ -686,29 +730,24 @@ const LightingPage = ({ location: { pathname } }) => (
       </p>
       <h3>Additional Notes</h3>
       <p>
-        The specular and diffuse lighting values shown in the example code are
-        added at full strength. However, these values should be combined with
-        roughness and reflectiveness factors of the surface material of the
-        object, which would give a more accurate appearance.
-      </p>
-      <p>So if the original equation for the lighting model discussed is:</p>
-      <p className="util text-center">
-        {renderEquation(
-          `"light" = "diffuseLight" + "specularLight" + "ambientLight"`
-        )}
-      </p>
-      <p>Then the more accurate version would be:</p>
-      <p className="util text-center">
-        {renderEquation(
-          `"light" = ("surfaceRoughness" times "diffuseLight") + ("surfaceReflectivity" times "specularLight") + "ambientLight"`
-        )}
+        A point of note is that for specular lighting we provided a value to
+        control how much of the light is reflected towards the camera (the
+        specular reflectivity).
       </p>
       <p>
-        Where {renderEquation(`"surfaceRoughness"`)} and{" "}
-        {renderEquation(`"surfaceReflectivity"`)} are values ranging from 0 to
-        1, and affect how much of the {renderEquation(`"diffuseLight"`)} and{" "}
-        {renderEquation(`"specularLight"`)} affect the lighting of the object,
-        and are based upon the surface material of the object.
+        For diffuse lighting, the roughness of the surface should also be
+        considered when calculating how much of the light is diffused by the
+        object, since a rougher surface would diffuse more light than a smooth
+        one.
+      </p>
+      <p>
+        However, the roughness of the surface can be multiplied against the
+        color of the surface and stored as part of the color map itself,
+        resulting in a map called a "diffuse map".
+      </p>
+      <p>
+        In later chapters, we'll be using a diffuse map instead of a simple
+        color map to provide diffuse color information.
       </p>
       <p>
         Another point of note is that all lighting factors are calculated on the

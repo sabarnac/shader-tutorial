@@ -5,15 +5,9 @@ import Content from "../../components/content";
 import GlslCodeHighlight from "../../components/glsl-code-highlight";
 import NormalMappingFirstExample from "../../components/intermediates/normal-mapping/first-example";
 import NormalMappingSecondExample from "../../components/intermediates/normal-mapping/second-example";
-import {
-  secondFragmentShaderSource,
-  secondVertexShaderSource,
-} from "../../components/intermediates/normal-mapping/second-example-shaders";
+import { secondFragmentShaderSource, secondVertexShaderSource } from "../../components/intermediates/normal-mapping/second-example-shaders";
 import NormalMappingThirdExample from "../../components/intermediates/normal-mapping/third-example";
-import {
-  thirdFragmentShaderSource,
-  thirdVertexShaderSource,
-} from "../../components/intermediates/normal-mapping/third-example-shaders";
+import { thirdFragmentShaderSource, thirdVertexShaderSource } from "../../components/intermediates/normal-mapping/third-example-shaders";
 import Layout from "../../components/layout";
 import PageChange from "../../components/page-change";
 import SEO from "../../components/seo";
@@ -493,7 +487,10 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange previous="/intermediates/lighting/" />
+    <PageChange
+      previous="/intermediates/lighting/"
+      next="/intermediates/specular-mapping/"
+    />
   </Layout>
 )
 

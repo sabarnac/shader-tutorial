@@ -3,10 +3,13 @@ varying highp vec3 diffuseLight;
 varying highp vec3 specularLight;
 
 uniform highp float ambientFactor;
+uniform highp float specularReflectivity;
 uniform sampler2D colorTextureSampler;
 
 void main() {
-  highp vec4 textureColor = texture2D(colorTextureSampler, uv);
-  gl_FragColor.rgb = (textureColor.rgb * ambientFactor) + (textureColor.rgb * diffuseLight) + (specularLight);
-  gl_FragColor.a = textureColor.a;
+  highp vec4 diffuseColor = texture2D(colorTextureSampler, uv);
+  highp vec4 ambientColor = vec4(diffuseColor);
+  
+  gl_FragColor.rgb = (ambientColor.rgb * ambientFactor) + (diffuseColor.rgb * diffuseLight) + (specularReflectivity * specularLight);
+  gl_FragColor.a = diffuseColor.a;
 }

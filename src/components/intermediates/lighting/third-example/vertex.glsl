@@ -9,7 +9,6 @@ uniform mat4 projectionMatrix;
 uniform vec4 lightPosition_worldSpace;
 uniform vec3 lightColor;
 uniform float lightIntensity;
-uniform vec3 specularColor;
 uniform float specularLobeFactor;
 
 varying highp vec2 uv;

@@ -10,17 +10,17 @@ uniform highp mat4 viewMatrix;
 
 uniform highp vec3 lightColor;
 uniform highp float lightIntensity;
-uniform highp vec3 specularColor;
+uniform highp float specularReflectivity;
 uniform highp float specularLobeFactor;
 
-uniform sampler2D colorTextureSampler;
+uniform sampler2D diffuseTextureSampler;
 uniform sampler2D normalTextureSampler;
 
 void main() {
   highp vec3 lightColorIntensity = lightColor * lightIntensity;
 
   highp vec4 normalColor = texture2D(normalTextureSampler, uv);
-  highp vec4 textureColor = texture2D(colorTextureSampler, uv);
+  highp vec4 textureColor = texture2D(diffuseTextureSampler, uv);
 
   highp vec3 normal_viewSpace = tbnMatrix_viewSpace * normalize((normalColor.xyz * 2.0) - 1.0);
 
@@ -33,6 +33,8 @@ void main() {
   highp float specularStrength = clamp(dot(viewDirection_viewSpace, lightReflection_viewSpace), 0.0, 1.0);
   highp vec3 specularLight = (lightColorIntensity * pow(specularStrength, specularLobeFactor)) / (distanceFromLight * distanceFromLight);
 
-  gl_FragColor.rgb = (textureColor.rgb * diffuseLight) + (specularLight);
-  gl_FragColor.a = textureColor.a;
+  highp vec4 diffuseColor = texture2D(diffuseTextureSampler, uv);
+  
+  gl_FragColor.rgb = (diffuseColor.rgb * diffuseLight) + (specularReflectivity * specularLight);
+  gl_FragColor.a = diffuseColor.a;
 }

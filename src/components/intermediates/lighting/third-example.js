@@ -28,6 +28,7 @@ const shaderProgramInfo = {
     attributeLocations: {},
     uniformLocations: {
       ambientFactor: "float",
+      specularReflectivity: "float",
       colorTextureSampler: "sampler2D",
     },
   },
@@ -161,6 +162,7 @@ const LightingThirdExample = () => {
     ],
     texture: texture,
     ambientFactor: 0.1,
+    specularReflectivity: 0.5,
     specularLobeFactor: 5.0,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
@@ -339,9 +341,17 @@ const LightingThirdExample = () => {
               cube.ambientFactor
             )
 
+            gl.uniform1f(
+              shaderInfo.fragment.uniformLocations.specularReflectivity,
+              cube.specularReflectivity
+            )
+
             gl.activeTexture(gl.TEXTURE0)
             gl.bindTexture(gl.TEXTURE_2D, cubeBuffer.texture)
-            gl.uniform1i(shaderInfo.fragment.uniformLocations.colorTextureSampler, 0)
+            gl.uniform1i(
+              shaderInfo.fragment.uniformLocations.colorTextureSampler,
+              0
+            )
 
             gl.drawElements(
               gl.TRIANGLES,
@@ -374,6 +384,7 @@ Cube:
     World Position: ${coordArrToString([0.0, 0.0, 0.0])}
     Lighting:
         Ambient Factor: ${cube.ambientFactor}
+        Specular Reflectivity: ${cube.specularReflectivity}
         Lobe Density: ${cube.specularLobeFactor}
 `.trim()}
       </pre>
