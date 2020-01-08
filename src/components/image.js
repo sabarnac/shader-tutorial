@@ -2,7 +2,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import Img from "gatsby-image";
 import React, { useMemo } from "react";
 
-import ImageManifest from "../images/image-manifest.json";
+import ImageManifest from "./image-manifest.json";
 
 const ImageQuery = graphql`
   query {

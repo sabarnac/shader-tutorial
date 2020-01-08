@@ -22,7 +22,7 @@ const shaderProgramInfo = {
 
 const screenModelPosition = mat4.create()
 
-const RandomImageGenerationBandingExample = () => {
+const BandingExample = () => {
   const screen = {
     vertices: [
       [-1.0, -1.0, 0.0],
@@ -127,4 +127,4 @@ const RandomImageGenerationBandingExample = () => {
   )
 }
 
-export default RandomImageGenerationBandingExample
+export default BandingExample

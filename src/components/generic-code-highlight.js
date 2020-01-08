@@ -15,10 +15,12 @@ const GenericCodeHighlight = ({ showHeader = true, code, type, language }) => (
       language={language}
       style={atomOneDark}
       customStyle={{ padding: "0", background: null }}
-      lineNumberContainerStyle={{
-        float: "left",
-        paddingRight: "1.5rem",
-        borderRight: "1px dashed #9b4dca",
+      lineNumberContainerProps={{
+        style: {
+          float: "left",
+          paddingRight: "1.5rem",
+          borderRight: "1px dashed #9b4dca",
+        },
       }}
       codeTagProps={{
         style: { display: "inline-block" },
