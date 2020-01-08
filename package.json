@@ -34,12 +34,13 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build --prefix-paths",
-    "develop": "gatsby develop -H 0.0.0.0",
+    "build": "npm run clean && gatsby build --prefix-paths",
+    "develop": "npm run clean && gatsby develop -H 0.0.0.0",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "predeploy": "rm -rf ./public && npm run build",
+    "clean": "gatsby clean",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d public"
   },
   "repository": {
