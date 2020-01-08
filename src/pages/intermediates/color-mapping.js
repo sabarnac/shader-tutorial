@@ -3,14 +3,17 @@ import React from "react";
 
 import Content from "../../components/content";
 import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Image from "../../components/image";
 import TexturingFirstExample from "../../components/intermediates/color-mapping/first-example";
-import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/color-mapping/first-example-shaders";
+import {
+  firstFragmentShaderSource,
+  firstVertexShaderSource,
+} from "../../components/intermediates/color-mapping/first-example-shaders";
 import TexturingSecondExample from "../../components/intermediates/color-mapping/second-example";
 import { secondFragmentShaderSource } from "../../components/intermediates/color-mapping/second-example-shaders";
 import Layout from "../../components/layout";
 import PageChange from "../../components/page-change";
 import SEO from "../../components/seo";
-import texture from "../../images/intermediates/texture.png";
 
 const ColorMappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -60,9 +63,13 @@ const ColorMappingPage = ({ location: { pathname } }) => (
         The following texture is used to color the each face of the rendered
         cube:
       </p>
-      <p className="util text-center">
-        <img src={texture} alt="Cube Face Texture" />
-      </p>
+      <div className="image util text-center">
+        <Image
+          src="intermediates/texture.png"
+          alt="Cube Face Texture"
+          style={{ maxWidth: "65%" }}
+        />
+      </div>
       <p>
         The vertices of each face are mapped to the corners of the texture. You
         can look at the cube details below the rendered image to see the UV

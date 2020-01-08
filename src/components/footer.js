@@ -1,7 +1,6 @@
 import React from "react";
 
-import github from "../images/github.png";
-import twitter from "../images/twitter.png";
+import Image from "./image";
 
 const Footer = () => (
   <div className="row">
@@ -22,14 +21,22 @@ const Footer = () => (
           rel="noopener noreferrer"
           target="_blank"
         >
-          <img src={github} alt="GitHub Repo Link" />
+          <Image
+            src="github.png"
+            alt="GitHub Repo Link"
+            style={{ width: "32px", height: "32px" }}
+          />
         </a>
         <a
           href="https://twitter.com/disappointin_af"
           rel="noopener noreferrer"
           target="_blank"
         >
-          <img src={twitter} alt="Twitter Link" />
+          <Image
+            src="twitter.png"
+            alt="Twitter Link"
+            style={{ width: "32px", height: "32px" }}
+          />
         </a>
       </div>
     </footer>

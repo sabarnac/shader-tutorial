@@ -3,14 +3,15 @@ import React from "react";
 
 import Content from "../../components/content";
 import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Image from "../../components/image";
 import SpecularMappingFirstExample from "../../components/intermediates/specular-mapping/first-example";
-import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/specular-mapping/first-example-shaders";
+import {
+  firstFragmentShaderSource,
+  firstVertexShaderSource,
+} from "../../components/intermediates/specular-mapping/first-example-shaders";
 import Layout from "../../components/layout";
 import PageChange from "../../components/page-change";
 import SEO from "../../components/seo";
-import normalTexture from "../../images/intermediates/normal.png";
-import specularTexture from "../../images/intermediates/specular.png";
-import texture from "../../images/intermediates/texture-2.png";
 
 const SpecularMappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -35,33 +36,33 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         <Link to="/intermediates/normal-mapping">normal mapping chapter</Link>,
         the texture maps that will be used to color and light the wall are:
       </p>
-      <p className="util text-center">
-        <img
-          alt="Stone Wall - Color Map"
-          style={{ width: "65%" }}
-          src={texture}
+      <div className="image util text-center">
+        <Image
+          src="intermediates/texture-2.png"
+          alt="Stone Wall - Diffuse Map"
+          style={{ maxWidth: "65%" }}
         />
         <br />
         Diffuse map
-      </p>
-      <p className="util text-center">
-        <img
+      </div>
+      <div className="image util text-center">
+        <Image
+          src="intermediates/normal.png"
           alt="Stone Wall - Normal Map"
-          style={{ width: "65%" }}
-          src={normalTexture}
+          style={{ maxWidth: "65%" }}
         />
         <br />
         Normal map
-      </p>
-      <p className="util text-center">
-        <img
+      </div>
+      <div className="image util text-center">
+        <Image
+          src="intermediates/specular.png"
           alt="Stone Wall - Specular Map"
-          style={{ width: "65%" }}
-          src={specularTexture}
+          style={{ maxWidth: "65%" }}
         />
         <br />
         Specular map
-      </p>
+      </div>
       <p>
         The specular map is a grayscale image that contains the following
         information per pixel:

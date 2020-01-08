@@ -7,15 +7,10 @@ import DitheringExample from "../../components/advanced/color-banding-dithering/
 import { ditheringFragmentShaderSource } from "../../components/advanced/color-banding-dithering/dithering-example-shaders";
 import Content from "../../components/content";
 import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Image from "../../components/image";
 import Layout from "../../components/layout";
 import PageChange from "../../components/page-change";
 import SEO from "../../components/seo";
-import actualGradient from "../../images/advanced/actual-gradient.png";
-import bandingExaggerated from "../../images/advanced/banded-exaggerated.png";
-import bandedGradient from "../../images/advanced/banded-gradient.png";
-import banding from "../../images/advanced/banded.png";
-import noisedExaggerated from "../../images/advanced/noised-exaggerated.png";
-import noised from "../../images/advanced/noised.png";
 
 const ColorBandingDitheringPage = ({ location: { pathname } }) => (
   <Layout>
@@ -39,16 +34,21 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         The issue may not be very obvious at first, so here's a screenshot of a
         portion of the image.
       </p>
-      <p className="util text-center">
-        <img src={banding} alt="Color Banding Screenshot Normal" />
-      </p>
-      <p>We can modify the light levels to make the issue more obvious.</p>
-      <p className="util text-center">
-        <img
-          src={bandingExaggerated}
-          alt="Color Banding Screenshot Exaggerated"
+      <div className="image util text-center">
+        <Image
+          src="advanced/banded.png"
+          alt="Color Banding Screenshot Normal"
+          style={{ maxWidth: "65%" }}
         />
-      </p>
+      </div>
+      <p>We can modify the light levels to make the issue more obvious.</p>
+      <div className="image util text-center">
+        <Image
+          src="advanced/banded-exaggerated.png"
+          alt="Color Banding Screenshot Exaggerated"
+          style={{ maxWidth: "65%" }}
+        />
+      </div>
       <p>
         It appears that the image has bands of colors going across it. This
         shouldn't occur since the decrease of light from the bottom to the top
@@ -79,8 +79,12 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         represent colors using a 1-bit value. This would mean a computer could
         only show two colors, black and white.
       </p>
-      <p className="util text-center">
-        <img src={actualGradient} alt="Actual Gradient" />
+      <div className="image util text-center">
+        <Image
+          src="advanced/actual-gradient.png"
+          alt="Actual Gradient"
+          style={{ maxWidth: "65%" }}
+        />
         <br />
         <a
           href="https://www.xmple.com/wallpaper/black-white-gradient-linear--c2-000000-fffaf0-a-180-f-14-image/"
@@ -89,16 +93,20 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         >
           Source
         </a>
-      </p>
+      </div>
       <p>
         Now, suppose the computer had to render a gradient of colors, going from
         white to black, as shown in the image above. Since the computer can only
         show black and white, all the shades of gray in between cannot be
         displayed by the computer.
       </p>
-      <p className="util text-center">
-        <img src={bandedGradient} alt="Banded Gradient" />
-      </p>
+      <div className="image util text-center">
+        <Image
+          src="advanced/banded-gradient.png"
+          alt="Banded Gradient"
+          style={{ maxWidth: "65%" }}
+        />
+      </div>
       <p>
         This results in the computer showing a continues band of white, with a
         sudden transition to a band of black. This is a case of color banding,
@@ -191,13 +199,21 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
       <h4>Example - Dithered Gradient</h4>
       <DitheringExample />
       <p>Below is a zoomed in part of the new dithered image.</p>
-      <p className="util text-center">
-        <img src={noised} alt="Dithering Screenshot Normal" />
-      </p>
+      <div className="util text-center">
+        <Image
+          src="advanced/noised.png"
+          alt="Dithering Screenshot Normal"
+          style={{ maxWidth: "65%" }}
+        />
+      </div>
       <p>We can modify the light levels to see the introduced noise.</p>
-      <p className="util text-center">
-        <img src={noisedExaggerated} alt="Dithering Screenshot Exaggerated" />
-      </p>
+      <div className="util text-center">
+        <Image
+          src="advanced/noised-exaggerated.png"
+          alt="Dithering Screenshot Exaggerated"
+          style={{ maxWidth: "65%" }}
+        />
+      </div>
       <p>
         While with the color banding screenshots, the banding was noticeable
         even in the non-altered image (unless your display isn't calibrated

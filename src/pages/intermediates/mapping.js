@@ -1,12 +1,10 @@
 import React from "react";
 
 import Content from "../../components/content";
+import Image from "../../components/image";
 import Layout from "../../components/layout";
 import PageChange from "../../components/page-change";
 import SEO from "../../components/seo";
-import triangleTextureMapped from "../../images/intermediates/triangle-texture-mapped.png";
-import triangleTexture from "../../images/intermediates/triangle-texture.png";
-import triangle from "../../images/intermediates/triangle.png";
 
 const MappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -80,30 +78,36 @@ const MappingPage = ({ location: { pathname } }) => (
         an object by pinning points of the texture to their mapped vertices.
       </p>
       <p>For example, suppose we have the following triangle:</p>
-      <p className="util text-center">
-        <img src={triangle} alt="Triangle - UV Mapping Example" />
-      </p>
+      <div className="image util text-center">
+        <Image
+          src="intermediates/triangle.png"
+          alt="Triangle - UV Mapping Example"
+          style={{ maxWidth: "65%" }}
+        />
+      </div>
       <p>
         And we wish to map a part of the following texture onto the triangle:
       </p>
-      <p className="util text-center">
-        <img
-          src={triangleTexture}
+      <div className="image util text-center">
+        <Image
+          src="intermediates/triangle-texture.png"
           alt="Triangle Texture - UV Mapping Example"
+          style={{ maxWidth: "65%" }}
         />
-      </p>
+      </div>
       <p>
         We can first overlay the triangle on top of the image and adjust the
         corners of the triangle, such that the triangle covers the area of the
         texture that needs to be used to color it. The corners are also placed
         in the correct positions that represent what color they should be.
       </p>
-      <p className="util text-center">
-        <img
-          src={triangleTextureMapped}
+      <div className="image util text-center">
+        <Image
+          src="intermediates/triangle-texture-mapped.png"
           alt="Mapped Triangle Texture - UV Mapping Example"
+          style={{ maxWidth: "65%" }}
         />
-      </p>
+      </div>
       <p>
         <em>
           Note: For the sake of simplicity, in this example we've overlayed the

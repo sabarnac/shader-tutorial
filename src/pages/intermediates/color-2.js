@@ -1,11 +1,10 @@
 import React from "react";
 
 import Content from "../../components/content";
+import Image from "../../components/image";
 import Layout from "../../components/layout";
 import PageChange from "../../components/page-change";
 import SEO from "../../components/seo";
-import interaction1 from "../../images/intermediates/interaction-1.png";
-import interaction2 from "../../images/intermediates/interaction-2.png";
 
 const ColorPt2Page = ({ location: { pathname } }) => (
   <Layout>
@@ -93,9 +92,13 @@ const ColorPt2Page = ({ location: { pathname } }) => (
         they interact with each other.
       </p>
       <p>To understand this, let's look an example image.</p>
-      <p className="util text-center">
-        <img src={interaction1} alt="Color Interaction Greyscale Example" />
-      </p>
+      <div className="image util text-center">
+        <Image
+          src="intermediates/interaction-1.png"
+          alt="Color Interaction Greyscale Example"
+          style={{ maxWidth: "65%" }}
+        />
+      </div>
       <p>
         In this image we see a background of a white to black linear gradient
         starting from the top of the image and going down to the bottom. At the
@@ -127,9 +130,13 @@ const ColorPt2Page = ({ location: { pathname } }) => (
         color images, although it may not be as "strong". Here is an example
         image showing an example in color:
       </p>
-      <p className="util text-center">
-        <img src={interaction2} alt="Color Interaction Color Example" />
-      </p>
+      <div className="image util text-center">
+        <Image
+          src="intermediates/interaction-2.png"
+          alt="Color Interaction Color Example"
+          style={{ maxWidth: "65%" }}
+        />
+      </div>
       <p>
         In the above image, the tiles inside the bottom and top half are the
         same color, but the tile at the bottom may appear to be slightly

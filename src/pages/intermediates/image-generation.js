@@ -3,12 +3,16 @@ import React from "react";
 
 import Content from "../../components/content";
 import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Image from "../../components/image";
 import RandomImageGenerationEighthExample from "../../components/intermediates/image-generation/eighth-example";
 import { eighthFragmentShaderSource } from "../../components/intermediates/image-generation/eighth-example-shaders";
 import RandomImageGenerationFifthExample from "../../components/intermediates/image-generation/fifth-example";
 import { fifthFragmentShaderSource } from "../../components/intermediates/image-generation/fifth-example-shaders";
 import RandomImageGenerationFirstExample from "../../components/intermediates/image-generation/first-example";
-import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/image-generation/first-example-shaders";
+import {
+  firstFragmentShaderSource,
+  firstVertexShaderSource,
+} from "../../components/intermediates/image-generation/first-example-shaders";
 import RandomImageGenerationFourthExample from "../../components/intermediates/image-generation/fourth-example";
 import { fourthFragmentShaderSource } from "../../components/intermediates/image-generation/fourth-example-shaders";
 import RandomImageGenerationNinthExample from "../../components/intermediates/image-generation/ninth-example";
@@ -25,8 +29,6 @@ import Layout from "../../components/layout";
 import PageChange from "../../components/page-change";
 import SEO from "../../components/seo";
 import { renderEquation } from "../../components/util";
-import tileDiagonalPlot from "../../images/intermediates/tile-diagonal-plot.png";
-import tilePlot from "../../images/intermediates/tile-plot.png";
 
 const ImageGenerationPage = ({ location: { pathname } }) => (
   <Layout>
@@ -537,8 +539,12 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         of the tile in our graph being 0.5 units away from the origin.
       </p>
       <p>The plot for this would be:</p>
-      <p className="util text-center">
-        <img src={tilePlot} alt="Tile Graph Plot" />
+      <div className="image util text-center">
+        <Image
+          src="intermediates/tile-plot.png"
+          alt="Tile Graph Plot"
+          style={{ maxWidth: "65%" }}
+        />
         <br />
         <a
           href="https://www.transum.org/Maths/Activity/Graph/Desmos.asp"
@@ -547,12 +553,16 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         >
           Image Generation Source
         </a>
-      </p>
+      </div>
       <p>
         Adding the diagonals of the tile to the graph would result in the plot:
       </p>
-      <p className="util text-center">
-        <img src={tileDiagonalPlot} alt="Tile With Diagonals Graph Plot" />
+      <div className="image util text-center">
+        <Image
+          src="intermediates/tile-diagonal-plot.png"
+          alt="Tile With Diagonals Graph Plot"
+          style={{ maxWidth: "65%" }}
+        />
         <br />
         <a
           href="https://www.transum.org/Maths/Activity/Graph/Desmos.asp"
@@ -561,7 +571,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         >
           Image Generation Source
         </a>
-      </p>
+      </div>
       <p>
         Here, we can notice a peculiar property of diagonals - the absolute
         values of the X and Y coordinates of points on the diagonal are always
@@ -931,8 +941,12 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         factor of the tile. First, let's take a look of the tile with diagonals
         plot again.
       </p>
-      <p className="util text-center">
-        <img src={tileDiagonalPlot} alt="Tile With Diagonals Graph Plot" />
+      <div className="image util text-center">
+        <Image
+          src="intermediates/tile-diagonal-plot.png"
+          alt="Tile With Diagonals Graph Plot"
+          style={{ maxWidth: "65%" }}
+        />
         <br />
         <a
           href="https://www.transum.org/Maths/Activity/Graph/Desmos.asp"
@@ -941,7 +955,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         >
           Image Generation Source
         </a>
-      </p>
+      </div>
       <p>
         Let's name the diagonal starting from the lower-left corner and ending
         at the upper-right corner <code>diagonal 1</code>, and name the other

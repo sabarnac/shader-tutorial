@@ -160,14 +160,17 @@ textarea {
 .container .row.wrapper .column.content footer.column .social a {
   border-bottom: none;
   height: 2rem;
+  margin: 0 1rem;
   display: inline-block;
 }
 
-.container .row.wrapper .column.content footer.column .social img {
-  height: 2rem;
-  padding: 0 1rem;
-  border: none;
+.container .row.wrapper .column.content footer.column .social * {
   background: none;
+  border: none;
+}
+
+div.image {
+  margin-bottom: 2.5rem;
 }
 
 .page-change {

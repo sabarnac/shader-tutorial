@@ -3,18 +3,24 @@ import React from "react";
 
 import Content from "../../components/content";
 import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Image from "../../components/image";
 import LightingFirstExample from "../../components/intermediates/lighting/first-example";
-import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/lighting/first-example-shaders";
+import {
+  firstFragmentShaderSource,
+  firstVertexShaderSource,
+} from "../../components/intermediates/lighting/first-example-shaders";
 import LightingNoLightExample from "../../components/intermediates/lighting/no-light-example.js";
 import LightingSecondExample from "../../components/intermediates/lighting/second-example";
 import { secondFragmentShaderSource } from "../../components/intermediates/lighting/second-example-shaders";
 import LightingThirdExample from "../../components/intermediates/lighting/third-example";
-import { thirdFragmentShaderSource, thirdVertexShaderSource } from "../../components/intermediates/lighting/third-example-shaders";
+import {
+  thirdFragmentShaderSource,
+  thirdVertexShaderSource,
+} from "../../components/intermediates/lighting/third-example-shaders";
 import Layout from "../../components/layout";
 import PageChange from "../../components/page-change";
 import SEO from "../../components/seo";
 import { renderEquation } from "../../components/util";
-import glslReflect from "../../images/intermediates/glsl-reflect.png";
 
 const LightingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -638,12 +644,13 @@ const LightingPage = ({ location: { pathname } }) => (
         direction won't change.
       </p>
       <p>This is shown in the illustration below:</p>
-      <p className="util text-center">
-        <img
-          src={glslReflect}
+      <div className="image util text-center">
+        <Image
+          src="intermediates/glsl-reflect.png"
           alt="GLSL Reflect Function Result Illustration"
+          style={{ maxWidth: "65%" }}
         />
-      </p>
+      </div>
       <p>
         Since the direction calculated for the camera is from the camera to the
         object, the calculation of their <code>dot</code> product will still be

@@ -4,17 +4,18 @@ import React from "react";
 import FragmentShaderFirstExample from "../../components/basics/fragment-shader/first-example";
 import { firstFragmentShaderSource } from "../../components/basics/fragment-shader/first-example-shaders";
 import FragmentShaderSecondExample from "../../components/basics/fragment-shader/second-example";
-import { secondFragmentShaderSource, secondVertexShaderSource } from "../../components/basics/fragment-shader/second-example-shaders";
+import {
+  secondFragmentShaderSource,
+  secondVertexShaderSource,
+} from "../../components/basics/fragment-shader/second-example-shaders";
 import FragmentShaderThirdExample from "../../components/basics/fragment-shader/third-example";
 import { thirdFragmentShaderSource } from "../../components/basics/fragment-shader/third-example-shaders";
 import Content from "../../components/content";
 import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Image from "../../components/image";
 import Layout from "../../components/layout";
 import PageChange from "../../components/page-change";
 import SEO from "../../components/seo";
-import fragment1Img from "../../images/basics/fragment-1.png";
-import fragment2Img from "../../images/basics/fragment-2.png";
-import fragment3Img from "../../images/basics/fragment-3.png";
 
 const FragmentShaderPage = ({ location: { pathname } }) => (
   <Layout>
@@ -55,13 +56,13 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
         As an example, take a circle that is to be rendered on a screen of size
         8x8 pixels (total of 64 pixels), as shown by the image below:
       </p>
-      <p className="util text-center">
-        <img
+      <div className="image util text-center">
+        <Image
+          src="basics/fragment-1.png"
           alt="Fragment Example Part 1"
-          style={{ width: "65%" }}
-          src={fragment1Img}
+          style={{ maxWidth: "65%" }}
         />
-      </p>
+      </div>
       <p>
         After splitting the circle into 16 equal parts, a decision on what the
         color of each pixel should be needs to be made. For pixels with just a
@@ -81,13 +82,13 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
         If only one "fragment" is requuired per pixel, then a sample from the
         center of each pixel can be taken, resulting in the render below:
       </p>
-      <p className="util text-center">
-        <img
+      <div className="image util text-center">
+        <Image
+          src="basics/fragment-2.png"
           alt="Fragment Example Part 2"
-          style={{ width: "65%" }}
-          src={fragment2Img}
+          style={{ maxWidth: "65%" }}
         />
-      </p>
+      </div>
       <p>
         Instead, if multiple fragments are taken, a final color value for the
         pixel can be interpolated based on what the color of each fragment is.
@@ -98,31 +99,31 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
         since two of these fragments would have the color red, and the other two
         would have the color white:
       </p>
-      <p className="util text-center">
-        <img
+      <div className="image util text-center">
+        <Image
+          src="basics/fragment-3.png"
           alt="Fragment Example Part 3"
-          style={{ width: "65%" }}
-          src={fragment3Img}
+          style={{ maxWidth: "65%" }}
         />
-      </p>
+      </div>
       <p>
         While not as accurate as our initial image, it is still closer to
         reality compared to the first result. If you're not sure how, let's see
         how these images look at 30px width and height.
       </p>
-      <p className="util text-center">
-        <img
+      <div className="image util text-center">
+        <Image
+          src="basics/fragment-2.png"
           alt="Fragment Example Part 2 Mini"
-          style={{ width: "30px" }}
-          src={fragment2Img}
+          style={{ maxWidth: "30px" }}
         />
         <br />
-        <img
+        <Image
+          src="basics/fragment-3.png"
           alt="Fragment Example Part 3 Mini"
-          style={{ width: "30px" }}
-          src={fragment3Img}
+          style={{ maxWidth: "30px" }}
         />
-      </p>
+      </div>
       <p>
         At a much smaller scale, the second result looks considerably more like
         a circle than the first result. This is how certain anti-aliasing

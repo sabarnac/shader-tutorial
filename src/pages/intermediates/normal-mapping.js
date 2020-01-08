@@ -3,19 +3,22 @@ import React from "react";
 
 import Content from "../../components/content";
 import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Image from "../../components/image";
 import NormalMappingFirstExample from "../../components/intermediates/normal-mapping/first-example";
 import NormalMappingSecondExample from "../../components/intermediates/normal-mapping/second-example";
-import { secondFragmentShaderSource, secondVertexShaderSource } from "../../components/intermediates/normal-mapping/second-example-shaders";
+import {
+  secondFragmentShaderSource,
+  secondVertexShaderSource,
+} from "../../components/intermediates/normal-mapping/second-example-shaders";
 import NormalMappingThirdExample from "../../components/intermediates/normal-mapping/third-example";
-import { thirdFragmentShaderSource, thirdVertexShaderSource } from "../../components/intermediates/normal-mapping/third-example-shaders";
+import {
+  thirdFragmentShaderSource,
+  thirdVertexShaderSource,
+} from "../../components/intermediates/normal-mapping/third-example-shaders";
 import Layout from "../../components/layout";
 import PageChange from "../../components/page-change";
 import SEO from "../../components/seo";
 import { renderEquation } from "../../components/util";
-import normalTexture from "../../images/intermediates/normal.png";
-import surface1 from "../../images/intermediates/surface-1.png";
-import surface2 from "../../images/intermediates/surface-2.png";
-import texture from "../../images/intermediates/texture-2.png";
 
 const NormalMappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -84,26 +87,26 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         light will bounce and fall onto your eyes, this value can affect how a
         surface looks.
       </p>
-      <p className="util text-center">
-        <img
+      <div className="image util text-center">
+        <Image
+          src="intermediates/surface-1.png"
           alt="Smooth Surface Light Reflection"
-          style={{ width: "65%" }}
-          src={surface1}
+          style={{ maxWidth: "65%" }}
         />
-      </p>
+      </div>
       <p>
         With a smooth surface, all points on the surface have their normals
         pointing in the same direction. This means that light falling on the
         surface bounces and reflects in the exact same manner across it, giving
         it a flat appearance, similar to the wall example seen above.
       </p>
-      <p className="util text-center">
-        <img
+      <div className="image util text-center">
+        <Image
+          src="intermediates/surface-2.png"
           alt="Rough Surface Light Reflection"
-          style={{ width: "65%" }}
-          src={surface2}
+          style={{ maxWidth: "65%" }}
         />
-      </p>
+      </div>
       <p>
         In contrast, a rough and bumpy surface has points with normals pointing
         towards different directions. This results in certain spots reflecting a
@@ -129,24 +132,24 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       </p>
       <h3>Normal Maps</h3>
       <p>The texture maps that will be used to color and light the wall are:</p>
-      <p className="util text-center">
-        <img
-          alt="Stone Wall - Color Map"
-          style={{ width: "65%" }}
-          src={texture}
+      <div className="image util text-center">
+        <Image
+          src="intermediates/texture-2.png"
+          alt="Stone Wall - Diffuse Map"
+          style={{ maxWidth: "65%" }}
         />
         <br />
         Diffuse map
-      </p>
-      <p className="util text-center">
-        <img
+      </div>
+      <div className="image util text-center">
+        <Image
+          src="intermediates/normal.png"
           alt="Stone Wall - Normal Map"
-          style={{ width: "65%" }}
-          src={normalTexture}
+          style={{ maxWidth: "65%" }}
         />
         <br />
         Normal map
-      </p>
+      </div>
       <p>
         The normal map is an image that contains the following information per
         pixel:

@@ -14,7 +14,6 @@ import Footer from "./footer";
 import Header from "./header";
 import Notice from "./notice";
 
-
 const Layout = ({ children }) => (
   <StaticQuery
     query={graphql`
@@ -26,10 +25,14 @@ const Layout = ({ children }) => (
         }
       }
     `}
-    render={data => (
+    render={({
+      site: {
+        siteMetadata: { title },
+      },
+    }) => (
       <div className="container">
         <div className="row wrapper">
-          <Header siteTitle={data.site.siteMetadata.title} />
+          <Header siteTitle={title} />
           <div className="column column-75 content">
             <Notice />
             <main className="row main" id="main">
