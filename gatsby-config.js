@@ -3,7 +3,6 @@ module.exports = {
     title: `GPU Shader Tutorial`,
     baseUrl: `https://shader-tutorial.dev`,
     siteUrl: `https://shader-tutorial.dev`,
-    fbAppId: `2273493326234232`,
     description: `Learn about GPU shaders in a simple, relatively easy-to-digest format.`,
     author: `@disappointin_af`,
   },

@@ -4,11 +4,10 @@
  *
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
-import { graphql, useStaticQuery, withPrefix } from "gatsby";
-import PropTypes from "prop-types";
-import React from "react";
-import Helmet from "react-helmet";
-
+import { graphql, useStaticQuery, withPrefix } from "gatsby"
+import PropTypes from "prop-types"
+import React from "react"
+import Helmet from "react-helmet"
 
 function SEO({
   description = undefined,
@@ -27,7 +26,6 @@ function SEO({
             baseUrl
             description
             author
-            fbAppId
           }
         }
       }
@@ -79,10 +77,6 @@ function SEO({
         {
           property: `og:type`,
           content: `website`,
-        },
-        {
-          property: `fb:app_id`,
-          content: site.siteMetadata.fbAppId,
         },
         {
           name: `twitter:card`,
