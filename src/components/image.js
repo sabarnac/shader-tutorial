@@ -20,20 +20,6 @@ const ImageQuery = graphql`
         }
       }
     }
-    image1200: allFile(
-      filter: { internal: { mediaType: { regex: "images/" } } }
-    ) {
-      edges {
-        node {
-          relativePath
-          childImageSharp {
-            fluid(maxWidth: 1200, quality: 100) {
-              ...GatsbyImageSharpFluid_noBase64
-            }
-          }
-        }
-      }
-    }
     image960: allFile(
       filter: { internal: { mediaType: { regex: "images/" } } }
     ) {
@@ -112,7 +98,6 @@ const Image = ({ src, style, ...props }) => {
 
   const {
     imageMax,
-    image1200,
     image960,
     image768,
     image600,
@@ -122,7 +107,6 @@ const Image = ({ src, style, ...props }) => {
 
   const results = [
     { width: 0, query: imageMax },
-    { width: 1200, query: image1200 },
     { width: 960, query: image960 },
     { width: 768, query: image768 },
     { width: 600, query: image600 },
