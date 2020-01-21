@@ -123,7 +123,7 @@ const Image = ({ src, style, ...props }) => {
       .filter(result => !!result.node)
       .map((result, i) => ({
         ...result.node.childImageSharp.fluid,
-        media: `(max-width: ${result.width})`,
+        media: `(max-width: ${result.width}px)`,
       }))
 
     const uniqueImages = images.reduce(
