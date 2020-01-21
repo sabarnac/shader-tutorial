@@ -44,6 +44,14 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         />
         <br />
         Diffuse map
+        <br />
+        <a
+          href="https://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Source
+        </a>
       </div>
       <div className="image util text-center">
         <Image
@@ -53,6 +61,14 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         />
         <br />
         Normal map
+        <br />
+        <a
+          href="https://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Source
+        </a>
       </div>
       <div className="image util text-center">
         <Image
@@ -62,6 +78,14 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         />
         <br />
         Specular map
+        <br />
+        <a
+          href="https://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Source
+        </a>
       </div>
       <p>
         The specular map is a grayscale image that contains the following

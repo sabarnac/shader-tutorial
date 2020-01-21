@@ -140,6 +140,14 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         />
         <br />
         Diffuse map
+        <br />
+        <a
+          href="https://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Source
+        </a>
       </div>
       <div className="image util text-center">
         <Image
@@ -149,6 +157,14 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         />
         <br />
         Normal map
+        <br />
+        <a
+          href="https://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Source
+        </a>
       </div>
       <p>
         The normal map is an image that contains the following information per
