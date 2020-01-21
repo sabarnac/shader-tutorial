@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { runOnPredicate } from "../../util";
 import WebGlWrapper from "../../webgl-wrapper";
-import { bandingFragmentShaderSource, bandingVertexShaderSource } from "./banding-example-shaders";
+import { ditheringFragmentShaderSource, ditheringVertexShaderSource } from "./dithering-example-shaders";
 
 const shaderProgramInfo = {
   vertex: {
@@ -47,8 +47,8 @@ const DitheringExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          bandingVertexShaderSource,
-          bandingFragmentShaderSource
+          ditheringVertexShaderSource,
+          ditheringFragmentShaderSource
         )
       )
     }),
