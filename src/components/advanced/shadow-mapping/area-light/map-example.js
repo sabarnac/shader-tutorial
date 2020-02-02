@@ -1,11 +1,11 @@
 import { mat4 } from "gl-matrix"
 import React, { useCallback, useEffect, useState } from "react"
 
-import { coordArrToString, runOnPredicate } from "../../util"
-import WebGlWrapper from "../../webgl-wrapper"
+import { coordArrToString, runOnPredicate } from "../../../util"
+import WebGlWrapper from "../../../webgl-wrapper"
 import {
-  mapFragmentShaderSource,
-  mapVertexShaderSource,
+  areaLightMapFragmentShaderSource,
+  areaLightMapVertexShaderSource,
 } from "./map-example-shaders"
 import { modelVertices, modelIndices } from "./model"
 
@@ -17,7 +17,7 @@ const shaderProgramInfo = {
     uniformLocations: {
       modelMatrix: "mat4",
       viewMatrix: "mat4",
-      orthoMatrix: "mat4",
+      projectionMatrix: "mat4",
     },
   },
   fragment: {
@@ -30,7 +30,7 @@ const lightModelPosition = [-9.0, 27.0, -18.0]
 
 const sceneModelPosition = mat4.create()
 
-const ShadowMappingMapExample = () => {
+const ShadowMappingAreaLightMapExample = () => {
   const scene = {
     vertices: modelVertices,
     indices: modelIndices,
@@ -65,8 +65,8 @@ const ShadowMappingMapExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          mapVertexShaderSource,
-          mapFragmentShaderSource
+          areaLightMapVertexShaderSource,
+          areaLightMapFragmentShaderSource
         )
       )
     }),
@@ -109,9 +109,9 @@ const ShadowMappingMapExample = () => {
           }
 
           const { aspect, zNear, zFar } = webGlRef.canvasDimensions
-          const depthOrthoMatrix = mat4.create()
+          const depthProjectionMatrix = mat4.create()
           mat4.ortho(
-            depthOrthoMatrix,
+            depthProjectionMatrix,
             -4 * aspect,
             4 * aspect,
             -4,
@@ -132,6 +132,9 @@ const ShadowMappingMapExample = () => {
             [0.0, 1.0, 0.0]
           )
 
+          const scaledModelMatrix = mat4.create()
+          mat4.scale(scaledModelMatrix, modelMatrix, [1.75, 1.75, 1.75])
+
           gl.bindBuffer(gl.ARRAY_BUFFER, sceneBuffer.vertices)
           gl.vertexAttribPointer(
             shaderInfo.vertex.attributeLocations.vertexPosition,
@@ -150,9 +153,9 @@ const ShadowMappingMapExample = () => {
           gl.useProgram(shaderProgram)
 
           gl.uniformMatrix4fv(
-            shaderInfo.vertex.uniformLocations.orthoMatrix,
+            shaderInfo.vertex.uniformLocations.projectionMatrix,
             false,
-            depthOrthoMatrix
+            depthProjectionMatrix
           )
           gl.uniformMatrix4fv(
             shaderInfo.vertex.uniformLocations.viewMatrix,
@@ -162,7 +165,7 @@ const ShadowMappingMapExample = () => {
           gl.uniformMatrix4fv(
             shaderInfo.vertex.uniformLocations.modelMatrix,
             false,
-            modelMatrix
+            scaledModelMatrix
           )
 
           gl.drawElements(
@@ -203,4 +206,4 @@ Light:
   )
 }
 
-export default ShadowMappingMapExample
+export default ShadowMappingAreaLightMapExample
