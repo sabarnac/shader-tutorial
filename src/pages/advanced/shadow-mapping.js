@@ -1,35 +1,35 @@
-import React from "react"
+import React from "react";
 
-import { areaLightShadowFixedFragmentShaderSource } from "../../components/advanced/shadow-mapping/area-light/shadow-fixed-example-shaders"
-import Content from "../../components/content"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import SEO from "../../components/seo"
-
+import ShadowMappingAreaLightMapExample from "../../components/advanced/shadow-mapping/area-light/map-example";
 import {
-  areaLightMapVertexShaderSource,
   areaLightMapFragmentShaderSource,
-} from "../../components/advanced/shadow-mapping/area-light/map-example-shaders"
+  areaLightMapVertexShaderSource,
+} from "../../components/advanced/shadow-mapping/area-light/map-example-shaders";
+import ShadowMappingAreaLightShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-example";
 import {
-  areaLightShadowVertexShaderSource,
   areaLightShadowFragmentShaderSource,
-} from "../../components/advanced/shadow-mapping/area-light/shadow-example-shaders"
-import ShadowMappingAreaLightMapExample from "../../components/advanced/shadow-mapping/area-light/map-example"
-import ShadowMappingAreaLightShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-example"
-import ShadowMappingFixedAreaLightShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-fixed-example"
-import ShadowMappingFixedModelAreaLightShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-model-fixed-example"
-
+  areaLightShadowVertexShaderSource,
+} from "../../components/advanced/shadow-mapping/area-light/shadow-example-shaders";
+import ShadowMappingFixedAreaLightShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-fixed-example";
+import { areaLightShadowFixedFragmentShaderSource } from "../../components/advanced/shadow-mapping/area-light/shadow-fixed-example-shaders";
+import ShadowMappingFixedModelAreaLightShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-model-fixed-example";
+import ShadowMappingAreaLightPcfShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-pcf-example";
+import { areaLightShadowPcfFragmentShaderSource } from "../../components/advanced/shadow-mapping/area-light/shadow-pcf-example-shaders";
+import ShadowMappingSpotLightMapExample from "../../components/advanced/shadow-mapping/spot-light/map-example";
 import {
-  spotLightMapVertexShaderSource,
   spotLightMapFragmentShaderSource,
-} from "../../components/advanced/shadow-mapping/spot-light/map-example-shaders"
+  spotLightMapVertexShaderSource,
+} from "../../components/advanced/shadow-mapping/spot-light/map-example-shaders";
+import ShadowMappingSpotLightShadowExample from "../../components/advanced/shadow-mapping/spot-light/shadow-example";
 import {
-  spotLightShadowVertexShaderSource,
   spotLightShadowFragmentShaderSource,
-} from "../../components/advanced/shadow-mapping/spot-light/shadow-example-shaders"
-import ShadowMappingSpotLightMapExample from "../../components/advanced/shadow-mapping/spot-light/map-example"
-import ShadowMappingSpotLightShadowExample from "../../components/advanced/shadow-mapping/spot-light/shadow-example"
+  spotLightShadowVertexShaderSource,
+} from "../../components/advanced/shadow-mapping/spot-light/shadow-example-shaders";
+import Content from "../../components/content";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import SEO from "../../components/seo";
 
 const ShadowMappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -61,6 +61,11 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         type="Fragment"
       />
       <ShadowMappingFixedModelAreaLightShadowExample />
+      <ShadowMappingAreaLightPcfShadowExample />
+      <GlslCodeHighlight
+        code={areaLightShadowPcfFragmentShaderSource}
+        type="Fragment"
+      />
       <hr />
       <ShadowMappingSpotLightMapExample />
       <GlslCodeHighlight code={spotLightMapVertexShaderSource} type="Vertex" />

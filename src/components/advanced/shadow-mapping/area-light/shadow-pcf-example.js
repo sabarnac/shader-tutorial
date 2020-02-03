@@ -3,9 +3,9 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { coordArrToString, runOnPredicate } from "../../../util";
 import WebGlWrapper from "../../../webgl-wrapper";
-import { spotLightMapFragmentShaderSource, spotLightMapVertexShaderSource } from "./map-example-shaders";
-import { modelIndices, modelNormals, modelVertices } from "./model";
-import { spotLightShadowFragmentShaderSource, spotLightShadowVertexShaderSource } from "./shadow-example-shaders";
+import { areaLightMapFragmentShaderSource, areaLightMapVertexShaderSource } from "./map-example-shaders";
+import { modelIndices, modelNormals, modelVertices } from "./model-fixed";
+import { areaLightShadowPcfFragmentShaderSource, areaLightShadowPcfVertexShaderSource } from "./shadow-pcf-example-shaders";
 
 const shadowMapShaderProgramInfo = {
   vertex: {
@@ -54,13 +54,13 @@ const shaderProgramInfo = {
   },
 }
 
-const lightModelPosition = vec4.fromValues(-3.0, 10.0, -6.0, 1.0)
+const lightModelPosition = vec4.fromValues(-9.0, 27.0, -18.0, 1.0)
 const lightColor = vec3.fromValues(0.3, 0.3, 0.3)
-const lightIntensity = 300.0
+const lightIntensity = 2500.0
 
 const sceneModelPosition = mat4.create()
 
-const ShadowMappingSpotLightShadowExample = () => {
+const ShadowMappingAreaLightPcfShadowExample = () => {
   const scene = {
     vertices: modelVertices,
     normals: modelNormals,
@@ -106,8 +106,8 @@ const ShadowMappingSpotLightShadowExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShadowMapShaderProgram(
         webGlRef.createShaderProgram(
-          spotLightMapVertexShaderSource,
-          spotLightMapFragmentShaderSource
+          areaLightMapVertexShaderSource,
+          areaLightMapFragmentShaderSource
         )
       )
     }),
@@ -162,8 +162,8 @@ const ShadowMappingSpotLightShadowExample = () => {
     runOnPredicate(shadowMapFramebuffer !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          spotLightShadowVertexShaderSource,
-          spotLightShadowFragmentShaderSource
+          areaLightShadowPcfVertexShaderSource,
+          areaLightShadowPcfFragmentShaderSource
         )
       )
     }),
@@ -213,13 +213,21 @@ const ShadowMappingSpotLightShadowExample = () => {
         const lightProjectionMatrix = mat4.create()
 
         webGlRef.renderToFramebuffer(shadowMapFramebuffer, () => {
-          webGlRef.renderScene(({ gl, modelMatrix }) => {
+          webGlRef.renderSceneOrtho(({ gl, modelMatrix }) => {
             if (!shouldRender) {
               return
             }
 
-            const { fov, aspect } = webGlRef.canvasDimensions
-            mat4.perspective(lightProjectionMatrix, fov, aspect, 5.0, 1000.0)
+            const { aspect, zNear, zFar } = webGlRef.canvasDimensions
+            mat4.ortho(
+              lightProjectionMatrix,
+              -4 * aspect,
+              4 * aspect,
+              -4,
+              4,
+              zNear,
+              zFar
+            )
 
             gl.clearColor(1.0, 1.0, 1.0, 1.0)
             gl.clearDepth(1.0)
@@ -232,11 +240,11 @@ const ShadowMappingSpotLightShadowExample = () => {
                 lightModelPosition[1],
                 lightModelPosition[2],
               ],
-              [1.0, -0.75, -0.5],
+              [0.0, -0.75, 0.0],
               [0.0, 1.0, 0.0]
             )
 
-            mat4.scale(lightModelMatrix, modelMatrix, [1.3, 1.3, 1.3])
+            mat4.scale(lightModelMatrix, modelMatrix, [1.6, 1.6, 1.6])
 
             gl.bindBuffer(gl.ARRAY_BUFFER, shadowMapSceneBuffer.vertices)
             gl.vertexAttribPointer(
@@ -425,4 +433,4 @@ Light:
   )
 }
 
-export default ShadowMappingSpotLightShadowExample
+export default ShadowMappingAreaLightPcfShadowExample
