@@ -13,8 +13,10 @@ import {
 import ShadowMappingFixedAreaLightShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-fixed-example";
 import { areaLightShadowFixedFragmentShaderSource } from "../../components/advanced/shadow-mapping/area-light/shadow-fixed-example-shaders";
 import ShadowMappingFixedModelAreaLightShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-model-fixed-example";
+import * as ShadowMappingFixedModelAreaLightZoomedShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-model-fixed-zoomed-example";
 import ShadowMappingAreaLightPcfShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-pcf-example";
 import { areaLightShadowPcfFragmentShaderSource } from "../../components/advanced/shadow-mapping/area-light/shadow-pcf-example-shaders";
+import ShadowMappingAreaLightPcfZoomedShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-pcf-zoomed-example";
 import ShadowMappingSpotLightMapExample from "../../components/advanced/shadow-mapping/spot-light/map-example";
 import {
   spotLightMapFragmentShaderSource,
@@ -61,11 +63,13 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         type="Fragment"
       />
       <ShadowMappingFixedModelAreaLightShadowExample />
+      <ShadowMappingFixedModelAreaLightZoomedShadowExample.default />
       <ShadowMappingAreaLightPcfShadowExample />
       <GlslCodeHighlight
         code={areaLightShadowPcfFragmentShaderSource}
         type="Fragment"
       />
+      <ShadowMappingAreaLightPcfZoomedShadowExample />
       <hr />
       <ShadowMappingSpotLightMapExample />
       <GlslCodeHighlight code={spotLightMapVertexShaderSource} type="Vertex" />
