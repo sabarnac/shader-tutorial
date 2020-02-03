@@ -1,13 +1,10 @@
-import { mat4 } from "gl-matrix"
-import React, { useCallback, useEffect, useState } from "react"
+import { mat4 } from "gl-matrix";
+import React, { useCallback, useEffect, useState } from "react";
 
-import { coordArrToString, runOnPredicate } from "../../../util"
-import WebGlWrapper from "../../../webgl-wrapper"
-import {
-  spotLightMapFragmentShaderSource,
-  spotLightMapVertexShaderSource,
-} from "./map-example-shaders"
-import { modelVertices, modelIndices } from "./model"
+import { coordArrToString, runOnPredicate } from "../../../util";
+import WebGlWrapper from "../../../webgl-wrapper";
+import { spotLightMapFragmentShaderSource, spotLightMapVertexShaderSource } from "./map-example-shaders";
+import { modelIndices, modelVertices } from "./model";
 
 const shaderProgramInfo = {
   vertex: {
@@ -22,10 +19,7 @@ const shaderProgramInfo = {
   },
   fragment: {
     attributeLocations: {},
-    uniformLocations: {
-      nearPlane: "float",
-      farPlane: "float",
-    },
+    uniformLocations: {},
   },
 }
 
@@ -106,13 +100,14 @@ const ShadowMappingSpotLightMapExample = () => {
       updateShouldRender(true)
 
       const renderScene = () => {
-        webGlRef.renderScene(({ gl, projectionMatrix, modelMatrix }) => {
+        webGlRef.renderScene(({ gl, modelMatrix }) => {
           if (!shouldRender) {
             return
           }
 
+          const { fov, aspect } = webGlRef.canvasDimensions
           const depthProjectionMatrix = mat4.create()
-          mat4.copy(depthProjectionMatrix, projectionMatrix)
+          mat4.perspective(depthProjectionMatrix, fov, aspect, 5.0, 1000.0)
 
           gl.clearColor(1.0, 1.0, 1.0, 1.0)
           gl.clearDepth(1.0)
@@ -160,15 +155,6 @@ const ShadowMappingSpotLightMapExample = () => {
             shaderInfo.vertex.uniformLocations.modelMatrix,
             false,
             scaledModelMatrix
-          )
-
-          gl.uniform1f(
-            shaderInfo.fragment.uniformLocations.nearPlane,
-            webGlRef.canvasDimensions.zNear
-          )
-          gl.uniform1f(
-            shaderInfo.fragment.uniformLocations.farPlane,
-            webGlRef.canvasDimensions.zFar
           )
 
           gl.drawElements(

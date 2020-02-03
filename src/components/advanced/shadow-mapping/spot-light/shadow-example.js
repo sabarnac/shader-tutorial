@@ -1,17 +1,11 @@
-import { mat4, vec3, vec4 } from "gl-matrix"
-import React, { useCallback, useEffect, useState } from "react"
+import { mat4, vec3, vec4 } from "gl-matrix";
+import React, { useCallback, useEffect, useState } from "react";
 
-import { coordArrToString, runOnPredicate } from "../../../util"
-import WebGlWrapper from "../../../webgl-wrapper"
-import {
-  spotLightMapFragmentShaderSource,
-  spotLightMapVertexShaderSource,
-} from "./map-example-shaders"
-import {
-  spotLightShadowFragmentShaderSource,
-  spotLightShadowVertexShaderSource,
-} from "./shadow-example-shaders"
-import { modelVertices, modelNormals, modelIndices } from "./model"
+import { coordArrToString, runOnPredicate } from "../../../util";
+import WebGlWrapper from "../../../webgl-wrapper";
+import { spotLightMapFragmentShaderSource, spotLightMapVertexShaderSource } from "./map-example-shaders";
+import { modelIndices, modelNormals, modelVertices } from "./model";
+import { spotLightShadowFragmentShaderSource, spotLightShadowVertexShaderSource } from "./shadow-example-shaders";
 
 const shadowMapShaderProgramInfo = {
   vertex: {
@@ -26,10 +20,7 @@ const shadowMapShaderProgramInfo = {
   },
   fragment: {
     attributeLocations: {},
-    uniformLocations: {
-      nearPlane: "float",
-      farPlane: "float",
-    },
+    uniformLocations: {},
   },
 }
 
@@ -56,9 +47,6 @@ const shaderProgramInfo = {
   fragment: {
     attributeLocations: {},
     uniformLocations: {
-      nearPlane: "float",
-      farPlane: "float",
-
       ambientFactor: "float",
       shadowMapTextureSampler: "sampler2D",
     },
@@ -220,12 +208,13 @@ const ShadowMappingSpotLightShadowExample = () => {
         const lightProjectionMatrix = mat4.create()
 
         webGlRef.renderToFramebuffer(shadowMapFramebuffer, () => {
-          webGlRef.renderScene(({ gl, projectionMatrix, modelMatrix }) => {
+          webGlRef.renderScene(({ gl, modelMatrix }) => {
             if (!shouldRender) {
               return
             }
 
-            mat4.copy(lightProjectionMatrix, projectionMatrix)
+            const { fov, aspect } = webGlRef.canvasDimensions
+            mat4.perspective(lightProjectionMatrix, fov, aspect, 5.0, 1000.0)
 
             gl.clearColor(1.0, 1.0, 1.0, 1.0)
             gl.clearDepth(1.0)
@@ -275,15 +264,6 @@ const ShadowMappingSpotLightShadowExample = () => {
               shadowMapShaderInfo.vertex.uniformLocations.modelMatrix,
               false,
               lightModelMatrix
-            )
-
-            gl.uniform1f(
-              shadowMapShaderInfo.fragment.uniformLocations.nearPlane,
-              webGlRef.canvasDimensions.zNear
-            )
-            gl.uniform1f(
-              shadowMapShaderInfo.fragment.uniformLocations.farPlane,
-              webGlRef.canvasDimensions.zFar
             )
 
             gl.drawElements(
@@ -386,15 +366,6 @@ const ShadowMappingSpotLightShadowExample = () => {
           gl.uniform1f(
             shaderInfo.fragment.uniformLocations.ambientFactor,
             scene.ambientFactor
-          )
-
-          gl.uniform1f(
-            shaderInfo.fragment.uniformLocations.nearPlane,
-            webGlRef.canvasDimensions.zNear
-          )
-          gl.uniform1f(
-            shaderInfo.fragment.uniformLocations.farPlane,
-            webGlRef.canvasDimensions.zFar
           )
 
           gl.activeTexture(gl.TEXTURE0)
