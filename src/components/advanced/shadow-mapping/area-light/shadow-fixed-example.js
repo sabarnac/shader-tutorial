@@ -1,17 +1,12 @@
-import { mat4, vec3, vec4 } from "gl-matrix"
-import React, { useCallback, useEffect, useState } from "react"
+import { mat4, vec3, vec4 } from "gl-matrix";
+import React, { useCallback, useEffect, useState } from "react";
 
-import { coordArrToString, runOnPredicate } from "../../../util"
-import WebGlWrapper from "../../../webgl-wrapper"
-import {
-  areaLightMapFragmentShaderSource,
-  areaLightMapVertexShaderSource,
-} from "./map-example-shaders"
-import {
-  areaLightShadowFixedFragmentShaderSource,
-  areaLightShadowFixedVertexShaderSource,
-} from "./shadow-fixed-example-shaders"
-import { modelVertices, modelNormals, modelIndices } from "./model"
+import { coordArrToString, runOnPredicate } from "../../../util";
+import wrapExample from "../../../webgl-example-view";
+import WebGlWrapper from "../../../webgl-wrapper";
+import { areaLightMapFragmentShaderSource, areaLightMapVertexShaderSource } from "./map-example-shaders";
+import { modelIndices, modelNormals, modelVertices } from "./model";
+import { areaLightShadowFixedFragmentShaderSource, areaLightShadowFixedVertexShaderSource } from "./shadow-fixed-example-shaders";
 
 const shadowMapShaderProgramInfo = {
   vertex: {
@@ -93,10 +88,11 @@ const ShadowMappingFixedAreaLightShadowExample = () => {
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, sceneModelPosition))
-      return () => updateWebGlRef(webGlRef => {
-        webGlRef.destroy()
-        return null
-      })
+      return () =>
+        updateWebGlRef(webGlRef => {
+          webGlRef.destroy()
+          return null
+        })
     }
   }, [])
 
@@ -426,4 +422,4 @@ Light:
   )
 }
 
-export default ShadowMappingFixedAreaLightShadowExample
+export default wrapExample(ShadowMappingFixedAreaLightShadowExample)
