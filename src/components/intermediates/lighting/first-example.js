@@ -174,6 +174,10 @@ const LightingFirstExample = () => {
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
+      return () => updateWebGlRef(webGlRef => {
+        webGlRef.destroy()
+        return null
+      })
     }
   }, [])
 

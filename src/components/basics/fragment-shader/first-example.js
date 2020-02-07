@@ -24,7 +24,11 @@ const triangleModelPosition = mat4.create()
 
 const FragmentShaderFirstExample = () => {
   const triangle = {
-    vertices: [[0.0, 1.0, 0.0], [-0.866, -0.5, 0.0], [0.866, -0.5, 0.0]],
+    vertices: [
+      [0.0, 1.0, 0.0],
+      [-0.866, -0.5, 0.0],
+      [0.866, -0.5, 0.0],
+    ],
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -35,6 +39,11 @@ const FragmentShaderFirstExample = () => {
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, triangleModelPosition))
+      return () =>
+        updateWebGlRef(webGlRef => {
+          webGlRef.destroy()
+          return null
+        })
     }
   }, [])
 

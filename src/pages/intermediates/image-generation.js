@@ -9,10 +9,7 @@ import { eighthFragmentShaderSource } from "../../components/intermediates/image
 import RandomImageGenerationFifthExample from "../../components/intermediates/image-generation/fifth-example";
 import { fifthFragmentShaderSource } from "../../components/intermediates/image-generation/fifth-example-shaders";
 import RandomImageGenerationFirstExample from "../../components/intermediates/image-generation/first-example";
-import {
-  firstFragmentShaderSource,
-  firstVertexShaderSource,
-} from "../../components/intermediates/image-generation/first-example-shaders";
+import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/image-generation/first-example-shaders";
 import RandomImageGenerationFourthExample from "../../components/intermediates/image-generation/fourth-example";
 import { fourthFragmentShaderSource } from "../../components/intermediates/image-generation/fourth-example-shaders";
 import RandomImageGenerationNinthExample from "../../components/intermediates/image-generation/ninth-example";

@@ -156,6 +156,10 @@ const SpecularMappingFirstExample = () => {
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, squareModelPosition))
+      return () => updateWebGlRef(webGlRef => {
+        webGlRef.destroy()
+        return null
+      })
     }
   }, [])
 

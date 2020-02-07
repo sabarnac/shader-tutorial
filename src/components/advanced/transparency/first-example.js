@@ -68,6 +68,10 @@ const TransparencyFirstExample = () => {
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition, true))
+      return () => updateWebGlRef(webGlRef => {
+        webGlRef.destroy()
+        return null
+      })
     }
   }, [])
 
