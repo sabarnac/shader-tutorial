@@ -38,10 +38,11 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
     <SEO
       pathname={pathname}
       title="Shader Advanced - Shadow Mapping"
-      description="A look into what color banding is and how to mitigate it using dithering."
-      keywords={["shader", "advanced", "banding", "dithering"]}
+      description="A look into the how shadow maps can be generated and used to add dynamic shadows produced by objects in a scene."
+      keywords={["specular", "mapping", "texturing", "shader", "intermediates"]}
     />
     <Content>
+      <h2>Shader Advanced - Shadow Mapping</h2>
       <ShadowMappingAreaLightMapExample />
       <GlslCodeHighlight code={areaLightMapVertexShaderSource} type="Vertex" />
       <GlslCodeHighlight
