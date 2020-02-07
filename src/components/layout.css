@@ -37,6 +37,18 @@ canvas {
   max-width: 800px;
 }
 
+button.example-view-link {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  font-size: 1.4rem;
+  line-height: 1rem;
+  cursor: pointer;
+  color: #dddddd;
+  border-bottom: 1px dotted #dddddd;
+  border-radius: 0%;
+}
+
 a,
 a:visited {
   color: #dddddd;

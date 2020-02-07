@@ -1,8 +1,13 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 const wrapExample = ExampleComponent => {
   return () => {
-    const [hidden, setHidden] = useState(true)
+    const [hidden, setHidden] = useState(false)
+    const [height, setHeight] = useState(480)
+
+    useEffect(() => {
+      setHidden(true)
+    }, [])
 
     const exampleRef = useCallback(div => {
       if (div !== null) {
@@ -14,6 +19,8 @@ const wrapExample = ExampleComponent => {
           })
         })
         observer.observe(div)
+        setHeight(div.getBoundingClientRect().height)
+
         return () => observer.unobserve(div)
       }
     }, [])
@@ -23,19 +30,21 @@ const wrapExample = ExampleComponent => {
         style={{
           padding: "2rem",
           margin: "2rem 0",
-          textAlign: "center",
           border: "1px solid #dddddd",
+          height: `${height}px`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <a
-          href="#"
-          onClick={ev => {
-            ev.preventDefault()
+        <button
+          className="example-view-link"
+          onClick={() => {
             setHidden(false)
           }}
         >
           Show example
-        </a>
+        </button>
       </div>
     ) : (
       <div
@@ -48,15 +57,14 @@ const wrapExample = ExampleComponent => {
       >
         <ExampleComponent />
         <div style={{ padding: "1rem", textAlign: "center" }}>
-          <a
-            href="#"
-            onClick={ev => {
-              ev.preventDefault()
+          <button
+            className="example-view-link"
+            onClick={() => {
               setHidden(true)
             }}
           >
             Hide example
-          </a>
+          </button>
         </div>
       </div>
     )
