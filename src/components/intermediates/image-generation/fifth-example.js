@@ -2,6 +2,7 @@ import { mat4 } from "gl-matrix";
 import React, { useCallback, useEffect, useState } from "react";
 
 import { runOnPredicate } from "../../util";
+import wrapExample from "../../webgl-example-view";
 import WebGlWrapper from "../../webgl-wrapper";
 import { fifthFragmentShaderSource, fifthVertexShaderSource } from "./fifth-example-shaders";
 
@@ -132,4 +133,4 @@ const RandomImageGenerationFifthExample = () => {
   )
 }
 
-export default RandomImageGenerationFifthExample
+export default wrapExample(RandomImageGenerationFifthExample)

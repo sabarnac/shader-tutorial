@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import texture from "../../../images/intermediates/texture.png";
 import { coordArrToString, runOnPredicate, uvArrToString } from "../../util";
+import wrapExample from "../../webgl-example-view";
 import WebGlWrapper from "../../webgl-wrapper";
 import { firstFragmentShaderSource, firstVertexShaderSource } from "./first-example-shaders";
 
@@ -104,10 +105,11 @@ const ColorMappingFirstExample = () => {
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
-      return () => updateWebGlRef(webGlRef => {
-        webGlRef.destroy()
-        return null
-      })
+      return () =>
+        updateWebGlRef(webGlRef => {
+          webGlRef.destroy()
+          return null
+        })
     }
   }, [])
 
@@ -277,4 +279,4 @@ Cube:
   )
 }
 
-export default ColorMappingFirstExample
+export default wrapExample(ColorMappingFirstExample)

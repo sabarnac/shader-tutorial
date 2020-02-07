@@ -2,6 +2,7 @@ import { mat4 } from "gl-matrix";
 import React, { useCallback, useEffect, useState } from "react";
 
 import { runOnPredicate } from "../../util";
+import wrapExample from "../../webgl-example-view";
 import WebGlWrapper from "../../webgl-wrapper";
 import { fragmentShaderSource, vertexShaderSource } from "./common-shaders";
 
@@ -53,7 +54,10 @@ const TransparencyThirdExample = () => {
       [0.0, 1.0, 0.0],
       [0.0, 1.0, 0.0],
     ],
-    indices: [[0, 1, 2, 3, 4, 5], [6, 7, 8, 9, 10, 11]],
+    indices: [
+      [0, 1, 2, 3, 4, 5],
+      [6, 7, 8, 9, 10, 11],
+    ],
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
@@ -68,10 +72,11 @@ const TransparencyThirdExample = () => {
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition, true))
-      return () => updateWebGlRef(webGlRef => {
-        webGlRef.destroy()
-        return null
-      })
+      return () =>
+        updateWebGlRef(webGlRef => {
+          webGlRef.destroy()
+          return null
+        })
     }
   }, [])
 
@@ -202,4 +207,4 @@ Order of Faces:
   )
 }
 
-export default TransparencyThirdExample
+export default wrapExample(TransparencyThirdExample)

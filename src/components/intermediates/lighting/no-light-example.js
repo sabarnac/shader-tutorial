@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import texture from "../../../images/intermediates/texture.png";
 import { runOnPredicate } from "../../util";
+import wrapExample from "../../webgl-example-view";
 import WebGlWrapper from "../../webgl-wrapper";
 import { noLightFragmentShaderSource, noLightVertexShaderSource } from "./no-light-example-shaders";
 
@@ -120,10 +121,11 @@ const LightingNoLightExample = () => {
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
-      return () => updateWebGlRef(webGlRef => {
-        webGlRef.destroy()
-        return null
-      })
+      return () =>
+        updateWebGlRef(webGlRef => {
+          webGlRef.destroy()
+          return null
+        })
     }
   }, [])
 
@@ -280,4 +282,4 @@ const LightingNoLightExample = () => {
   )
 }
 
-export default LightingNoLightExample
+export default wrapExample(LightingNoLightExample)

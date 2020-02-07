@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import texture from "../../../images/intermediates/texture.png";
 import { coordArrToString, runOnPredicate } from "../../util";
+import wrapExample from "../../webgl-example-view";
 import WebGlWrapper from "../../webgl-wrapper";
 import { thirdFragmentShaderSource, thirdVertexShaderSource } from "./third-example-shaders";
 
@@ -180,10 +181,11 @@ const LightingThirdExample = () => {
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
-      return () => updateWebGlRef(webGlRef => {
-        webGlRef.destroy()
-        return null
-      })
+      return () =>
+        updateWebGlRef(webGlRef => {
+          webGlRef.destroy()
+          return null
+        })
     }
   }, [])
 
@@ -404,4 +406,4 @@ Light:
   )
 }
 
-export default LightingThirdExample
+export default wrapExample(LightingThirdExample)

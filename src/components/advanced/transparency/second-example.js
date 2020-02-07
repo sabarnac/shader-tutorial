@@ -2,6 +2,7 @@ import { mat4 } from "gl-matrix";
 import React, { useCallback, useEffect, useState } from "react";
 
 import { runOnPredicate } from "../../util";
+import wrapExample from "../../webgl-example-view";
 import WebGlWrapper from "../../webgl-wrapper";
 import { fragmentShaderSource, vertexShaderSource } from "./common-shaders";
 
@@ -71,10 +72,11 @@ const TransparenceySecondExample = () => {
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition, true))
-      return () => updateWebGlRef(webGlRef => {
-        webGlRef.destroy()
-        return null
-      })
+      return () =>
+        updateWebGlRef(webGlRef => {
+          webGlRef.destroy()
+          return null
+        })
     }
   }, [])
 
@@ -205,4 +207,4 @@ Order of Faces:
   )
 }
 
-export default TransparenceySecondExample
+export default wrapExample(TransparenceySecondExample)

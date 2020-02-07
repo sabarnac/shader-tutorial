@@ -2,6 +2,7 @@ import { mat4 } from "gl-matrix";
 import React, { useCallback, useEffect, useState } from "react";
 
 import { coordArrToString, runOnPredicate } from "../../util";
+import wrapExample from "../../webgl-example-view";
 import WebGlWrapper from "../../webgl-wrapper";
 import { firstFragmentShaderSource, firstVertexShaderSource } from "./first-example-shaders";
 
@@ -146,4 +147,4 @@ Triangle Vertices:
   )
 }
 
-export default FragmentShaderFirstExample
+export default wrapExample(FragmentShaderFirstExample)

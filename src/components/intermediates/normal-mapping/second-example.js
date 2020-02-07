@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import normalTexture from "../../../images/intermediates/normal.png";
 import texture from "../../../images/intermediates/texture-2.png";
 import { coordArrToString, runOnPredicate } from "../../util";
+import wrapExample from "../../webgl-example-view";
 import WebGlWrapper from "../../webgl-wrapper";
 import { secondFragmentShaderSource, secondVertexShaderSource } from "./second-example-shaders";
 
@@ -153,10 +154,11 @@ const NormalMappingSecondExample = () => {
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, squareModelPosition))
-      return () => updateWebGlRef(webGlRef => {
-        webGlRef.destroy()
-        return null
-      })
+      return () =>
+        updateWebGlRef(webGlRef => {
+          webGlRef.destroy()
+          return null
+        })
     }
   }, [])
 
@@ -403,4 +405,4 @@ Light:
   )
 }
 
-export default NormalMappingSecondExample
+export default wrapExample(NormalMappingSecondExample)
