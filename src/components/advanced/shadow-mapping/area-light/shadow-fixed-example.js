@@ -93,17 +93,10 @@ const ShadowMappingFixedAreaLightShadowExample = () => {
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, sceneModelPosition))
-    }
-
-    return () => {
-      if (canvas !== null) {
-        updateWebGlRef(webGlRef => {
-          if (webGlRef !== null) {
-            webGlRef.destroy()
-          }
-          return null
-        })
-      }
+      return () => updateWebGlRef(webGlRef => {
+        webGlRef.destroy()
+        return null
+      })
     }
   }, [])
 
