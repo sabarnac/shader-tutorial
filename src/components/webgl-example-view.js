@@ -30,7 +30,7 @@ const wrapExample = ExampleComponent => {
         style={{
           padding: "2rem",
           margin: "2rem 0",
-          border: "1px solid #dddddd",
+          border: "1px dashed #dddddd",
           height: `${height}px`,
           display: "flex",
           alignItems: "center",
@@ -51,7 +51,7 @@ const wrapExample = ExampleComponent => {
         style={{
           padding: "2rem",
           margin: "2rem 0",
-          border: "1px solid #dddddd",
+          border: "1px dashed #dddddd",
         }}
         ref={exampleRef}
       >

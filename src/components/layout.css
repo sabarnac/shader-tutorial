@@ -32,6 +32,7 @@ h6 {
 }
 
 canvas {
+  border: 1px solid #dddddd;
   background: #dddddd;
   width: 100%;
   max-width: 800px;
