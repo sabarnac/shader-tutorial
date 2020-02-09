@@ -41,13 +41,13 @@ canvas {
 button.example-view-link {
   background: none !important;
   border: none;
-  padding: 0 !important;
-  font-size: 1.4rem;
-  line-height: 1rem;
+  padding: 0.5rem !important;
+  font-size: 3rem;
   cursor: pointer;
   color: #dddddd;
   border-bottom: 1px dotted #dddddd;
   border-radius: 0%;
+  height: auto;
 }
 
 a,
