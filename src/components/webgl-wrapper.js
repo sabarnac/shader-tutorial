@@ -650,7 +650,7 @@ export default class WebGlWrapper {
   }
 
   renderScene = renderer => {
-    this.resizeCanvas()
+    this._resizeCanvas()
 
     const renderInfo = {
       gl: this._webgl,
@@ -667,7 +667,7 @@ export default class WebGlWrapper {
   }
 
   renderSceneOrtho = renderer => {
-    this.resizeCanvas()
+    this._resizeCanvas()
 
     const renderInfo = {
       gl: this._webgl,
