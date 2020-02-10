@@ -2,9 +2,10 @@ import { mat4, vec2 } from "gl-matrix";
 
 export default class WebGlWrapper {
   _canvas = null
-  _canvasDimensions = {
+  canvasDimensions = {
     width: 0,
     height: 0,
+    scale: window.devicePixelRatio || 1,
     aspect: 1.0,
     fov: (45 * Math.PI) / 180,
     zNear: 0.1,
@@ -16,19 +17,19 @@ export default class WebGlWrapper {
   _modelMatrix = mat4.create()
 
   constructor(canvas, modelPosition, disableDepth = false) {
-    this._canvas = canvas
-    this._canvasDimensions = {
-      ...this._canvasDimensions,
-      width: this._canvas.width,
-      height: this._canvas.height,
-      aspect: this._canvas.width / this._canvas.height,
+    this.canvasDimensions = {
+      ...this.canvasDimensions,
+      width: canvas.width,
+      height: canvas.height,
+      aspect: canvas.width / canvas.height,
     }
+    this._canvas = canvas
 
     this._webgl =
       this._canvas.getContext("webgl") ||
       this._canvas.getContext("experimental-webgl")
     if (this._webgl === null) {
-      this._showNotSupported()
+      this._showNotSupported(canvas)
     }
 
     this._startSetup(modelPosition, disableDepth)
@@ -39,9 +40,10 @@ export default class WebGlWrapper {
       "Unable to initialize WebGL. Your browser or machine may not support it."
     )
     const ctx = this._canvas.getContext("2d")
+    ctx.scale(this.canvasDimensions.scale, this.canvasDimensions.scale)
     if (ctx === null) {
-      const x = this._canvasDimensions.width / 2
-      const y = this._canvasDimensions.height / 2
+      const x = this.canvasDimensions.width / 2
+      const y = this.canvasDimensions.height / 2
       ctx.font = "24px sans-serif"
       ctx.textAlign = "center"
       ctx.fillText("WebGL not supported", x, y)
@@ -50,6 +52,8 @@ export default class WebGlWrapper {
   }
 
   _startSetup = (modelPosition, disableDepth) => {
+    this._resizeCanvas()
+
     if (!disableDepth) {
       this._webgl.enable(this._webgl.DEPTH_TEST)
       this._webgl.depthFunc(this._webgl.LEQUAL)
@@ -68,10 +72,11 @@ export default class WebGlWrapper {
 
     this._clearScreen()
 
-    this._canvasDimensions.aspect =
-      this._webgl.canvas.clientWidth / this._webgl.canvas.clientHeight
+    this.canvasDimensions.aspect = this._canvas.width / this._canvas.height
 
-    const { fov, aspect, zNear, zFar } = this._canvasDimensions
+    this._webgl.viewport(0, 0, this._canvas.width, this._canvas.height)
+
+    const { fov, aspect, zNear, zFar } = this.canvasDimensions
 
     mat4.ortho(this._orthoMatrix, -2 * aspect, 2 * aspect, -2, 2, zNear, zFar)
     mat4.perspective(this._projectionMatrix, fov, aspect, zNear, zFar)
@@ -143,20 +148,23 @@ export default class WebGlWrapper {
   }
 
   _resizeCanvas = () => {
-    if (this._canvas.width !== this._canvas.clientWidth) {
-      this._canvas.width = this._canvas.clientWidth
-      this._canvas.height = (this._canvas.clientWidth * 3) / 4
+    if (
+      this._canvas.width !==
+      this._canvas.clientWidth * this.canvasDimensions.scale
+    ) {
+      this._canvas.width =
+        this._canvas.clientWidth * this.canvasDimensions.scale
+      this._canvas.height =
+        (this._canvas.clientWidth * this.canvasDimensions.scale * 3) / 4
+
+      this._webgl.viewport(0, 0, this._canvas.width, this._canvas.height)
+
+      this.canvasDimensions.width = this._canvas.width
+      this.canvasDimensions.height = this._canvas.height
+
+      this.canvasDimensions.aspect =
+        this._canvas.clientWidth / this._canvas.clientHeight
     }
-
-    this._webgl.viewport(
-      0,
-      0,
-      this._webgl.canvas.width,
-      this._webgl.canvas.height
-    )
-
-    this._canvasDimensions.width = this._canvas.width
-    this._canvasDimensions.height = this._canvas.height
   }
 
   createShaderProgram = (vertexShaderSource, fragmentShaderSource) => {
@@ -264,6 +272,55 @@ export default class WebGlWrapper {
     return texture
   }
 
+  createRenderTargetTexture = texture => {
+    this._resizeCanvas()
+
+    if (texture === null) {
+      texture = this._webgl.createTexture()
+    }
+
+    this._webgl.bindTexture(this._webgl.TEXTURE_2D, texture)
+
+    const level = 0
+    const internalFormat = this._webgl.RGBA
+    const width = this.canvasDimensions.width
+    const height = this.canvasDimensions.height
+    const border = 0
+    const srcFormat = this._webgl.RGBA
+    const srcType = this._webgl.UNSIGNED_BYTE
+    this._webgl.texImage2D(
+      this._webgl.TEXTURE_2D,
+      level,
+      internalFormat,
+      width,
+      height,
+      border,
+      srcFormat,
+      srcType,
+      null
+    )
+
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_2D,
+      this._webgl.TEXTURE_WRAP_S,
+      this._webgl.CLAMP_TO_EDGE
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_2D,
+      this._webgl.TEXTURE_WRAP_T,
+      this._webgl.CLAMP_TO_EDGE
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_2D,
+      this._webgl.TEXTURE_MIN_FILTER,
+      this._webgl.LINEAR
+    )
+
+    this._webgl.bindTexture(this._webgl.TEXTURE_2D, null)
+
+    return texture
+  }
+
   getDataLocations = (shaderProgram, programInfo) => {
     const dataLocation = {}
     for (let type in programInfo) {
@@ -309,6 +366,55 @@ export default class WebGlWrapper {
     )
   }
 
+  createTextureTargetFramebuffer = (
+    renderTarget,
+    frameBuffer,
+    bindDepth = false
+  ) => {
+    this._resizeCanvas()
+
+    if (frameBuffer === null) {
+      frameBuffer = this._webgl.createFramebuffer()
+    }
+
+    this._webgl.bindFramebuffer(this._webgl.FRAMEBUFFER, frameBuffer)
+    this._webgl.framebufferTexture2D(
+      this._webgl.FRAMEBUFFER,
+      this._webgl.COLOR_ATTACHMENT0,
+      this._webgl.TEXTURE_2D,
+      renderTarget,
+      0
+    )
+    if (bindDepth) {
+      const depthBuffer = this._webgl.createRenderbuffer()
+      this._webgl.bindRenderbuffer(this._webgl.RENDERBUFFER, depthBuffer)
+      this._webgl.renderbufferStorage(
+        this._webgl.RENDERBUFFER,
+        this._webgl.DEPTH_COMPONENT16,
+        this.canvasDimensions.width,
+        this.canvasDimensions.height
+      )
+      this._webgl.framebufferRenderbuffer(
+        this._webgl.FRAMEBUFFER,
+        this._webgl.DEPTH_ATTACHMENT,
+        this._webgl.RENDERBUFFER,
+        depthBuffer
+      )
+    }
+
+    this._webgl.bindFramebuffer(this._webgl.FRAMEBUFFER, null)
+
+    return frameBuffer
+  }
+
+  renderToFramebuffer = (frameBuffer, renderer) => {
+    this._webgl.bindFramebuffer(this._webgl.FRAMEBUFFER, frameBuffer)
+
+    renderer()
+
+    this._webgl.bindFramebuffer(this._webgl.FRAMEBUFFER, null)
+  }
+
   renderScene = renderer => {
     this._resizeCanvas()
 
@@ -318,8 +424,8 @@ export default class WebGlWrapper {
       viewMatrix: this._viewMatrix,
       modelMatrix: this._modelMatrix,
       resolution: vec2.fromValues(
-        this._canvasDimensions.width,
-        this._canvasDimensions.height
+        this.canvasDimensions.width,
+        this.canvasDimensions.height
       ),
     }
     this._clearScreen()
@@ -335,8 +441,8 @@ export default class WebGlWrapper {
       viewMatrix: this._viewMatrix,
       modelMatrix: this._modelMatrix,
       resolution: vec2.fromValues(
-        this._canvasDimensions.width,
-        this._canvasDimensions.height
+        this.canvasDimensions.width,
+        this.canvasDimensions.height
       ),
     }
     this._clearScreen()
@@ -344,8 +450,7 @@ export default class WebGlWrapper {
   }
 
   destroy = () => {
-    this._canvas = null
-    this._canvasDimensions = {
+    this.canvasDimensions = {
       width: 0,
       height: 0,
       aspect: 1.0,
