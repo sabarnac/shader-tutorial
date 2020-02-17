@@ -261,6 +261,11 @@ export default class WebGlWrapper {
           this._webgl.TEXTURE_MIN_FILTER,
           this._webgl.LINEAR
         )
+        this._webgl.texParameteri(
+          this._webgl.TEXTURE_2D,
+          this._webgl.TEXTURE_MAG_FILTER,
+          this._webgl.LINEAR
+        )
       }
 
       this._webgl.bindTexture(this._webgl.TEXTURE_2D, null)
@@ -313,7 +318,12 @@ export default class WebGlWrapper {
     this._webgl.texParameteri(
       this._webgl.TEXTURE_2D,
       this._webgl.TEXTURE_MIN_FILTER,
-      this._webgl.LINEAR
+      this._webgl.NEAREST
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_2D,
+      this._webgl.TEXTURE_MAG_FILTER,
+      this._webgl.NEAREST
     )
 
     this._webgl.bindTexture(this._webgl.TEXTURE_2D, null)
