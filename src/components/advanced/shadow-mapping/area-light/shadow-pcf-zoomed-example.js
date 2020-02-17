@@ -358,7 +358,6 @@ const ShadowMappingAreaLightPcfZoomedShadowExample = () => {
             lightProjectionMatrix
           )
 
-          gl.uniform2fv(shaderInfo.vertex.uniformLocations.texelSize, texelSize)
           gl.uniform4fv(
             shaderInfo.vertex.uniformLocations.lightPosition_worldSpace,
             lightModelPosition
@@ -372,6 +371,10 @@ const ShadowMappingAreaLightPcfZoomedShadowExample = () => {
             lightIntensity
           )
 
+          gl.uniform2fv(
+            shaderInfo.fragment.uniformLocations.texelSize,
+            texelSize
+          )
           gl.uniform1f(
             shaderInfo.fragment.uniformLocations.ambientFactor,
             scene.ambientFactor

@@ -9,16 +9,20 @@ uniform highp float ambientFactor;
 uniform sampler2D shadowTextureSampler;
 
 const highp float acneBias = 0.005;
+const highp float sampleCountPerSide = 7.0; // Must be an odd number
+const highp float sampleCountTotal = sampleCountPerSide * sampleCountPerSide;
+const highp float sampleCountRangeEnd = floor(sampleCountPerSide / 2.0);
+const highp float sampleCountRangeStart = -1.0 * sampleCountRangeEnd;
 
 highp float getAverageVisibility(highp vec2 depthMapCoords, highp float currentDepth) {
   highp float visibility = 0.0;
-  for (int x = -1; x <= 1; x++) {
-    for (int y = -1; y <= 1; y++) {
+  for (highp float x = sampleCountRangeStart; x <= sampleCountRangeEnd; x++) {
+    for (highp float y = sampleCountRangeStart; y <= sampleCountRangeEnd; y++) {
       highp float closestDepth = texture2D(shadowTextureSampler, depthMapCoords.xy + (vec2(x, y) * texelSize)).z;
       visibility += currentDepth - acneBias > closestDepth ? 0.0 : 1.0;
     }
   }
-  return visibility / 9.0;
+  return visibility / sampleCountTotal;
 }
 
 void main() {
