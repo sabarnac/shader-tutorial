@@ -8,7 +8,7 @@ uniform highp vec4 lightPosition_worldSpace;
 uniform highp float ambientFactor;
 uniform sampler2D shadowTextureSampler;
 
-const highp float acneBias = 0.005;
+const highp float acneBias = 0.01;
 
 highp float getAverageVisibility(highp vec2 depthMapCoords, highp float currentDepth) {
   highp float visibility = 0.0;
