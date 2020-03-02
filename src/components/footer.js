@@ -27,17 +27,6 @@ const Footer = () => (
             style={{ width: "32px", height: "32px" }}
           />
         </a>
-        <a
-          href="https://twitter.com/disappointin_af"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <Image
-            src="twitter.png"
-            alt="Twitter Link"
-            style={{ width: "32px", height: "32px" }}
-          />
-        </a>
       </div>
     </footer>
   </div>

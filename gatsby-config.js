@@ -4,7 +4,6 @@ module.exports = {
     baseUrl: `https://shader-tutorial.dev`,
     siteUrl: `https://shader-tutorial.dev`,
     description: `Learn about GPU shaders in a simple, relatively easy-to-digest format.`,
-    author: `@disappointin_af`,
   },
   pathPrefix: "/",
   plugins: [
