@@ -1,4 +1,4 @@
-import { mat4, vec2 } from "gl-matrix";
+import { mat4, vec2 } from "gl-matrix"
 
 export default class WebGlWrapper {
   _canvas = null
@@ -230,6 +230,27 @@ export default class WebGlWrapper {
       pixel
     )
 
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_2D,
+      this._webgl.TEXTURE_WRAP_S,
+      this._webgl.CLAMP_TO_EDGE
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_2D,
+      this._webgl.TEXTURE_WRAP_T,
+      this._webgl.CLAMP_TO_EDGE
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_2D,
+      this._webgl.TEXTURE_MIN_FILTER,
+      this._webgl.LINEAR
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_2D,
+      this._webgl.TEXTURE_MAG_FILTER,
+      this._webgl.LINEAR
+    )
+
     const image = new Image()
     image.addEventListener("load", () => {
       this._webgl.bindTexture(this._webgl.TEXTURE_2D, texture)
@@ -245,27 +266,6 @@ export default class WebGlWrapper {
 
       if (this._isPowerOf2(image.width) && this._isPowerOf2(image.height)) {
         this._webgl.generateMipmap(this._webgl.TEXTURE_2D)
-      } else {
-        this._webgl.texParameteri(
-          this._webgl.TEXTURE_2D,
-          this._webgl.TEXTURE_WRAP_S,
-          this._webgl.CLAMP_TO_EDGE
-        )
-        this._webgl.texParameteri(
-          this._webgl.TEXTURE_2D,
-          this._webgl.TEXTURE_WRAP_T,
-          this._webgl.CLAMP_TO_EDGE
-        )
-        this._webgl.texParameteri(
-          this._webgl.TEXTURE_2D,
-          this._webgl.TEXTURE_MIN_FILTER,
-          this._webgl.LINEAR
-        )
-        this._webgl.texParameteri(
-          this._webgl.TEXTURE_2D,
-          this._webgl.TEXTURE_MAG_FILTER,
-          this._webgl.LINEAR
-        )
       }
 
       this._webgl.bindTexture(this._webgl.TEXTURE_2D, null)
@@ -273,6 +273,98 @@ export default class WebGlWrapper {
     image.src = imageSrc
 
     this._webgl.bindTexture(this._webgl.TEXTURE_2D, null)
+
+    return texture
+  }
+
+  createCubeMapTexture = (imageSrcMap, texture) => {
+    if (texture === null) {
+      texture = this._webgl.createTexture()
+    }
+
+    this._webgl.bindTexture(this._webgl.TEXTURE_CUBE_MAP, texture)
+
+    const level = 0
+    const internalFormat = this._webgl.RGBA
+    const width = 1
+    const height = 1
+    const border = 0
+    const srcFormat = this._webgl.RGBA
+    const srcType = this._webgl.UNSIGNED_BYTE
+    const pixel = new Uint8Array([255, 255, 255, 255])
+    const faces = [
+      this._webgl.TEXTURE_CUBE_MAP_POSITIVE_X,
+      this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_X,
+      this._webgl.TEXTURE_CUBE_MAP_POSITIVE_Y,
+      this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_Y,
+      this._webgl.TEXTURE_CUBE_MAP_POSITIVE_Z,
+      this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_Z,
+    ]
+
+    faces.forEach(face => {
+      this._webgl.texImage2D(
+        face,
+        level,
+        internalFormat,
+        width,
+        height,
+        border,
+        srcFormat,
+        srcType,
+        pixel
+      )
+    })
+
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_CUBE_MAP,
+      this._webgl.TEXTURE_WRAP_S,
+      this._webgl.CLAMP_TO_EDGE
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_CUBE_MAP,
+      this._webgl.TEXTURE_WRAP_T,
+      this._webgl.CLAMP_TO_EDGE
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_CUBE_MAP,
+      this._webgl.TEXTURE_WRAP_R,
+      this._webgl.CLAMP_TO_EDGE
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_CUBE_MAP,
+      this._webgl.TEXTURE_MIN_FILTER,
+      this._webgl.LINEAR
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_CUBE_MAP,
+      this._webgl.TEXTURE_MAG_FILTER,
+      this._webgl.LINEAR
+    )
+
+    imageSrcMap.forEach(({ face, src }) => {
+      const image = new Image()
+      image.addEventListener("load", () => {
+        this._webgl.bindTexture(this._webgl.TEXTURE_CUBE_MAP, texture)
+
+        this._webgl.texImage2D(
+          face,
+          level,
+          internalFormat,
+          srcFormat,
+          srcType,
+          image
+        )
+
+        if (this._isPowerOf2(image.width) && this._isPowerOf2(image.height)) {
+          this._webgl.generateMipmap(this._webgl.TEXTURE_CUBE_MAP)
+        }
+
+        this._webgl.bindTexture(this._webgl.TEXTURE_CUBE_MAP, null)
+      })
+      image.src = src
+    })
+
+    this._webgl.bindTexture(this._webgl.TEXTURE_CUBE_MAP, null)
 
     return texture
   }
@@ -327,6 +419,75 @@ export default class WebGlWrapper {
     )
 
     this._webgl.bindTexture(this._webgl.TEXTURE_2D, null)
+
+    return texture
+  }
+
+  createCubeMapRenderTargetTexture = texture => {
+    this._resizeCanvas()
+
+    if (texture === null) {
+      texture = this._webgl.createTexture()
+    }
+
+    this._webgl.bindTexture(this._webgl.TEXTURE_CUBE_MAP, texture)
+
+    const level = 0
+    const internalFormat = this._webgl.RGBA
+    const width = this.canvasDimensions.width
+    const height = this.canvasDimensions.height
+    const border = 0
+    const srcFormat = this._webgl.RGBA
+    const srcType = this._webgl.UNSIGNED_BYTE
+    const faces = [
+      this._webgl.TEXTURE_CUBE_MAP_POSITIVE_X,
+      this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_X,
+      this._webgl.TEXTURE_CUBE_MAP_POSITIVE_Y,
+      this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_Y,
+      this._webgl.TEXTURE_CUBE_MAP_POSITIVE_Z,
+      this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_Z,
+    ]
+    faces.forEach(face => {
+      this._webgl.texImage2D(
+        face,
+        level,
+        internalFormat,
+        width,
+        height,
+        border,
+        srcFormat,
+        srcType,
+        null
+      )
+    })
+
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_CUBE_MAP,
+      this._webgl.TEXTURE_WRAP_S,
+      this._webgl.CLAMP_TO_EDGE
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_CUBE_MAP,
+      this._webgl.TEXTURE_WRAP_T,
+      this._webgl.CLAMP_TO_EDGE
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_CUBE_MAP,
+      this._webgl.TEXTURE_WRAP_R,
+      this._webgl.CLAMP_TO_EDGE
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_CUBE_MAP,
+      this._webgl.TEXTURE_MIN_FILTER,
+      this._webgl.LINEAR
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_CUBE_MAP,
+      this._webgl.TEXTURE_MAG_FILTER,
+      this._webgl.LINEAR
+    )
+
+    this._webgl.bindTexture(this._webgl.TEXTURE_CUBE_MAP, null)
 
     return texture
   }
@@ -395,6 +556,49 @@ export default class WebGlWrapper {
       renderTarget,
       0
     )
+    if (bindDepth) {
+      const depthBuffer = this._webgl.createRenderbuffer()
+      this._webgl.bindRenderbuffer(this._webgl.RENDERBUFFER, depthBuffer)
+      this._webgl.renderbufferStorage(
+        this._webgl.RENDERBUFFER,
+        this._webgl.DEPTH_COMPONENT16,
+        this.canvasDimensions.width,
+        this.canvasDimensions.height
+      )
+      this._webgl.framebufferRenderbuffer(
+        this._webgl.FRAMEBUFFER,
+        this._webgl.DEPTH_ATTACHMENT,
+        this._webgl.RENDERBUFFER,
+        depthBuffer
+      )
+    }
+
+    this._webgl.bindFramebuffer(this._webgl.FRAMEBUFFER, null)
+
+    return frameBuffer
+  }
+
+  createCubeMapTargetFramebuffer = (
+    renderTarget,
+    cubeMapFace,
+    frameBuffer,
+    bindDepth = false
+  ) => {
+    this._resizeCanvas()
+
+    if (frameBuffer === null) {
+      frameBuffer = this._webgl.createFramebuffer()
+    }
+
+    this._webgl.bindFramebuffer(this._webgl.FRAMEBUFFER, frameBuffer)
+    this._webgl.framebufferTexture2D(
+      this._webgl.FRAMEBUFFER,
+      this._webgl.COLOR_ATTACHMENT0,
+      cubeMapFace,
+      renderTarget,
+      0
+    )
+
     if (bindDepth) {
       const depthBuffer = this._webgl.createRenderbuffer()
       this._webgl.bindRenderbuffer(this._webgl.RENDERBUFFER, depthBuffer)
