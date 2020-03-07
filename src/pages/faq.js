@@ -1,9 +1,9 @@
-import { Link } from "gatsby";
-import React from "react";
+import { Link } from "gatsby"
+import React from "react"
 
-import Content from "../components/content";
-import Layout from "../components/layout";
-import SEO from "../components/seo";
+import Content from "../components/content"
+import Layout from "../components/layout"
+import SEO from "../components/seo"
 
 const FaqPage = ({ location: { pathname } }) => (
   <Layout>
@@ -120,7 +120,21 @@ const FaqPage = ({ location: { pathname } }) => (
             you know works, and slowly build up line by line till it breaks.
           </p>
           <p>
-            A WebGL debugger that can be used on this website is{" "}
+            A great WebGL utility for debugging, and one that can be used on
+            this website. is{" "}
+            <a
+              href="https://spector.babylonjs.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Spector.js
+            </a>
+            . It's available for Chrome and Firefox, and provides a great way to
+            record and debug a frame render with a lot of useful information to
+            go with it.
+          </p>
+          <p>
+            Another WebGL debugger that can be used on this website is{" "}
             <a
               href="https://benvanik.github.io/WebGL-Inspector/"
               target="_blank"
@@ -129,8 +143,8 @@ const FaqPage = ({ location: { pathname } }) => (
               WebGL Inspector
             </a>
             . It isn't available on the Chrome Extensions Store, so it will
-            require manual installation, but it does provide multiple utilities
-            to check your shader programs.
+            require manual installation, but it does provide some functionality
+            similar to Spector.js.
           </p>
         </dd>
         <dt>
