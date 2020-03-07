@@ -38,6 +38,14 @@ canvas {
   max-width: 800px;
 }
 
+select {
+  color: #ededed;
+}
+
+select option {
+  background: #000000;
+}
+
 button.example-view-link {
   background: none !important;
   border: none;
