@@ -1,11 +1,14 @@
-import { mat4, vec3, vec4 } from "gl-matrix";
-import React, { useCallback, useEffect, useState } from "react";
+import { mat4, vec3, vec4 } from "gl-matrix"
+import React, { useCallback, useEffect, useState } from "react"
 
-import texture from "../../../images/intermediates/texture.png";
-import { coordArrToString, runOnPredicate } from "../../util";
-import wrapExample from "../../webgl-example-view";
-import WebGlWrapper from "../../webgl-wrapper";
-import { secondFragmentShaderSource, secondVertexShaderSource } from "./second-example-shaders";
+import texture from "../../../images/intermediates/texture.png"
+import { coordArrToString, runOnPredicate } from "../../util"
+import wrapExample from "../../webgl-example-view"
+import WebGlWrapper from "../../webgl-wrapper"
+import {
+  secondFragmentShaderSource,
+  secondVertexShaderSource,
+} from "./second-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -172,7 +175,6 @@ const LightingSecondExample = () => {
     indices: null,
     texture: null,
   })
-  const [shouldRender, updateShouldRender] = useState(true)
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
@@ -233,7 +235,7 @@ const LightingSecondExample = () => {
 
   useEffect(
     runOnPredicate(cubeBuffer.vertices !== null, () => {
-      updateShouldRender(true)
+      let shouldRender = true
 
       const renderScene = () => {
         webGlRef.renderScene(
@@ -359,7 +361,9 @@ const LightingSecondExample = () => {
       }
       requestAnimationFrame(renderScene)
 
-      return () => updateShouldRender(false)
+      return () => {
+        shouldRender = false
+      }
     }),
     [cubeBuffer]
   )

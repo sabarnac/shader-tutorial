@@ -1,13 +1,16 @@
-import { mat4, vec2, vec3, vec4 } from "gl-matrix";
-import React, { useCallback, useEffect, useState } from "react";
+import { mat4, vec2, vec3, vec4 } from "gl-matrix"
+import React, { useCallback, useEffect, useState } from "react"
 
-import normalTexture from "../../../images/intermediates/normal.png";
-import specularTexture from "../../../images/intermediates/specular.png";
-import texture from "../../../images/intermediates/texture-2.png";
-import { coordArrToString, runOnPredicate } from "../../util";
-import wrapExample from "../../webgl-example-view";
-import WebGlWrapper from "../../webgl-wrapper";
-import { firstFragmentShaderSource, firstVertexShaderSource } from "./first-example-shaders";
+import normalTexture from "../../../images/intermediates/normal.png"
+import specularTexture from "../../../images/intermediates/specular.png"
+import texture from "../../../images/intermediates/texture-2.png"
+import { coordArrToString, runOnPredicate } from "../../util"
+import wrapExample from "../../webgl-example-view"
+import WebGlWrapper from "../../webgl-wrapper"
+import {
+  firstFragmentShaderSource,
+  firstVertexShaderSource,
+} from "./first-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -152,7 +155,6 @@ const SpecularMappingFirstExample = () => {
     normalTexture: null,
     specularTexture: null,
   })
-  const [shouldRender, updateShouldRender] = useState(true)
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
@@ -232,7 +234,7 @@ const SpecularMappingFirstExample = () => {
 
   useEffect(
     runOnPredicate(squareBuffer.vertices !== null, () => {
-      updateShouldRender(true)
+      let shouldRender = true
 
       const renderScene = () => {
         webGlRef.renderScene(
@@ -386,7 +388,9 @@ const SpecularMappingFirstExample = () => {
       }
       requestAnimationFrame(renderScene)
 
-      return () => updateShouldRender(false)
+      return () => {
+        shouldRender = false
+      }
     }),
     [squareBuffer]
   )

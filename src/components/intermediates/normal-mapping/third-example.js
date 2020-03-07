@@ -1,12 +1,15 @@
-import { mat4, vec2, vec3, vec4 } from "gl-matrix";
-import React, { useCallback, useEffect, useState } from "react";
+import { mat4, vec2, vec3, vec4 } from "gl-matrix"
+import React, { useCallback, useEffect, useState } from "react"
 
-import normalTexture from "../../../images/intermediates/normal.png";
-import texture from "../../../images/intermediates/texture-2.png";
-import { coordArrToString, runOnPredicate } from "../../util";
-import wrapExample from "../../webgl-example-view";
-import WebGlWrapper from "../../webgl-wrapper";
-import { thirdFragmentShaderSource, thirdVertexShaderSource } from "./third-example-shaders";
+import normalTexture from "../../../images/intermediates/normal.png"
+import texture from "../../../images/intermediates/texture-2.png"
+import { coordArrToString, runOnPredicate } from "../../util"
+import wrapExample from "../../webgl-example-view"
+import WebGlWrapper from "../../webgl-wrapper"
+import {
+  thirdFragmentShaderSource,
+  thirdVertexShaderSource,
+} from "./third-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -149,7 +152,6 @@ const NormalMappingThirdExample = () => {
     texture: null,
     normalTexture: null,
   })
-  const [shouldRender, updateShouldRender] = useState(true)
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
@@ -225,7 +227,7 @@ const NormalMappingThirdExample = () => {
 
   useEffect(
     runOnPredicate(squareBuffer.vertices !== null, () => {
-      updateShouldRender(true)
+      let shouldRender = true
 
       const renderScene = () => {
         webGlRef.renderScene(
@@ -372,7 +374,9 @@ const NormalMappingThirdExample = () => {
       }
       requestAnimationFrame(renderScene)
 
-      return () => updateShouldRender(false)
+      return () => {
+        shouldRender = false
+      }
     }),
     [squareBuffer]
   )

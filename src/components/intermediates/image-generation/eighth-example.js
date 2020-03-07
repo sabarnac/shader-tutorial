@@ -1,10 +1,13 @@
-import { mat4 } from "gl-matrix";
-import React, { useCallback, useEffect, useState } from "react";
+import { mat4 } from "gl-matrix"
+import React, { useCallback, useEffect, useState } from "react"
 
-import { runOnPredicate } from "../../util";
-import wrapExample from "../../webgl-example-view";
-import WebGlWrapper from "../../webgl-wrapper";
-import { eighthFragmentShaderSource, eighthVertexShaderSource } from "./eighth-example-shaders";
+import { runOnPredicate } from "../../util"
+import wrapExample from "../../webgl-example-view"
+import WebGlWrapper from "../../webgl-wrapper"
+import {
+  eighthFragmentShaderSource,
+  eighthVertexShaderSource,
+} from "./eighth-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -36,7 +39,6 @@ const RandomImageGenerationEighthExample = () => {
   const [shaderProgram, updateShaderProgram] = useState(null)
   const [shaderInfo, updateShaderInfo] = useState(null)
   const [screenBuffer, updateScreenBuffer] = useState({ vertices: null })
-  const [shouldRender, updateShouldRender] = useState(true)
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
@@ -84,7 +86,7 @@ const RandomImageGenerationEighthExample = () => {
 
   useEffect(
     runOnPredicate(screenBuffer.vertices !== null, () => {
-      updateShouldRender(true)
+      let shouldRender = true
 
       const renderScene = () => {
         webGlRef.renderScene(({ gl, resolution }) => {
@@ -119,7 +121,9 @@ const RandomImageGenerationEighthExample = () => {
       }
       requestAnimationFrame(renderScene)
 
-      return () => updateShouldRender(false)
+      return () => {
+        shouldRender = false
+      }
     }),
     [screenBuffer]
   )

@@ -1,11 +1,14 @@
-import { mat4 } from "gl-matrix";
-import React, { useCallback, useEffect, useState } from "react";
+import { mat4 } from "gl-matrix"
+import React, { useCallback, useEffect, useState } from "react"
 
-import texture from "../../../images/intermediates/texture.png";
-import { coordArrToString, runOnPredicate, uvArrToString } from "../../util";
-import wrapExample from "../../webgl-example-view";
-import WebGlWrapper from "../../webgl-wrapper";
-import { secondFragmentShaderSource, secondVertexShaderSource } from "./second-example-shaders";
+import texture from "../../../images/intermediates/texture.png"
+import { coordArrToString, runOnPredicate, uvArrToString } from "../../util"
+import wrapExample from "../../webgl-example-view"
+import WebGlWrapper from "../../webgl-wrapper"
+import {
+  secondFragmentShaderSource,
+  secondVertexShaderSource,
+} from "./second-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -101,7 +104,7 @@ const ColorMappingSecondExample = () => {
     indices: null,
     texture: null,
   })
-  const [shouldRender, updateShouldRender] = useState(true)
+
   const [time, updateTime] = useState(
     typeof performance !== "undefined" ? performance.now() : 0.0
   )
@@ -161,7 +164,7 @@ const ColorMappingSecondExample = () => {
 
   useEffect(
     runOnPredicate(cubeBuffer.vertices !== null, () => {
-      updateShouldRender(true)
+      let shouldRender = true
       let then = parseInt(
         typeof performance !== "undefined"
           ? performance.now()
@@ -262,7 +265,9 @@ const ColorMappingSecondExample = () => {
       }
       requestAnimationFrame(renderScene)
 
-      return () => updateShouldRender(false)
+      return () => {
+        shouldRender = false
+      }
     }),
     [cubeBuffer]
   )

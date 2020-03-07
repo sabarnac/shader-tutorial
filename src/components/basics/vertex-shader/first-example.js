@@ -1,10 +1,13 @@
-import { mat4 } from "gl-matrix";
-import React, { useCallback, useEffect, useState } from "react";
+import { mat4 } from "gl-matrix"
+import React, { useCallback, useEffect, useState } from "react"
 
-import { coordArrToString, runOnPredicate } from "../../util";
-import wrapExample from "../../webgl-example-view";
-import WebGlWrapper from "../../webgl-wrapper";
-import { firstFragmentShaderSource, firstVertexShaderSource } from "./first-example-shaders";
+import { coordArrToString, runOnPredicate } from "../../util"
+import wrapExample from "../../webgl-example-view"
+import WebGlWrapper from "../../webgl-wrapper"
+import {
+  firstFragmentShaderSource,
+  firstVertexShaderSource,
+} from "./first-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -37,7 +40,6 @@ const VertexShaderFirstExample = () => {
   const [shaderProgram, updateShaderProgram] = useState(null)
   const [shaderInfo, updateShaderInfo] = useState(null)
   const [triangleBuffer, updateTriangleBuffer] = useState({ vertices: null })
-  const [shouldRender, updateShouldRender] = useState(true)
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
@@ -85,7 +87,7 @@ const VertexShaderFirstExample = () => {
 
   useEffect(
     runOnPredicate(triangleBuffer.vertices !== null, () => {
-      updateShouldRender(true)
+      let shouldRender = true
 
       const renderScene = () => {
         webGlRef.renderScene(
@@ -133,7 +135,9 @@ const VertexShaderFirstExample = () => {
       }
       requestAnimationFrame(renderScene)
 
-      return () => updateShouldRender(false)
+      return () => {
+        shouldRender = false
+      }
     }),
     [triangleBuffer]
   )

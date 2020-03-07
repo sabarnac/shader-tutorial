@@ -1,10 +1,10 @@
-import { mat4 } from "gl-matrix";
-import React, { useCallback, useEffect, useState } from "react";
+import { mat4 } from "gl-matrix"
+import React, { useCallback, useEffect, useState } from "react"
 
-import { runOnPredicate } from "../../util";
-import wrapExample from "../../webgl-example-view";
-import WebGlWrapper from "../../webgl-wrapper";
-import { fragmentShaderSource, vertexShaderSource } from "./common-shaders";
+import { runOnPredicate } from "../../util"
+import wrapExample from "../../webgl-example-view"
+import WebGlWrapper from "../../webgl-wrapper"
+import { fragmentShaderSource, vertexShaderSource } from "./common-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -67,7 +67,6 @@ const TransparencyFirstExample = () => {
     colors: null,
     indices: null,
   })
-  const [shouldRender, updateShouldRender] = useState(true)
 
   const canvasRef = useCallback(canvas => {
     if (canvas !== null) {
@@ -120,7 +119,7 @@ const TransparencyFirstExample = () => {
 
   useEffect(
     runOnPredicate(cubeBuffer.vertices !== null, () => {
-      updateShouldRender(true)
+      let shouldRender = true
 
       const renderScene = () => {
         webGlRef.renderSceneOrtho(
@@ -182,7 +181,9 @@ const TransparencyFirstExample = () => {
       }
       requestAnimationFrame(renderScene)
 
-      return () => updateShouldRender(false)
+      return () => {
+        shouldRender = false
+      }
     }),
     [cubeBuffer]
   )

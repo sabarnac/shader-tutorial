@@ -1,10 +1,13 @@
-import { mat4 } from "gl-matrix";
-import React, { useCallback, useEffect, useState } from "react";
+import { mat4 } from "gl-matrix"
+import React, { useCallback, useEffect, useState } from "react"
 
-import { coordArrToString, runOnPredicate } from "../../util";
-import wrapExample from "../../webgl-example-view";
-import WebGlWrapper from "../../webgl-wrapper";
-import { thirdFragmentShaderSource, thirdVertexShaderSource } from "./third-example-shaders";
+import { coordArrToString, runOnPredicate } from "../../util"
+import wrapExample from "../../webgl-example-view"
+import WebGlWrapper from "../../webgl-wrapper"
+import {
+  thirdFragmentShaderSource,
+  thirdVertexShaderSource,
+} from "./third-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -46,7 +49,7 @@ const FragmentShaderThirdExample = () => {
     vertices: null,
     colors: null,
   })
-  const [shouldRender, updateShouldRender] = useState(true)
+
   const [time, updateTime] = useState(
     typeof performance !== "undefined" ? performance.now() : 0.0
   )
@@ -101,7 +104,7 @@ const FragmentShaderThirdExample = () => {
 
   useEffect(
     runOnPredicate(triangleBuffer.vertices !== null, () => {
-      updateShouldRender(true)
+      let shouldRender = true
       let then = parseInt(
         typeof performance !== "undefined"
           ? performance.now()
@@ -173,7 +176,9 @@ const FragmentShaderThirdExample = () => {
       }
       requestAnimationFrame(renderScene)
 
-      return () => updateShouldRender(false)
+      return () => {
+        shouldRender = false
+      }
     }),
     [triangleBuffer]
   )
