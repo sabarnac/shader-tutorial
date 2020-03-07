@@ -25,9 +25,7 @@ export default class WebGlWrapper {
     }
     this._canvas = canvas
 
-    this._webgl =
-      this._canvas.getContext("webgl") ||
-      this._canvas.getContext("experimental-webgl")
+    this._webgl = canvas.getContext("webgl2")
     if (this._webgl === null) {
       this._showNotSupported(canvas)
     }
@@ -435,7 +433,7 @@ export default class WebGlWrapper {
     const level = 0
     const internalFormat = this._webgl.RGBA
     const width = this.canvasDimensions.width
-    const height = this.canvasDimensions.height
+    const height = this.canvasDimensions.width
     const border = 0
     const srcFormat = this._webgl.RGBA
     const srcType = this._webgl.UNSIGNED_BYTE
@@ -586,6 +584,15 @@ export default class WebGlWrapper {
   ) => {
     this._resizeCanvas()
 
+    const faces = {
+      POSITIVE_X: this._webgl.TEXTURE_CUBE_MAP_POSITIVE_X,
+      NEGATIVE_X: this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_X,
+      POSITIVE_Y: this._webgl.TEXTURE_CUBE_MAP_POSITIVE_Y,
+      NEGATIVE_Y: this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_Y,
+      POSITIVE_Z: this._webgl.TEXTURE_CUBE_MAP_POSITIVE_Z,
+      NEGATIVE_Z: this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_Z,
+    }
+
     if (frameBuffer === null) {
       frameBuffer = this._webgl.createFramebuffer()
     }
@@ -594,7 +601,7 @@ export default class WebGlWrapper {
     this._webgl.framebufferTexture2D(
       this._webgl.FRAMEBUFFER,
       this._webgl.COLOR_ATTACHMENT0,
-      cubeMapFace,
+      faces[cubeMapFace],
       renderTarget,
       0
     )
@@ -606,7 +613,7 @@ export default class WebGlWrapper {
         this._webgl.RENDERBUFFER,
         this._webgl.DEPTH_COMPONENT16,
         this.canvasDimensions.width,
-        this.canvasDimensions.height
+        this.canvasDimensions.width
       )
       this._webgl.framebufferRenderbuffer(
         this._webgl.FRAMEBUFFER,
@@ -619,6 +626,16 @@ export default class WebGlWrapper {
     this._webgl.bindFramebuffer(this._webgl.FRAMEBUFFER, null)
 
     return frameBuffer
+  }
+
+  renderToCubeMapFramebuffer = (frameBuffer, renderer) => {
+    this._webgl.viewport(0, 0, this._canvas.width, this._canvas.width)
+    this._webgl.bindFramebuffer(this._webgl.FRAMEBUFFER, frameBuffer)
+
+    renderer()
+
+    this._webgl.bindFramebuffer(this._webgl.FRAMEBUFFER, null)
+    this._webgl.viewport(0, 0, this._canvas.width, this._canvas.height)
   }
 
   renderToFramebuffer = (frameBuffer, renderer) => {
