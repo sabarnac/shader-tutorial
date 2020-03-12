@@ -4,15 +4,9 @@ import React, { useCallback, useEffect, useState } from "react"
 import { coordArrToString, runOnPredicate } from "../../../util"
 import wrapExample from "../../../webgl-example-view"
 import WebGlWrapper from "../../../webgl-wrapper"
-import {
-  pointLightMapFragmentShaderSource,
-  pointLightMapVertexShaderSource,
-} from "./map-example-shaders"
+import { pointLightMapFragmentShaderSource, pointLightMapVertexShaderSource } from "./map-example-shaders"
 import { modelIndices, modelNormals, modelVertices } from "./model"
-import {
-  pointLightShadowFragmentShaderSource,
-  pointLightShadowVertexShaderSource,
-} from "./shadow-example-shaders"
+import { pointLightShadowFragmentShaderSource, pointLightShadowVertexShaderSource } from "./shadow-example-shaders"
 
 const shadowMapShaderProgramInfo = {
   vertex: {
@@ -60,7 +54,7 @@ const shaderProgramInfo = {
   },
 }
 
-const lightModelPosition = vec4.fromValues(0.0, 3.0, -1.0, 1.0)
+const lightModelPosition = vec4.fromValues(0.0, 3.0, -1.5, 1.0)
 const lightModelFaces = [
   {
     name: "+X-Axis Face",
@@ -362,31 +356,10 @@ const ShadowMappingPointLightShadowExample = () => {
           })
         })
 
-        webGlRef.renderScene(({ gl, projectionMatrix, _, modelMatrix }) => {
+        webGlRef.renderScene(({ gl, projectionMatrix, modelMatrix }) => {
           if (!shouldRender) {
             return
           }
-
-          // projectionMatrix = mat4.create()
-          // mat4.perspective(
-          //   projectionMatrix,
-          //   (90 * Math.PI) / 180,
-          //   1.0,
-          //   scene.nearPlane,
-          //   scene.farPlane
-          // )
-
-          // gl.clearColor(1.0, 1.0, 1.0, 1.0)
-          // gl.clearDepth(1.0)
-          // gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
-
-          // const viewMatrix = mat4.create()
-          // mat4.lookAt(
-          //   viewMatrix,
-          //   lightModelPosition,
-          //   lightModelFaces[3].center,
-          //   lightModelFaces[3].up
-          // )
 
           const viewMatrix = mat4.create()
           mat4.lookAt(

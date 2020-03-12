@@ -4,10 +4,7 @@ import React, { useCallback, useEffect, useState } from "react"
 import { coordArrToString, runOnPredicate } from "../../../util"
 import wrapExample from "../../../webgl-example-view"
 import WebGlWrapper from "../../../webgl-wrapper"
-import {
-  pointLightMapFragmentShaderSource,
-  pointLightMapVertexShaderSource,
-} from "./map-example-shaders"
+import { pointLightMapFragmentShaderSource, pointLightMapVertexShaderSource } from "./map-example-shaders"
 import { modelIndices, modelVertices } from "./model"
 
 const shaderProgramInfo = {
@@ -30,7 +27,7 @@ const shaderProgramInfo = {
   },
 }
 
-const lightModelPosition = vec4.fromValues(0.0, 3.0, -1.0, 1.0)
+const lightModelPosition = vec4.fromValues(0.0, 3.0, -1.5, 1.0)
 const lightModelFaces = [
   {
     name: "+X-Axis Face",

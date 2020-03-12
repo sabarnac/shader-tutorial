@@ -1,12 +1,12 @@
-import { mat4, vec2, vec3, vec4 } from "gl-matrix";
-import React, { useCallback, useEffect, useState } from "react";
+import { mat4, vec2, vec3, vec4 } from "gl-matrix"
+import React, { useCallback, useEffect, useState } from "react"
 
-import { coordArrToString, runOnPredicate } from "../../../util";
-import wrapExample from "../../../webgl-example-view";
-import WebGlWrapper from "../../../webgl-wrapper";
-import { spotLightMapFragmentShaderSource, spotLightMapVertexShaderSource } from "./map-example-shaders";
-import { modelIndices, modelNormals, modelVertices } from "./model";
-import { spotLightShadowFragmentShaderSource, spotLightShadowVertexShaderSource } from "./shadow-example-shaders";
+import { coordArrToString, runOnPredicate } from "../../../util"
+import wrapExample from "../../../webgl-example-view"
+import WebGlWrapper from "../../../webgl-wrapper"
+import { spotLightMapFragmentShaderSource, spotLightMapVertexShaderSource } from "./map-example-shaders"
+import { modelIndices, modelNormals, modelVertices } from "./model"
+import { spotLightShadowFragmentShaderSource, spotLightShadowVertexShaderSource } from "./shadow-example-shaders"
 
 const shadowMapShaderProgramInfo = {
   vertex: {
@@ -350,7 +350,10 @@ const ShadowMappingSpotLightShadowExample = () => {
             lightProjectionMatrix
           )
 
-          gl.uniform2fv(shaderInfo.vertex.uniformLocations.texelSize, texelSize)
+          gl.uniform2fv(
+            shaderInfo.fragment.uniformLocations.texelSize,
+            texelSize
+          )
           gl.uniform4fv(
             shaderInfo.vertex.uniformLocations.lightPosition_worldSpace,
             lightModelPosition

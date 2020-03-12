@@ -1,5 +1,8 @@
 varying highp vec4 depthCoord;
-varying highp vec3 diffuseLight;
+
+varying highp vec4 vertexPosition_worldSpace;
+varying highp vec3 vertexNormal_viewSpace;
+varying highp vec3 lightDirection_viewSpace;
 
 uniform highp vec2 texelSize;
 uniform highp vec3 lightColor;
@@ -8,22 +11,32 @@ uniform highp vec4 lightPosition_worldSpace;
 uniform highp float ambientFactor;
 uniform sampler2D shadowTextureSampler;
 
-const highp float acneBias = 0.01;
+const highp float acneBias = 0.025;
 
 highp float getAverageVisibility(highp vec2 depthMapCoords, highp float currentDepth) {
   highp float visibility = 0.0;
-  for (int x = -1; x <= 1; x++) {
-    for (int y = -1; y <= 1; y++) {
+  for (int x = -2; x <= 2; x++) {
+    for (int y = -2; y <= 2; y++) {
       highp float closestDepth = texture2D(shadowTextureSampler, depthMapCoords.xy + (vec2(x, y) * texelSize)).z;
       visibility += currentDepth - acneBias > closestDepth ? 0.0 : 1.0;
     }
   }
-  return visibility / 9.0;
+  return visibility / 25.0;
+}
+
+highp vec3 getDiffuseLighting() {
+  highp vec3 lightColorIntensity = lightColor * lightIntensity;
+  highp float distanceFromLight = distance(vertexPosition_worldSpace, lightPosition_worldSpace);
+
+  highp float diffuseStrength = clamp(dot(vertexNormal_viewSpace, lightDirection_viewSpace), 0.0, 1.0);
+  return (lightColorIntensity * diffuseStrength) / (distanceFromLight * distanceFromLight);
 }
 
 void main() {
   highp vec4 surfaceColor = vec4(1.0);
   highp vec4 ambientColor = vec4(surfaceColor);
+
+  highp vec3 diffuseLight = getDiffuseLighting();
 
   highp vec3 depthMapCoords = (depthCoord.xyz / depthCoord.w) * 0.5 + 0.5;
 
