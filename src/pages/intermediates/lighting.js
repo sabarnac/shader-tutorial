@@ -1,26 +1,28 @@
-import { Link } from "gatsby";
-import React from "react";
+import { Link } from "gatsby"
+import React from "react"
 
-import Content from "../../components/content";
-import GlslCodeHighlight from "../../components/glsl-code-highlight";
-import Image from "../../components/image";
-import LightingFirstExample from "../../components/intermediates/lighting/first-example";
+import Content from "../../components/content"
+import GlslCodeHighlight from "../../components/glsl-code-highlight"
+import Image from "../../components/image"
+import LightingFirstExample from "../../components/intermediates/lighting/first-example"
 import {
   firstFragmentShaderSource,
   firstVertexShaderSource,
-} from "../../components/intermediates/lighting/first-example-shaders";
-import LightingNoLightExample from "../../components/intermediates/lighting/no-light-example.js";
-import LightingSecondExample from "../../components/intermediates/lighting/second-example";
-import { secondFragmentShaderSource } from "../../components/intermediates/lighting/second-example-shaders";
-import LightingThirdExample from "../../components/intermediates/lighting/third-example";
+} from "../../components/intermediates/lighting/first-example-shaders"
+import LightingNoLightExample from "../../components/intermediates/lighting/no-light-example.js"
+import LightingSecondExample from "../../components/intermediates/lighting/second-example"
+import { secondFragmentShaderSource } from "../../components/intermediates/lighting/second-example-shaders"
+import LightingThirdExample from "../../components/intermediates/lighting/third-example"
 import {
   thirdFragmentShaderSource,
   thirdVertexShaderSource,
-} from "../../components/intermediates/lighting/third-example-shaders";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
-import { renderEquation } from "../../components/util";
+} from "../../components/intermediates/lighting/third-example-shaders"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import SEO from "../../components/seo"
+import { renderEquation } from "../../components/util"
+import VertexLightingExample from "../../components/intermediates/lighting/vertex-lighting-example"
+import FragmentLightingExample from "../../components/intermediates/lighting/fragment-lighting-example"
 
 const LightingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -728,31 +730,12 @@ const LightingPage = ({ location: { pathname } }) => (
         the light itself, which is shown as the white "shine" you can see on the
         cube occasionally as it rotates.
       </p>
-      <h3>Additional Notes</h3>
+      <h3>Per-vertex vs Per-fragment lighting</h3>
       <p>
-        A point of note is that for specular lighting we provided a value to
-        control how much of the light is reflected towards the camera (the
-        specular reflectivity).
-      </p>
-      <p>
-        For diffuse lighting, the roughness of the surface should also be
-        considered when calculating how much of the light is diffused by the
-        object, since a rougher surface would diffuse more light than a smooth
-        one.
-      </p>
-      <p>
-        However, the roughness of the surface can be multiplied against the
-        color of the surface and stored as part of the color map itself,
-        resulting in a map called a "diffuse map".
-      </p>
-      <p>
-        In later chapters, we'll be using a diffuse map instead of a simple
-        color map to provide diffuse color information.
-      </p>
-      <p>
-        Another point of note is that all lighting factors are calculated on the
-        vertex shader, which is then passed to the fragment shader, allowing the
-        GPU to interpolate the factor for each fragment.
+        All lighting factors we calculated was done on the vertex shader, which
+        is then passed to the fragment shader, allowing the GPU to interpolate
+        the factor for each fragment. This is doing lighting calculations
+        "per-vertex".
       </p>
       <p>
         The reason that this is done on the vertex shader and not the fragment
@@ -780,10 +763,37 @@ const LightingPage = ({ location: { pathname } }) => (
         and relies on the GPU interpolating values correctly.
       </p>
       <p>
-        If it is seen that the interpolation is inaccurate, or that there are
-        certain requirements that prevent the calculation from being performed
-        in the vertex shader, then the calculation can be performed in the
-        fragment shader.
+        However, this may not always produce accurate results. Since the GPU has
+        to interpolate the lighting values of the fragments inside the polygon
+        based on the values returned for each vertex, it is possible for
+        inaccuracies to be present.
+      </p>
+      <p>
+        Let's illustrate with an example to show how per-vertex lighting can
+        produce incorrect results compared to per-fragment lighting.
+      </p>
+      <FragmentLightingExample />
+      <VertexLightingExample />
+      <h3>Additional Notes</h3>
+      <p>
+        A point of note is that for specular lighting we provided a value to
+        control how much of the light is reflected towards the camera (the
+        specular reflectivity).
+      </p>
+      <p>
+        For diffuse lighting, the roughness of the surface should also be
+        considered when calculating how much of the light is diffused by the
+        object, since a rougher surface would diffuse more light than a smooth
+        one.
+      </p>
+      <p>
+        However, the roughness of the surface can be multiplied against the
+        color of the surface and stored as part of the color map itself,
+        resulting in a map called a "diffuse map".
+      </p>
+      <p>
+        In later chapters, we'll be using a diffuse map instead of a simple
+        color map to provide diffuse color information.
       </p>
       <h3>Summary</h3>
       <ul>
