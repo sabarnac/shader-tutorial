@@ -5,24 +5,22 @@ import Content from "../../components/content"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import Image from "../../components/image"
 import LightingFirstExample from "../../components/intermediates/lighting/first-example"
+import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/lighting/first-example-shaders"
+import FragmentLightingExample from "../../components/intermediates/lighting/fragment-lighting-example"
 import {
-  firstFragmentShaderSource,
-  firstVertexShaderSource,
-} from "../../components/intermediates/lighting/first-example-shaders"
+  fragmentLightingFragmentShaderSource,
+  fragmentLightingVertexShaderSource,
+} from "../../components/intermediates/lighting/fragment-lighting-example-shaders"
 import LightingNoLightExample from "../../components/intermediates/lighting/no-light-example.js"
 import LightingSecondExample from "../../components/intermediates/lighting/second-example"
 import { secondFragmentShaderSource } from "../../components/intermediates/lighting/second-example-shaders"
 import LightingThirdExample from "../../components/intermediates/lighting/third-example"
-import {
-  thirdFragmentShaderSource,
-  thirdVertexShaderSource,
-} from "../../components/intermediates/lighting/third-example-shaders"
+import { thirdFragmentShaderSource, thirdVertexShaderSource } from "../../components/intermediates/lighting/third-example-shaders"
+import VertexLightingExample from "../../components/intermediates/lighting/vertex-lighting-example"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import SEO from "../../components/seo"
 import { renderEquation } from "../../components/util"
-import VertexLightingExample from "../../components/intermediates/lighting/vertex-lighting-example"
-import FragmentLightingExample from "../../components/intermediates/lighting/fragment-lighting-example"
 
 const LightingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -773,7 +771,45 @@ const LightingPage = ({ location: { pathname } }) => (
         produce incorrect results compared to per-fragment lighting.
       </p>
       <FragmentLightingExample />
+      <p>
+        Here we have a light source (represented as the red triangle) present
+        near the center of a wall, shining towards it. The light is focused
+        towards the center of the wall, making the inside of the wall brighter
+        than the corners and edges.
+      </p>
+      <p>
+        This is rendered by performing the lighting calculations on the fragment
+        instead of on the vertex, meaning that the light is calculated on a
+        "per-fragment" basis.
+      </p>
+      <p>
+        Calculating the lighting on the fragment shader results in a much more
+        accurate result since the light values of the fragments inside the
+        polygon aren't interpolated from the vertex.
+      </p>
+      <p>
+        Only the locations of the fragments, and their normals are interpolated
+        from there, which has no issues since interpolating the position of a
+        fragment based on the position of its vertices is simple for GPUs to do.
+      </p>
+      <p>
+        Now lets look at how the lighting looks if we perform the lighting
+        calculation for each vertex instead and let the GPU interpolate those
+        lighting values for the fragments inside the polygons.
+      </p>
       <VertexLightingExample />
+      <p>
+        The results are much more inaccurate compared to the per-fragment
+        lighting method. The reason for this{" "}
+      </p>
+      <GlslCodeHighlight
+        code={fragmentLightingVertexShaderSource.trim()}
+        type={"Vertex"}
+      />
+      <GlslCodeHighlight
+        code={fragmentLightingFragmentShaderSource.trim()}
+        type={"Fragment"}
+      />
       <h3>Additional Notes</h3>
       <p>
         A point of note is that for specular lighting we provided a value to
