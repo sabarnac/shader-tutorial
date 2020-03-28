@@ -6,11 +6,9 @@ import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import Image from "../../components/image"
 import LightingFirstExample from "../../components/intermediates/lighting/first-example"
 import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/lighting/first-example-shaders"
+import LightingFourthExample from "../../components/intermediates/lighting/fourth-example"
+import { fourthFragmentShaderSource, fourthVertexShaderSource } from "../../components/intermediates/lighting/fourth-example-shaders"
 import FragmentLightingExample from "../../components/intermediates/lighting/fragment-lighting-example"
-import {
-  fragmentLightingFragmentShaderSource,
-  fragmentLightingVertexShaderSource,
-} from "../../components/intermediates/lighting/fragment-lighting-example-shaders"
 import LightingNoLightExample from "../../components/intermediates/lighting/no-light-example.js"
 import LightingSecondExample from "../../components/intermediates/lighting/second-example"
 import { secondFragmentShaderSource } from "../../components/intermediates/lighting/second-example-shaders"
@@ -366,17 +364,38 @@ const LightingPage = ({ location: { pathname } }) => (
       <p>
         The direction of the normal of the vertex is required to be known
         respective to the camera, which is why the calculation of the normal in
-        viewspace (multiplying the model and view matrices) is performed and
+        view-space (multiplying the model and view matrices) is performed and
         stored in <code>normal_viweSpace</code>. This is similarly done for the
         direction of the light and stored in the{" "}
         <code>lightDirection_viweSpace</code>.
       </p>
       <p>
-        The results of those two calculations provide a vector, which needs to
-        be converted into a unit vector, since that is what is required in order
-        to calculate the diffuse factor by the angle of the light and the normal
-        of the surface. In GLSL, the built-in function for this calculation is{" "}
+        A point of note is that the direction of the light is stored as the
+        direction from the object to the light source. This allows our
+        calculations to be accurate, since if the light is falling perpendicular
+        to the surface, then the direction of the light is the same as the
+        normal of the vertex. This results in the <code>dot</code> product of
+        the two directions equaling <code>1</code>, which is what we require.
+      </p>
+      <p>
+        If the direction of the light was stored as the direction from the light
+        source to the object, then the resulting <code>dot</code> product of the
+        direction of the light and the vertex normal would be <code>-1</code>,
+        because the two vectors are pointing in the opposite direction.
+      </p>
+      <p>
+        The vectors calculate for the vertex normal and light direction in
+        view-space are converted into a unit vector, which is used to calculate
+        the diffuse factor by the angle of the light and the normal of the
+        surface. In GLSL, the built-in function for this calculation is{" "}
         <code>normalize</code>.
+      </p>
+      <p>
+        The reason for normalizing vectors is so that we remove the influence of
+        magnitudes of vectors from calculations. A normalized vector only
+        provides information regarding its direction, but not the magnitude of
+        the direction. Since certain calculations we perform only require the
+        directions of vectors, those vectors are normalized.
       </p>
       <p>
         The diffuse strength (strength of the diffuse reflection from the angle
@@ -397,11 +416,9 @@ const LightingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         This final diffuse factor is then passed to the fragment shader,
-        allowing the value to be interpolated per fragment.
-      </p>
-      <p>
-        The diffuse factor is multiplied with the surface color of the fragment
-        to determine the final color of that fragment.
+        allowing the value to be interpolated per fragment. The diffuse factor
+        is multiplied with the surface color of the fragment to determine the
+        final color of that fragment.
       </p>
       <p>
         Do note that the alpha value of the fragment color is not multiplied,
@@ -613,8 +630,8 @@ const LightingPage = ({ location: { pathname } }) => (
         of the object.
       </p>
       <p>
-        In viewspace, the camera is always at the center of the world, since in
-        viewspace, everything is positioned relative to the camera. This is why
+        In view-space, the camera is always at the center of the world, since in
+        view-space, everything is positioned relative to the camera. This is why
         the position of the camera is taken as <code>vec3(0.0, 0.0, 0.0)</code>.
       </p>
       <p>
@@ -623,7 +640,7 @@ const LightingPage = ({ location: { pathname } }) => (
         no magnitude.
       </p>
       <p>
-        The light direction in viewspace is known, along with the direction of
+        The light direction in view-space is known, along with the direction of
         the normal of the surface. Using a built-in function, the reflection of
         the direction of light w.r.t to the normal can be calculated. In GLSL,
         this function is <code>reflect</code>.
@@ -634,14 +651,14 @@ const LightingPage = ({ location: { pathname } }) => (
         resultant reflection will also be a unit vector.
       </p>
       <p>
-        One thing to note is that, with <code>reflect</code> in GLSL, the light
-        ray reflection is still towards the object, instead of away from it.
+        A point of note is that with <code>reflect</code> in GLSL, the light
+        direction still points away from the object, not towards it.
       </p>
       <p>
         Imagine the normal of the surface as a mirror. When calculating the
-        reflection of the direction of the light relative to the normal, the
-        reflection would appear on the other side of the normal, but the
-        direction won't change.
+        reflection of the light direction relative to the normal, the reflection
+        would appear on the other side of the normal, but the direction won't
+        change.
       </p>
       <p>This is shown in the illustration below:</p>
       <div className="image util text-center">
@@ -652,9 +669,10 @@ const LightingPage = ({ location: { pathname } }) => (
         />
       </div>
       <p>
-        Since the direction calculated for the camera is from the camera to the
-        object, the calculation of their <code>dot</code> product will still be
-        accurate, since they are directing towards the same point.
+        Since the direction calculated for the camera is from the object to the
+        camera, the calculation of the <code>dot</code> product of the camera
+        direction and the light direction will still be accurate, since they are
+        both pointing away from the object.
       </p>
       <p>
         This calculation is done in the next step to determine the strength of
@@ -704,9 +722,19 @@ const LightingPage = ({ location: { pathname } }) => (
         the cube only reflects 50% of the light falling on it.
       </p>
       <p>
+        The color of specular lighting is also dependent on the specular color
+        that the surface emits during specular reflection, as the surface can
+        absorb part of the light, and reflect the rest of it, resulting in it
+        having a different color.
+      </p>
+      <p>
         The specular factor is multiplied against the specular reflectivity of
         the fragment, and then added to the other lighting reflection components
         to set the final color value of the fragment.
+      </p>
+      <p>
+        In our current example, we want the surface to reflect all of the light
+        coming to it, so we don't multiply it against a specular color.
       </p>
       <p>
         The reason why the specular factor is not combined with the color of the
@@ -799,18 +827,121 @@ const LightingPage = ({ location: { pathname } }) => (
       </p>
       <VertexLightingExample />
       <p>
-        The results are much more inaccurate compared to the per-fragment
-        lighting method. The reason for this{" "}
+        The results when performing lighting calculations per-vertex are much
+        more inaccurate compared to if the calculations are performed
+        per-fragment.
       </p>
+      <p>
+        The reason for this is simple: the amount of light falling on the
+        corners of the wall is lower than the amount of light falling at the
+        center of the wall.
+      </p>
+      <p>
+        This means that when calculating the lighting values at the vertices,
+        since the amount of light is lower due to the further distance from the
+        light source, the results will be low.
+      </p>
+      <p>
+        Now the GPU only has information on the lighting values for each vertex.
+        It has no information regarding the light source or how these values are
+        calculated.
+      </p>
+      <p>
+        As a result, when it needs to interpolate the lighting values at the
+        center of the wall, it can only assume that the amount of light falling
+        on the center of the screen is somewhere in between the amount of light
+        falling on each vertex.
+      </p>
+      <p>
+        The resolution (amount of detail) in per-vertex lighting is dependent on
+        the number of vertices being drawn. The more vertices being processed,
+        the more data the GPU has available to interpolate the values for the
+        rest of the fragments.
+      </p>
+      <p>
+        However, the resolution for per-fragment lighting is equal to the number
+        of fragments being drawn. Since we perform the lighting calculation for
+        each fragment, we know that the final lighting calculation will be
+        accurate for that fragment.
+      </p>
+      <p>
+        The only thing really required for per-fragment lighting is
+        interpolating the position of a fragment in a polygon. This can always
+        be easily interpolated by the GPU since the position of a fragment can
+        always be interpolated using the positions of the vertices and where the
+        fragment is present relative to those vertices.
+      </p>
+      <p>
+        Now let's look at our cube example, but with per-fragment lighting
+        calculations.
+      </p>
+      <LightingFourthExample />
       <GlslCodeHighlight
-        code={fragmentLightingVertexShaderSource.trim()}
+        code={fourthVertexShaderSource.trim()}
         type={"Vertex"}
       />
       <GlslCodeHighlight
-        code={fragmentLightingFragmentShaderSource.trim()}
+        code={fourthFragmentShaderSource.trim()}
         type={"Fragment"}
       />
+      <p>
+        You can see that the lighting in this example is different compared to
+        the previous cube example, and shows how per-vertex lighting can produce
+        incorrect results if not used correctly.
+      </p>
+      <p>
+        In our code, we've moved all lighting calculations onto the fragment
+        shader. The vertex shader only provides the fragment shader with values
+        that the GPU should always be able to correctly interpolate for each
+        fragment.
+      </p>
+      <p>
+        The fragment shader can then calculate the final lighting values for
+        each fragment using the interpolated results.
+      </p>
+      <p>
+        The values being passed to the fragment shader from the vertex shader
+        are:
+      </p>
+      <ul>
+        <li>
+          <code>vertexPosition_viewSpace</code>
+          <div style={{ paddingLeft: "2.5rem" }}>
+            The position of the vertex in view-space. This is interpolated into
+            the position of the fragment in view-space.
+          </div>
+          <div style={{ paddingLeft: "2.5rem" }}>
+            Since the vertex position describes where a vertex is located, and
+            the position of each vertex determine where a polygon is located,
+            the position of a fragment can be interpolated through the position
+            of each vertex of the polygon it is present in.
+          </div>
+        </li>
+        <li>
+          <code>vertexNormal_viewSpace</code>
+          <div style={{ paddingLeft: "2.5rem" }}>
+            The position of the vertex in world-space. This is interpolated into
+            the normal of the fragment in view-space.
+          </div>
+          <div style={{ paddingLeft: "2.5rem" }}>
+            Since the vertex normal describes which direction a vertex is
+            facing, and the normals of each vertex determine which direction a
+            polygon faces, the normal of a fragment can be interpolated through
+            the normals of each vertex of the polygon it is present in.
+          </div>
+        </li>
+      </ul>
+      <p>
+        In future examples with lighting, we'll be performing the lighting
+        calculations per-fragment instead of per-vertex for more accuracy.
+      </p>
       <h3>Additional Notes</h3>
+      <p>
+        This process can also be called shading, since we are "shading" an
+        object based on how light falls on it. Certain topics taught later also
+        fall under the process of shading since the contribute to the way an
+        object is "shaded".
+      </p>
       <p>
         A point of note is that for specular lighting we provided a value to
         control how much of the light is reflected towards the camera (the

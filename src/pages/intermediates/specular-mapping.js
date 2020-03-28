@@ -1,17 +1,14 @@
-import { Link } from "gatsby";
-import React from "react";
+import { Link } from "gatsby"
+import React from "react"
 
-import Content from "../../components/content";
-import GlslCodeHighlight from "../../components/glsl-code-highlight";
-import Image from "../../components/image";
-import SpecularMappingFirstExample from "../../components/intermediates/specular-mapping/first-example";
-import {
-  firstFragmentShaderSource,
-  firstVertexShaderSource,
-} from "../../components/intermediates/specular-mapping/first-example-shaders";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
+import Content from "../../components/content"
+import GlslCodeHighlight from "../../components/glsl-code-highlight"
+import Image from "../../components/image"
+import SpecularMappingFirstExample from "../../components/intermediates/specular-mapping/first-example"
+import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/specular-mapping/first-example-shaders"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import SEO from "../../components/seo"
 
 const SpecularMappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -93,11 +90,15 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
       </p>
       <ul>
         <li>
-          The value of the specular reflectivity of the surface is stored as a
-          grayscale color value.
+          The value of the specular reflectivity as well as the highlight color
+          of the surface is stored as a RGB color value.
         </li>
         <li>
-          The range of the color goes from 0 to 255 (0.0 - 1.0 in float),
+          The color value of a pixel describes what is the color of the specular
+          light that is reflected from that location.
+        </li>
+        <li>
+          The brightness of the color goes from 0 to 255 (0.0 - 1.0 in float),
           mapping into the range 0% - 100% specular reflectivity of the surface
           at that point.
         </li>
