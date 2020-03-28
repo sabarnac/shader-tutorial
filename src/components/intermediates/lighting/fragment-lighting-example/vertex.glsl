@@ -6,8 +6,6 @@ uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 
 uniform vec4 lightPosition_worldSpace;
-uniform vec3 lightColor;
-uniform float lightIntensity;
 
 varying highp vec4 vertexPosition_worldSpace;
 varying highp vec3 vertexNormal_viewSpace;

@@ -5,10 +5,7 @@ import texture from "../../../images/intermediates/texture.png"
 import { coordArrToString, runOnPredicate } from "../../util"
 import wrapExample from "../../webgl-example-view"
 import WebGlWrapper from "../../webgl-wrapper"
-import {
-  secondFragmentShaderSource,
-  secondVertexShaderSource,
-} from "./second-example-shaders"
+import { secondFragmentShaderSource, secondVertexShaderSource } from "./second-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -378,7 +375,7 @@ const LightingSecondExample = () => {
       <pre className="util text-left">
         {`
 Cube:
-    World Position: ${coordArrToString([0.0, 0.0, 0.0])}
+    World Position: ${coordArrToString(lightModelPosition)}
     Lighting:
         Ambient Factor: ${cube.ambientFactor}
 `.trim()}

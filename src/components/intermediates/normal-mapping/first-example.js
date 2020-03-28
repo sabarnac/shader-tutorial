@@ -5,10 +5,7 @@ import texture from "../../../images/intermediates/texture-2.png"
 import { coordArrToString, runOnPredicate } from "../../util"
 import wrapExample from "../../webgl-example-view"
 import WebGlWrapper from "../../webgl-wrapper"
-import {
-  firstFragmentShaderSource,
-  firstVertexShaderSource,
-} from "./first-example-shaders"
+import { firstFragmentShaderSource, firstVertexShaderSource } from "./first-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -39,7 +36,7 @@ const shaderProgramInfo = {
 
 const lightModelPosition = vec4.fromValues(4.0, 0.0, 4.0, 1.0)
 const lightColor = vec3.fromValues(1.0, 1.0, 1.0)
-const lightIntensity = 50.0
+const lightIntensity = 30.0
 
 const squareModelPosition = mat4.create()
 

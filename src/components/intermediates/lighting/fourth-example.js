@@ -5,7 +5,7 @@ import texture from "../../../images/intermediates/texture.png"
 import { coordArrToString, runOnPredicate } from "../../util"
 import wrapExample from "../../webgl-example-view"
 import WebGlWrapper from "../../webgl-wrapper"
-import { thirdFragmentShaderSource, thirdVertexShaderSource } from "./third-example-shaders"
+import { fourthFragmentShaderSource, fourthVertexShaderSource } from "./fourth-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -49,7 +49,7 @@ const cubeFaceUvs = [
   [1.0, 1.0],
 ]
 
-const LightingThirdExample = () => {
+const LightingFourthExample = () => {
   const cube = {
     vertices: [
       // Front vertices
@@ -192,8 +192,8 @@ const LightingThirdExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          thirdVertexShaderSource,
-          thirdFragmentShaderSource
+          fourthVertexShaderSource,
+          fourthFragmentShaderSource
         )
       )
     }),
@@ -407,4 +407,4 @@ Light:
   )
 }
 
-export default wrapExample(LightingThirdExample)
+export default wrapExample(LightingFourthExample)

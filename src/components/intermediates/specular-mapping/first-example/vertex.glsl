@@ -8,16 +8,9 @@ uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 
-uniform vec4 lightPosition_worldSpace;
-uniform vec3 lightColor;
-uniform float lightIntensity;
-uniform float surfaceReflectivity;
-
 varying highp vec2 uv;
 varying highp mat3 tbnMatrix_viewSpace;
 varying highp vec4 vertexPosition_viewSpace;
-varying highp vec3 lightDirection_viewSpace;
-varying highp float distanceFromLight;
 
 void main() {
   highp vec4 vertexPosition_worldSpace = modelMatrix * vertexPosition;
@@ -36,7 +29,4 @@ void main() {
     vertexBiTangent,
     vertexNormal
   );
-
-  distanceFromLight = distance(vertexPosition_worldSpace, lightPosition_worldSpace);
-  lightDirection_viewSpace = normalize(((viewMatrix * lightPosition_worldSpace) - vertexPosition_viewSpace).xyz);
 }
