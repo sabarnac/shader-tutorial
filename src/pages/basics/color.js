@@ -153,12 +153,12 @@ const ColorPage = ({ location: { pathname } }) => (
       </p>
       <p className="util text-center">
         <img
-          src="https://www.researchgate.net/profile/Jun_Dong_Chang/publication/228895050/figure/fig1/AS:300721896476672@1448709095300/HSV-color-model-18.png"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/HSV_color_solid_cylinder_saturation_gray.png/800px-HSV_color_solid_cylinder_saturation_gray.png"
           alt="HSV Color Wheel"
         />
         <br />
         <a
-          href="https://www.researchgate.net/figure/HSV-color-model-18_fig1_228895050"
+          href="https://commons.wikimedia.org/wiki/File:HSV_color_solid_cylinder_saturation_gray.png"
           target="_blank"
           rel="noopener noreferrer"
         >

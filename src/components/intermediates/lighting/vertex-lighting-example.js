@@ -339,9 +339,6 @@ const VertexLightingExample = () => {
         {`
 Square:
     World Position: ${coordArrToString([0.0, 0.0, 0.0])}
-    Lighting:
-        Specular Reflectivity: ${square.specularReflectivity}
-        Lobe Density: ${square.specularLobeFactor}
 `.trim()}
       </pre>
       <pre className="util text-left">
