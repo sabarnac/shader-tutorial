@@ -17,9 +17,13 @@ import * as ShadowMappingFixedModelAreaLightZoomedShadowExample from "../../comp
 import ShadowMappingAreaLightPcfShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-pcf-example"
 import { areaLightShadowPcfFragmentShaderSource } from "../../components/advanced/shadow-mapping/area-light/shadow-pcf-example-shaders"
 import ShadowMappingAreaLightPcfZoomedShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-pcf-zoomed-example"
-import ShadowMappingSpotLightMapExample from "../../components/advanced/shadow-mapping/spot-light/map-example"
 import ShadowMappingPointLightMapExample from "../../components/advanced/shadow-mapping/point-light/map-example"
 import ShadowMappingPointLightShadowExample from "../../components/advanced/shadow-mapping/point-light/shadow-example"
+import {
+  pointLightShadowFragmentShaderSource,
+  pointLightShadowVertexShaderSource,
+} from "../../components/advanced/shadow-mapping/point-light/shadow-example-shaders"
+import ShadowMappingSpotLightMapExample from "../../components/advanced/shadow-mapping/spot-light/map-example"
 import ShadowMappingSpotLightShadowExample from "../../components/advanced/shadow-mapping/spot-light/shadow-example"
 import {
   spotLightShadowFragmentShaderSource,
@@ -83,6 +87,14 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
       <hr />
       <ShadowMappingPointLightMapExample />
       <ShadowMappingPointLightShadowExample />
+      <GlslCodeHighlight
+        code={pointLightShadowVertexShaderSource}
+        type="Vertex"
+      />
+      <GlslCodeHighlight
+        code={pointLightShadowFragmentShaderSource}
+        type="Fragment"
+      />
     </Content>
     <PageChange previous="/advanced/transparency/" />
   </Layout>
