@@ -728,33 +728,15 @@ const LightingPage = ({ location: { pathname } }) => (
         having a different color.
       </p>
       <p>
-        The specular factor is multiplied against the specular reflectivity of
-        the fragment, and then added to the other lighting reflection components
-        to set the final color value of the fragment.
+        The specular color value is generally set to the color of the object,
+        but we set the specular color value to{" "}
+        {renderEquation(`(1.0, 1.0, 1.0)`)} as we want all the light falling on
+        the surface to be reflected without any parts being absorbed.
       </p>
       <p>
-        In our current example, we want the surface to reflect all of the light
-        coming to it, so we don't multiply it against a specular color.
-      </p>
-      <p>
-        The reason why the specular factor is not combined with the color of the
-        object is because the specular reflection is a direct reflection of the
-        light.
-      </p>
-      <p>
-        With diffuse reflection, some of the light is absorbed by the object,
-        and the rest is spread evenly throughout in all directions, resulting in
-        the light having the same color as the surface of the object.
-      </p>
-      <p>
-        However, with specular reflection, the light is reflected as is towards
-        the camera. None of the light is absorbed by the object, so the
-        reflected light is not of the same color as the surface of the object.
-      </p>
-      <p>
-        This results in the specular reflection color just being the color of
-        the light itself, which is shown as the white "shine" you can see on the
-        cube occasionally as it rotates.
+        The specular factor is multiplied against the specular reflectivity and
+        the specular color of the fragment, and then added to the other lighting
+        reflection components to set the final color value of the fragment.
       </p>
       <h3>Per-vertex vs Per-fragment lighting</h3>
       <p>

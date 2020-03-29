@@ -1,24 +1,18 @@
-import { Link } from "gatsby";
-import React from "react";
+import { Link } from "gatsby"
+import React from "react"
 
-import Content from "../../components/content";
-import GlslCodeHighlight from "../../components/glsl-code-highlight";
-import Image from "../../components/image";
-import NormalMappingFirstExample from "../../components/intermediates/normal-mapping/first-example";
-import NormalMappingSecondExample from "../../components/intermediates/normal-mapping/second-example";
-import {
-  secondFragmentShaderSource,
-  secondVertexShaderSource,
-} from "../../components/intermediates/normal-mapping/second-example-shaders";
-import NormalMappingThirdExample from "../../components/intermediates/normal-mapping/third-example";
-import {
-  thirdFragmentShaderSource,
-  thirdVertexShaderSource,
-} from "../../components/intermediates/normal-mapping/third-example-shaders";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
-import { renderEquation } from "../../components/util";
+import Content from "../../components/content"
+import GlslCodeHighlight from "../../components/glsl-code-highlight"
+import Image from "../../components/image"
+import NormalMappingFirstExample from "../../components/intermediates/normal-mapping/first-example"
+import NormalMappingSecondExample from "../../components/intermediates/normal-mapping/second-example"
+import { secondFragmentShaderSource, secondVertexShaderSource } from "../../components/intermediates/normal-mapping/second-example-shaders"
+import NormalMappingThirdExample from "../../components/intermediates/normal-mapping/third-example"
+import { thirdFragmentShaderSource, thirdVertexShaderSource } from "../../components/intermediates/normal-mapping/third-example-shaders"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import SEO from "../../components/seo"
+import { renderEquation } from "../../components/util"
 
 const NormalMappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -327,7 +321,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       <p>
         The first step is to calculate the TBN matrix which we need for
         transforming the normal values from tangent-space into view-space. This
-        is done from line 30 onwards in the vertex shader.
+        is done from line 22 onwards in the vertex shader.
       </p>
       <p>
         The tangent, bi-tangent and normal values for each vertex in a model is
@@ -363,9 +357,8 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         The calculated TBN matrix in view-space is now passed to the fragment
-        shader, along with certain other values that can still be calculated in
-        the vertex shader (<code>distanceFromLight</code> and{" "}
-        <code>lightDirection_viewSpace</code>).
+        shader, along with certain other values that can only be calculated in
+        the vertex shader (<code>vertexPosition_viewSpace</code>).
       </p>
       <p>
         In the fragment shader, the normal value of the fragment is retrieved
@@ -427,8 +420,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         Once this is calculated, the rest of the lighting calculations use this
         normal value to calculate the lighting on the fragment. This is similar
         to what was taught in the{" "}
-        <Link to="/intermediates/lighting/">lighting chapter</Link>, except the
-        majority of the calculation is done in the fragment shader.
+        <Link to="/intermediates/lighting/">lighting chapter</Link>.
       </p>
       <p>
         Now that we've seen what the calculation looks like in view-space, let's
@@ -448,29 +440,22 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         Since the TBN matrix we previously had transformed vectors from
         tangent-space to view-space, in order to transform values the other way
         we need to calculate the transpose of the TBN matrix we previously
-        calculated. This is done in line 40 of the vertex shader.
+        calculated. This is done in line 33 of the vertex shader.
       </p>
       <p>
         Once the new TBN matrix is calculated, we now transform all the values
-        we were previously using in view-space into tangent space. In lines 47
-        and 48 the <code>vertexPosition</code> and <code>lightDirection</code>{" "}
-        are transformed into tangent-space.
-      </p>
-      <p>
-        Notice that we're not passing the TBN matrix to the fragment shader.
-        This is because no values need to be transformed within the fragment
-        shader, all the required tangent-space transformations have been done in
-        the vertex shader itself.
+        we were previously using in view-space into tangent space. In the vertex
+        shader, we transform the vertex position into tangent-space, and in the
+        fragment shader we transform the light position into tangent-space.
       </p>
       <p>
         Once in the fragment shader, we grab the normal vector from the normal
         map as we did in the previous example. Since the lighting calculations
-        are being done in tangent-space, the transformation of the normal vector
-        into view-space is not required. Only the conversion from the color
+        are being done in tangent-space, only the conversion from the color
         value to the vector value is required.
       </p>
       <p>
-        Since all the variables we require for calculating lighting are in
+        Now that all the variables we require for calculating lighting are in
         tangent-space, we can perform the lighting calculations in the exact
         same way as in the previous example. The resultant lighting value will
         be the same!

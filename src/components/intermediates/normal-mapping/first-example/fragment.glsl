@@ -8,16 +8,14 @@ uniform highp vec4 lightPosition_worldSpace;
 uniform highp vec3 lightColor;
 uniform highp float lightIntensity;
 
-uniform highp float ambientFactor;
-
 uniform highp float specularLobeFactor;
 uniform highp float specularReflectivity;
 
 uniform sampler2D diffuseTextureSampler;
 
 void main() {
-  highp vec4 surfaceColor = texture2D(diffuseTextureSampler, uv);
-  highp vec4 ambientColor = vec4(surfaceColor);
+  highp vec4 diffuseColor = texture2D(diffuseTextureSampler, uv);
+  highp vec3 specularColor = vec3(diffuseColor.rgb);
 
   highp vec4 lightPosition_viewSpace = viewMatrix * lightPosition_worldSpace;
   highp vec3 lightDirection_viewSpace = normalize((lightPosition_viewSpace - vertexPosition_viewSpace).xyz);
@@ -34,6 +32,6 @@ void main() {
   highp float specularStrength = clamp(dot(viewDirection_viewSpace, lightReflection_viewSpace), 0.0, 1.0);
   highp vec3 specularLight = (lightColorIntensity * pow(specularStrength, specularLobeFactor)) / (distanceFromLight * distanceFromLight);
 
-  gl_FragColor.rgb = (ambientColor.rgb * ambientFactor) + (surfaceColor.rgb * diffuseLight) + (specularReflectivity * specularLight);
-  gl_FragColor.a = surfaceColor.a;
+  gl_FragColor.rgb = (diffuseColor.rgb * diffuseLight) + (specularColor.rgb * specularReflectivity * specularLight);
+  gl_FragColor.a = diffuseColor.a;
 }

@@ -24,8 +24,8 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         Similar to how we've stored information the normal information of a
         surface in a map (as taught in the{" "}
         <Link to="/intermediates/normal-mapping">normal mapping chapter</Link>),
-        we can also store specular reflectivity information of a surface in a
-        map as well. Such a map is called a specular map.
+        we can also store specular information of a surface in a map as well.
+        Such a map is called a specular map.
       </p>
       <h3>Specular Maps</h3>
       <p>
@@ -85,30 +85,23 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         </a>
       </div>
       <p>
-        The specular map is a grayscale image that contains the following
-        information per pixel:
+        The specular map is an RGB image that contains the following information
+        per pixel:
       </p>
       <ul>
         <li>
-          The value of the specular reflectivity as well as the highlight color
-          of the surface is stored as a RGB color value.
-        </li>
-        <li>
           The color value of a pixel describes what is the color of the specular
-          light that is reflected from that location.
+          highlight that is reflected from that point. Since the surface of the
+          object can absorb part of the light and reflect the rest of it, this
+          can change the specular reflection color and brightness.
         </li>
         <li>
-          The brightness of the color goes from 0 to 255 (0.0 - 1.0 in float),
-          mapping into the range 0% - 100% specular reflectivity of the surface
-          at that point.
+          The brightness of the color maps into the specular reflectivity of the
+          surface at that point. This means the brighter the color of the pixel,
+          the smoother the surface is at that point and the more light it
+          reflects.
         </li>
       </ul>
-      <p>
-        This means that the brighter a point is in a specular map, the smoother
-        the surface is at that point, and the higher the specular lighting will
-        be at that point (more of the light is directly reflected towards the
-        camera).
-      </p>
       <p>
         Let's look at the stone wall example with the specular map added in.
         We'll be performing the lighting calculation in view-space.
@@ -124,36 +117,43 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         type={"Fragment"}
       />
       <p>
-        At line 37, we grab the specular color value from the specular map, and
-        use that as the specular reflectivity value for the specular lighting
-        component.
+        At line 20, we grab the specular color value from the specular map, and
+        use that as the specular highlight color + reflectivity value for the
+        specular lighting component.
       </p>
       <p>
-        Since the colors stored in the specular map are in grayscale from the
-        range of 0.0 to 1.0, the RGB value can be used as is and multiplied
-        against the specular lighting vector.
+        Since the colors stored in the specular map are in RGB (with range 0 -
+        255, 0.0 - 1.0 in GLSL), the color value tells us what is the color of
+        the specular highlight that is being reflected, and the brightness of
+        the color tells us how much light is reflected.
+      </p>
+      <p>
+        As a result, the specular color retrieved from the map can be used as
+        and multiplied against the specular lighting vector to give us the final
+        specular lighting value for the fragment.
       </p>
       <h3>Summary</h3>
       <ul>
         <li>
           Similar to normal mapping, specular mapping can be used to map
-          specular reflectivity to fragments inside a polygon to make a surface
-          look more reflective and smooth.
+          specular highlight color and reflectivity to fragments inside a
+          polygon to make a surface look more reflective and smooth.
         </li>
         <li>
-          Specular maps add the apperence of smoothness on the surface of
+          Specular maps add the appearence of smoothness on the surface of
           objects, allowing for the surface to reflect more light directly,
           increasing the specular lighting of the surface.
         </li>
         <li>
-          The reflectivity of each point are stored in the image as a grayscale
-          color value.
+          The specular highlight color and reflectivity of each point are stored
+          in the image as a RGB color value.
         </li>
         <li>
-          The color values representing the specular reflectivity for each
-          fragment are retrieved from the texture and used as is, since the
-          colors are in grayscale and can be used directly to calculate how much
-          specular light is actually reflected.
+          The color values representing the specular highlight color and
+          reflectivity for each fragment are retrieved from the texture and used
+          as is, since the colors are in RGB and can be used directly to
+          calculate how much specular light is actually reflected and the color
+          of that light.
         </li>
       </ul>
     </Content>
