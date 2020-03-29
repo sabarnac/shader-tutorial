@@ -26,7 +26,6 @@ const shaderProgramInfo = {
       lightPosition_worldSpace: "vec4",
       lightColor: "vec3",
       lightIntensity: "float",
-      specularReflectivity: "float",
       specularLobeFactor: "float",
     },
   },
@@ -78,7 +77,6 @@ const SpecularMappingFirstExample = () => {
     texture: texture,
     normalTexture: normalTexture,
     specularTexture: specularTexture,
-    specularReflectivity: 0.5,
     specularLobeFactor: 50.0,
   }
   for (let i = 0; i < square.vertices.length; i += 3) {
@@ -344,10 +342,6 @@ const SpecularMappingFirstExample = () => {
               lightIntensity
             )
             gl.uniform1f(
-              shaderInfo.fragment.uniformLocations.specularReflectivity,
-              square.specularReflectivity
-            )
-            gl.uniform1f(
               shaderInfo.vertex.uniformLocations.specularLobeFactor,
               square.specularLobeFactor
             )
@@ -405,7 +399,6 @@ const SpecularMappingFirstExample = () => {
 Square:
     World Position: ${coordArrToString([0.0, 0.0, 0.0])}
     Lighting:
-        Specular Reflectivity: ${square.specularReflectivity}
         Lobe Density: ${square.specularLobeFactor}
 `.trim()}
       </pre>
