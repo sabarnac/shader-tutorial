@@ -77,7 +77,7 @@ const SpecularMappingFirstExample = () => {
     texture: texture,
     normalTexture: normalTexture,
     specularTexture: specularTexture,
-    specularLobeFactor: 50.0,
+    specularLobeFactor: 5.0,
   }
   for (let i = 0; i < square.vertices.length; i += 3) {
     const v0 = vec3.clone(square.vertices[i + 0])

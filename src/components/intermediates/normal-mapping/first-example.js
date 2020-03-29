@@ -68,8 +68,8 @@ const NormalMappingFirstExample = () => {
     ],
     indices: [[0, 1, 2, 3, 4, 5]],
     texture: texture,
-    specularReflectivity: 0.5,
-    specularLobeFactor: 50.0,
+    specularReflectivity: 0.3,
+    specularLobeFactor: 5.0,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shaderProgram, updateShaderProgram] = useState(null)
