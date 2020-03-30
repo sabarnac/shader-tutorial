@@ -41,7 +41,16 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
       pathname={pathname}
       title="Shader Advanced - Shadow Mapping"
       description="A look into the how shadow maps can be generated and used to add dynamic shadows produced by objects in a scene."
-      keywords={["specular", "mapping", "texturing", "shader", "intermediates"]}
+      keywords={[
+        "shadow",
+        "mapping",
+        "texturing",
+        "shader",
+        "spot light",
+        "area light",
+        "point light",
+        "advanced",
+      ]}
     />
     <Content>
       <h2>Shader Advanced - Shadow Mapping</h2>
