@@ -17,6 +17,7 @@ import * as ShadowMappingFixedModelAreaLightZoomedShadowExample from "../../comp
 import ShadowMappingAreaLightPcfShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-pcf-example"
 import { areaLightShadowPcfFragmentShaderSource } from "../../components/advanced/shadow-mapping/area-light/shadow-pcf-example-shaders"
 import ShadowMappingAreaLightPcfZoomedShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-pcf-zoomed-example"
+import ShadowMappingNoShadowExample from "../../components/advanced/shadow-mapping/no-shadow/shadow-example"
 import ShadowMappingPointLightMapExample from "../../components/advanced/shadow-mapping/point-light/map-example"
 import ShadowMappingPointLightShadowExample from "../../components/advanced/shadow-mapping/point-light/shadow-example"
 import {
@@ -54,6 +55,8 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
     />
     <Content>
       <h2>Shader Advanced - Shadow Mapping</h2>
+      <ShadowMappingNoShadowExample />
+      <h3>Area light</h3>
       <ShadowMappingAreaLightMapExample />
       <GlslCodeHighlight code={areaLightMapVertexShaderSource} type="Vertex" />
       <GlslCodeHighlight
@@ -69,20 +72,24 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         code={areaLightShadowFragmentShaderSource}
         type="Fragment"
       />
+      <h4>Shadow acne</h4>
       <ShadowMappingFixedAreaLightShadowExample />
       <GlslCodeHighlight
         code={areaLightShadowFixedFragmentShaderSource}
         type="Fragment"
       />
+      <h4>Peter-panning</h4>
       <ShadowMappingFixedModelAreaLightShadowExample />
+      <h4>Shadow aliasing</h4>
       <ShadowMappingFixedModelAreaLightZoomedShadowExample.default />
+      <h4>Percentage-Closer Filtering (PCF)</h4>
       <ShadowMappingAreaLightPcfShadowExample />
       <GlslCodeHighlight
         code={areaLightShadowPcfFragmentShaderSource}
         type="Fragment"
       />
       <ShadowMappingAreaLightPcfZoomedShadowExample />
-      <hr />
+      <h3>Spot light</h3>
       <ShadowMappingSpotLightMapExample />
       <ShadowMappingSpotLightShadowExample />
       <GlslCodeHighlight
@@ -93,7 +100,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         code={spotLightShadowFragmentShaderSource}
         type="Fragment"
       />
-      <hr />
+      <h3>Point light</h3>
       <ShadowMappingPointLightMapExample />
       <ShadowMappingPointLightShadowExample />
       <GlslCodeHighlight
