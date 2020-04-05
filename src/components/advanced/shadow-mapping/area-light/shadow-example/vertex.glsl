@@ -9,7 +9,6 @@ uniform mat4 lightModelMatrix;
 uniform mat4 lightViewMatrix;
 uniform mat4 lightProjectionMatrix;
 
-uniform vec4 lightPosition_worldSpace;
 uniform vec4 lightDirection_worldSpace;
 uniform vec3 lightColor;
 uniform float lightIntensity;

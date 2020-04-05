@@ -40,7 +40,7 @@ const shaderProgramInfo = {
       lightViewMatrix: "mat4",
       lightProjectionMatrix: "mat4",
 
-      lightPosition_worldSpace: "vec4",
+      lightPlanePosition_worldSpace: "vec4",
       lightDirection_worldSpace: "vec4",
       lightColor: "vec3",
       lightIntensity: "float",
@@ -360,7 +360,7 @@ const ShadowMappingFixedModelAreaLightZoomedShadowExample = () => {
           )
 
           gl.uniform4fv(
-            shaderInfo.vertex.uniformLocations.lightPosition_worldSpace,
+            shaderInfo.vertex.uniformLocations.lightPlanePosition_worldSpace,
             lightModelPosition
           )
           gl.uniform4fv(

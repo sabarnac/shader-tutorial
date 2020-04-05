@@ -6,12 +6,22 @@ varying highp vec3 lightDirection_viewSpace;
 
 uniform highp vec3 lightColor;
 uniform highp float lightIntensity;
-uniform highp vec4 lightPosition_worldSpace;
+uniform highp vec4 lightPlanePosition_worldSpace;
+uniform highp vec4 lightDirection_worldSpace;
 uniform highp float ambientFactor;
 uniform sampler2D shadowTextureSampler;
 
+highp vec4 getLightPosition_wrt_vertexPosition() {
+  // https://en.wikipedia.org/wiki/Line%E2%80%93plane_intersection#Algebraic_form
+
+  highp vec4 lightPlaneDirectionFromVertex = (lightPlanePosition_worldSpace - vertexPosition_worldSpace);
+  highp float shortestDistanceOfLightFromVertex = dot(lightPlaneDirectionFromVertex, lightDirection_worldSpace) / dot(lightDirection_worldSpace, lightDirection_worldSpace);
+  return vertexPosition_worldSpace + (lightDirection_worldSpace * shortestDistanceOfLightFromVertex);
+}
+
 highp vec3 getDiffuseLighting() {
   highp vec3 lightColorIntensity = lightColor * lightIntensity;
+  highp vec4 lightPosition_worldSpace = getLightPosition_wrt_vertexPosition();
   highp float distanceFromLight = distance(vertexPosition_worldSpace, lightPosition_worldSpace);
 
   highp float diffuseStrength = clamp(dot(vertexNormal_viewSpace, lightDirection_viewSpace), 0.0, 1.0);
