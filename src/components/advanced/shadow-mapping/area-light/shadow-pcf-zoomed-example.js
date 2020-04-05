@@ -1,12 +1,12 @@
-import { mat4, vec2, vec3, vec4 } from "gl-matrix";
-import React, { useCallback, useEffect, useState } from "react";
+import { mat4, vec2, vec3, vec4 } from "gl-matrix"
+import React, { useCallback, useEffect, useState } from "react"
 
-import { coordArrToString, runOnPredicate } from "../../../util";
-import wrapExample from "../../../webgl-example-view";
-import WebGlWrapper from "../../../webgl-wrapper";
-import { areaLightMapFragmentShaderSource, areaLightMapVertexShaderSource } from "./map-example-shaders";
-import { modelIndices, modelNormals, modelVertices } from "./model-fixed";
-import { areaLightShadowPcfFragmentShaderSource, areaLightShadowPcfVertexShaderSource } from "./shadow-pcf-example-shaders";
+import { coordArrToString, runOnPredicate } from "../../../util"
+import wrapExample from "../../../webgl-example-view"
+import WebGlWrapper from "../../../webgl-wrapper"
+import { areaLightMapFragmentShaderSource, areaLightMapVertexShaderSource } from "./map-example-shaders"
+import { modelIndices, modelNormals, modelVertices } from "./model-fixed"
+import { areaLightShadowPcfFragmentShaderSource, areaLightShadowPcfVertexShaderSource } from "./shadow-pcf-example-shaders"
 
 const shadowMapShaderProgramInfo = {
   vertex: {
@@ -41,6 +41,7 @@ const shaderProgramInfo = {
       lightProjectionMatrix: "mat4",
 
       lightPosition_worldSpace: "vec4",
+      lightDirection_worldSpace: "vec4",
       lightColor: "vec3",
       lightIntensity: "float",
     },
@@ -58,6 +59,11 @@ const shaderProgramInfo = {
 const lightModelPosition = vec4.fromValues(-9.0, 27.0, -18.0, 1.0)
 const lightColor = vec3.fromValues(0.3, 0.3, 0.3)
 const lightIntensity = 2500.0
+
+const lightLookAtPosition = vec4.fromValues(0.0, 0.0, 0.0, 1.0)
+const lightDirection_worldSpace = vec4.create()
+vec4.sub(lightDirection_worldSpace, lightModelPosition, lightLookAtPosition)
+vec4.normalize(lightDirection_worldSpace, lightDirection_worldSpace)
 
 const sceneModelPosition = mat4.create()
 
@@ -362,6 +368,10 @@ const ShadowMappingAreaLightPcfZoomedShadowExample = () => {
             shaderInfo.vertex.uniformLocations.lightPosition_worldSpace,
             lightModelPosition
           )
+          gl.uniform4fv(
+            shaderInfo.vertex.uniformLocations.lightDirection_worldSpace,
+            lightDirection_worldSpace
+          )
           gl.uniform3fv(
             shaderInfo.vertex.uniformLocations.lightColor,
             lightColor
@@ -423,6 +433,7 @@ Scene:
         {`
 Light:
     World Position: ${coordArrToString(lightModelPosition)}
+    Direction: ${coordArrToString(lightDirection_worldSpace)}
     Color: ${coordArrToString(lightColor, colorCoords)}
     Intensity: ${lightIntensity}
 `.trim()}
