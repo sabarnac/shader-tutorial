@@ -1,24 +1,30 @@
 import React from "react"
 
-import ShadowMappingAreaLightMapExample from "../../components/advanced/shadow-mapping/area-light/map-example"
+import ShadowMappingDirectionalLightMapExample from "../../components/advanced/shadow-mapping/directional-light/map-example"
 import {
-  areaLightMapFragmentShaderSource,
-  areaLightMapVertexShaderSource,
-} from "../../components/advanced/shadow-mapping/area-light/map-example-shaders"
-import ShadowMappingAreaLightShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-example"
+  directionalLightMapFragmentShaderSource,
+  directionalLightMapVertexShaderSource,
+} from "../../components/advanced/shadow-mapping/directional-light/map-example-shaders"
+import ShadowMappingDirectionalLightShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-example"
 import {
-  areaLightShadowFragmentShaderSource,
-  areaLightShadowVertexShaderSource,
-} from "../../components/advanced/shadow-mapping/area-light/shadow-example-shaders"
-import ShadowMappingFixedAreaLightShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-fixed-example"
-import { areaLightShadowFixedFragmentShaderSource } from "../../components/advanced/shadow-mapping/area-light/shadow-fixed-example-shaders"
-import ShadowMappingFixedModelAreaLightShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-model-fixed-example"
-import * as ShadowMappingFixedModelAreaLightZoomedShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-model-fixed-zoomed-example"
-import ShadowMappingAreaLightPcfShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-pcf-example"
-import { areaLightShadowPcfFragmentShaderSource } from "../../components/advanced/shadow-mapping/area-light/shadow-pcf-example-shaders"
-import ShadowMappingAreaLightPcfZoomedShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-pcf-zoomed-example"
+  directionalLightShadowFragmentShaderSource,
+  directionalLightShadowVertexShaderSource,
+} from "../../components/advanced/shadow-mapping/directional-light/shadow-example-shaders"
+import ShadowMappingFixedDirectionalLightShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-fixed-example"
+import {
+  directionalLightShadowFixedFragmentShaderSource,
+} from "../../components/advanced/shadow-mapping/directional-light/shadow-fixed-example-shaders"
+import * as ShadowMappingFixedModelDirectionalLightShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-model-fixed-example"
+import * as ShadowMappingFixedModelDirectionalLightZoomedShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-model-fixed-zoomed-example"
+import ShadowMappingDirectionalLightPcfShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-pcf-example"
+import { directionalLightShadowPcfFragmentShaderSource } from "../../components/advanced/shadow-mapping/directional-light/shadow-pcf-example-shaders"
+import ShadowMappingDirectionalLightPcfZoomedShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-pcf-zoomed-example"
 import ShadowMappingNoShadowExample from "../../components/advanced/shadow-mapping/no-shadow/shadow-example"
 import ShadowMappingPointLightMapExample from "../../components/advanced/shadow-mapping/point-light/map-example"
+import {
+  pointLightMapFragmentShaderSource,
+  pointLightMapVertexShaderSource,
+} from "../../components/advanced/shadow-mapping/point-light/map-example-shaders"
 import ShadowMappingPointLightShadowExample from "../../components/advanced/shadow-mapping/point-light/shadow-example"
 import {
   pointLightShadowFragmentShaderSource,
@@ -56,39 +62,42 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
     <Content>
       <h2>Shader Advanced - Shadow Mapping</h2>
       <ShadowMappingNoShadowExample />
-      <h3>Area light</h3>
-      <ShadowMappingAreaLightMapExample />
-      <GlslCodeHighlight code={areaLightMapVertexShaderSource} type="Vertex" />
+      <h3>Directional light</h3>
+      <ShadowMappingDirectionalLightMapExample />
       <GlslCodeHighlight
-        code={areaLightMapFragmentShaderSource}
-        type="Fragment"
-      />
-      <ShadowMappingAreaLightShadowExample />
-      <GlslCodeHighlight
-        code={areaLightShadowVertexShaderSource}
+        code={directionalLightMapVertexShaderSource}
         type="Vertex"
       />
       <GlslCodeHighlight
-        code={areaLightShadowFragmentShaderSource}
+        code={directionalLightMapFragmentShaderSource}
+        type="Fragment"
+      />
+      <ShadowMappingDirectionalLightShadowExample />
+      <GlslCodeHighlight
+        code={directionalLightShadowVertexShaderSource}
+        type="Vertex"
+      />
+      <GlslCodeHighlight
+        code={directionalLightShadowFragmentShaderSource}
         type="Fragment"
       />
       <h4>Shadow acne</h4>
-      <ShadowMappingFixedAreaLightShadowExample />
+      <ShadowMappingFixedDirectionalLightShadowExample />
       <GlslCodeHighlight
-        code={areaLightShadowFixedFragmentShaderSource}
+        code={directionalLightShadowFixedFragmentShaderSource}
         type="Fragment"
       />
       <h4>Peter-panning</h4>
-      <ShadowMappingFixedModelAreaLightShadowExample />
+      <ShadowMappingFixedModelDirectionalLightShadowExample.default />
       <h4>Shadow aliasing</h4>
-      <ShadowMappingFixedModelAreaLightZoomedShadowExample.default />
+      <ShadowMappingFixedModelDirectionalLightZoomedShadowExample.default />
       <h4>Percentage-Closer Filtering (PCF)</h4>
-      <ShadowMappingAreaLightPcfShadowExample />
+      <ShadowMappingDirectionalLightPcfShadowExample />
       <GlslCodeHighlight
-        code={areaLightShadowPcfFragmentShaderSource}
+        code={directionalLightShadowPcfFragmentShaderSource}
         type="Fragment"
       />
-      <ShadowMappingAreaLightPcfZoomedShadowExample />
+      <ShadowMappingDirectionalLightPcfZoomedShadowExample />
       <h3>Spot light</h3>
       <ShadowMappingSpotLightMapExample />
       <ShadowMappingSpotLightShadowExample />
@@ -102,6 +111,11 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
       />
       <h3>Point light</h3>
       <ShadowMappingPointLightMapExample />
+      <GlslCodeHighlight code={pointLightMapVertexShaderSource} type="Vertex" />
+      <GlslCodeHighlight
+        code={pointLightMapFragmentShaderSource}
+        type="Fragment"
+      />
       <ShadowMappingPointLightShadowExample />
       <GlslCodeHighlight
         code={pointLightShadowVertexShaderSource}

@@ -4,9 +4,9 @@ import React, { useCallback, useEffect, useState } from "react"
 import { coordArrToString, runOnPredicate } from "../../../util"
 import wrapExample from "../../../webgl-example-view"
 import WebGlWrapper from "../../../webgl-wrapper"
-import { areaLightMapFragmentShaderSource, areaLightMapVertexShaderSource } from "./map-example-shaders"
+import { directionalLightMapFragmentShaderSource, directionalLightMapVertexShaderSource } from "./map-example-shaders"
 import { modelIndices, modelNormals, modelVertices } from "./model"
-import { areaLightShadowFixedFragmentShaderSource, areaLightShadowFixedVertexShaderSource } from "./shadow-fixed-example-shaders"
+import { directionalLightShadowFragmentShaderSource, directionalLightShadowVertexShaderSource } from "./shadow-example-shaders"
 
 const shadowMapShaderProgramInfo = {
   vertex: {
@@ -40,7 +40,6 @@ const shaderProgramInfo = {
       lightViewMatrix: "mat4",
       lightProjectionMatrix: "mat4",
 
-      lightPlanePosition_worldSpace: "vec4",
       lightDirection_worldSpace: "vec4",
       lightColor: "vec3",
       lightIntensity: "float",
@@ -55,18 +54,13 @@ const shaderProgramInfo = {
   },
 }
 
-const lightModelPosition = vec4.fromValues(-9.0, 27.0, -18.0, 1.0)
-const lightColor = vec3.fromValues(0.3, 0.3, 0.3)
-const lightIntensity = 2500.0
-
-const lightLookAtPosition = vec4.fromValues(0.0, 0.0, 0.0, 1.0)
-const lightDirection_worldSpace = vec4.create()
-vec4.sub(lightDirection_worldSpace, lightModelPosition, lightLookAtPosition)
-vec4.normalize(lightDirection_worldSpace, lightDirection_worldSpace)
+const lightDirectionInverted = vec4.fromValues(-9.0, 27.0, -18.0, 0.0)
+const lightColor = vec3.fromValues(1.0, 1.0, 1.0)
+const lightIntensity = 0.75
 
 const sceneModelPosition = mat4.create()
 
-const ShadowMappingFixedAreaLightShadowExample = () => {
+const ShadowMappingDirectionalLightShadowExample = () => {
   const scene = {
     vertices: modelVertices,
     normals: modelNormals,
@@ -106,8 +100,8 @@ const ShadowMappingFixedAreaLightShadowExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShadowMapShaderProgram(
         webGlRef.createShaderProgram(
-          areaLightMapVertexShaderSource,
-          areaLightMapFragmentShaderSource
+          directionalLightMapVertexShaderSource,
+          directionalLightMapFragmentShaderSource
         )
       )
     }),
@@ -162,8 +156,8 @@ const ShadowMappingFixedAreaLightShadowExample = () => {
     runOnPredicate(shadowMapFramebuffer !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          areaLightShadowFixedVertexShaderSource,
-          areaLightShadowFixedFragmentShaderSource
+          directionalLightShadowVertexShaderSource,
+          directionalLightShadowFragmentShaderSource
         )
       )
     }),
@@ -231,11 +225,7 @@ const ShadowMappingFixedAreaLightShadowExample = () => {
 
             mat4.lookAt(
               lightViewMatrix,
-              [
-                lightModelPosition[0],
-                lightModelPosition[1],
-                lightModelPosition[2],
-              ],
+              lightDirectionInverted,
               [0.0, 0.0, 0.0],
               [0.0, 1.0, 0.0]
             )
@@ -360,12 +350,8 @@ const ShadowMappingFixedAreaLightShadowExample = () => {
           )
 
           gl.uniform4fv(
-            shaderInfo.vertex.uniformLocations.lightPlanePosition_worldSpace,
-            lightModelPosition
-          )
-          gl.uniform4fv(
             shaderInfo.vertex.uniformLocations.lightDirection_worldSpace,
-            lightDirection_worldSpace
+            lightDirectionInverted
           )
           gl.uniform3fv(
             shaderInfo.vertex.uniformLocations.lightColor,
@@ -423,8 +409,9 @@ Scene:
       <pre className="util text-left">
         {`
 Light:
-    World Position: ${coordArrToString(lightModelPosition)}
-    Direction: ${coordArrToString(lightDirection_worldSpace)}
+    Direction: ${coordArrToString(
+      lightDirectionInverted.map(coord => -1 * coord)
+    )}
     Color: ${coordArrToString(lightColor, colorCoords)}
     Intensity: ${lightIntensity}
 `.trim()}
@@ -433,4 +420,4 @@ Light:
   )
 }
 
-export default wrapExample(ShadowMappingFixedAreaLightShadowExample)
+export default wrapExample(ShadowMappingDirectionalLightShadowExample)

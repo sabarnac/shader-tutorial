@@ -1,11 +1,11 @@
-import { mat4 } from "gl-matrix";
-import React, { useCallback, useEffect, useState } from "react";
+import { mat4, vec4 } from "gl-matrix"
+import React, { useCallback, useEffect, useState } from "react"
 
-import { coordArrToString, runOnPredicate } from "../../../util";
-import wrapExample from "../../../webgl-example-view";
-import WebGlWrapper from "../../../webgl-wrapper";
-import { areaLightMapFragmentShaderSource, areaLightMapVertexShaderSource } from "./map-example-shaders";
-import { modelIndices, modelVertices } from "./model";
+import { coordArrToString, runOnPredicate } from "../../../util"
+import wrapExample from "../../../webgl-example-view"
+import WebGlWrapper from "../../../webgl-wrapper"
+import { directionalLightMapFragmentShaderSource, directionalLightMapVertexShaderSource } from "./map-example-shaders"
+import { modelIndices, modelVertices } from "./model"
 
 const shaderProgramInfo = {
   vertex: {
@@ -24,11 +24,11 @@ const shaderProgramInfo = {
   },
 }
 
-const lightModelPosition = [-9.0, 27.0, -18.0]
+const lightDirectionInverted = vec4.fromValues(-9.0, 27.0, -18.0, 0.0)
 
 const sceneModelPosition = mat4.create()
 
-const ShadowMappingAreaLightMapExample = () => {
+const ShadowMappingDirectionalLightMapExample = () => {
   const scene = {
     vertices: modelVertices,
     indices: modelIndices,
@@ -57,8 +57,8 @@ const ShadowMappingAreaLightMapExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          areaLightMapVertexShaderSource,
-          areaLightMapFragmentShaderSource
+          directionalLightMapVertexShaderSource,
+          directionalLightMapFragmentShaderSource
         )
       )
     }),
@@ -119,7 +119,7 @@ const ShadowMappingAreaLightMapExample = () => {
           const lightViewMatrix = mat4.create()
           mat4.lookAt(
             lightViewMatrix,
-            lightModelPosition,
+            lightDirectionInverted,
             [0.0, 0.0, 0.0],
             [0.0, 1.0, 0.0]
           )
@@ -191,11 +191,13 @@ Scene:
       <pre className="util text-left">
         {`
 Light:
-    World Position: ${coordArrToString(lightModelPosition)}
+    Direction: ${coordArrToString(
+      lightDirectionInverted.map(coord => -1 * coord)
+    )}
 `.trim()}
       </pre>
     </div>
   )
 }
 
-export default wrapExample(ShadowMappingAreaLightMapExample)
+export default wrapExample(ShadowMappingDirectionalLightMapExample)
