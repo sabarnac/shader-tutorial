@@ -1,3 +1,4 @@
+import { Link } from "gatsby"
 import React from "react"
 
 import ShadowMappingDirectionalLightMapExample from "../../components/advanced/shadow-mapping/directional-light/map-example"
@@ -61,7 +62,27 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
     />
     <Content>
       <h2>Shader Advanced - Shadow Mapping</h2>
+      <p>
+        In the <Link to="/intermediates/lighting/">lighting chapter</Link>,
+        we've learnt how to color an object based on the light falling on it,
+        and the various components that make up the lighting of an object.
+      </p>
+      <p>
+        However, we're still missing an important component of lighting an
+        object - the shadows that the create. While light can increase the
+        visibility of an object, it also allows an object to cast shadows on
+        other objects, reducing their visibility.
+      </p>
+      <p>
+        Without shadows being considered when shading an object based on the
+        sources of light in the world, the world will not look accurate.
+      </p>
+      <p>
+        Let's take a look at an example where we only have lighting in the
+        world, but no shadows being cast by objects.
+      </p>
       <ShadowMappingNoShadowExample />
+      <p></p>
       <h3>Directional light</h3>
       <ShadowMappingDirectionalLightMapExample />
       <GlslCodeHighlight
