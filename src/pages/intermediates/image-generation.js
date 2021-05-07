@@ -1,35 +1,35 @@
-import { Link } from "gatsby";
-import React from "react";
+import { Link } from "gatsby"
+import React from "react"
 
-import Content from "../../components/content";
-import GlslCodeHighlight from "../../components/glsl-code-highlight";
-import Image from "../../components/image";
-import RandomImageGenerationEighthExample from "../../components/intermediates/image-generation/eighth-example";
-import { eighthFragmentShaderSource } from "../../components/intermediates/image-generation/eighth-example-shaders";
-import RandomImageGenerationFifthExample from "../../components/intermediates/image-generation/fifth-example";
-import { fifthFragmentShaderSource } from "../../components/intermediates/image-generation/fifth-example-shaders";
-import RandomImageGenerationFirstExample from "../../components/intermediates/image-generation/first-example";
-import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/image-generation/first-example-shaders";
-import RandomImageGenerationFourthExample from "../../components/intermediates/image-generation/fourth-example";
-import { fourthFragmentShaderSource } from "../../components/intermediates/image-generation/fourth-example-shaders";
-import RandomImageGenerationNinthExample from "../../components/intermediates/image-generation/ninth-example";
-import { ninthFragmentShaderSource } from "../../components/intermediates/image-generation/ninth-example-shaders";
-import RandomImageGenerationSecondExample from "../../components/intermediates/image-generation/second-example";
-import { secondFragmentShaderSource } from "../../components/intermediates/image-generation/second-example-shaders";
-import RandomImageGenerationSeventhExample from "../../components/intermediates/image-generation/seventh-example";
-import { seventhFragmentShaderSource } from "../../components/intermediates/image-generation/seventh-example-shaders";
-import RandomImageGenerationSixthExample from "../../components/intermediates/image-generation/sixth-example";
-import { sixthFragmentShaderSource } from "../../components/intermediates/image-generation/sixth-example-shaders";
-import RandomImageGenerationThirdExample from "../../components/intermediates/image-generation/third-example";
-import { thirdFragmentShaderSource } from "../../components/intermediates/image-generation/third-example-shaders";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
-import { renderEquation } from "../../components/util";
+import Content from "../../components/content"
+import GlslCodeHighlight from "../../components/glsl-code-highlight"
+import Image from "../../components/image"
+import RandomImageGenerationEighthExample from "../../components/intermediates/image-generation/eighth-example"
+import { eighthFragmentShaderSource } from "../../components/intermediates/image-generation/eighth-example-shaders"
+import RandomImageGenerationFifthExample from "../../components/intermediates/image-generation/fifth-example"
+import { fifthFragmentShaderSource } from "../../components/intermediates/image-generation/fifth-example-shaders"
+import RandomImageGenerationFirstExample from "../../components/intermediates/image-generation/first-example"
+import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/image-generation/first-example-shaders"
+import RandomImageGenerationFourthExample from "../../components/intermediates/image-generation/fourth-example"
+import { fourthFragmentShaderSource } from "../../components/intermediates/image-generation/fourth-example-shaders"
+import RandomImageGenerationNinthExample from "../../components/intermediates/image-generation/ninth-example"
+import { ninthFragmentShaderSource } from "../../components/intermediates/image-generation/ninth-example-shaders"
+import RandomImageGenerationSecondExample from "../../components/intermediates/image-generation/second-example"
+import { secondFragmentShaderSource } from "../../components/intermediates/image-generation/second-example-shaders"
+import RandomImageGenerationSeventhExample from "../../components/intermediates/image-generation/seventh-example"
+import { seventhFragmentShaderSource } from "../../components/intermediates/image-generation/seventh-example-shaders"
+import RandomImageGenerationSixthExample from "../../components/intermediates/image-generation/sixth-example"
+import { sixthFragmentShaderSource } from "../../components/intermediates/image-generation/sixth-example-shaders"
+import RandomImageGenerationThirdExample from "../../components/intermediates/image-generation/third-example"
+import { thirdFragmentShaderSource } from "../../components/intermediates/image-generation/third-example-shaders"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import Seo from "../../components/seo"
+import { renderEquation } from "../../components/util"
 
 const ImageGenerationPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Intermediates - Image Generation"
       description="A look into the how images can be generated using noise and patterns."

@@ -1,20 +1,20 @@
-import { Link } from "gatsby";
-import React from "react";
+import { Link } from "gatsby"
+import React from "react"
 
-import BandingExample from "../../components/advanced/color-banding-dithering/banding-example";
-import { bandingFragmentShaderSource } from "../../components/advanced/color-banding-dithering/banding-example-shaders";
-import DitheringExample from "../../components/advanced/color-banding-dithering/dithering-example";
-import { ditheringFragmentShaderSource } from "../../components/advanced/color-banding-dithering/dithering-example-shaders";
-import Content from "../../components/content";
-import GlslCodeHighlight from "../../components/glsl-code-highlight";
-import Image from "../../components/image";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
+import BandingExample from "../../components/advanced/color-banding-dithering/banding-example"
+import { bandingFragmentShaderSource } from "../../components/advanced/color-banding-dithering/banding-example-shaders"
+import DitheringExample from "../../components/advanced/color-banding-dithering/dithering-example"
+import { ditheringFragmentShaderSource } from "../../components/advanced/color-banding-dithering/dithering-example-shaders"
+import Content from "../../components/content"
+import GlslCodeHighlight from "../../components/glsl-code-highlight"
+import Image from "../../components/image"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import Seo from "../../components/seo"
 
 const ColorBandingDitheringPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Advanced - Color Banding and Dithering"
       description="A look into what color banding is and how to mitigate it using dithering."

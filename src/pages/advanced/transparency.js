@@ -12,11 +12,11 @@ import GenericCodeHighlight from "../../components/generic-code-highlight"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
-import SEO from "../../components/seo"
+import Seo from "../../components/seo"
 
 const TransparencyPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Advanced - Transparency"
       description="A look into the implementing transparency and certain quirks about it."

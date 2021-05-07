@@ -11,15 +11,17 @@ import {
   directionalLightShadowFragmentShaderSource,
   directionalLightShadowVertexShaderSource,
 } from "../../components/advanced/shadow-mapping/directional-light/shadow-example-shaders"
-import ShadowMappingFixedDirectionalLightShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-fixed-example"
+import * as ShadowMappingFixedDirectionalLightShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-fixed-example"
 import {
   directionalLightShadowFixedFragmentShaderSource,
 } from "../../components/advanced/shadow-mapping/directional-light/shadow-fixed-example-shaders"
 import * as ShadowMappingFixedModelDirectionalLightShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-model-fixed-example"
 import * as ShadowMappingFixedModelDirectionalLightZoomedShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-model-fixed-zoomed-example"
 import ShadowMappingDirectionalLightPcfShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-pcf-example"
-import { directionalLightShadowPcfFragmentShaderSource } from "../../components/advanced/shadow-mapping/directional-light/shadow-pcf-example-shaders"
-import ShadowMappingDirectionalLightPcfZoomedShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-pcf-zoomed-example"
+import {
+  directionalLightShadowPcfFragmentShaderSource,
+} from "../../components/advanced/shadow-mapping/directional-light/shadow-pcf-example-shaders"
+import * as ShadowMappingDirectionalLightPcfZoomedShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-pcf-zoomed-example"
 import ShadowMappingNoShadowExample from "../../components/advanced/shadow-mapping/no-shadow/shadow-example"
 import ShadowMappingPointLightMapExample from "../../components/advanced/shadow-mapping/point-light/map-example"
 import {
@@ -41,11 +43,11 @@ import Content from "../../components/content"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
-import SEO from "../../components/seo"
+import Seo from "../../components/seo"
 
 const ShadowMappingPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Advanced - Shadow Mapping"
       description="A look into the how shadow maps can be generated and used to add dynamic shadows produced by objects in a scene."
@@ -103,7 +105,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         type="Fragment"
       />
       <h4>Shadow acne</h4>
-      <ShadowMappingFixedDirectionalLightShadowExample />
+      <ShadowMappingFixedDirectionalLightShadowExample.default />
       <GlslCodeHighlight
         code={directionalLightShadowFixedFragmentShaderSource}
         type="Fragment"
@@ -118,7 +120,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         code={directionalLightShadowPcfFragmentShaderSource}
         type="Fragment"
       />
-      <ShadowMappingDirectionalLightPcfZoomedShadowExample />
+      <ShadowMappingDirectionalLightPcfZoomedShadowExample.default />
       <h3>Spot light</h3>
       <ShadowMappingSpotLightMapExample />
       <ShadowMappingSpotLightShadowExample />

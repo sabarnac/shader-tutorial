@@ -11,12 +11,12 @@ import NormalMappingThirdExample from "../../components/intermediates/normal-map
 import { thirdFragmentShaderSource, thirdVertexShaderSource } from "../../components/intermediates/normal-mapping/third-example-shaders"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
-import SEO from "../../components/seo"
+import Seo from "../../components/seo"
 import { renderEquation } from "../../components/util"
 
 const NormalMappingPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Intermediates - Normal Mapping"
       description="A look into the how normal map textures are used to add lighting detail to objects."

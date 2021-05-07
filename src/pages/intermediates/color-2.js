@@ -1,14 +1,14 @@
-import React from "react";
+import React from "react"
 
-import Content from "../../components/content";
-import Image from "../../components/image";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
+import Content from "../../components/content"
+import Image from "../../components/image"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import Seo from "../../components/seo"
 
 const ColorPt2Page = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Basics - Color Part 2"
       description="A look into how color interaction works and affects what we see."

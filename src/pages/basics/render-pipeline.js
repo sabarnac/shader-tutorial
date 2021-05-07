@@ -1,13 +1,13 @@
-import React from "react";
+import React from "react"
 
-import Content from "../../components/content";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
+import Content from "../../components/content"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import Seo from "../../components/seo"
 
 const RenderPipelinePage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Basics - The GPU Render Pipeline"
       description="A look into the GPU render pipeline and how it renders images."

@@ -1,23 +1,20 @@
-import { Link } from "gatsby";
-import React from "react";
+import { Link } from "gatsby"
+import React from "react"
 
-import Content from "../../components/content";
-import GlslCodeHighlight from "../../components/glsl-code-highlight";
-import Image from "../../components/image";
-import TexturingFirstExample from "../../components/intermediates/color-mapping/first-example";
-import {
-  firstFragmentShaderSource,
-  firstVertexShaderSource,
-} from "../../components/intermediates/color-mapping/first-example-shaders";
-import TexturingSecondExample from "../../components/intermediates/color-mapping/second-example";
-import { secondFragmentShaderSource } from "../../components/intermediates/color-mapping/second-example-shaders";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
+import Content from "../../components/content"
+import GlslCodeHighlight from "../../components/glsl-code-highlight"
+import Image from "../../components/image"
+import TexturingFirstExample from "../../components/intermediates/color-mapping/first-example"
+import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/color-mapping/first-example-shaders"
+import TexturingSecondExample from "../../components/intermediates/color-mapping/second-example"
+import { secondFragmentShaderSource } from "../../components/intermediates/color-mapping/second-example-shaders"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import Seo from "../../components/seo"
 
 const ColorMappingPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Intermediates - Color Mapping"
       description="A look into the how color textures are used to color objects in shaders."

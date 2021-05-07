@@ -17,12 +17,12 @@ import { thirdFragmentShaderSource, thirdVertexShaderSource } from "../../compon
 import VertexLightingExample from "../../components/intermediates/lighting/vertex-lighting-example"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
-import SEO from "../../components/seo"
+import Seo from "../../components/seo"
 import { renderEquation } from "../../components/util"
 
 const LightingPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Intermediates - Lighting"
       description="A look into how lighting can be simulated on objects through shaders."

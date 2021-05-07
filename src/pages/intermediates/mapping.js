@@ -1,14 +1,14 @@
-import React from "react";
+import React from "react"
 
-import Content from "../../components/content";
-import Image from "../../components/image";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
+import Content from "../../components/content"
+import Image from "../../components/image"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import Seo from "../../components/seo"
 
 const MappingPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Intermediates - Mapping"
       description="A look into the how textures/maps are used to add additional detail in shaders."

@@ -8,11 +8,11 @@ import SpecularMappingFirstExample from "../../components/intermediates/specular
 import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/specular-mapping/first-example-shaders"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
-import SEO from "../../components/seo"
+import Seo from "../../components/seo"
 
 const SpecularMappingPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Intermediates - Specular Mapping"
       description="A look into the how specular map textures are used to enhance specular lighting detail to objects."

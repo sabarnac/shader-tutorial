@@ -1,14 +1,14 @@
-import React from "react";
+import React from "react"
 
-import Content from "../../components/content";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
-import { renderEquation } from "../../components/util";
+import Content from "../../components/content"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import Seo from "../../components/seo"
+import { renderEquation } from "../../components/util"
 
 const MathematicsPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Basics - A Primer On Needed Mathematics"
       description="A look into the mathematics that is required and extremely useful for shading."

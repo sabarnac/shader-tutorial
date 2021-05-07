@@ -1,8 +1,8 @@
-import { graphql, useStaticQuery } from "gatsby";
-import Img from "gatsby-image";
-import React, { useMemo } from "react";
+import { graphql, useStaticQuery } from "gatsby"
+import Img from "gatsby-image"
+import React, { useMemo } from "react"
 
-import ImageManifest from "../../content/image-manifest.json";
+import ImageManifest from "../../content/image-manifest.json"
 
 const ImageQuery = graphql`
   query {
@@ -105,14 +105,14 @@ const Image = ({ src, style, ...props }) => {
     image50,
   } = useStaticQuery(ImageQuery)
 
-  const results = [
+  const results = useMemo(() => [
     { width: 0, query: imageMax },
     { width: 960, query: image960 },
     { width: 768, query: image768 },
     { width: 600, query: image600 },
     { width: 480, query: image480 },
     { width: 50, query: image50 },
-  ]
+  ], [imageMax, image960, image768, image600, image480, image50]);
 
   const sources = useMemo(() => {
     const images = results
