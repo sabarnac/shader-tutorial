@@ -9,6 +9,7 @@ uniform mat4 lightModelMatrix;
 uniform mat4 lightViewMatrix;
 uniform mat4 lightProjectionMatrix;
 
+uniform vec4 lightDirection_worldSpace;
 uniform vec4 lightPosition_worldSpace;
 uniform vec3 lightColor;
 uniform float lightIntensity;
@@ -27,7 +28,6 @@ void main() {
 
   vertexPositionFromLight = lightProjectionMatrix * lightViewMatrix * lightModelMatrix * vertexPosition;
   
-  highp vec4 lightPosition_viewSpace = viewMatrix * lightPosition_worldSpace;
   vertexNormal_viewSpace = (viewMatrix * modelMatrix * vec4(vertexNormal, 0.0)).xyz;
-  lightDirection_viewSpace = normalize((lightPosition_viewSpace - vertexPosition_viewSpace).xyz);
+  lightDirection_viewSpace = (viewMatrix * (-1.0 * lightDirection_worldSpace)).xyz;
 }

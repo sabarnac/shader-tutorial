@@ -1,9 +1,10 @@
 import { Link } from "gatsby"
+import { StaticImage } from "gatsby-plugin-image"
 import React from "react"
 
 import Content from "../../components/content"
+import Equation from "../../components/equation/equation"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Image from "../../components/image"
 import LightingFirstExample from "../../components/intermediates/lighting/first-example"
 import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/lighting/first-example-shaders"
 import LightingFourthExample from "../../components/intermediates/lighting/fourth-example"
@@ -18,7 +19,6 @@ import VertexLightingExample from "../../components/intermediates/lighting/verte
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
-import { renderEquation } from "../../components/util"
 
 const LightingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -250,8 +250,8 @@ const LightingPage = ({ location: { pathname } }) => (
       </p>
       <p>
         The best operation for this is the trignometric function{" "}
-        {renderEquation(`cos(theta)`)}, where {renderEquation(`theta`)} is the
-        angle between the two directions.
+        <Equation text={`cos(theta)`} />, where <Equation text={`theta`} /> is
+        the angle between the two directions.
       </p>
       <p>
         Do note that if the angle between the normal and the light is greater
@@ -264,19 +264,19 @@ const LightingPage = ({ location: { pathname } }) => (
         In the GPU, we'll be representing the directions of the surface normal
         and light direction in the form of vectors. So a mathematical operation
         is required between two vectors, which can provide us with the{" "}
-        {renderEquation(`cos(theta)`)} result of the angle between them. This
+        <Equation text={`cos(theta)`} /> result of the angle between them. This
         operation is the <code>dot</code> product.
       </p>
       <p>
-        Let us take two vectors {renderEquation(`vec v_1`)} and{" "}
-        {renderEquation(`vec v_2`)}. The <code>dot</code> product of these two
+        Let us take two vectors <Equation text={`vec v_1`} /> and{" "}
+        <Equation text={`vec v_2`} />. The <code>dot</code> product of these two
         vectors would be{" "}
-        {renderEquation(
-          `vec v_1 cdot vec v_2 = norm(vec v_1) norm(vec v_2) cos(theta)`
-        )}
-        , where {renderEquation(`norm(vec v_1)`)} and{" "}
-        {renderEquation(`norm(vec v_2)`)} represent the magnitute of{" "}
-        {renderEquation(`vec v_1`)} and {renderEquation(`vec v_2`)}{" "}
+        <Equation
+          text={`vec v_1 cdot vec v_2 = norm(vec v_1) norm(vec v_2) cos(theta)`}
+        />
+        , where <Equation text={`norm(vec v_1)`} /> and{" "}
+        <Equation text={`norm(vec v_2)`} /> represent the magnitute of{" "}
+        <Equation text={`vec v_1`} /> and <Equation text={`vec v_2`} />{" "}
         respectively.
       </p>
       <p>
@@ -287,24 +287,24 @@ const LightingPage = ({ location: { pathname } }) => (
       <p>
         If we move around parts of this equation, we can represent this as
         equation as{" "}
-        {renderEquation(
-          `(vec v_1) / norm(vec v_1) cdot (vec v_2) / norm(vec v_2) = cos(theta)`
-        )}
-        , where {renderEquation(`(vec v) / norm(vec v)`)} is considered the unit
-        vector of the vector (represented as {renderEquation(`hat(v)`)}),
-        because the magnitude of the vector is removed from the vector itself,
-        leaving it as a single unit of itself that purely represents its
+        <Equation
+          text={`(vec v_1) / norm(vec v_1) cdot (vec v_2) / norm(vec v_2) = cos(theta)`}
+        />
+        , where <Equation text={`(vec v) / norm(vec v)`} /> is considered the
+        unit vector of the vector (represented as <Equation text={`hat(v)`} />
+        ), because the magnitude of the vector is removed from the vector
+        itself, leaving it as a single unit of itself that purely represents its
         direction.
       </p>
       <p>
         This results in the final equation being{" "}
-        {renderEquation(`hat(v_1) cdot hat(v_2) = cos(theta)`)}, where{" "}
-        {renderEquation(`hat(v_1)`)} and {renderEquation(`hat(v_2)`)} represent
-        the unit vectors of the vectors {renderEquation(`vec v_1`)} and{" "}
-        {renderEquation(`vec v_2`)}. So we can determine the{" "}
-        {renderEquation(`cos(theta)`)} of two vectors by finding the dot product
-        of their unit vectors. This can be done easily, because there are
-        built-in functions that let us calculate the unit vector of a given
+        <Equation text={`hat(v_1) cdot hat(v_2) = cos(theta)`} />, where{" "}
+        <Equation text={`hat(v_1)`} /> and <Equation text={`hat(v_2)`} />{" "}
+        represent the unit vectors of the vectors <Equation text={`vec v_1`} />{" "}
+        and <Equation text={`vec v_2`} />. So we can determine the{" "}
+        <Equation text={`cos(theta)`} /> of two vectors by finding the dot
+        product of their unit vectors. This can be done easily, because there
+        are built-in functions that let us calculate the unit vector of a given
         vector.
       </p>
       <p>
@@ -312,9 +312,9 @@ const LightingPage = ({ location: { pathname } }) => (
         final equation is:
       </p>
       <p className="util text-center">
-        {renderEquation(
-          `"diffuseLight" = ((hat "lightDirection" cdot hat "surfaceNormal") times "lightColor" times "lightIntensity") / "distance" ^ 2`
-        )}
+        <Equation
+          text={`"diffuseLight" = ((hat "lightDirection" cdot hat "surfaceNormal") times "lightColor" times "lightIntensity") / "distance" ^ 2`}
+        />
       </p>
       <p>
         The factors are combined through multiplication and division and not
@@ -529,14 +529,14 @@ const LightingPage = ({ location: { pathname } }) => (
       <p>
         If the direction of the camera is known, as well as the direction of the
         reflected light, by applying the <code>dot</code> operation we've
-        learnt, we can calculate the the {renderEquation(`cos(theta)`)} angle
+        learnt, we can calculate the the <Equation text={`cos(theta)`} /> angle
         between them, which gives us the strength of the specular reflection.
       </p>
       <p>
-        The same {renderEquation(`cos(theta)`)} operation is required here since
-        the same principle applies - the closer the light reflection and the
-        camera are in the same direction, the brighter the specular reflection
-        will appear to be.
+        The same <Equation text={`cos(theta)`} /> operation is required here
+        since the same principle applies - the closer the light reflection and
+        the camera are in the same direction, the brighter the specular
+        reflection will appear to be.
       </p>
       <p>
         Another point to note is when calculating the <code>dot</code> product
@@ -595,9 +595,9 @@ const LightingPage = ({ location: { pathname } }) => (
         resulting in the final equation:
       </p>
       <p className="util text-center">
-        {renderEquation(
-          `"specularLight" = ((hat "lightDirection" cdot hat "cameraDirection")^"Lobe Density" times "lightColor" times "lightIntensity") / "distance" ^ 2`
-        )}
+        <Equation
+          text={`"specularLight" = ((hat "lightDirection" cdot hat "cameraDirection")^"Lobe Density" times "lightColor" times "lightIntensity") / "distance" ^ 2`}
+        />
       </p>
       <p>
         The lobe density defines how concentrated the specular reflection is
@@ -662,8 +662,8 @@ const LightingPage = ({ location: { pathname } }) => (
       </p>
       <p>This is shown in the illustration below:</p>
       <div className="image util text-center">
-        <Image
-          src="intermediates/glsl-reflect.png"
+        <StaticImage
+          src="../../images/intermediates/glsl-reflect.png"
           alt="GLSL Reflect Function Result Illustration"
           style={{ maxWidth: "65%" }}
         />
@@ -730,8 +730,8 @@ const LightingPage = ({ location: { pathname } }) => (
       <p>
         The specular color value is generally set to the color of the object,
         but we set the specular color value to{" "}
-        {renderEquation(`(1.0, 1.0, 1.0)`)} as we want all the light falling on
-        the surface to be reflected without any parts being absorbed.
+        <Equation text={`(1.0, 1.0, 1.0)`} /> as we want all the light falling
+        on the surface to be reflected without any parts being absorbed.
       </p>
       <p>
         The specular factor is multiplied against the specular reflectivity and

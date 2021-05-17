@@ -62,7 +62,7 @@ const lightIntensity = 0.75
 
 const sceneModelPosition = mat4.create()
 
-const ShadowMappingDirectionalLightShadowExample = () => {
+const ShadowMappingFixedAltDirectionalLightShadowExample = () => {
   const scene = {
     vertices: modelVertices,
     normals: modelNormals,
@@ -210,15 +210,18 @@ const ShadowMappingDirectionalLightShadowExample = () => {
               return
             }
 
-            const { aspect, zNear, zFar } = webGlRef.canvasDimensions
+            gl.enable(gl.CULL_FACE)
+            gl.cullFace(gl.FRONT)
+
+            const { aspect } = webGlRef.canvasDimensions
             mat4.ortho(
               lightProjectionMatrix,
               -4 * aspect,
               4 * aspect,
               -4,
               4,
-              zNear,
-              zFar
+              25.0,
+              40.0
             )
 
             gl.clearColor(1.0, 1.0, 1.0, 1.0)
@@ -273,6 +276,8 @@ const ShadowMappingDirectionalLightShadowExample = () => {
               gl.UNSIGNED_SHORT,
               0
             )
+
+            webGlRef._setupCullFace()
           })
         })
 
@@ -416,10 +421,12 @@ Light:
     )}
     Color: ${coordArrToString(lightColor, colorCoords)}
     Intensity: ${lightIntensity}
+    Near Plane: 25.0
+    Far Plane: 40.0
 `.trim()}
       </pre>
     </div>
   )
 }
 
-export default wrapExample(ShadowMappingDirectionalLightShadowExample)
+export default wrapExample(ShadowMappingFixedAltDirectionalLightShadowExample)

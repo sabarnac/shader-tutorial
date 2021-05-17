@@ -1,9 +1,10 @@
 import { Link } from "gatsby"
+import { StaticImage } from "gatsby-plugin-image"
 import React from "react"
 
 import Content from "../../components/content"
+import Equation from "../../components/equation/equation"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Image from "../../components/image"
 import NormalMappingFirstExample from "../../components/intermediates/normal-mapping/first-example"
 import NormalMappingSecondExample from "../../components/intermediates/normal-mapping/second-example"
 import { secondFragmentShaderSource, secondVertexShaderSource } from "../../components/intermediates/normal-mapping/second-example-shaders"
@@ -12,7 +13,6 @@ import { thirdFragmentShaderSource, thirdVertexShaderSource } from "../../compon
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
-import { renderEquation } from "../../components/util"
 
 const NormalMappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -82,8 +82,8 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         surface looks.
       </p>
       <div className="image util text-center">
-        <Image
-          src="intermediates/surface-1.png"
+        <StaticImage
+          src="../../images/intermediates/surface-1.png"
           alt="Smooth Surface Light Reflection"
           style={{ maxWidth: "65%" }}
         />
@@ -95,8 +95,8 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         it a flat appearance, similar to the wall example seen above.
       </p>
       <div className="image util text-center">
-        <Image
-          src="intermediates/surface-2.png"
+        <StaticImage
+          src="../../images/intermediates/surface-2.png"
           alt="Rough Surface Light Reflection"
           style={{ maxWidth: "65%" }}
         />
@@ -127,8 +127,8 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       <h3>Normal Maps</h3>
       <p>The texture maps that will be used to color and light the wall are:</p>
       <div className="image util text-center">
-        <Image
-          src="intermediates/texture-2.png"
+        <StaticImage
+          src="../../images/intermediates/texture-2.png"
           alt="Stone Wall - Diffuse Map"
           style={{ maxWidth: "65%" }}
         />
@@ -144,8 +144,8 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         </a>
       </div>
       <div className="image util text-center">
-        <Image
-          src="intermediates/normal.png"
+        <StaticImage
+          src="../../images/intermediates/normal.png"
           alt="Stone Wall - Normal Map"
           style={{ maxWidth: "65%" }}
         />
@@ -275,9 +275,9 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         normal vector as N, the TBN matrix would look like:
       </p>
       <p className="util text-center">
-        {renderEquation(
-          `TBN = [[T_x, B_x, N_x], [T_y, B_y, N_y], [T_z, B_z, N_z]]`
-        )}
+        <Equation
+          text={`TBN = [[T_x, B_x, N_x], [T_y, B_y, N_y], [T_z, B_z, N_z]]`}
+        />
       </p>
       <p>
         Similar to how a model matrix can transform a point or direction from
@@ -372,41 +372,42 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         conversion using a simple mathematical formula.
       </p>
       <p className="util text-center">
-        {renderEquation(`"normal" = ("normalColor" * 2.0) - 1.0`)}
+        <Equation text={`"normal" = ("normalColor" * 2.0) - 1.0`} />
       </p>
       <p>
         Let's take a color value of whose RGB value is{" "}
-        {renderEquation(`"normalColor" = [128, 128, 128]`)}. In OpenGL, the
+        <Equation text={`"normalColor" = [128, 128, 128]`} />. In OpenGL, the
         colors are represented in a range of 0 - 1 instead of 0 - 255, so the
         RGB value would actually be{" "}
-        {renderEquation(`"normalColor" = [0.5, 0.5, 0.5]`)}.
+        <Equation text={`"normalColor" = [0.5, 0.5, 0.5]`} />.
       </p>
       <p>
         This color value is right in the middle of the color range, so it should
-        represent a normal vector {renderEquation(`"normal" = [0.0, 0.0, 0.0]`)}
-        .
+        represent a normal vector{" "}
+        <Equation text={`"normal" = [0.0, 0.0, 0.0]`} />.
       </p>
       <p>
         When we plug in the normal color value into our formula for calculating
         the normal, we get:
       </p>
       <p className="util text-center">
-        {renderEquation(
-          `"normal" = ([0.5, 0.5, 0.5] * 2.0) - 1.0 = [1.0, 1.0, 1.0] - 1.0 = [0.0, 0.0, 0.0]`
-        )}
+        <Equation
+          text={`"normal" = ([0.5, 0.5, 0.5] * 2.0) - 1.0 = [1.0, 1.0, 1.0] - 1.0 = [0.0, 0.0, 0.0]`}
+        />
       </p>
       <p>Which matches perfectly with what we expect to get!</p>
       <p>
         Just to further verify the formula, let's take a color value{" "}
-        {renderEquation(`"normalColor" = [64, 64, 192]`)}. In OpenGL, this would
-        be {renderEquation(`"normalColor" = [0.25, 0.25, 0.75]`)}, which should
-        represent a normal {renderEquation(`"normal" = [-0.5, -0.5, 0.5]`)}.
+        <Equation text={`"normalColor" = [64, 64, 192]`} />. In OpenGL, this
+        would be <Equation text={`"normalColor" = [0.25, 0.25, 0.75]`} />, which
+        should represent a normal{" "}
+        <Equation text={`"normal" = [-0.5, -0.5, 0.5]`} />.
       </p>
       <p>Plugging this color value into the formula returns:</p>
       <p className="util text-center">
-        {renderEquation(
-          `"normal" = ([0.25, 0.25, 0.75] * 2.0) - 1.0 = [0.5, 0.5, 1.5] - 1.0 = [-0.5, -0.5, 0.5]`
-        )}
+        <Equation
+          text={`"normal" = ([0.25, 0.25, 0.75] * 2.0) - 1.0 = [0.5, 0.5, 1.5] - 1.0 = [-0.5, -0.5, 0.5]`}
+        />
       </p>
       <p>Which again equals to the expected normal vector.</p>
       <p>
@@ -414,7 +415,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         transformed into view-space by multiplying the TBN matrix against it.
       </p>
       <p className="util text-center">
-        {renderEquation(`"normal"_"viewSpace" = "TBN" times "normal"`)}
+        <Equation text={`"normal"_"viewSpace" = "TBN" times "normal"`} />
       </p>
       <p>
         Once this is calculated, the rest of the lighting calculations use this

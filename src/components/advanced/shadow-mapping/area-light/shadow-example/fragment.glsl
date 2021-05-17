@@ -8,16 +8,11 @@ uniform highp vec2 texelSize;
 uniform highp vec3 lightColor;
 uniform highp float lightIntensity;
 uniform highp vec4 lightDirection_worldSpace;
+uniform highp vec4 lightPosition_worldSpace;
 uniform highp float ambientFactor;
 uniform sampler2D shadowMapTextureSampler;
 
 const highp float acneBias = 0.005;
-
-highp vec3 getDiffuseLighting() {
-  highp vec3 lightColorIntensity = lightColor * lightIntensity;
-  highp float diffuseStrength = clamp(dot(vertexNormal_viewSpace, lightDirection_viewSpace), 0.0, 1.0);
-  return lightColorIntensity * diffuseStrength;
-}
 
 highp float getAverageVisibility(highp vec2 shadowMapCoords, highp float currentDepth) {
   highp float visibility = 0.0;
@@ -28,6 +23,24 @@ highp float getAverageVisibility(highp vec2 shadowMapCoords, highp float current
     }
   }
   return visibility / 25.0;
+}
+
+highp float getDistanceFromLight() {
+  highp vec3 lightPlaneNormal = normalize(lightDirection_worldSpace.xyz);
+  highp float lightPlaneDistanceFromOrigin = (0.0 - (lightPlaneNormal.x * lightPosition_worldSpace.x)
+                                                  - (lightPlaneNormal.y * lightPosition_worldSpace.y)
+                                                  - (lightPlaneNormal.z * lightPosition_worldSpace.z)
+                                             ) / length(lightPlaneNormal);
+
+  return abs(dot(lightPlaneNormal, vertexPosition_worldSpace.xyz) + lightPlaneDistanceFromOrigin);
+}
+
+highp vec3 getDiffuseLighting() {
+  highp vec3 lightColorIntensity = lightColor * lightIntensity;
+  highp float distanceFromLight = distance(vertexPosition_worldSpace, lightPosition_worldSpace);
+
+  highp float diffuseStrength = clamp(dot(vertexNormal_viewSpace, lightDirection_viewSpace), 0.0, 1.0);
+  return (lightColorIntensity * diffuseStrength) / (distanceFromLight * distanceFromLight);
 }
 
 void main() {

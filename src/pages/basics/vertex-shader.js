@@ -6,11 +6,11 @@ import { firstVertexShaderSource } from "../../components/basics/vertex-shader/f
 import VertexShaderSecondExample from "../../components/basics/vertex-shader/second-example"
 import { secondVertexShaderSource } from "../../components/basics/vertex-shader/second-example-shaders"
 import Content from "../../components/content"
+import Equation from "../../components/equation/equation"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
-import { renderEquation } from "../../components/util"
 
 const VertexShaderPage = ({ location: { pathname } }) => (
   <Layout>
@@ -200,7 +200,7 @@ const VertexShaderPage = ({ location: { pathname } }) => (
       <p>
         This angle is calculated in degrees, which needs to be converted to
         radians, which is done by mulitplying the angle by{" "}
-        {renderEquation(`pi`)} and dividing the product by 180.
+        <Equation text={`pi`} /> and dividing the product by 180.
       </p>
       <p>
         By keeping the calculations in float, we don't round of the decimals,

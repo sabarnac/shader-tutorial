@@ -24,7 +24,9 @@ const shaderProgramInfo = {
   },
 }
 
-const lightDirectionInverted = vec4.fromValues(-9.0, 27.0, -18.0, 0.0)
+const lightDirectionInverted = vec4.create()
+vec4.normalize(lightDirectionInverted, vec4.fromValues(-9.0, 27.0, -18.0, 0.0))
+const lightModelPosition = vec4.fromValues(-9.0, 27.0, -18.0, 1.0)
 
 const sceneModelPosition = mat4.create()
 
@@ -42,11 +44,11 @@ const ShadowMappingDirectionalLightMapExample = () => {
   })
   const [shouldRender, updateShouldRender] = useState(true)
 
-  const canvasRef = useCallback(canvas => {
+  const canvasRef = useCallback((canvas) => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, sceneModelPosition))
       return () =>
-        updateWebGlRef(webGlRef => {
+        updateWebGlRef((webGlRef) => {
           webGlRef.destroy()
           return null
         })
@@ -119,7 +121,7 @@ const ShadowMappingDirectionalLightMapExample = () => {
           const lightViewMatrix = mat4.create()
           mat4.lookAt(
             lightViewMatrix,
-            lightDirectionInverted,
+            lightModelPosition,
             [0.0, 0.0, 0.0],
             [0.0, 1.0, 0.0]
           )
@@ -192,7 +194,7 @@ Scene:
         {`
 Light:
     Direction: ${coordArrToString(
-      lightDirectionInverted.map(coord => -1 * coord)
+      lightDirectionInverted.map((coord) => -1 * coord)
     )}
 `.trim()}
       </pre>

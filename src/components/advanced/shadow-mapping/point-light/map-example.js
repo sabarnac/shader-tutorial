@@ -109,11 +109,11 @@ const ShadowMappingPointLightMapExample = () => {
     indices: null,
   })
 
-  const canvasRef = useCallback(canvas => {
+  const canvasRef = useCallback((canvas) => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, sceneModelPosition))
       return () =>
-        updateWebGlRef(webGlRef => {
+        updateWebGlRef((webGlRef) => {
           webGlRef.destroy()
           return null
         })

@@ -1,12 +1,12 @@
-import { mat4, vec3, vec4 } from "gl-matrix"
+import { mat4, vec2, vec3, vec4 } from "gl-matrix"
 import React, { useCallback, useEffect, useState } from "react"
 
 import { coordArrToString, runOnPredicate } from "../../../util"
 import wrapExample from "../../../webgl-example-view"
 import WebGlWrapper from "../../../webgl-wrapper"
-import { directionalLightMapFragmentShaderSource, directionalLightMapVertexShaderSource } from "./map-example-shaders"
+import { areaLightMapFragmentShaderSource, areaLightMapVertexShaderSource } from "./map-example-shaders"
 import { modelIndices, modelNormals, modelVertices } from "./model"
-import { directionalLightShadowFragmentShaderSource, directionalLightShadowVertexShaderSource } from "./shadow-example-shaders"
+import { areaLightShadowFragmentShaderSource, areaLightShadowVertexShaderSource } from "./shadow-example-shaders"
 
 const shadowMapShaderProgramInfo = {
   vertex: {
@@ -41,6 +41,7 @@ const shaderProgramInfo = {
       lightProjectionMatrix: "mat4",
 
       lightDirection_worldSpace: "vec4",
+      lightPosition_worldSpace: "vec4",
       lightColor: "vec3",
       lightIntensity: "float",
     },
@@ -48,21 +49,22 @@ const shaderProgramInfo = {
   fragment: {
     attributeLocations: {},
     uniformLocations: {
+      texelSize: "vec2",
       ambientFactor: "float",
       shadowMapTextureSampler: "sampler2D",
     },
   },
 }
 
-const lightDirectionInverted = vec4.create()
-vec4.normalize(lightDirectionInverted, vec4.fromValues(-9.0, 27.0, -18.0, 0.0))
+const lightDirection = vec4.create()
+vec4.normalize(lightDirection, vec4.fromValues(9.0, -27.0, 18.0, 0.0))
 const lightModelPosition = vec4.fromValues(-9.0, 27.0, -18.0, 0.0)
-const lightColor = vec3.fromValues(1.0, 1.0, 1.0)
-const lightIntensity = 0.75
+const lightColor = vec3.fromValues(0.5, 0.5, 0.5)
+const lightIntensity = 1000.0
 
 const sceneModelPosition = mat4.create()
 
-const ShadowMappingDirectionalLightShadowExample = () => {
+const ShadowMappingAreaLightShadowExample = () => {
   const scene = {
     vertices: modelVertices,
     normals: modelNormals,
@@ -102,8 +104,8 @@ const ShadowMappingDirectionalLightShadowExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShadowMapShaderProgram(
         webGlRef.createShaderProgram(
-          directionalLightMapVertexShaderSource,
-          directionalLightMapFragmentShaderSource
+          areaLightMapVertexShaderSource,
+          areaLightMapFragmentShaderSource
         )
       )
     }),
@@ -158,8 +160,8 @@ const ShadowMappingDirectionalLightShadowExample = () => {
     runOnPredicate(shadowMapFramebuffer !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          directionalLightShadowVertexShaderSource,
-          directionalLightShadowFragmentShaderSource
+          areaLightShadowVertexShaderSource,
+          areaLightShadowFragmentShaderSource
         )
       )
     }),
@@ -200,6 +202,10 @@ const ShadowMappingDirectionalLightShadowExample = () => {
       updateShouldRender(true)
 
       const renderScene = () => {
+        const texelSize = vec2.fromValues(
+          1.0 / webGlRef.canvasDimensions.width,
+          1.0 / webGlRef.canvasDimensions.height
+        )
         const lightModelMatrix = mat4.create()
         const lightViewMatrix = mat4.create()
         const lightProjectionMatrix = mat4.create()
@@ -232,7 +238,7 @@ const ShadowMappingDirectionalLightShadowExample = () => {
               [0.0, 1.0, 0.0]
             )
 
-            mat4.scale(lightModelMatrix, modelMatrix, [1.75, 1.75, 1.75])
+            mat4.scale(lightModelMatrix, modelMatrix, [1.45, 1.45, 1.45])
 
             gl.bindBuffer(gl.ARRAY_BUFFER, shadowMapSceneBuffer.vertices)
             gl.vertexAttribPointer(
@@ -352,8 +358,12 @@ const ShadowMappingDirectionalLightShadowExample = () => {
           )
 
           gl.uniform4fv(
+            shaderInfo.vertex.uniformLocations.lightPosition_worldSpace,
+            lightModelPosition
+          )
+          gl.uniform4fv(
             shaderInfo.vertex.uniformLocations.lightDirection_worldSpace,
-            lightDirectionInverted
+            lightDirection
           )
           gl.uniform3fv(
             shaderInfo.vertex.uniformLocations.lightColor,
@@ -364,6 +374,10 @@ const ShadowMappingDirectionalLightShadowExample = () => {
             lightIntensity
           )
 
+          gl.uniform2fv(
+            shaderInfo.fragment.uniformLocations.texelSize,
+            texelSize
+          )
           gl.uniform1f(
             shaderInfo.fragment.uniformLocations.ambientFactor,
             scene.ambientFactor
@@ -411,9 +425,7 @@ Scene:
       <pre className="util text-left">
         {`
 Light:
-    Direction: ${coordArrToString(
-      lightDirectionInverted.map((coord) => -1 * coord)
-    )}
+    Direction: ${coordArrToString(lightDirection)}
     Color: ${coordArrToString(lightColor, colorCoords)}
     Intensity: ${lightIntensity}
 `.trim()}
@@ -422,4 +434,4 @@ Light:
   )
 }
 
-export default wrapExample(ShadowMappingDirectionalLightShadowExample)
+export default wrapExample(ShadowMappingAreaLightShadowExample)

@@ -11,7 +11,7 @@ uniform highp vec4 lightPosition_worldSpace;
 uniform highp float ambientFactor;
 uniform highp float farPlane;
 
-uniform samplerCube shadowTextureSampler;
+uniform samplerCube shadowMapTextureSampler;
 
 const highp float acneBias = 0.02;
 
@@ -22,7 +22,7 @@ highp float getAverageVisibility(highp vec3 vertexDirection_worldSpace) {
   for (int xi = -1; xi <= 1; xi++) {
     for (int yi = -1; yi <= 1; yi++) {
       for (int zi = -1; zi <= 1; zi++) {
-        highp float closestDepth = textureCube(shadowTextureSampler, vertexDirection_worldSpace + (vec3(xi, yi, zi) * 0.05)).z;
+        highp float closestDepth = textureCube(shadowMapTextureSampler, vertexDirection_worldSpace + (vec3(xi, yi, zi) * 0.05)).z;
         visibility += currentDepth - acneBias > closestDepth ? 0.0 : 1.0;
       }
     }

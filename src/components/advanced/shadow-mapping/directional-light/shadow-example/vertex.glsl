@@ -13,7 +13,7 @@ uniform vec4 lightDirection_worldSpace;
 uniform vec3 lightColor;
 uniform float lightIntensity;
 
-varying highp vec4 depthCoord;
+varying highp vec4 vertexPositionFromLight;
 
 varying highp vec4 vertexPosition_worldSpace;
 varying highp vec3 vertexNormal_viewSpace;
@@ -25,7 +25,7 @@ void main() {
   
   gl_Position = projectionMatrix * vertexPosition_viewSpace;
 
-  depthCoord = lightProjectionMatrix * lightViewMatrix * lightModelMatrix * vertexPosition;
+  vertexPositionFromLight = lightProjectionMatrix * lightViewMatrix * lightModelMatrix * vertexPosition;
   
   vertexNormal_viewSpace = (viewMatrix * modelMatrix * vec4(vertexNormal, 0.0)).xyz;
   lightDirection_viewSpace = (viewMatrix * lightDirection_worldSpace).xyz;

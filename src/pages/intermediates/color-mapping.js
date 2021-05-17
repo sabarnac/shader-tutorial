@@ -1,9 +1,9 @@
 import { Link } from "gatsby"
+import { StaticImage } from "gatsby-plugin-image"
 import React from "react"
 
 import Content from "../../components/content"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Image from "../../components/image"
 import TexturingFirstExample from "../../components/intermediates/color-mapping/first-example"
 import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/color-mapping/first-example-shaders"
 import TexturingSecondExample from "../../components/intermediates/color-mapping/second-example"
@@ -61,8 +61,8 @@ const ColorMappingPage = ({ location: { pathname } }) => (
         cube:
       </p>
       <div className="image util text-center">
-        <Image
-          src="intermediates/texture.png"
+        <StaticImage
+          src="../../images/intermediates/texture.png"
           alt="Cube Face Texture"
           style={{ maxWidth: "65%" }}
         />

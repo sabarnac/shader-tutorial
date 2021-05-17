@@ -137,7 +137,7 @@ const ShadowMappingPointLightShadowExample = () => {
   const [shadowMapSceneBuffer, updateShadowMapSceneBuffer] = useState({
     vertices: null,
     indices: null,
-    shadowTexture: null,
+    shadowMapTexture: null,
   })
   const [shaderProgram, updateShaderProgram] = useState(null)
   const [shaderInfo, updateShaderInfo] = useState(null)
@@ -150,11 +150,11 @@ const ShadowMappingPointLightShadowExample = () => {
     lightModelFaces.map(() => null)
   )
 
-  const canvasRef = useCallback(canvas => {
+  const canvasRef = useCallback((canvas) => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, sceneModelPosition))
       return () =>
-        updateWebGlRef(webGlRef => {
+        updateWebGlRef((webGlRef) => {
           webGlRef.destroy()
           return null
         })
@@ -196,8 +196,8 @@ const ShadowMappingPointLightShadowExample = () => {
           scene.indices.flat(),
           shadowMapSceneBuffer.indices
         ),
-        shadowTexture: webGlRef.createCubeMapRenderTargetTexture(
-          shadowMapSceneBuffer.shadowTexture
+        shadowMapTexture: webGlRef.createCubeMapRenderTargetTexture(
+          shadowMapSceneBuffer.shadowMapTexture
         ),
       })
     }),
@@ -205,11 +205,11 @@ const ShadowMappingPointLightShadowExample = () => {
   )
 
   useEffect(
-    runOnPredicate(shadowMapSceneBuffer.shadowTexture !== null, () => {
+    runOnPredicate(shadowMapSceneBuffer.shadowMapTexture !== null, () => {
       updateShadowMapFramebuffer(
         lightModelFaces.map((face, i) =>
           webGlRef.createCubeMapTargetFramebuffer(
-            shadowMapSceneBuffer.shadowTexture,
+            shadowMapSceneBuffer.shadowMapTexture,
             face.id,
             shadowMapFramebuffer[i],
             true
@@ -222,7 +222,7 @@ const ShadowMappingPointLightShadowExample = () => {
 
   useEffect(
     runOnPredicate(
-      shadowMapFramebuffer.filter(framebuffer => framebuffer !== null)
+      shadowMapFramebuffer.filter((framebuffer) => framebuffer !== null)
         .length === lightModelFaces.length,
       () => {
         updateShaderProgram(
@@ -440,7 +440,7 @@ const ShadowMappingPointLightShadowExample = () => {
           gl.activeTexture(gl.TEXTURE0)
           gl.bindTexture(
             gl.TEXTURE_CUBE_MAP,
-            shadowMapSceneBuffer.shadowTexture
+            shadowMapSceneBuffer.shadowMapTexture
           )
           gl.uniform1i(
             shaderInfo.fragment.uniformLocations.shadowMapTextureSampler,

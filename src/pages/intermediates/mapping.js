@@ -1,7 +1,7 @@
+import { StaticImage } from "gatsby-plugin-image"
 import React from "react"
 
 import Content from "../../components/content"
-import Image from "../../components/image"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
@@ -79,8 +79,8 @@ const MappingPage = ({ location: { pathname } }) => (
       </p>
       <p>For example, suppose we have the following triangle:</p>
       <div className="image util text-center">
-        <Image
-          src="intermediates/triangle.png"
+        <StaticImage
+          src="../../images/intermediates/triangle.png"
           alt="Triangle - UV Mapping Example"
           style={{ maxWidth: "65%" }}
         />
@@ -89,8 +89,8 @@ const MappingPage = ({ location: { pathname } }) => (
         And we wish to map a part of the following texture onto the triangle:
       </p>
       <div className="image util text-center">
-        <Image
-          src="intermediates/triangle-texture.png"
+        <StaticImage
+          src="../../images/intermediates/triangle-texture.png"
           alt="Triangle Texture - UV Mapping Example"
           style={{ maxWidth: "65%" }}
         />
@@ -102,8 +102,8 @@ const MappingPage = ({ location: { pathname } }) => (
         in the correct positions that represent what color they should be.
       </p>
       <div className="image util text-center">
-        <Image
-          src="intermediates/triangle-texture-mapped.png"
+        <StaticImage
+          src="../../images/intermediates/triangle-texture-mapped.png"
           alt="Mapped Triangle Texture - UV Mapping Example"
           style={{ maxWidth: "65%" }}
         />

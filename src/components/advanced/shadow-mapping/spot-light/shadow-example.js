@@ -74,7 +74,7 @@ const ShadowMappingSpotLightShadowExample = () => {
   const [shadowMapSceneBuffer, updateShadowMapSceneBuffer] = useState({
     vertices: null,
     indices: null,
-    shadowTexture: null,
+    shadowMapTexture: null,
   })
   const [shaderProgram, updateShaderProgram] = useState(null)
   const [shaderInfo, updateShaderInfo] = useState(null)
@@ -86,11 +86,11 @@ const ShadowMappingSpotLightShadowExample = () => {
   const [shadowMapFramebuffer, updateShadowMapFramebuffer] = useState(null)
   const [shouldRender, updateShouldRender] = useState(true)
 
-  const canvasRef = useCallback(canvas => {
+  const canvasRef = useCallback((canvas) => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, sceneModelPosition))
       return () =>
-        updateWebGlRef(webGlRef => {
+        updateWebGlRef((webGlRef) => {
           webGlRef.destroy()
           return null
         })
@@ -132,8 +132,8 @@ const ShadowMappingSpotLightShadowExample = () => {
           scene.indices.flat(),
           shadowMapSceneBuffer.indices
         ),
-        shadowTexture: webGlRef.createRenderTargetTexture(
-          shadowMapSceneBuffer.shadowTexture
+        shadowMapTexture: webGlRef.createRenderTargetTexture(
+          shadowMapSceneBuffer.shadowMapTexture
         ),
       })
     }),
@@ -141,10 +141,10 @@ const ShadowMappingSpotLightShadowExample = () => {
   )
 
   useEffect(
-    runOnPredicate(shadowMapSceneBuffer.shadowTexture !== null, () => {
+    runOnPredicate(shadowMapSceneBuffer.shadowMapTexture !== null, () => {
       updateShadowMapFramebuffer(
         webGlRef.createTextureTargetFramebuffer(
-          shadowMapSceneBuffer.shadowTexture,
+          shadowMapSceneBuffer.shadowMapTexture,
           shadowMapFramebuffer,
           true
         )
@@ -373,7 +373,7 @@ const ShadowMappingSpotLightShadowExample = () => {
           )
 
           gl.activeTexture(gl.TEXTURE0)
-          gl.bindTexture(gl.TEXTURE_2D, shadowMapSceneBuffer.shadowTexture)
+          gl.bindTexture(gl.TEXTURE_2D, shadowMapSceneBuffer.shadowMapTexture)
           gl.uniform1i(
             shaderInfo.fragment.uniformLocations.shadowMapTextureSampler,
             0

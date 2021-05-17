@@ -6,7 +6,10 @@ import wrapExample from "../../../webgl-example-view"
 import WebGlWrapper from "../../../webgl-wrapper"
 import { directionalLightMapFragmentShaderSource, directionalLightMapVertexShaderSource } from "./map-example-shaders"
 import { modelIndices, modelNormals, modelVertices } from "./model-fixed"
-import { directionalLightShadowFixedFragmentShaderSource, directionalLightShadowFixedVertexShaderSource } from "./shadow-fixed-example-shaders"
+import {
+  directionalLightShadowFixedFragmentShaderSource,
+  directionalLightShadowFixedVertexShaderSource,
+} from "./shadow-fixed-example-shaders"
 
 const shadowMapShaderProgramInfo = {
   vertex: {
@@ -54,7 +57,9 @@ const shaderProgramInfo = {
   },
 }
 
-const lightDirectionInverted = vec4.fromValues(-9.0, 27.0, -18.0, 0.0)
+const lightDirectionInverted = vec4.create()
+vec4.normalize(lightDirectionInverted, vec4.fromValues(-9.0, 27.0, -18.0, 0.0))
+const lightModelPosition = vec4.fromValues(-9.0, 27.0, -18.0, 0.0)
 const lightColor = vec3.fromValues(1.0, 1.0, 1.0)
 const lightIntensity = 0.75
 
@@ -73,7 +78,7 @@ const ShadowMappingFixedModelDirectionalLightZoomedShadowExample = () => {
   const [shadowMapSceneBuffer, updateShadowMapSceneBuffer] = useState({
     vertices: null,
     indices: null,
-    shadowTexture: null,
+    shadowMapTexture: null,
   })
   const [shaderProgram, updateShaderProgram] = useState(null)
   const [shaderInfo, updateShaderInfo] = useState(null)
@@ -85,11 +90,11 @@ const ShadowMappingFixedModelDirectionalLightZoomedShadowExample = () => {
   const [shadowMapFramebuffer, updateShadowMapFramebuffer] = useState(null)
   const [shouldRender, updateShouldRender] = useState(true)
 
-  const canvasRef = useCallback(canvas => {
+  const canvasRef = useCallback((canvas) => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, sceneModelPosition))
       return () =>
-        updateWebGlRef(webGlRef => {
+        updateWebGlRef((webGlRef) => {
           webGlRef.destroy()
           return null
         })
@@ -131,8 +136,8 @@ const ShadowMappingFixedModelDirectionalLightZoomedShadowExample = () => {
           scene.indices.flat(),
           shadowMapSceneBuffer.indices
         ),
-        shadowTexture: webGlRef.createRenderTargetTexture(
-          shadowMapSceneBuffer.shadowTexture
+        shadowMapTexture: webGlRef.createRenderTargetTexture(
+          shadowMapSceneBuffer.shadowMapTexture
         ),
       })
     }),
@@ -140,10 +145,10 @@ const ShadowMappingFixedModelDirectionalLightZoomedShadowExample = () => {
   )
 
   useEffect(
-    runOnPredicate(shadowMapSceneBuffer.shadowTexture !== null, () => {
+    runOnPredicate(shadowMapSceneBuffer.shadowMapTexture !== null, () => {
       updateShadowMapFramebuffer(
         webGlRef.createTextureTargetFramebuffer(
-          shadowMapSceneBuffer.shadowTexture,
+          shadowMapSceneBuffer.shadowMapTexture,
           shadowMapFramebuffer,
           true
         )
@@ -208,15 +213,15 @@ const ShadowMappingFixedModelDirectionalLightZoomedShadowExample = () => {
               return
             }
 
-            const { aspect, zNear, zFar } = webGlRef.canvasDimensions
+            const { aspect } = webGlRef.canvasDimensions
             mat4.ortho(
               lightProjectionMatrix,
               -4 * aspect,
               4 * aspect,
               -4,
               4,
-              zNear,
-              zFar
+              25.0,
+              40.0
             )
 
             gl.clearColor(1.0, 1.0, 1.0, 1.0)
@@ -225,12 +230,12 @@ const ShadowMappingFixedModelDirectionalLightZoomedShadowExample = () => {
 
             mat4.lookAt(
               lightViewMatrix,
-              lightDirectionInverted,
+              lightModelPosition,
               [0.0, 0.0, 0.0],
               [0.0, 1.0, 0.0]
             )
 
-            mat4.scale(lightModelMatrix, modelMatrix, [1.6, 1.6, 1.6])
+            mat4.scale(lightModelMatrix, modelMatrix, [1.45, 1.45, 1.45])
 
             gl.bindBuffer(gl.ARRAY_BUFFER, shadowMapSceneBuffer.vertices)
             gl.vertexAttribPointer(
@@ -368,7 +373,7 @@ const ShadowMappingFixedModelDirectionalLightZoomedShadowExample = () => {
           )
 
           gl.activeTexture(gl.TEXTURE0)
-          gl.bindTexture(gl.TEXTURE_2D, shadowMapSceneBuffer.shadowTexture)
+          gl.bindTexture(gl.TEXTURE_2D, shadowMapSceneBuffer.shadowMapTexture)
           gl.uniform1i(
             shaderInfo.fragment.uniformLocations.shadowMapTextureSampler,
             0
@@ -410,7 +415,7 @@ Scene:
         {`
 Light:
     Direction: ${coordArrToString(
-      lightDirectionInverted.map(coord => -1 * coord)
+      lightDirectionInverted.map((coord) => -1 * coord)
     )}
     Color: ${coordArrToString(lightColor, colorCoords)}
     Intensity: ${lightIntensity}

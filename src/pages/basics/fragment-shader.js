@@ -1,4 +1,5 @@
 import { Link } from "gatsby"
+import { StaticImage } from "gatsby-plugin-image"
 import React from "react"
 
 import FragmentShaderFirstExample from "../../components/basics/fragment-shader/first-example"
@@ -9,7 +10,6 @@ import FragmentShaderThirdExample from "../../components/basics/fragment-shader/
 import { thirdFragmentShaderSource } from "../../components/basics/fragment-shader/third-example-shaders"
 import Content from "../../components/content"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Image from "../../components/image"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
@@ -54,8 +54,8 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
         8x8 pixels (total of 64 pixels), as shown by the image below:
       </p>
       <div className="image util text-center">
-        <Image
-          src="basics/fragment-1.png"
+        <StaticImage
+          src="../../images/basics/fragment-1.png"
           alt="Fragment Example Part 1"
           style={{ maxWidth: "65%" }}
         />
@@ -80,8 +80,8 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
         center of each pixel can be taken, resulting in the render below:
       </p>
       <div className="image util text-center">
-        <Image
-          src="basics/fragment-2.png"
+        <StaticImage
+          src="../../images/basics/fragment-2.png"
           alt="Fragment Example Part 2"
           style={{ maxWidth: "65%" }}
         />
@@ -97,8 +97,8 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
         would have the color white:
       </p>
       <div className="image util text-center">
-        <Image
-          src="basics/fragment-3.png"
+        <StaticImage
+          src="../../images/basics/fragment-3.png"
           alt="Fragment Example Part 3"
           style={{ maxWidth: "65%" }}
         />
@@ -109,14 +109,14 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
         how these images look at 30px width and height.
       </p>
       <div className="image util text-center">
-        <Image
-          src="basics/fragment-2.png"
+        <StaticImage
+          src="../../images/basics/fragment-2.png"
           alt="Fragment Example Part 2 Mini"
           style={{ maxWidth: "30px" }}
         />
         <br />
-        <Image
-          src="basics/fragment-3.png"
+        <StaticImage
+          src="../../images/basics/fragment-3.png"
           alt="Fragment Example Part 3 Mini"
           style={{ maxWidth: "30px" }}
         />

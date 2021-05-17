@@ -1,3 +1,4 @@
+import { StaticImage } from "gatsby-plugin-image"
 import React from "react"
 
 import Content from "../../components/content"
@@ -55,9 +56,10 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
         programmable, stages in yellow are not):
       </p>
       <p className="util text-center">
-        <img
-          src="https://www.khronos.org/opengl/wiki_opengl/images/RenderingPipeline.png"
+        <StaticImage
+          src="../../images/basics/render-pipeline-1.png"
           alt="Render Pipeline Visual"
+          style={{ maxWidth: "65%" }}
         />
         <br />
         <a

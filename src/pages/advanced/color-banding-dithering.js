@@ -1,4 +1,5 @@
 import { Link } from "gatsby"
+import { StaticImage } from "gatsby-plugin-image"
 import React from "react"
 
 import BandingExample from "../../components/advanced/color-banding-dithering/banding-example"
@@ -7,7 +8,6 @@ import DitheringExample from "../../components/advanced/color-banding-dithering/
 import { ditheringFragmentShaderSource } from "../../components/advanced/color-banding-dithering/dithering-example-shaders"
 import Content from "../../components/content"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Image from "../../components/image"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
@@ -35,16 +35,16 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         portion of the image.
       </p>
       <div className="image util text-center">
-        <Image
-          src="advanced/banded.png"
+        <StaticImage
+          src="../../images/advanced/banded.png"
           alt="Color Banding Screenshot Normal"
           style={{ maxWidth: "65%" }}
         />
       </div>
       <p>We can modify the light levels to make the issue more obvious.</p>
       <div className="image util text-center">
-        <Image
-          src="advanced/banded-exaggerated.png"
+        <StaticImage
+          src="../../images/advanced/banded-exaggerated.png"
           alt="Color Banding Screenshot Exaggerated"
           style={{ maxWidth: "65%" }}
         />
@@ -80,8 +80,8 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         only show two colors, black and white.
       </p>
       <div className="image util text-center">
-        <Image
-          src="advanced/actual-gradient.png"
+        <StaticImage
+          src="../../images/advanced/actual-gradient.png"
           alt="Actual Gradient"
           style={{ maxWidth: "65%" }}
         />
@@ -101,8 +101,8 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         displayed by the computer.
       </p>
       <div className="image util text-center">
-        <Image
-          src="advanced/banded-gradient.png"
+        <StaticImage
+          src="../../images/advanced/banded-gradient.png"
           alt="Banded Gradient"
           style={{ maxWidth: "65%" }}
         />
@@ -152,9 +152,10 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         of an image:
       </p>
       <p className="util text-center">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Michelangelo%27s_David_-_Floyd-Steinberg.png"
+        <StaticImage
+          src="../../images/advanced/dithering-example.png"
           alt="Wikipedia Dithering Example"
+          style={{ maxWidth: "65%" }}
         />
         <br />
         <a
@@ -200,16 +201,16 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
       <DitheringExample />
       <p>Below is a zoomed in part of the new dithered image.</p>
       <div className="util text-center">
-        <Image
-          src="advanced/noised.png"
+        <StaticImage
+          src="../../images/advanced/noised.png"
           alt="Dithering Screenshot Normal"
           style={{ maxWidth: "65%" }}
         />
       </div>
       <p>We can modify the light levels to see the introduced noise.</p>
       <div className="util text-center">
-        <Image
-          src="advanced/noised-exaggerated.png"
+        <StaticImage
+          src="../../images/advanced/noised-exaggerated.png"
           alt="Dithering Screenshot Exaggerated"
           style={{ maxWidth: "65%" }}
         />

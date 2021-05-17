@@ -1,9 +1,9 @@
 import { Link } from "gatsby"
+import { StaticImage } from "gatsby-plugin-image"
 import React from "react"
 
 import Content from "../../components/content"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Image from "../../components/image"
 import SpecularMappingFirstExample from "../../components/intermediates/specular-mapping/first-example"
 import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/specular-mapping/first-example-shaders"
 import Layout from "../../components/layout"
@@ -34,8 +34,8 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         the texture maps that will be used to color and light the wall are:
       </p>
       <div className="image util text-center">
-        <Image
-          src="intermediates/texture-2.png"
+        <StaticImage
+          src="../../images/intermediates/texture-2.png"
           alt="Stone Wall - Diffuse Map"
           style={{ maxWidth: "65%" }}
         />
@@ -51,8 +51,8 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         </a>
       </div>
       <div className="image util text-center">
-        <Image
-          src="intermediates/normal.png"
+        <StaticImage
+          src="../../images/intermediates/normal.png"
           alt="Stone Wall - Normal Map"
           style={{ maxWidth: "65%" }}
         />
@@ -68,8 +68,8 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         </a>
       </div>
       <div className="image util text-center">
-        <Image
-          src="intermediates/specular.png"
+        <StaticImage
+          src="../../images/intermediates/specular.png"
           alt="Stone Wall - Specular Map"
           style={{ maxWidth: "65%" }}
         />

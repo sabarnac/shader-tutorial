@@ -1,10 +1,10 @@
-import { mat4 } from "gl-matrix"
+import { mat4, vec4 } from "gl-matrix"
 import React, { useCallback, useEffect, useState } from "react"
 
 import { coordArrToString, runOnPredicate } from "../../../util"
 import wrapExample from "../../../webgl-example-view"
 import WebGlWrapper from "../../../webgl-wrapper"
-import { spotLightMapFragmentShaderSource, spotLightMapVertexShaderSource } from "./map-example-shaders"
+import { directionalLightMapFragmentShaderSource, directionalLightMapVertexShaderSource } from "./map-example-shaders"
 import { modelIndices, modelVertices } from "./model"
 
 const shaderProgramInfo = {
@@ -24,11 +24,13 @@ const shaderProgramInfo = {
   },
 }
 
-const lightModelPosition = [-3.0, 10.0, -6.0]
+const lightDirectionInverted = vec4.create()
+vec4.normalize(lightDirectionInverted, vec4.fromValues(-9.0, 27.0, -18.0, 0.0))
+const lightModelPosition = vec4.fromValues(-9.0, 27.0, -18.0, 1.0)
 
 const sceneModelPosition = mat4.create()
 
-const ShadowMappingSpotLightMapExample = () => {
+const ShadowMappingDirectionalLightMapFixedExample = () => {
   const scene = {
     vertices: modelVertices,
     indices: modelIndices,
@@ -57,8 +59,8 @@ const ShadowMappingSpotLightMapExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          spotLightMapVertexShaderSource,
-          spotLightMapFragmentShaderSource
+          directionalLightMapVertexShaderSource,
+          directionalLightMapFragmentShaderSource
         )
       )
     }),
@@ -95,14 +97,25 @@ const ShadowMappingSpotLightMapExample = () => {
       updateShouldRender(true)
 
       const renderScene = () => {
-        webGlRef.renderScene(({ gl, modelMatrix }) => {
+        webGlRef.renderSceneOrtho(({ gl, modelMatrix }) => {
           if (!shouldRender) {
             return
           }
 
-          const { fov, aspect } = webGlRef.canvasDimensions
+          gl.enable(gl.CULL_FACE)
+          gl.cullFace(gl.FRONT)
+
+          const { aspect } = webGlRef.canvasDimensions
           const depthProjectionMatrix = mat4.create()
-          mat4.perspective(depthProjectionMatrix, fov, aspect, 5.0, 1000.0)
+          mat4.ortho(
+            depthProjectionMatrix,
+            -4 * aspect,
+            4 * aspect,
+            -4,
+            4,
+            25.0,
+            40.0
+          )
 
           gl.clearColor(1.0, 1.0, 1.0, 1.0)
           gl.clearDepth(1.0)
@@ -112,12 +125,12 @@ const ShadowMappingSpotLightMapExample = () => {
           mat4.lookAt(
             lightViewMatrix,
             lightModelPosition,
-            [1.0, -0.75, -0.5],
+            [0.0, 0.0, 0.0],
             [0.0, 1.0, 0.0]
           )
 
           const scaledModelMatrix = mat4.create()
-          mat4.scale(scaledModelMatrix, modelMatrix, [1.3, 1.3, 1.3])
+          mat4.scale(scaledModelMatrix, modelMatrix, [1.75, 1.75, 1.75])
 
           gl.bindBuffer(gl.ARRAY_BUFFER, sceneBuffer.vertices)
           gl.vertexAttribPointer(
@@ -159,6 +172,8 @@ const ShadowMappingSpotLightMapExample = () => {
             0
           )
 
+          webGlRef._setupCullFace()
+
           requestAnimationFrame(renderScene)
         })
       }
@@ -183,11 +198,15 @@ Scene:
       <pre className="util text-left">
         {`
 Light:
-    World Position: ${coordArrToString(lightModelPosition)}
+    Direction: ${coordArrToString(
+      lightDirectionInverted.map((coord) => -1 * coord)
+    )}
+    Near Plane: 25.0
+    Far Plane: 40.0
 `.trim()}
       </pre>
     </div>
   )
 }
 
-export default wrapExample(ShadowMappingSpotLightMapExample)
+export default wrapExample(ShadowMappingDirectionalLightMapFixedExample)
