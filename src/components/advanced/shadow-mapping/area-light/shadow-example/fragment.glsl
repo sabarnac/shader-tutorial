@@ -37,9 +37,9 @@ highp float getDistanceFromLight() {
 
 highp vec3 getDiffuseLighting() {
   highp vec3 lightColorIntensity = lightColor * lightIntensity;
-  highp float distanceFromLight = distance(vertexPosition_worldSpace, lightPosition_worldSpace);
-
   highp float diffuseStrength = clamp(dot(vertexNormal_viewSpace, lightDirection_viewSpace), 0.0, 1.0);
+
+  highp float distanceFromLight = getDistanceFromLight();
   return (lightColorIntensity * diffuseStrength) / (distanceFromLight * distanceFromLight);
 }
 

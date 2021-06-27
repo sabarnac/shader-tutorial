@@ -282,7 +282,6 @@ const ColorPage = ({ location: { pathname } }) => (
         colors to users, since color models such as HSV and HSL are more
         intuitive, as discussed.
       </p>
-      <p />
       <h3>Summary</h3>
       <ul>
         <li>

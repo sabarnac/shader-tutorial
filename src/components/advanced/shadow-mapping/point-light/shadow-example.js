@@ -128,8 +128,8 @@ const ShadowMappingPointLightShadowExample = () => {
     normals: modelNormals,
     indices: modelIndices,
     ambientFactor: 0.1,
-    nearPlane: 0.01,
-    farPlane: 15.0,
+    nearPlane: 0.5,
+    farPlane: 10.0,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [shadowMapShaderProgram, updateShadowMapShaderProgram] = useState(null)

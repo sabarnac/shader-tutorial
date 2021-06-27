@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from "react"
 import { coordArrToString, runOnPredicate } from "../../../util"
 import wrapExample from "../../../webgl-example-view"
 import WebGlWrapper from "../../../webgl-wrapper"
-import { directionalLightMapFragmentShaderSource, directionalLightMapVertexShaderSource } from "./map-example-shaders"
+import { directionalLightMapFixedFragmentShaderSource, directionalLightMapFixedVertexShaderSource } from "./map-fixed-example-shaders"
 import { modelIndices, modelVertices } from "./model"
 
 const shaderProgramInfo = {
@@ -59,8 +59,8 @@ const ShadowMappingDirectionalLightMapFixedExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          directionalLightMapVertexShaderSource,
-          directionalLightMapFragmentShaderSource
+          directionalLightMapFixedVertexShaderSource,
+          directionalLightMapFixedFragmentShaderSource
         )
       )
     }),

@@ -26,9 +26,9 @@ highp float getAverageVisibility(highp vec2 shadowMapCoords, highp float current
 
 highp vec3 getDiffuseLighting() {
   highp vec3 lightColorIntensity = lightColor * lightIntensity;
-  highp float distanceFromLight = distance(vertexPosition_worldSpace, lightPosition_worldSpace);
-
   highp float diffuseStrength = clamp(dot(vertexNormal_viewSpace, lightDirection_viewSpace), 0.0, 1.0);
+
+  highp float distanceFromLight = distance(vertexPosition_worldSpace, lightPosition_worldSpace);
   return (lightColorIntensity * diffuseStrength) / (distanceFromLight * distanceFromLight);
 }
 

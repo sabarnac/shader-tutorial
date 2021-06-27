@@ -73,7 +73,7 @@ const TransparencyPage = ({ location: { pathname } }) => (
       <GenericCodeHighlight
         code={webglCode.trim()}
         type="WebGL"
-        language="javascript"
+        language="js"
       />
       <p>
         The equivalent OpenGL and DirectX color blending configurations are:

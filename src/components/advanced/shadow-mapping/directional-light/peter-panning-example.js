@@ -1,15 +1,15 @@
 import { mat4, vec3, vec4 } from "gl-matrix"
 import React, { useCallback, useEffect, useState } from "react"
 
-import { coordArrToString, runOnPredicate } from "../../../util"
+import { runOnPredicate } from "../../../util"
 import wrapExample from "../../../webgl-example-view"
 import WebGlWrapper from "../../../webgl-wrapper"
-import { directionalLightMapFixedFragmentShaderSource, directionalLightMapFixedVertexShaderSource } from "./map-fixed-example-shaders"
+import { directionalLightMapFragmentShaderSource, directionalLightMapVertexShaderSource } from "./map-example-shaders"
 import { modelIndices, modelNormals, modelVertices } from "./model"
 import {
-  directionalLightShadowFixedAltFragmentShaderSource,
-  directionalLightShadowFixedAltVertexShaderSource,
-} from "./shadow-fixed-alt-example-shaders"
+  directionalLightShadowFixedFragmentShaderSource,
+  directionalLightShadowFixedVertexShaderSource,
+} from "./shadow-fixed-example-shaders"
 
 const shadowMapShaderProgramInfo = {
   vertex: {
@@ -65,7 +65,7 @@ const lightIntensity = 0.75
 
 const sceneModelPosition = mat4.create()
 
-const ShadowMappingFixedAltDirectionalLightShadowExample = () => {
+const ShadowMappingFixedDirectionalLightPeterPanningExample = () => {
   const scene = {
     vertices: modelVertices,
     normals: modelNormals,
@@ -105,8 +105,8 @@ const ShadowMappingFixedAltDirectionalLightShadowExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateShadowMapShaderProgram(
         webGlRef.createShaderProgram(
-          directionalLightMapFixedVertexShaderSource,
-          directionalLightMapFixedFragmentShaderSource
+          directionalLightMapVertexShaderSource,
+          directionalLightMapFragmentShaderSource
         )
       )
     }),
@@ -161,8 +161,8 @@ const ShadowMappingFixedAltDirectionalLightShadowExample = () => {
     runOnPredicate(shadowMapFramebuffer !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
-          directionalLightShadowFixedAltVertexShaderSource,
-          directionalLightShadowFixedAltFragmentShaderSource
+          directionalLightShadowFixedVertexShaderSource,
+          directionalLightShadowFixedFragmentShaderSource
         )
       )
     }),
@@ -213,18 +213,15 @@ const ShadowMappingFixedAltDirectionalLightShadowExample = () => {
               return
             }
 
-            gl.enable(gl.CULL_FACE)
-            gl.cullFace(gl.FRONT)
-
-            const { aspect } = webGlRef.canvasDimensions
+            const { aspect, zNear, zFar } = webGlRef.canvasDimensions
             mat4.ortho(
               lightProjectionMatrix,
               -4 * aspect,
               4 * aspect,
               -4,
               4,
-              25.0,
-              40.0
+              zNear,
+              zFar
             )
 
             gl.clearColor(1.0, 1.0, 1.0, 1.0)
@@ -279,8 +276,6 @@ const ShadowMappingFixedAltDirectionalLightShadowExample = () => {
               gl.UNSIGNED_SHORT,
               0
             )
-
-            webGlRef._setupCullFace()
           })
         })
 
@@ -292,8 +287,8 @@ const ShadowMappingFixedAltDirectionalLightShadowExample = () => {
           const viewMatrix = mat4.create()
           mat4.lookAt(
             viewMatrix,
-            [-9.0, 6.0, -0.5],
-            [0.0, 1.0, 0.0],
+            [-4.0, 4.0, 0.5],
+            [0.5, 0.0, -2.5],
             [0.0, 1.0, 0.0]
           )
 
@@ -401,35 +396,15 @@ const ShadowMappingFixedAltDirectionalLightShadowExample = () => {
     [sceneBuffer]
   )
 
-  const colorCoords = { x: "r", y: "g", z: "b" }
-
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
       <canvas width="640" height="480" ref={canvasRef}>
         Cannot run WebGL examples (not supported)
       </canvas>
-      <pre className="util text-left">
-        {`
-Scene:
-    World Position: ${coordArrToString([0.0, 0.0, 0.0])}
-    Lighting:
-        Ambient Factor: ${scene.ambientFactor}
-`.trim()}
-      </pre>
-      <pre className="util text-left">
-        {`
-Light:
-    Direction: ${coordArrToString(
-      lightDirectionInverted.map((coord) => -1 * coord)
-    )}
-    Color: ${coordArrToString(lightColor, colorCoords)}
-    Intensity: ${lightIntensity}
-    Near Plane: 25.0
-    Far Plane: 40.0
-`.trim()}
-      </pre>
     </div>
   )
 }
 
-export default wrapExample(ShadowMappingFixedAltDirectionalLightShadowExample)
+export default wrapExample(
+  ShadowMappingFixedDirectionalLightPeterPanningExample
+)

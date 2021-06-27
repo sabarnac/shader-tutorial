@@ -97,8 +97,8 @@ const ShadowMappingPointLightMapExample = () => {
   const scene = {
     vertices: modelVertices,
     indices: modelIndices,
-    nearPlane: 0.01,
-    farPlane: 15.0,
+    nearPlane: 0.5,
+    farPlane: 10.0,
   }
   const [webGlRef, updateWebGlRef] = useState(null)
   const [currentFace, updateCurrentFace] = useState(3)

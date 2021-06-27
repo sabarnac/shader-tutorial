@@ -13,7 +13,9 @@ uniform sampler2D shadowMapTextureSampler;
 highp vec3 getDiffuseLighting() {
   highp vec3 lightColorIntensity = lightColor * lightIntensity;
   highp float diffuseStrength = clamp(dot(vertexNormal_viewSpace, lightDirection_viewSpace), 0.0, 1.0);
-  return lightColorIntensity * diffuseStrength;
+  
+  // highp float distanceFromLight = distance(vertexPosition_worldSpace, lightPosition_worldSpace);
+  return (lightColorIntensity * diffuseStrength) /* / (distanceFromLight * distanceFromLight) */;
 }
 
 void main() {
