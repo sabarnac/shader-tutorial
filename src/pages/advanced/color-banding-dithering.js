@@ -249,6 +249,18 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         dithering screenshots, and allows for color gradients to appear much
         smoother than they really are.
       </p>
+      <p>
+        To learn more about dithering in general and various dithering
+        techniques out there, check out the{" "}
+        <a
+          href="https://youtu.be/wS0Gck00nDw"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          HTTP 203 episode discussing it
+        </a>
+        .
+      </p>
       <h3>Summary</h3>
       <ul>
         <li>
