@@ -3,11 +3,11 @@ import React from "react"
 
 import Content from "../components/content"
 import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Seo from "../components/seo"
 
 const FaqPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="FAQ"
       keywords={[

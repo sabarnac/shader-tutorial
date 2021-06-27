@@ -1,20 +1,20 @@
-import { Link } from "gatsby";
-import React from "react";
+import { Link } from "gatsby"
+import React from "react"
 
-import VertexShaderFirstExample from "../../components/basics/vertex-shader/first-example";
-import { firstVertexShaderSource } from "../../components/basics/vertex-shader/first-example-shaders";
-import VertexShaderSecondExample from "../../components/basics/vertex-shader/second-example";
-import { secondVertexShaderSource } from "../../components/basics/vertex-shader/second-example-shaders";
-import Content from "../../components/content";
-import GlslCodeHighlight from "../../components/glsl-code-highlight";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
-import { renderEquation } from "../../components/util";
+import VertexShaderFirstExample from "../../components/basics/vertex-shader/first-example"
+import { firstVertexShaderSource } from "../../components/basics/vertex-shader/first-example-shaders"
+import VertexShaderSecondExample from "../../components/basics/vertex-shader/second-example"
+import { secondVertexShaderSource } from "../../components/basics/vertex-shader/second-example-shaders"
+import Content from "../../components/content"
+import Equation from "../../components/equation/equation"
+import GlslCodeHighlight from "../../components/glsl-code-highlight"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import Seo from "../../components/seo"
 
 const VertexShaderPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Basics - Vertex Shader"
       description="A look into the basics of a GPU vertex shader."
@@ -200,7 +200,7 @@ const VertexShaderPage = ({ location: { pathname } }) => (
       <p>
         This angle is calculated in degrees, which needs to be converted to
         radians, which is done by mulitplying the angle by{" "}
-        {renderEquation(`pi`)} and dividing the product by 180.
+        <Equation text={`pi`} /> and dividing the product by 180.
       </p>
       <p>
         By keeping the calculations in float, we don't round of the decimals,

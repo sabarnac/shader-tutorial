@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
-import React, { Fragment } from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import PropTypes from "prop-types"
+import React, { Fragment } from "react"
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs"
 
 const GenericCodeHighlight = ({ showHeader = true, code, type, language }) => (
   <Fragment>
@@ -15,17 +15,20 @@ const GenericCodeHighlight = ({ showHeader = true, code, type, language }) => (
       language={language}
       style={atomOneDark}
       customStyle={{ padding: "0", background: null }}
-      lineNumberContainerProps={{
-        style: {
-          float: "left",
-          paddingRight: "1.5rem",
-          borderRight: "1px dashed #9b4dca",
-        },
+      lineNumberContainerStyle={{
+        float: "left",
+        fontSize: "100%",
+        paddingRight: "1.5rem",
+        marginRight: "1.5rem",
+        borderRight: "0.2rem dashed #9b4dca",
+        borderRadius: "0",
+        whiteSpace: "inherit",
       }}
       codeTagProps={{
         style: { display: "inline-block" },
       }}
       showLineNumbers={true}
+      showInlineLineNumbers={false}
       wrapLines={false}
     >
       {code}

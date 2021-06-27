@@ -1,35 +1,35 @@
-import { Link } from "gatsby";
-import React from "react";
+import { Link } from "gatsby"
+import { StaticImage } from "gatsby-plugin-image"
+import React from "react"
 
-import Content from "../../components/content";
-import GlslCodeHighlight from "../../components/glsl-code-highlight";
-import Image from "../../components/image";
-import RandomImageGenerationEighthExample from "../../components/intermediates/image-generation/eighth-example";
-import { eighthFragmentShaderSource } from "../../components/intermediates/image-generation/eighth-example-shaders";
-import RandomImageGenerationFifthExample from "../../components/intermediates/image-generation/fifth-example";
-import { fifthFragmentShaderSource } from "../../components/intermediates/image-generation/fifth-example-shaders";
-import RandomImageGenerationFirstExample from "../../components/intermediates/image-generation/first-example";
-import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/image-generation/first-example-shaders";
-import RandomImageGenerationFourthExample from "../../components/intermediates/image-generation/fourth-example";
-import { fourthFragmentShaderSource } from "../../components/intermediates/image-generation/fourth-example-shaders";
-import RandomImageGenerationNinthExample from "../../components/intermediates/image-generation/ninth-example";
-import { ninthFragmentShaderSource } from "../../components/intermediates/image-generation/ninth-example-shaders";
-import RandomImageGenerationSecondExample from "../../components/intermediates/image-generation/second-example";
-import { secondFragmentShaderSource } from "../../components/intermediates/image-generation/second-example-shaders";
-import RandomImageGenerationSeventhExample from "../../components/intermediates/image-generation/seventh-example";
-import { seventhFragmentShaderSource } from "../../components/intermediates/image-generation/seventh-example-shaders";
-import RandomImageGenerationSixthExample from "../../components/intermediates/image-generation/sixth-example";
-import { sixthFragmentShaderSource } from "../../components/intermediates/image-generation/sixth-example-shaders";
-import RandomImageGenerationThirdExample from "../../components/intermediates/image-generation/third-example";
-import { thirdFragmentShaderSource } from "../../components/intermediates/image-generation/third-example-shaders";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
-import { renderEquation } from "../../components/util";
+import Content from "../../components/content"
+import Equation from "../../components/equation/equation"
+import GlslCodeHighlight from "../../components/glsl-code-highlight"
+import RandomImageGenerationEighthExample from "../../components/intermediates/image-generation/eighth-example"
+import { eighthFragmentShaderSource } from "../../components/intermediates/image-generation/eighth-example-shaders"
+import RandomImageGenerationFifthExample from "../../components/intermediates/image-generation/fifth-example"
+import { fifthFragmentShaderSource } from "../../components/intermediates/image-generation/fifth-example-shaders"
+import RandomImageGenerationFirstExample from "../../components/intermediates/image-generation/first-example"
+import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/image-generation/first-example-shaders"
+import RandomImageGenerationFourthExample from "../../components/intermediates/image-generation/fourth-example"
+import { fourthFragmentShaderSource } from "../../components/intermediates/image-generation/fourth-example-shaders"
+import RandomImageGenerationNinthExample from "../../components/intermediates/image-generation/ninth-example"
+import { ninthFragmentShaderSource } from "../../components/intermediates/image-generation/ninth-example-shaders"
+import RandomImageGenerationSecondExample from "../../components/intermediates/image-generation/second-example"
+import { secondFragmentShaderSource } from "../../components/intermediates/image-generation/second-example-shaders"
+import RandomImageGenerationSeventhExample from "../../components/intermediates/image-generation/seventh-example"
+import { seventhFragmentShaderSource } from "../../components/intermediates/image-generation/seventh-example-shaders"
+import RandomImageGenerationSixthExample from "../../components/intermediates/image-generation/sixth-example"
+import { sixthFragmentShaderSource } from "../../components/intermediates/image-generation/sixth-example-shaders"
+import RandomImageGenerationThirdExample from "../../components/intermediates/image-generation/third-example"
+import { thirdFragmentShaderSource } from "../../components/intermediates/image-generation/third-example-shaders"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import Seo from "../../components/seo"
 
 const ImageGenerationPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Intermediates - Image Generation"
       description="A look into the how images can be generated using noise and patterns."
@@ -70,7 +70,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         vertices passed are:
       </p>
       <p className="util text-center">
-        {renderEquation(`vertices = ((-1, -1), (-1, 1), (1, 1), (1, -1))`)}
+        <Equation text={`vertices = ((-1, -1), (-1, 1), (1, 1), (1, -1))`} />
       </p>
       <p>
         These four coordinates map to the vertices of the frame, so the vertex
@@ -105,11 +105,11 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       </p>
       <p>
         This means that a fragment belonging to the lower-left most pixel, the
-        coordinates of the fragment is {renderEquation(`(0.5, 0.5)`)}, when the
-        location of the pixel itself is {renderEquation(`(0, 0)`)}.
+        coordinates of the fragment is <Equation text={`(0.5, 0.5)`} />, when
+        the location of the pixel itself is <Equation text={`(0, 0)`} />.
       </p>
       <p>
-        The coordinates of the fragments range from {renderEquation(`(0, 0)`)}{" "}
+        The coordinates of the fragments range from <Equation text={`(0, 0)`} />{" "}
         to the width and height of the frame. In order to normalize these
         coordinates down to a range from 0 - 1, we can receive the total
         resolution of the frame from outside the shader (the shader by default
@@ -161,17 +161,17 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <p>
         The current image we have is made up of pixels. The position of these
         pixels can be easily determined. Taking an image of resolution{" "}
-        {renderEquation(`(99, 99)`)}, if we consider the screen as a graph and
+        <Equation text={`(99, 99)`} />, if we consider the screen as a graph and
         the lower-left corner pixel as the origin, then the center pixel would
-        be located at {renderEquation(`(49, 49)`)}.
+        be located at <Equation text={`(49, 49)`} />.
       </p>
       <p>
         Similarly, the coordinates of the top-right corner would{" "}
-        {renderEquation(`(98, 98)`)}, the coordinates of the top-left corner
-        would be {renderEquation(`(0, 98)`)}, the coordinates of the
-        bottom-right corner would be {renderEquation(`(0, 98)`)}, and the
+        <Equation text={`(98, 98)`} />, the coordinates of the top-left corner
+        would be <Equation text={`(0, 98)`} />, the coordinates of the
+        bottom-right corner would be <Equation text={`(0, 98)`} />, and the
         coordinates of the bottom-left corner would be{" "}
-        {renderEquation(`(0, 0)`)} (since that's the origin).
+        <Equation text={`(0, 0)`} /> (since that's the origin).
       </p>
       <p>
         We know that pixels contain multiple fragments. For this current
@@ -201,14 +201,14 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <p>
         For example, with the center pixel in our previous example, the
         coordinates
-        {renderEquation(`(49, 49)`)} now represents the lower-left corner of
+        <Equation text={`(49, 49)`} /> now represents the lower-left corner of
         that pixel. As the position of the fragment lies at the center of the
         pixel, its coordinates would become:
       </p>
       <p className="util text-center">
-        {renderEquation(
-          `"fragment coordinates" = (49 + 0.5, 49 + 0.5) = (49.5, 49.5)`
-        )}
+        <Equation
+          text={`"fragment coordinates" = (49 + 0.5, 49 + 0.5) = (49.5, 49.5)`}
+        />
       </p>
       <p>
         <em>
@@ -216,7 +216,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
           difference of 1, a fragment within a pixel has to have coordinates
           within the range of 0 to 1 (excluding 1, including 0). As the fragment
           in our example is at the centre, its coordinates would be{" "}
-          {renderEquation(`50% "of 1" = 0.5`)}.
+          <Equation text={`50% "of 1" = 0.5`} />.
         </em>
       </p>
       <p>Here we notice two interesting properties:</p>
@@ -232,12 +232,12 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       </ul>
       <p>
         An important note about these coordinates is that they are dependent on
-        the resolution of the image, which is {renderEquation(`(99, 99)`)}. This
-        is evident through a simple check.
+        the resolution of the image, which is <Equation text={`(99, 99)`} />.
+        This is evident through a simple check.
       </p>
       <p>
         We saw that the coordinates of the center pixel of the image is{" "}
-        {renderEquation(`(49, 49)`)}. However, the coordinates are relative to
+        <Equation text={`(49, 49)`} />. However, the coordinates are relative to
         the size of the image itself. If the size of the image changes, the
         coordinates of the center pixel would also change.
       </p>
@@ -255,9 +255,9 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         coordinates and the resolution of the image. The calculation is:
       </p>
       <p className="util text-center">
-        {renderEquation(
-          `text(normalized coordinates) = (text(pixel coordinates)_x / text(image resolution)_x, text(pixel coordinates)_y / text(image resolution)_y)`
-        )}
+        <Equation
+          text={`text(normalized coordinates) = (text(pixel coordinates)_x / text(image resolution)_x, text(pixel coordinates)_y / text(image resolution)_y)`}
+        />
       </p>
       <p>
         Once the normalized coordinates of any pixel are known, the coordinates
@@ -265,9 +265,9 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         multiplication:
       </p>
       <p className="util text-center">
-        {renderEquation(
-          `text(new coordinates) = (text(pixel coordinates)_x / text(new resolution)_x, text(pixel coordinates)_y / text(new resolution)_y)`
-        )}
+        <Equation
+          text={`text(new coordinates) = (text(pixel coordinates)_x / text(new resolution)_x, text(pixel coordinates)_y / text(new resolution)_y)`}
+        />
       </p>
       <p>
         Now consider the pixels as tiles. Tiles have area as well, similar to
@@ -292,15 +292,15 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         within that pixel.
       </p>
       <p>
-        If we took an image of resolution {renderEquation(`(100, 100)`)} with
+        If we took an image of resolution <Equation text={`(100, 100)`} /> with
         one fragment per pixel, when the fragment coordinates are normalized,
         the fragments are now simply mapped onto an image of resolution{" "}
-        {renderEquation(`(1, 1)`)}.
+        <Equation text={`(1, 1)`} />.
       </p>
       <p>
         This means the pixel in this "new image" will contain all the fragments
         of the original image, which is{" "}
-        {renderEquation(`100 times 100 = 10000`)}. The location of all these
+        <Equation text={`100 times 100 = 10000`} />. The location of all these
         fragments within that pixel are determined from the decimal part of the
         values of the coordinates.
       </p>
@@ -317,16 +317,17 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       </p>
       <p>
         If the fragments from the example are now spread across an image of
-        resolution {renderEquation(`(10, 10)`)}, then each pixel in the new
+        resolution <Equation text={`(10, 10)`} />, then each pixel in the new
         image will contain{" "}
-        {renderEquation(`10000 / (10 times 10) = 10000 / 100 = 100`)} fragments.
+        <Equation text={`10000 / (10 times 10) = 10000 / 100 = 100`} />{" "}
+        fragments.
       </p>
       <p>
         A fragment present within pixel of coordinates{" "}
-        {renderEquation(`(5, 5)`)} will have coordinates{" "}
-        {renderEquation(`("5.x", "5.y")`)}, where {renderEquation(`"x"`)} and{" "}
-        {renderEquation(`"y"`)} are the decimal parts that tell the location of
-        the fragment within that pixel.
+        <Equation text={`(5, 5)`} /> will have coordinates{" "}
+        <Equation text={`("5.x", "5.y")`} />, where <Equation text={`"x"`} />{" "}
+        and <Equation text={`"y"`} /> are the decimal parts that tell the
+        location of the fragment within that pixel.
       </p>
       <p>
         We initially noted that the decimal part of the coordinates are the
@@ -375,7 +376,8 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       />
       <p>
         Looking at our code, we can see the application of the discussed
-        concepts. We set a tiling resolution of ({renderEquation(`(12.0, 9.0)`)}
+        concepts. We set a tiling resolution of (
+        <Equation text={`(12.0, 9.0)`} />
         ). The normalized coordinates of the fragment are then calculated.
       </p>
       <p>
@@ -438,8 +440,8 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <p>
         First, we need to determine the tile normalized coordinates center of a
         tile. In a tile, the tile normalized coordinates of the center would be{" "}
-        {renderEquation(`(0.5, 0.5)`)}, since the center would be located at the
-        50% width and height mark of a tile.
+        <Equation text={`(0.5, 0.5)`} />, since the center would be located at
+        the 50% width and height mark of a tile.
       </p>
       <p>
         We can then calculate the distance between the fragment and the center
@@ -532,13 +534,13 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <p>
         Let's take the center of the tile as the origin of the graph. The tile
         is a square, and the tile normalized coordinates of the center of the
-        tile is {renderEquation(`(0.5, 0.5)`)}. This results in the boundaries
+        tile is <Equation text={`(0.5, 0.5)`} />. This results in the boundaries
         of the tile in our graph being 0.5 units away from the origin.
       </p>
       <p>The plot for this would be:</p>
       <div className="image util text-center">
-        <Image
-          src="intermediates/tile-plot.png"
+        <StaticImage
+          src="../../images/intermediates/tile-plot.png"
           alt="Tile Graph Plot"
           style={{ maxWidth: "65%" }}
         />
@@ -555,8 +557,8 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         Adding the diagonals of the tile to the graph would result in the plot:
       </p>
       <div className="image util text-center">
-        <Image
-          src="intermediates/tile-diagonal-plot.png"
+        <StaticImage
+          src="../../images/intermediates/tile-diagonal-plot.png"
           alt="Tile With Diagonals Graph Plot"
           style={{ maxWidth: "65%" }}
         />
@@ -863,7 +865,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       </p>
       <p>
         In this example, instead of taking the standard tile normalized
-        coordinates of the center of the block {renderEquation(`(0.5, 0.5)`)},
+        coordinates of the center of the block <Equation text={`(0.5, 0.5)`} />,
         we generate the tile normalized coordinate of the center randomly
         instead.
       </p>
@@ -906,11 +908,11 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       </p>
       <p>
         The formula for this calculation is simple - given a range{" "}
-        {renderEquation(`X - Y`)} and a factor {renderEquation(`F`)} that is
-        within the range {renderEquation(`0.0 - 1.0`)}, the formula is:
+        <Equation text={`X - Y`} /> and a factor <Equation text={`F`} /> that is
+        within the range <Equation text={`0.0 - 1.0`} />, the formula is:
       </p>
       <p className="util text-center">
-        {renderEquation(`(X times (1 - F)) + (Y times F)`)}
+        <Equation text={`(X times (1 - F)) + (Y times F)`} />
       </p>
       <p>
         In GLSL, a built-in function <code>mix</code> can perform this
@@ -939,8 +941,8 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         plot again.
       </p>
       <div className="image util text-center">
-        <Image
-          src="intermediates/tile-diagonal-plot.png"
+        <StaticImage
+          src="../../images/intermediates/tile-diagonal-plot.png"
           alt="Tile With Diagonals Graph Plot"
           style={{ maxWidth: "65%" }}
         />
@@ -990,9 +992,9 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       <p>
         The coordinates of the top-left corner the square, which is the one of
         the ends of <code>diagonal 2</code>, has coordinates{" "}
-        {renderEquation(`(-0.5, 0.5)`)}. Similarly, the coordinates of the other
-        end of the diagonal at the bottom-right corner are{" "}
-        {renderEquation(`(0.5, -0.5)`)}.
+        <Equation text={`(-0.5, 0.5)`} />. Similarly, the coordinates of the
+        other end of the diagonal at the bottom-right corner are{" "}
+        <Equation text={`(0.5, -0.5)`} />.
       </p>
       <p>
         This difference compared to <code>diagonal 1</code> means that the

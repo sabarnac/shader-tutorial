@@ -1,13 +1,14 @@
-import React from "react";
+import { StaticImage } from "gatsby-plugin-image"
+import React from "react"
 
-import Content from "../../components/content";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
+import Content from "../../components/content"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import Seo from "../../components/seo"
 
 const RenderPipelinePage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Basics - The GPU Render Pipeline"
       description="A look into the GPU render pipeline and how it renders images."
@@ -55,9 +56,10 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
         programmable, stages in yellow are not):
       </p>
       <p className="util text-center">
-        <img
-          src="https://www.khronos.org/opengl/wiki_opengl/images/RenderingPipeline.png"
+        <StaticImage
+          src="../../images/basics/render-pipeline-1.png"
           alt="Render Pipeline Visual"
+          style={{ maxWidth: "65%" }}
         />
         <br />
         <a

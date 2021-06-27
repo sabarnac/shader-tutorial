@@ -1,13 +1,13 @@
-import { Link } from "gatsby";
-import React from "react";
+import { Link } from "gatsby"
+import React from "react"
 
-import Content from "../components/content";
-import Layout from "../components/layout";
-import SEO from "../components/seo";
+import Content from "../components/content"
+import Layout from "../components/layout"
+import Seo from "../components/seo"
 
 const IndexPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Home"
       keywords={["gpu", "shader", "tutorial"]}

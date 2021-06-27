@@ -1,6 +1,5 @@
-import React from "react";
-
-import Image from "./image";
+import { StaticImage } from "gatsby-plugin-image"
+import React from "react"
 
 const Footer = () => (
   <div className="row">
@@ -21,8 +20,8 @@ const Footer = () => (
           rel="noopener noreferrer"
           target="_blank"
         >
-          <Image
-            src="github.png"
+          <StaticImage
+            src="../images/github.png"
             alt="GitHub Repo Link"
             style={{ width: "32px", height: "32px" }}
           />

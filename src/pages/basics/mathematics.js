@@ -1,14 +1,15 @@
-import React from "react";
+import React from "react"
 
-import Content from "../../components/content";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
-import { renderEquation } from "../../components/util";
+import Content from "../../components/content"
+import Equation from "../../components/equation/equation"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import Seo from "../../components/seo"
+import Mathematics1 from "../../images/basics/mathematics-1.gif"
 
 const MathematicsPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Basics - A Primer On Needed Mathematics"
       description="A look into the mathematics that is required and extremely useful for shading."
@@ -62,16 +63,16 @@ const MathematicsPage = ({ location: { pathname } }) => (
         the later.
       </p>
       <p>
-        If we take our initial point as {renderEquation(`A = (1, 2, 3)`)} and
-        the final point {renderEquation(`B = (3, 5, 8)`)}, where the first value
-        is the point location in the X-axis, and the second value is the point
-        location in the Y-axis.
+        If we take our initial point as <Equation text={`A = (1, 2, 3)`} /> and
+        the final point <Equation text={`B = (3, 5, 8)`} />, where the first
+        value is the point location in the X-axis, and the second value is the
+        point location in the Y-axis.
       </p>
       <p>
         The vector representing moving from the first point to the second would
-        be {renderEquation(`vec (AB) = (x_B - x_A, y_B - y_A, z_B - z_A)`)},
+        be <Equation text={`vec (AB) = (x_B - x_A, y_B - y_A, z_B - z_A)`} />,
         which is{" "}
-        {renderEquation(`vec (AB) = (3 - 1, 5 - 2, 8 - 3) = (2, 3, 5)`)}
+        <Equation text={`vec (AB) = (3 - 1, 5 - 2, 8 - 3) = (2, 3, 5)`} />
       </p>
       <p>
         Vectors are useful as a representation of the data to be processed.
@@ -86,14 +87,14 @@ const MathematicsPage = ({ location: { pathname } }) => (
       <p>
         We know that a vector is data that represents moving a point from one
         place to another. If the initial point is always the origin{" "}
-        {renderEquation(`O = (0, 0, 0)`)}, then you'll notice that all resulting
-        vectors represent the position of the final point.
+        <Equation text={`O = (0, 0, 0)`} />, then you'll notice that all
+        resulting vectors represent the position of the final point.
       </p>
       <p>
         The reason for this is quite simple. Every point you plot is always
         respective to the origin. So when a point is plotted at{" "}
-        {renderEquation(`A = (1, 2, 3)`)}, that point is placed relative to an
-        origin point which is always at {renderEquation(`O = (0, 0, 0)`)}.
+        <Equation text={`A = (1, 2, 3)`} />, that point is placed relative to an
+        origin point which is always at <Equation text={`O = (0, 0, 0)`} />.
       </p>
       <p>
         This means that any vector that represents the amount needed to carry
@@ -102,32 +103,32 @@ const MathematicsPage = ({ location: { pathname } }) => (
       <p>
         While points can be used to represent points, they can also be used to
         represent direction. For example, a vector{" "}
-        {renderEquation(`vec A = (0, 1, 0)`)} has only a value for the Y-axis.
+        <Equation text={`vec A = (0, 1, 0)`} /> has only a value for the Y-axis.
         This could be interpreted as some direction that acts along the Y-axis.
       </p>
       <p>
-        Similarly, a vector {renderEquation(`vec A = (1, 1, 0)`)} represents a
+        Similarly, a vector <Equation text={`vec A = (1, 1, 0)`} /> represents a
         direction that acts along the X-and Y-axis equally. And a vector{" "}
-        {renderEquation(`vec A = (0.333, 1.0, 0.5)`)} represents a direction
+        <Equation text={`vec A = (0.333, 1.0, 0.5)`} /> represents a direction
         that acts fully on the Y-axis, about a half as much on the Z-axis, and
         only a third as much on the X-axis.
       </p>
       <p>
         Since vectors can be used to represent both points and directions, a
         method is required to distinguish between the two. For this, an extra
-        coordinate is added to all vectors, called the {renderEquation(`w`)}{" "}
+        coordinate is added to all vectors, called the <Equation text={`w`} />{" "}
         coordinate.
       </p>
       <p>
         This means that when a point or direction needs to be represented in a
         certain number of dimensions, the size of the vector representing it
         will always be 1 plus the number of dimensions of the point or
-        direction, where the last value is {renderEquation(`w`)}.
+        direction, where the last value is <Equation text={`w`} />.
       </p>
       <p>
-        For points, the value for {renderEquation(`w`)} coordinate is always 1,
-        and for directions it's always 0. The reason for this will be discussed
-        in the next section, where we'll talk about matrices.
+        For points, the value for <Equation text={`w`} /> coordinate is always
+        1, and for directions it's always 0. The reason for this will be
+        discussed in the next section, where we'll talk about matrices.
       </p>
       <h3>Matrix Mathematics</h3>
       <p>
@@ -140,12 +141,15 @@ const MathematicsPage = ({ location: { pathname } }) => (
         like:
       </p>
       <p className="util text-center">
-        {renderEquation(`a = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]`)}
+        <Equation
+          text={`a = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]`}
+        />
       </p>
       <p>
         When a particular value in a matrix is being referenced, it is written
-        as {renderEquation(`a_(ij)`)}, where {renderEquation(`i`)} represents
-        the row number, and {renderEquation(`j`)} represents the column number.
+        as <Equation text={`a_(ij)`} />, where <Equation text={`i`} />{" "}
+        represents the row number, and <Equation text={`j`} /> represents the
+        column number.
       </p>
       <p>
         While vectors are very good at representing data, a method is required
@@ -159,10 +163,10 @@ const MathematicsPage = ({ location: { pathname } }) => (
         making it less useful.
       </p>
       <p>
-        Let us take a point {renderEquation(`a = (1, 2, 3)`)}. If we wish to
-        move this point to {renderEquation(`b = (7, 3, 5)`)}, an operation is
-        required that can "transform" the point {renderEquation(`a`)} to point{" "}
-        {renderEquation(`b`)}.
+        Let us take a point <Equation text={`a = (1, 2, 3)`} />. If we wish to
+        move this point to <Equation text={`b = (7, 3, 5)`} />, an operation is
+        required that can "transform" the point <Equation text={`a`} /> to point{" "}
+        <Equation text={`b`} />.
       </p>
       <p>
         These sort of transformations are best suited to be done through the use
@@ -236,12 +240,13 @@ const MathematicsPage = ({ location: { pathname } }) => (
         However, with directions, transformations such as translation don't make
         sense. In order to be able to use the same transformation formulas on
         both points and directions and make sure that direction vectors are not
-        affected, we can take advantage of the {renderEquation(`w`)} component.
+        affected, we can take advantage of the <Equation text={`w`} />{" "}
+        component.
       </p>
       <p>
-        By having {renderEquation(`w`)} set to 0 for directions, transformations
-        such as translating vectors can be prevented from affecting directions,
-        and only affect points.{" "}
+        By having <Equation text={`w`} /> set to 0 for directions,
+        transformations such as translating vectors can be prevented from
+        affecting directions, and only affect points.{" "}
         <a
           href="https://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#translation-matrices"
           target="_blank"
@@ -267,12 +272,12 @@ const MathematicsPage = ({ location: { pathname } }) => (
       </p>
       <p>
         Let's take the example of the trignometric functions{" "}
-        {renderEquation(`sin(theta)`)} and {renderEquation(`cos(theta)`)}. These
-        functions, when given a certain angle, produce a certain value between 1
-        to -1.
+        <Equation text={`sin(theta)`} /> and <Equation text={`cos(theta)`} />.
+        These functions, when given a certain angle, produce a certain value
+        between 1 to -1.
       </p>
       <p>
-        If we take {renderEquation(`sin(theta)`)}, at 0 degrees, it gives the
+        If we take <Equation text={`sin(theta)`} />, at 0 degrees, it gives the
         result 0. As the angle increases to 90 degrees, the result of the
         function becomes 1.
       </p>
@@ -283,7 +288,7 @@ const MathematicsPage = ({ location: { pathname } }) => (
       </p>
       <p>
         Finally, as the angle increases to 360 degrees, the result goes back to
-        0, resetting the loop. {renderEquation(`cos(theta)`)} behaves in a
+        0, resetting the loop. <Equation text={`cos(theta)`} /> behaves in a
         similar way.
       </p>
       <p>
@@ -292,8 +297,9 @@ const MathematicsPage = ({ location: { pathname } }) => (
       </p>
       <p className="util text-center">
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Circle_cos_sin.gif"
+          src={Mathematics1}
           alt="Sine Cosine Visual"
+          style={{ maxWidth: "65%" }}
         />
         <br />
         <a
@@ -311,30 +317,31 @@ const MathematicsPage = ({ location: { pathname } }) => (
         through some clever math.
       </p>
       <p>
-        For example, let's take a point {renderEquation(`a = (1, 2, 3)`)} which
-        needs animated into being scaled up to double its size, then shrunk down
-        to 0, finally scaled it back to its original size, and then repeating
-        the process.
+        For example, let's take a point <Equation text={`a = (1, 2, 3)`} />{" "}
+        which needs animated into being scaled up to double its size, then
+        shrunk down to 0, finally scaled it back to its original size, and then
+        repeating the process.
       </p>
       <p>
         This can be done by using a scaling transform matrix that uses the value
-        of {renderEquation(`cos(theta)`)}, where {renderEquation(`theta`)} can
-        be the number of seconds that has passed since the start of the
+        of <Equation text={`cos(theta)`} />, where <Equation text={`theta`} />{" "}
+        can be the number of seconds that has passed since the start of the
         animation.
       </p>
       <p>
-        Since the range of values produced by {renderEquation(`cos(theta)`)} is
-        between -1 to 1, we can just add 1 to the results to shift the range to
-        0 to 2, making the equation be {renderEquation(`x = cos(theta) + 1`)}.
+        Since the range of values produced by <Equation text={`cos(theta)`} />{" "}
+        is between -1 to 1, we can just add 1 to the results to shift the range
+        to 0 to 2, making the equation be{" "}
+        <Equation text={`x = cos(theta) + 1`} />.
       </p>
       <p>
         The scaling transform can then be based upon this value, which would
         make the matrix be:
       </p>
       <p className="util text-center">
-        {renderEquation(
-          `s = [[cos(theta) + 1, 0, 0, 0], [0, cos(theta) + 1, 0, 0], [0, 0, cos(theta) + 1, 0], [0, 0, 0, 1]]`
-        )}
+        <Equation
+          text={`s = [[cos(theta) + 1, 0, 0, 0], [0, cos(theta) + 1, 0, 0], [0, 0, cos(theta) + 1, 0], [0, 0, 0, 1]]`}
+        />
       </p>
       <p>
         This scaling matrix can then be multiplied with the point to ensure that
@@ -343,8 +350,8 @@ const MathematicsPage = ({ location: { pathname } }) => (
         scaling matrix.
       </p>
       <p>
-        Other trignometric functions such as {renderEquation(`tan(theta)`)} and{" "}
-        {renderEquation(`cot(theta)`)} can also be used, although not all
+        Other trignometric functions such as <Equation text={`tan(theta)`} />{" "}
+        and <Equation text={`cot(theta)`} /> can also be used, although not all
         trignometric functions (like the aforementioned two) produce continuous
         lines with increasing angles. This property can still be useful in
         certain scenarios.
@@ -352,10 +359,11 @@ const MathematicsPage = ({ location: { pathname } }) => (
       <h3>Other Mathematic Concepts</h3>
       <p>
         Similar to how trignometric functions can be used to produce patterns
-        and shapes, operations such as {renderEquation(`"floor(x)" = floor(x)`)}
-        , {renderEquation(`"ceil(x)" = ceil(x)`)},{" "}
-        {renderEquation(`"abs(x)" = abs(x)`)},{" "}
-        {renderEquation(`"power(x, n)" = x^n`)}, etc. are also useful for the
+        and shapes, operations such as{" "}
+        <Equation text={`"floor(x)" = floor(x)`} />
+        , <Equation text={`"ceil(x)" = ceil(x)`} />,{" "}
+        <Equation text={`"abs(x)" = abs(x)`} />,{" "}
+        <Equation text={`"power(x, n)" = x^n`} />, etc. are also useful for the
         same purpose.
       </p>
       <p>

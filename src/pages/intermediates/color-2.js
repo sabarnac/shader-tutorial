@@ -1,14 +1,14 @@
-import React from "react";
+import { StaticImage } from "gatsby-plugin-image"
+import React from "react"
 
-import Content from "../../components/content";
-import Image from "../../components/image";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
+import Content from "../../components/content"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import Seo from "../../components/seo"
 
 const ColorPt2Page = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Basics - Color Part 2"
       description="A look into how color interaction works and affects what we see."
@@ -93,8 +93,8 @@ const ColorPt2Page = ({ location: { pathname } }) => (
       </p>
       <p>To understand this, let's look an example image.</p>
       <div className="image util text-center">
-        <Image
-          src="intermediates/interaction-1.png"
+        <StaticImage
+          src="../../images/intermediates/interaction-1.png"
           alt="Color Interaction Greyscale Example"
           style={{ maxWidth: "65%" }}
         />
@@ -131,8 +131,8 @@ const ColorPt2Page = ({ location: { pathname } }) => (
         image showing an example in color:
       </p>
       <div className="image util text-center">
-        <Image
-          src="intermediates/interaction-2.png"
+        <StaticImage
+          src="../../images/intermediates/interaction-2.png"
           alt="Color Interaction Color Example"
           style={{ maxWidth: "65%" }}
         />

@@ -1,13 +1,14 @@
-import React from "react";
+import { StaticImage } from "gatsby-plugin-image"
+import React from "react"
 
-import Content from "../../components/content";
-import Layout from "../../components/layout";
-import PageChange from "../../components/page-change";
-import SEO from "../../components/seo";
+import Content from "../../components/content"
+import Layout from "../../components/layout"
+import PageChange from "../../components/page-change"
+import Seo from "../../components/seo"
 
 const ColorPage = ({ location: { pathname } }) => (
   <Layout>
-    <SEO
+    <Seo
       pathname={pathname}
       title="Shader Basics - Color"
       description="A look into certain concepts and details of digital colors."
@@ -88,9 +89,10 @@ const ColorPage = ({ location: { pathname } }) => (
         light is.
       </p>
       <p className="util text-center">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/EM_spectrum.svg/787px-EM_spectrum.svg.png"
+        <StaticImage
+          src="../../images/basics/color-1.png"
           alt="Visible Light Spectrum"
+          style={{ maxWidth: "65%" }}
         />
         <br />
         <a
@@ -152,9 +154,10 @@ const ColorPage = ({ location: { pathname } }) => (
         These representations are much closer to how we perceive color making.
       </p>
       <p className="util text-center">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/HSV_color_solid_cylinder_saturation_gray.png/800px-HSV_color_solid_cylinder_saturation_gray.png"
+        <StaticImage
+          src="../../images/basics/color-2.png"
           alt="HSV Color Wheel"
+          style={{ maxWidth: "65%" }}
         />
         <br />
         <a
@@ -279,7 +282,6 @@ const ColorPage = ({ location: { pathname } }) => (
         colors to users, since color models such as HSV and HSL are more
         intuitive, as discussed.
       </p>
-      <p />
       <h3>Summary</h3>
       <ul>
         <li>

@@ -9,21 +9,22 @@ export default class WebGlWrapper {
     aspect: 1.0,
     fov: (45 * Math.PI) / 180,
     zNear: 0.1,
-    zFar: 100.0,
+    zFar: 50.0,
   }
   _projectionMatrix = mat4.create()
   _orthoMatrix = mat4.create()
   _viewMatrix = mat4.create()
   _modelMatrix = mat4.create()
 
-  constructor(canvas, modelPosition, disableDepth = false) {
+  constructor(canvas, modelPosition, disableDepth = false, cullFace = false) {
     this.canvasDimensions = {
       ...this.canvasDimensions,
-      width: canvas.width,
-      height: canvas.height,
+      width: canvas.width * 2,
+      height: canvas.height * 2,
       aspect: canvas.width / canvas.height,
     }
     this._canvas = canvas
+    this._cullFace = cullFace
 
     this._webgl = canvas.getContext("webgl2")
     if (this._webgl === null) {
@@ -58,15 +59,15 @@ export default class WebGlWrapper {
     } else {
       this._webgl.disable(this._webgl.DEPTH_TEST)
       this._webgl.depthMask(false)
-    }
 
-    if (disableDepth) {
       this._webgl.enable(this._webgl.BLEND)
       this._webgl.blendFunc(
         this._webgl.SRC_ALPHA,
         this._webgl.ONE_MINUS_SRC_ALPHA
       )
     }
+
+    this._setupCullFace()
 
     this._clearScreen()
 
@@ -85,6 +86,15 @@ export default class WebGlWrapper {
       [0.0, 1.0, 0.0]
     )
     mat4.translate(this._modelMatrix, modelPosition, [0.0, 0.0, 0.0])
+  }
+
+  _setupCullFace = () => {
+    if (this._cullFace) {
+      this._webgl.enable(this._webgl.CULL_FACE)
+      this._webgl.cullFace(this._webgl.BACK)
+    } else {
+      this._webgl.disable(this._webgl.CULL_FACE)
+    }
   }
 
   _clearScreen = () => {
@@ -113,7 +123,7 @@ export default class WebGlWrapper {
     return shader
   }
 
-  _isPowerOf2 = value => {
+  _isPowerOf2 = (value) => {
     return (value & (value - 1)) === 0
   }
 
@@ -155,10 +165,15 @@ export default class WebGlWrapper {
       this._canvas.height =
         (this._canvas.clientWidth * this.canvasDimensions.scale * 3) / 4
 
-      this._webgl.viewport(0, 0, this._canvas.width, this._canvas.height)
+      this.canvasDimensions.width = this._canvas.width * 2
+      this.canvasDimensions.height = this._canvas.height * 2
 
-      this.canvasDimensions.width = this._canvas.width
-      this.canvasDimensions.height = this._canvas.height
+      this._webgl.viewport(
+        0,
+        0,
+        this.canvasDimensions.width,
+        this.canvasDimensions.height
+      )
 
       this.canvasDimensions.aspect =
         this._canvas.clientWidth / this._canvas.clientHeight
@@ -299,7 +314,7 @@ export default class WebGlWrapper {
       this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_Z,
     ]
 
-    faces.forEach(face => {
+    faces.forEach((face) => {
       this._webgl.texImage2D(
         face,
         level,
@@ -367,7 +382,7 @@ export default class WebGlWrapper {
     return texture
   }
 
-  createRenderTargetTexture = texture => {
+  createRenderTargetTexture = (texture) => {
     this._resizeCanvas()
 
     if (texture === null) {
@@ -421,7 +436,7 @@ export default class WebGlWrapper {
     return texture
   }
 
-  createCubeMapRenderTargetTexture = texture => {
+  createCubeMapRenderTargetTexture = (texture) => {
     this._resizeCanvas()
 
     if (texture === null) {
@@ -445,7 +460,7 @@ export default class WebGlWrapper {
       this._webgl.TEXTURE_CUBE_MAP_POSITIVE_Z,
       this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_Z,
     ]
-    faces.forEach(face => {
+    faces.forEach((face) => {
       this._webgl.texImage2D(
         face,
         level,
@@ -629,7 +644,12 @@ export default class WebGlWrapper {
   }
 
   renderToCubeMapFramebuffer = (frameBuffer, renderer) => {
-    this._webgl.viewport(0, 0, this._canvas.width, this._canvas.width)
+    this._webgl.viewport(
+      0,
+      0,
+      this.canvasDimensions.width,
+      this.canvasDimensions.width
+    )
     this._webgl.bindFramebuffer(this._webgl.FRAMEBUFFER, frameBuffer)
 
     renderer()
@@ -639,14 +659,21 @@ export default class WebGlWrapper {
   }
 
   renderToFramebuffer = (frameBuffer, renderer) => {
+    this._webgl.viewport(
+      0,
+      0,
+      this.canvasDimensions.width,
+      this.canvasDimensions.height
+    )
     this._webgl.bindFramebuffer(this._webgl.FRAMEBUFFER, frameBuffer)
 
     renderer()
 
     this._webgl.bindFramebuffer(this._webgl.FRAMEBUFFER, null)
+    this._webgl.viewport(0, 0, this._canvas.width, this._canvas.height)
   }
 
-  renderScene = renderer => {
+  renderScene = (renderer) => {
     this._resizeCanvas()
 
     const renderInfo = {
@@ -663,7 +690,7 @@ export default class WebGlWrapper {
     renderer(renderInfo)
   }
 
-  renderSceneOrtho = renderer => {
+  renderSceneOrtho = (renderer) => {
     this._resizeCanvas()
 
     const renderInfo = {
