@@ -271,6 +271,18 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
         operations that they do.
       </p>
       <p>
+        To learn about the graphics rendering pipeline in a lot more detail,
+        check out{" "}
+        <a
+          href="https://fgiesen.wordpress.com/2011/07/09/a-trip-through-the-graphics-pipeline-2011-index/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          A trip through the Graphics Pipeline 2011
+        </a>
+        .
+      </p>
+      <p>
         The basics section will be focusing primarily on vertex shaders and
         fragment shaders, which are vital for rendering an image on to the
         screen, or onto a buffer for use later. The next chapter will begin with
