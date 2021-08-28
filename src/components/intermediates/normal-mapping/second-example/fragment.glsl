@@ -23,7 +23,8 @@ void main() {
 
   highp vec4 lightPosition_viewSpace = viewMatrix * lightPosition_worldSpace;
   highp vec3 lightDirection_viewSpace = normalize((lightPosition_viewSpace - vertexPosition_viewSpace).xyz);
-  highp vec3 viewDirection_viewSpace = normalize(vertexPosition_viewSpace.xyz - vec3(0.0, 0.0, 0.0));
+  highp vec3 cameraPosition_viewSpace = vec3(0.0, 0.0, 0.0); // In view-space, the camera is in the center of the world, so it's position would be (0, 0, 0).
+  highp vec3 viewDirection_viewSpace = normalize(vertexPosition_viewSpace.xyz - cameraPosition_viewSpace);
 
   highp vec3 lightColorIntensity = lightColor * lightIntensity;
   highp float distanceFromLight = distance(vertexPosition_viewSpace, lightPosition_viewSpace);
