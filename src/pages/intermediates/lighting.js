@@ -37,7 +37,7 @@ const LightingPage = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <Heading type="h2">Shader Intermediates - Lighting</Heading>
+      <h2>Shader Intermediates - Lighting</h2>
       <p>
         While adding textures to color your objects helps to add more detail,
         simulating the lighting of the environment on the object adds further

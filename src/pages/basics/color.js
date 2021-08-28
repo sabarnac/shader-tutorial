@@ -16,7 +16,7 @@ const ColorPage = ({ location: { pathname } }) => (
       keywords={["color", "shader", "basics"]}
     />
     <Content>
-      <Heading type="h2">Shader Basics - Color</Heading>
+      <h2>Shader Basics - Color</h2>
       <p>
         In order for computers to have the ability to show color, they need a
         way to represent the color values which can be used to show the

@@ -20,7 +20,7 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
       keywords={["specular", "mapping", "texturing", "shader", "intermediates"]}
     />
     <Content>
-      <Heading type="h2">Shader Intermediates - Specular Mapping</Heading>
+      <h2>Shader Intermediates - Specular Mapping</h2>
       <p>
         Similar to how we've stored information the normal information of a
         surface in a map (as taught in the{" "}

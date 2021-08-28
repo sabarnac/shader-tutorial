@@ -18,7 +18,7 @@ const BranchingPage = ({ location: { pathname } }) => (
       keywords={["branching", "branch", "shader", "advanced"]}
     />
     <Content>
-      <Heading type="h2">Shader Advanced - Branching</Heading>
+      <h2>Shader Advanced - Branching</h2>
       <p>
         A question that might have come up often in past chapters is why simple
         conditional logic not used to execute different bits of code, instead of

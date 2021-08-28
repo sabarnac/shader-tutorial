@@ -24,7 +24,7 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
       keywords={["fragment", "shader", "basics"]}
     />
     <Content>
-      <Heading type="h2">Shader Basics - Fragment Shader</Heading>
+      <h2>Shader Basics - Fragment Shader</h2>
       <Heading type="h3">What is a fragment shader</Heading>
       <p>
         Similar to how a vertex shader operates on vertices of an object, a

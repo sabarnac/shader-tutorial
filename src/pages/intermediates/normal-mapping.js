@@ -24,7 +24,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       keywords={["normal", "mapping", "texturing", "shader", "intermediates"]}
     />
     <Content>
-      <Heading type="h2">Shader Intermediates - Normal Mapping</Heading>
+      <h2>Shader Intermediates - Normal Mapping</h2>
       <p>
         An issue with the lighting examples seen in the{" "}
         <Link to="/intermediates/lighting/">previous chapter on lighting</Link>{" "}

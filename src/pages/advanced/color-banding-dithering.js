@@ -22,7 +22,7 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
       keywords={["shader", "advanced", "banding", "dithering"]}
     />
     <Content>
-      <Heading type="h2">Shader Advanced - Color Banding and Dithering</Heading>
+      <h2>Shader Advanced - Color Banding and Dithering</h2>
       <p>
         An issue that can occur when drawing gradients is something called color
         banding. Let us look at a flat grayscale gradient going from black to

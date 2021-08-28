@@ -22,7 +22,7 @@ const ColorMappingPage = ({ location: { pathname } }) => (
       keywords={["color", "mapping", "texturing", "shader", "intermediates"]}
     />
     <Content>
-      <Heading type="h2">Shader Intermediates - Color Mapping</Heading>
+      <h2>Shader Intermediates - Color Mapping</h2>
       <p>
         So far we've passed direct color information of vertices to the fragment
         shader, which was then interpolated for each fragment and then set as

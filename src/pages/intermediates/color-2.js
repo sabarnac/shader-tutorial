@@ -25,7 +25,7 @@ const ColorPt2Page = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <Heading type="h2">Shader Intermediates - Color Part 2</Heading>
+      <h2>Shader Intermediates - Color Part 2</h2>
       <p>
         While colors can seem simple to work with, there are subtleties involved
         that can affect the outcome of how colors are seen by people. These can

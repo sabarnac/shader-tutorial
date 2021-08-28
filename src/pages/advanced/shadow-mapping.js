@@ -75,7 +75,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <Heading type="h2">Shader Advanced - Shadow Mapping</Heading>
+      <h2>Shader Advanced - Shadow Mapping</h2>
       <p>
         In the <Link to="/intermediates/lighting/">lighting chapter</Link>,
         we've learnt how to color an object based on the light falling on it,

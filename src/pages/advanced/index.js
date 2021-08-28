@@ -2,7 +2,6 @@ import { Link } from "gatsby"
 import React from "react"
 
 import Content from "../../components/content"
-import Heading from "../../components/heading"
 import Layout from "../../components/layout"
 import Seo from "../../components/seo"
 
@@ -15,7 +14,7 @@ const IntermediatesIndexPage = ({ location: { pathname } }) => (
       keywords={["shader", "advanced", "content", "toc"]}
     />
     <Content>
-      <Heading type="h2">Table of Contents</Heading>
+      <h2>Table of Contents</h2>
       <ul className="toc">
         <li>
           <Link to="/advanced/branching/">Shader Advanced - Branching</Link>

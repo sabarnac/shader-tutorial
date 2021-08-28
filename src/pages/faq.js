@@ -2,7 +2,6 @@ import { Link } from "gatsby"
 import React from "react"
 
 import Content from "../components/content"
-import Heading from "../components/heading"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
@@ -22,7 +21,7 @@ const FaqPage = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <Heading type="h2">FAQ</Heading>
+      <h2>FAQ</h2>
       <dl className="faq-list">
         <dt>How can one contact you with regards to the website?</dt>
         <dd>

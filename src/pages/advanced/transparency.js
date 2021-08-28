@@ -30,7 +30,7 @@ const TransparencyPage = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <Heading type="h2">Shader Advanced - Transparency</Heading>
+      <h2>Shader Advanced - Transparency</h2>
       <p>
         Implementing support for transparency in shader code is not a complex
         task. The fragment shader returns a color vector of 4 components, with

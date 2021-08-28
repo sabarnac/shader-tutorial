@@ -44,7 +44,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <Heading type="h2">Shader Intermediates - Image Generation</Heading>
+      <h2>Shader Intermediates - Image Generation</h2>
       <p>
         While images can be generated to render objects passed to a GPU, images
         can also be generated where the image is drawn over the entire screen,

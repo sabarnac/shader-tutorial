@@ -16,7 +16,7 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
       keywords={["shader", "basics", "gpu", "render", "pipeline"]}
     />
     <Content>
-      <Heading type="h2">Shader Basics - The GPU Render Pipeline</Heading>
+      <h2>Shader Basics - The GPU Render Pipeline</h2>
       <p>
         GPUs, when rendering images, primarily work on a set of vertex data. If
         we have an object (for example, a teapot) that we wish to render an

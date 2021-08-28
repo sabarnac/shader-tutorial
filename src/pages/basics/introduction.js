@@ -15,7 +15,7 @@ const IntroductionPage = ({ location: { pathname } }) => (
       keywords={["shader", "basics", "introduction"]}
     />
     <Content>
-      <Heading type="h2">Shader Basics - Introduction</Heading>
+      <h2>Shader Basics - Introduction</h2>
       <Heading type="h3">What is a shader?</Heading>
       <p>
         A shader is a program that is primarily used to shade an image,

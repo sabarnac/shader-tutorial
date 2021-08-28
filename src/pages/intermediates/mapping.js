@@ -16,7 +16,7 @@ const MappingPage = ({ location: { pathname } }) => (
       keywords={["mapping", "textures", "uv", "shader", "intermediates"]}
     />
     <Content>
-      <Heading type="h2">Shader Intermediates - Mapping</Heading>
+      <h2>Shader Intermediates - Mapping</h2>
       <p>
         A major concern when rendering objects in shaders is that all object
         details that can be defined and passed to shaders have to be defined on
