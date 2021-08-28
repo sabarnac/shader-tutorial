@@ -197,6 +197,16 @@ const FaqPage = ({ location: { pathname } }) => (
             from other areas, which I do try to provide a link or reference to.
           </p>
           <p>
+            The link icon that you see alongside headings was gotten from{" "}
+            <a
+              href="http://simpleicon.com/link-2.html"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              simpleicon.com
+            </a>
+          </p>
+          <p>
             If you find any material that is not owned by me and is not properly
             linked to the source, open an issue at the{" "}
             <a
