@@ -1,6 +1,7 @@
 import React from "react"
 
 import Content from "../../components/content"
+import Heading from "../../components/heading"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
@@ -14,8 +15,8 @@ const IntroductionPage = ({ location: { pathname } }) => (
       keywords={["shader", "basics", "introduction"]}
     />
     <Content>
-      <h2>Shader Basics - Introduction</h2>
-      <h3>What is a shader?</h3>
+      <Heading type="h2">Shader Basics - Introduction</Heading>
+      <Heading type="h3">What is a shader?</Heading>
       <p>
         A shader is a program that is primarily used to shade an image,
         generating color information while applying any lighting effects on said
@@ -31,7 +32,7 @@ const IntroductionPage = ({ location: { pathname } }) => (
         units), which could only perform specific actions.
       </p>
       <p>This was later replaced with the current shading system used today.</p>
-      <h3>Where are shaders used?</h3>
+      <Heading type="h3">Where are shaders used?</Heading>
       <p>They can be used in a lot of areas:</p>
       <ul>
         <li>Rendering video games.</li>
@@ -60,7 +61,9 @@ const IntroductionPage = ({ location: { pathname } }) => (
         <li>Create even cool psychedelic effects.</li>
         <li>And much, much more.</li>
       </ul>
-      <h3>Can shaders only be used for visual effects and rendering?</h3>
+      <Heading type="h3">
+        Can shaders only be used for visual effects and rendering?
+      </Heading>
       <p>
         No, they can be used for other areas too. If you've ever heard of
         machine learning, you might be interested to know that they can be
@@ -90,7 +93,9 @@ const IntroductionPage = ({ location: { pathname } }) => (
         looks as an image, since certain data drawn out can bring out certain
         patterns that may not necessarily be obvious.
       </p>
-      <h3>What do I need to know before getting started?</h3>
+      <Heading type="h3">
+        What do I need to know before getting started?
+      </Heading>
       <p>
         You will need to have a basic understanding of vector math, matrix math,
         and trignometry. Any other pre-requisite will have links or explanations

@@ -4,6 +4,7 @@ import React from "react"
 
 import Content from "../../components/content"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
+import Heading from "../../components/heading"
 import TexturingFirstExample from "../../components/intermediates/color-mapping/first-example"
 import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/color-mapping/first-example-shaders"
 import TexturingSecondExample from "../../components/intermediates/color-mapping/second-example"
@@ -21,7 +22,7 @@ const ColorMappingPage = ({ location: { pathname } }) => (
       keywords={["color", "mapping", "texturing", "shader", "intermediates"]}
     />
     <Content>
-      <h2>Shader Intermediates - Color Mapping</h2>
+      <Heading type="h2">Shader Intermediates - Color Mapping</Heading>
       <p>
         So far we've passed direct color information of vertices to the fragment
         shader, which was then interpolated for each fragment and then set as
@@ -53,9 +54,9 @@ const ColorMappingPage = ({ location: { pathname } }) => (
         Let's look at an example of color mapping where an image is used as a
         texture to color the faces of a cube.
       </p>
-      <h3>An example - A cube</h3>
+      <Heading type="h3">An example - A cube</Heading>
       <TexturingFirstExample />
-      <h4>How it works</h4>
+      <Heading type="h4">How it works</Heading>
       <p>
         The following texture is used to color the each face of the rendered
         cube:
@@ -123,9 +124,9 @@ const ColorMappingPage = ({ location: { pathname } }) => (
         because the texture is a 2D image which is being sampled for color
         values at specific coordinates.
       </p>
-      <h3>Another example - A (mostly) pulsing cube</h3>
+      <Heading type="h3">Another example - A (mostly) pulsing cube</Heading>
       <TexturingSecondExample />
-      <h4>How it works</h4>
+      <Heading type="h4">How it works</Heading>
       <p>
         Similar to how the pulsing triangle was made in the last example of the{" "}
         <Link to="/basics/fragment-shader/">fragment shader basics</Link>, a{" "}
@@ -184,7 +185,7 @@ const ColorMappingPage = ({ location: { pathname } }) => (
         are white have a color shift factor of 0, and the rest have a value of
         1.
       </p>
-      <h3>Summary</h3>
+      <Heading type="h3">Summary</Heading>
       <ul>
         <li>
           Through the process of UV mapping, we can define the color of each

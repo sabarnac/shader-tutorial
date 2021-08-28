@@ -4,6 +4,7 @@ import React from "react"
 
 import Content from "../../components/content"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
+import Heading from "../../components/heading"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
@@ -17,7 +18,7 @@ const BranchingPage = ({ location: { pathname } }) => (
       keywords={["branching", "branch", "shader", "advanced"]}
     />
     <Content>
-      <h2>Shader Advanced - Branching</h2>
+      <Heading type="h2">Shader Advanced - Branching</Heading>
       <p>
         A question that might have come up often in past chapters is why simple
         conditional logic not used to execute different bits of code, instead of
@@ -102,7 +103,7 @@ const BranchingPage = ({ location: { pathname } }) => (
           before they supported branching operations (ex: <code>clamp</code>).
         </em>
       </p>
-      <h3>Summary</h3>
+      <Heading type="h3">Summary</Heading>
       <ul>
         <li>
           Branching is generally discouraged to be performed in shaders and can

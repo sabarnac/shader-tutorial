@@ -2,6 +2,7 @@ import { StaticImage } from "gatsby-plugin-image"
 import React from "react"
 
 import Content from "../../components/content"
+import Heading from "../../components/heading"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
@@ -15,7 +16,7 @@ const MappingPage = ({ location: { pathname } }) => (
       keywords={["mapping", "textures", "uv", "shader", "intermediates"]}
     />
     <Content>
-      <h2>Shader Intermediates - Mapping</h2>
+      <Heading type="h2">Shader Intermediates - Mapping</Heading>
       <p>
         A major concern when rendering objects in shaders is that all object
         details that can be defined and passed to shaders have to be defined on
@@ -65,7 +66,7 @@ const MappingPage = ({ location: { pathname } }) => (
         In order to use textures on objects, we first need to learn how a
         texture is overlayed onto on object.
       </p>
-      <h3>UV Mapping</h3>
+      <Heading type="h3">UV Mapping</Heading>
       <p>
         The process of overlaying, or "mapping", a texture (2D plane) onto an
         object (3D system) is known as UV mapping. Just as how the axes of a 3D
@@ -142,7 +143,7 @@ const MappingPage = ({ location: { pathname } }) => (
         objects, the process being called color mapping, or texturing (for
         simplicity).
       </p>
-      <h3>Summary</h3>
+      <Heading type="h3">Summary</Heading>
       <ul>
         <li>
           GPU can only be provided with raw data at the vertex level. This

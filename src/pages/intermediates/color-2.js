@@ -2,6 +2,7 @@ import { StaticImage } from "gatsby-plugin-image"
 import React from "react"
 
 import Content from "../../components/content"
+import Heading from "../../components/heading"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
@@ -24,7 +25,7 @@ const ColorPt2Page = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <h2>Shader Intermediates - Color Part 2</h2>
+      <Heading type="h2">Shader Intermediates - Color Part 2</Heading>
       <p>
         While colors can seem simple to work with, there are subtleties involved
         that can affect the outcome of how colors are seen by people. These can
@@ -33,7 +34,7 @@ const ColorPt2Page = ({ location: { pathname } }) => (
         way they appear to us.
       </p>
       <p>Let's look at certain issues and subtleties of color.</p>
-      <h3>Limited number of digital colors</h3>
+      <Heading type="h3">Limited number of digital colors</Heading>
       <p>
         The primary limitation with digital color is that only a limited number
         of colors can be represented by computers. This is due to the fact that
@@ -84,7 +85,7 @@ const ColorPt2Page = ({ location: { pathname } }) => (
         The effects of this limitation of digital color will be discussed in a
         later chapter through an example.
       </p>
-      <h3>Interaction of color</h3>
+      <Heading type="h3">Interaction of color</Heading>
       <p>
         Colors are not seen as absolutes by us, but in relation to other colors
         surrounding it. How a color is seen depends not on just the value of
@@ -147,7 +148,7 @@ const ColorPt2Page = ({ location: { pathname } }) => (
         but also can be exploited for certain benefits. An example of this will
         be shown in a later chapter through an example.
       </p>
-      <h3>Colors seen by digital devices</h3>
+      <Heading type="h3">Colors seen by digital devices</Heading>
       <p>
         Another thing that may not be known is how color is actually seen by
         digital devices such as cameras, versus how humans see and interpret
@@ -174,7 +175,7 @@ const ColorPt2Page = ({ location: { pathname } }) => (
         overcome in software. This is useful to know when performing image
         manipulation.
       </p>
-      <h3>Summary</h3>
+      <Heading type="h3">Summary</Heading>
       <ul>
         <li>
           Computers are limited in the range of colors they can represent and

@@ -8,6 +8,7 @@ import DitheringExample from "../../components/advanced/color-banding-dithering/
 import { ditheringFragmentShaderSource } from "../../components/advanced/color-banding-dithering/dithering-example-shaders"
 import Content from "../../components/content"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
+import Heading from "../../components/heading"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
@@ -21,13 +22,13 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
       keywords={["shader", "advanced", "banding", "dithering"]}
     />
     <Content>
-      <h2>Shader Advanced - Color Banding and Dithering</h2>
+      <Heading type="h2">Shader Advanced - Color Banding and Dithering</Heading>
       <p>
         An issue that can occur when drawing gradients is something called color
         banding. Let us look at a flat grayscale gradient going from black to
         white.
       </p>
-      <h4>Example - Color Banded Gradient</h4>
+      <Heading type="h4">Example - Color Banded Gradient</Heading>
       <BandingExample />
       <GlslCodeHighlight code={bandingFragmentShaderSource} type="Fragment" />
       <p>
@@ -112,7 +113,7 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         sudden transition to a band of black. This is a case of color banding,
         albeit an extreme one.
       </p>
-      <h3>Dithering</h3>
+      <Heading type="h3">Dithering</Heading>
       <p>
         The solution to this issue of not being able to represent intermediate
         colors is called dithering. The{" "}
@@ -197,7 +198,7 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         spectrum, the grainy effect introduced by dithering should be very hard
         to spot, making it ideal to fix the banding issue.
       </p>
-      <h4>Example - Dithered Gradient</h4>
+      <Heading type="h4">Example - Dithered Gradient</Heading>
       <DitheringExample />
       <p>Below is a zoomed in part of the new dithered image.</p>
       <div className="util text-center">
@@ -261,7 +262,7 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         </a>
         .
       </p>
-      <h3>Summary</h3>
+      <Heading type="h3">Summary</Heading>
       <ul>
         <li>
           Color banding is an issue that can occur when the computer cannot

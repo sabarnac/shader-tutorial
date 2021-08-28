@@ -10,6 +10,7 @@ import FragmentShaderThirdExample from "../../components/basics/fragment-shader/
 import { thirdFragmentShaderSource } from "../../components/basics/fragment-shader/third-example-shaders"
 import Content from "../../components/content"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
+import Heading from "../../components/heading"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
@@ -23,8 +24,8 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
       keywords={["fragment", "shader", "basics"]}
     />
     <Content>
-      <h2>Shader Basics - Fragment Shader</h2>
-      <h3>What is a fragment shader</h3>
+      <Heading type="h2">Shader Basics - Fragment Shader</Heading>
+      <Heading type="h3">What is a fragment shader</Heading>
       <p>
         Similar to how a vertex shader operates on vertices of an object, a
         fragment shader operates on a "fragment" of an object and tells what the
@@ -36,7 +37,7 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
         fragment (like brightening due to lights or darkening due to shadows)
         can be done through the fragment shader.
       </p>
-      <h3>What is a fragment</h3>
+      <Heading type="h3">What is a fragment</Heading>
       <p>
         As previously mentioned in the{" "}
         <Link to="/basics/render-pipeline/">render pipeline overview</Link>, a
@@ -138,14 +139,14 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
         fragment shaders are called pixel shaders), but that name isn't
         technically accurate.
       </p>
-      <h3>An example - The triangle returns</h3>
+      <Heading type="h3">An example - The triangle returns</Heading>
       <p>
         Let's go back to our standard triangle example. Previously, we only had
         the edges of the triangle drawn to provide an explanation on how vertex
         shaders work. This time we'll be coloring the entire triangle.
       </p>
       <FragmentShaderFirstExample />
-      <h4>How it works</h4>
+      <Heading type="h4">How it works</Heading>
       <GlslCodeHighlight
         code={firstFragmentShaderSource.trim()}
         type={"Fragment"}
@@ -174,7 +175,7 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
         then split into fragments, with each fragment then colored by the
         fragment shader.
       </p>
-      <h3>Another example - A triangular color wheel</h3>
+      <Heading type="h3">Another example - A triangular color wheel</Heading>
       <p>
         What if we wanted to define our own color values that should be used to
         color the pixels? Just like with the vertex shader, we can pass our own
@@ -198,7 +199,7 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
         example.
       </p>
       <FragmentShaderSecondExample />
-      <h4>How it works</h4>
+      <Heading type="h4">How it works</Heading>
       <p>
         As is visible from the result, since we set the colors of each vertex
         have been set to red, green, and blue, those corners of the triangles
@@ -261,9 +262,11 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
         per vertex, varyings are read-only for the fragment shader and can
         differ per fragment (they are write only for the vertex shader).
       </p>
-      <h3>A final example - A pulsing triangle color wheel</h3>
+      <Heading type="h3">
+        A final example - A pulsing triangle color wheel
+      </Heading>
       <FragmentShaderThirdExample />
-      <h4>How it works</h4>
+      <Heading type="h4">How it works</Heading>
       <p>
         Similar to how we did the rotating triangle in the previous chapter, we
         determine how much to shift the color by relative to the current
@@ -305,7 +308,7 @@ const FragmentShaderPage = ({ location: { pathname } }) => (
           <code>int</code>)
         </em>
       </p>
-      <h3>Summary</h3>
+      <Heading type="h3">Summary</Heading>
       <ul>
         <li>
           The fragment shader receives a fragment from a list of fragments and

@@ -2,6 +2,7 @@ import { Link } from "gatsby"
 import React from "react"
 
 import Content from "../components/content"
+import Heading from "../components/heading"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
@@ -13,7 +14,7 @@ const IndexPage = ({ location: { pathname } }) => (
       keywords={["gpu", "shader", "tutorial"]}
     />
     <Content>
-      <h2>Welcome!</h2>
+      <Heading type="h2">Welcome!</Heading>
       <p>
         The purpose of this website is to provide a simple understanding about
         the concept of GPU shaders, their types, purpose, and how they work and

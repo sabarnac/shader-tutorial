@@ -2,6 +2,7 @@ import { StaticImage } from "gatsby-plugin-image"
 import React from "react"
 
 import Content from "../../components/content"
+import Heading from "../../components/heading"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
@@ -15,14 +16,14 @@ const ColorPage = ({ location: { pathname } }) => (
       keywords={["color", "shader", "basics"]}
     />
     <Content>
-      <h2>Shader Basics - Color</h2>
+      <Heading type="h2">Shader Basics - Color</Heading>
       <p>
         In order for computers to have the ability to show color, they need a
         way to represent the color values which can be used to show the
         necessary colors as well as store them. This value is then used to color
         the pixels that form the individual blocks of a display.
       </p>
-      <h3>How are colors represented in computers?</h3>
+      <Heading type="h3">How are colors represented in computers?</Heading>
       <p>
         Computers represent pixel colors through numbers, and have four color
         values (or channels) they store per pixel - red channel (R), green
@@ -43,7 +44,7 @@ const ColorPage = ({ location: { pathname } }) => (
         pixel. At 255, the red channel is at maximum brightness, showing the
         brightest red possible.
       </p>
-      <h3>How are colors represented in shaders?</h3>
+      <Heading type="h3">How are colors represented in shaders?</Heading>
       <p>
         Colors can be represented using vectors, like vertices. The size of the
         vector depends on the number of channels that are required to represent
@@ -137,7 +138,9 @@ const ColorPage = ({ location: { pathname } }) => (
           computer technology.
         </em>
       </p>
-      <h3>Can color only be represented as RGB by computers?</h3>
+      <Heading type="h3">
+        Can color only be represented as RGB by computers?
+      </Heading>
       <p>
         While colors are generally represented using RGB by computers, and are
         also how humans see colors, it is not the only way colors are
@@ -169,7 +172,7 @@ const ColorPage = ({ location: { pathname } }) => (
         </a>
       </p>
       <p>Let's look at what the components of these representations mean:</p>
-      <h4>Hue</h4>
+      <Heading type="h4">Hue</Heading>
       <p>
         Hue is the colors from the visible light spectrum. It is a 360 degree
         circle that starts with red at degree 0, then goes to green at the 120
@@ -180,7 +183,7 @@ const ColorPage = ({ location: { pathname } }) => (
         This allows all colors to be represented in their bare form, and places
         complementary colors opposite to each other.
       </p>
-      <h4>Saturation</h4>
+      <Heading type="h4">Saturation</Heading>
       <p>
         Let's take up the example of tea and sugar. When there is no sugar in
         the tea, the tea tastes just as it is in its pure form. This means that
@@ -203,7 +206,7 @@ const ColorPage = ({ location: { pathname } }) => (
         up more and more to the final color. At 100% saturation, all the remains
         is the actual color value of the hue.
       </p>
-      <h4>Value/Brightness and Lightness</h4>
+      <Heading type="h4">Value/Brightness and Lightness</Heading>
       <p>
         Value is similar to saturation, but starts from black. As the value of
         the hue is increased, the brightness of the color increases, which
@@ -222,7 +225,7 @@ const ColorPage = ({ location: { pathname } }) => (
         This property allows the color white to be represented in two ways
         through HSL - by zeroing out saturation or maxing out lightness.
       </p>
-      <h3>Converting between HSV and RGB</h3>
+      <Heading type="h3">Converting between HSV and RGB</Heading>
       <p>
         While colors can be created using the HSL or HSV color model/space, this
         representation needs to be converted into the RGB color model/space,
@@ -265,7 +268,7 @@ const ColorPage = ({ location: { pathname } }) => (
         HSV can be used over HSL as it is generally simpler to understand and
         use for most people.
       </p>
-      <h3>Additional Notes</h3>
+      <Heading type="h3">Additional Notes</Heading>
       <p>
         In future chapters, we will primarily work with RGB(A) colors and
         textures, but this knowledge is available if you wish to work in HSV
@@ -282,7 +285,7 @@ const ColorPage = ({ location: { pathname } }) => (
         colors to users, since color models such as HSV and HSL are more
         intuitive, as discussed.
       </p>
-      <h3>Summary</h3>
+      <Heading type="h3">Summary</Heading>
       <ul>
         <li>
           Computers represent colors using numbers. Colors are represented using

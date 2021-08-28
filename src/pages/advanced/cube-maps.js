@@ -1,6 +1,7 @@
 import React from "react"
 
 import Content from "../../components/content"
+import Heading from "../../components/heading"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
@@ -25,7 +26,7 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <h2>Shader Advanced - Cube Maps</h2>
+      <Heading type="h2">Shader Advanced - Cube Maps</Heading>
       <p>Page is currently not written yet. Check back later!</p>
     </Content>
     <PageChange previous="/advanced/shadow-mapping/" />

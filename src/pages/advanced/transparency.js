@@ -10,6 +10,7 @@ import { webglCode } from "../../components/advanced/transparency/webgl-blend"
 import Content from "../../components/content"
 import GenericCodeHighlight from "../../components/generic-code-highlight"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
+import Heading from "../../components/heading"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
@@ -29,7 +30,7 @@ const TransparencyPage = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <h2>Shader Advanced - Transparency</h2>
+      <Heading type="h2">Shader Advanced - Transparency</Heading>
       <p>
         Implementing support for transparency in shader code is not a complex
         task. The fragment shader returns a color vector of 4 components, with
@@ -94,7 +95,7 @@ const TransparencyPage = ({ location: { pathname } }) => (
         an example to see the limitations of the chosen color blending
         algorithm.
       </p>
-      <h3>Example - Red Square and Green Square</h3>
+      <Heading type="h3">Example - Red Square and Green Square</Heading>
       <TransparencyFirstExample />
       <p>
         Here, we're drawing two squares, one in red, and one in green. In this
@@ -218,7 +219,7 @@ const TransparencyPage = ({ location: { pathname } }) => (
         algorithm produces a different output, so we recommend experimenting to
         see which configuration works best for your use-case.
       </p>
-      <h3>Summary</h3>
+      <Heading type="h3">Summary</Heading>
       <ul>
         <li>
           Transparency on the shader side is simple to add, through the use of

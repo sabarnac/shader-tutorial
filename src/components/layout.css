@@ -22,6 +22,44 @@ body {
   height: 100%;
 }
 
+h2 > a,
+h3 > a,
+h4 > a,
+h5 > a,
+h6 > a {
+  float: right;
+  border-bottom: none !important;
+}
+
+h2 > a > img,
+h3 > a > img,
+h4 > a > img,
+h5 > a > img,
+h6 > a > img {
+  border: none;
+  background: none;
+}
+
+h2 > a > img {
+  height: 3.6rem;
+}
+
+h3 > a > img {
+  height: 2.8rem;
+}
+
+h4 > a > img {
+  height: 2.2rem;
+}
+
+h5 > a > img {
+  height: 1.8rem;
+}
+
+h6 > a > img {
+  height: 1.6rem;
+}
+
 h1 {
   text-transform: capitalize;
 }

@@ -1,6 +1,7 @@
 import React from "react"
 
 import Content from "../../components/content"
+import Heading from "../../components/heading"
 import Layout from "../../components/layout"
 import PageChange from "../../components/page-change"
 import Seo from "../../components/seo"
@@ -14,7 +15,7 @@ const EndPage = ({ location: { pathname } }) => (
       keywords={["shader", "basics", "end", "complete", "epilogue"]}
     />
     <Content>
-      <h2>Shader Basics - The End</h2>
+      <Heading type="h2">Shader Basics - The End</Heading>
       <p>
         You've completed the basics of shader programming, from plotting points
         on a screen using a vertex shader to simulating lighting in a simple

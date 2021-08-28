@@ -4,6 +4,7 @@ import React from "react"
 
 import Content from "../../components/content"
 import GlslCodeHighlight from "../../components/glsl-code-highlight"
+import Heading from "../../components/heading"
 import SpecularMappingFirstExample from "../../components/intermediates/specular-mapping/first-example"
 import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/specular-mapping/first-example-shaders"
 import Layout from "../../components/layout"
@@ -19,7 +20,7 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
       keywords={["specular", "mapping", "texturing", "shader", "intermediates"]}
     />
     <Content>
-      <h2>Shader Intermediates - Specular Mapping</h2>
+      <Heading type="h2">Shader Intermediates - Specular Mapping</Heading>
       <p>
         Similar to how we've stored information the normal information of a
         surface in a map (as taught in the{" "}
@@ -27,7 +28,7 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         we can also store specular information of a surface in a map as well.
         Such a map is called a specular map.
       </p>
-      <h3>Specular Maps</h3>
+      <Heading type="h3">Specular Maps</Heading>
       <p>
         Like the texture maps used in the{" "}
         <Link to="/intermediates/normal-mapping">normal mapping chapter</Link>,
@@ -106,7 +107,7 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         Let's look at the stone wall example with the specular map added in.
         We'll be performing the lighting calculation in view-space.
       </p>
-      <h3>Example - Stone wall</h3>
+      <Heading type="h3">Example - Stone wall</Heading>
       <SpecularMappingFirstExample />
       <GlslCodeHighlight
         code={firstVertexShaderSource.trim()}
@@ -132,7 +133,7 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         and multiplied against the specular lighting vector to give us the final
         specular lighting value for the fragment.
       </p>
-      <h3>Summary</h3>
+      <Heading type="h3">Summary</Heading>
       <ul>
         <li>
           Similar to normal mapping, specular mapping can be used to map

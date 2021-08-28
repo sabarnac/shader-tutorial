@@ -1,6 +1,7 @@
 import React from "react"
 
 import Content from "../components/content"
+import Heading from "../components/heading"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
@@ -13,7 +14,7 @@ const IndexPage = ({ location: { pathname } }) => (
       keywords={["not", "found"]}
     />
     <Content>
-      <h2>Page Not Found</h2>
+      <Heading type="h2">Page Not Found</Heading>
       <p>The page you requested for doesn't seem to exist.</p>
     </Content>
   </Layout>
