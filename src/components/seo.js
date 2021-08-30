@@ -42,7 +42,6 @@ const Seo = ({
       <title>
         {title} | {site.siteMetadata.title}
       </title>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <meta name="description" content={metaDescription} />
       <meta
