@@ -38,76 +38,52 @@ const Seo = ({
       htmlAttributes={{
         lang,
       }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:url`,
-          content: `${site.siteMetadata.baseUrl}${pathname}`,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:image`,
-          content: `${site.siteMetadata.baseUrl}${withPrefix("/icon.png")}`,
-        },
-        {
-          property: `og:image:height`,
-          content: "256",
-        },
-        {
-          property: `og:image:width`,
-          content: "256",
-        },
-        {
-          property: `og:image:alt`,
-          content: "GPU Shader Tutorial Icon",
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-        {
-          name: `twitter:image`,
-          content: `${site.siteMetadata.baseUrl}${withPrefix("/icon.png")}`,
-        },
-        {
-          name: `twitter:image:alt`,
-          content: "GPU Shader Tutorial Icon",
-        },
-      ]
-        .concat(
-          keywords.length > 0
-            ? {
-                name: `keywords`,
-                content: keywords.join(`, `),
-              }
-            : []
-        )
-        .concat(meta)}
-    />
+    >
+      <title>
+        {title} | {site.siteMetadata.title}
+      </title>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,700;1,300;1,700&display=swap"
+        rel="stylesheet"
+      />
+      <meta name="description" content={metaDescription} />
+      <meta
+        property="og:title"
+        content={`${title} | ${site.siteMetadata.title}`}
+      />
+      <meta
+        property="og:url"
+        content={`${site.siteMetadata.baseUrl}${pathname}`}
+      />
+      <meta property="og:description" content={metaDescription} />
+      <meta
+        property="og:image"
+        content={`${site.siteMetadata.baseUrl}${withPrefix("/icon.png")}`}
+      />
+      <meta property="og:image:height" content="256" />
+      <meta property="og:image:width" content="256" />
+      <meta property="og:image:alt" content="GPU Shader Tutorial Icon" />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:card" content="summary" />
+      <meta
+        name="twitter:title"
+        content={`${title} | ${site.siteMetadata.title}`}
+      />
+      <meta name="twitter:description" content={metaDescription} />
+      <meta
+        name="twitter:image"
+        content={`${site.siteMetadata.baseUrl}${withPrefix("/icon.png")}`}
+      />
+      <meta name="twitter:image:alt" content="GPU Shader Tutorial Icon" />
+      {keywords.length ? (
+        <meta name="keywords" content={keywords.join(`, `)} />
+      ) : null}
+      {meta.map((props) => (
+        <meta {...props} />
+      ))}
+    </Helmet>
   )
 }
 

@@ -13,7 +13,7 @@ const IndexPage = ({ location: { pathname } }) => (
       keywords={["gpu", "shader", "tutorial"]}
     />
     <Content>
-      <h2 class="title-largest">Welcome!</h2>
+      <h2 className="title-largest">Welcome!</h2>
       <p>
         The purpose of this website is to provide a simple understanding about
         the concept of GPU shaders, their types, purpose, and how they work and

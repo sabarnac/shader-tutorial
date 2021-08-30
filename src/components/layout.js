@@ -4,7 +4,9 @@
  *
  * See: https://www.gatsbyjs.org/docs/static-query/
  */
-import "./layout.css"
+ import "./milligram.css"
+ import "./normalize.css"
+ import "./layout.css"
 
 import { graphql, StaticQuery } from "gatsby"
 import PropTypes from "prop-types"

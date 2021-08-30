@@ -12,7 +12,7 @@ const Header = ({ siteTitle, isHomePage }) => (
       style={{ display: "block", maxWidth: "45%", margin: "0 auto" }}
     />
     {isHomePage ? (
-      <h1 id="site-title" class="title-largest">
+      <h1 id="site-title" className="title-largest">
         {siteTitle}
       </h1>
     ) : (
