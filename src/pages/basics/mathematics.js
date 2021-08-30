@@ -17,9 +17,7 @@ const MathematicsPage = ({ location: { pathname } }) => (
       keywords={["shader", "basics", "gpu", "mathematics", "maths"]}
     />
     <Content>
-      <Heading type="h2">
-        Shader Basics - A Primer On Necessary Mathematics
-      </Heading>
+      <h1>Shader Basics - A Primer On Necessary Mathematics</h1>
       <p>
         A lot of the functionality of shaders is dependent on mathematical
         functions and calculations. Knowing what mathematical functions are
