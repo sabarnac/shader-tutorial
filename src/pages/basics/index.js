@@ -14,7 +14,7 @@ const BasicsIndexPage = ({ location: { pathname } }) => (
       keywords={["shader", "basics", "content", "toc"]}
     />
     <Content>
-      <h2>Table of Contents</h2>
+      <h1>Table of Contents - Basics</h1>
       <ul className="toc">
         <li>
           <Link to="/basics/introduction/">Shader Basics - Introduction</Link>

@@ -5,8 +5,8 @@ const Navigation = () => (
   <nav>
     <ul>
       <li className="skip-nav">
-        <a href="#main">
-          <small>Skip Navigation</small>
+        <a href="#main" tabIndex="0">
+          Skip Navigation
         </a>
       </li>
       <li>

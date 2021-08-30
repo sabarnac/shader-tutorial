@@ -6,14 +6,14 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 
 const IndexPage = ({ location: { pathname } }) => (
-  <Layout>
+  <Layout isHomePage={true}>
     <Seo
       pathname={pathname}
       title="Home"
       keywords={["gpu", "shader", "tutorial"]}
     />
     <Content>
-      <h2>Welcome!</h2>
+      <h2 class="title-largest">Welcome!</h2>
       <p>
         The purpose of this website is to provide a simple understanding about
         the concept of GPU shaders, their types, purpose, and how they work and

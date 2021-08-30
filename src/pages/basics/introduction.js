@@ -15,8 +15,8 @@ const IntroductionPage = ({ location: { pathname } }) => (
       keywords={["shader", "basics", "introduction"]}
     />
     <Content>
-      <h2>Shader Basics - Introduction</h2>
-      <Heading type="h3">What is a shader?</Heading>
+      <h1>Shader Basics - Introduction</h1>
+      <Heading type="h2">What is a shader?</Heading>
       <p>
         A shader is a program that is primarily used to shade an image,
         generating color information while applying any lighting effects on said
@@ -32,7 +32,7 @@ const IntroductionPage = ({ location: { pathname } }) => (
         units), which could only perform specific actions.
       </p>
       <p>This was later replaced with the current shading system used today.</p>
-      <Heading type="h3">Where are shaders used?</Heading>
+      <Heading type="h2">Where are shaders used?</Heading>
       <p>They can be used in a lot of areas:</p>
       <ul>
         <li>Rendering video games.</li>
@@ -61,7 +61,7 @@ const IntroductionPage = ({ location: { pathname } }) => (
         <li>Create even cool psychedelic effects.</li>
         <li>And much, much more.</li>
       </ul>
-      <Heading type="h3">
+      <Heading type="h2">
         Can shaders only be used for visual effects and rendering?
       </Heading>
       <p>
@@ -93,7 +93,7 @@ const IntroductionPage = ({ location: { pathname } }) => (
         looks as an image, since certain data drawn out can bring out certain
         patterns that may not necessarily be obvious.
       </p>
-      <Heading type="h3">
+      <Heading type="h2">
         What do I need to know before getting started?
       </Heading>
       <p>

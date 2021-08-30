@@ -21,7 +21,7 @@ const FaqPage = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <h2>FAQ</h2>
+      <h1>FAQ</h1>
       <dl className="faq-list">
         <dt>How can one contact you with regards to the website?</dt>
         <dd>

@@ -4,17 +4,17 @@
  *
  * See: https://www.gatsbyjs.org/docs/static-query/
  */
-import "./layout.css";
+import "./layout.css"
 
-import { graphql, StaticQuery } from "gatsby";
-import PropTypes from "prop-types";
-import React from "react";
+import { graphql, StaticQuery } from "gatsby"
+import PropTypes from "prop-types"
+import React from "react"
 
-import Footer from "./footer";
-import Header from "./header";
-import Notice from "./notice";
+import Footer from "./footer"
+import Header from "./header"
+import Notice from "./notice"
 
-const Layout = ({ children }) => (
+const Layout = ({ children, isHomePage }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -32,7 +32,7 @@ const Layout = ({ children }) => (
     }) => (
       <div className="container">
         <div className="row wrapper">
-          <Header siteTitle={title} />
+          <Header siteTitle={title} isHomePage={isHomePage} />
           <div className="column column-75 content">
             <Notice />
             <main className="row main" id="main">
@@ -48,6 +48,11 @@ const Layout = ({ children }) => (
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  isHomePage: PropTypes.bool,
+}
+
+Layout.defaultProps = {
+  isHomePage: false,
 }
 
 export default Layout

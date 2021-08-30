@@ -44,7 +44,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <h2>Shader Intermediates - Image Generation</h2>
+      <h1>Shader Intermediates - Image Generation</h1>
       <p>
         While images can be generated to render objects passed to a GPU, images
         can also be generated where the image is drawn over the entire screen,
@@ -80,9 +80,9 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         form of clip-space coordinates.
       </p>
       <GlslCodeHighlight code={firstVertexShaderSource.trim()} type="Vertex" />
-      <Heading type="h3">Example - A coordinate gradient</Heading>
+      <Heading type="h2">Example - A coordinate gradient</Heading>
       <RandomImageGenerationFirstExample />
-      <Heading type="h4">How it works</Heading>
+      <Heading type="h3">How it works</Heading>
       <GlslCodeHighlight
         code={firstFragmentShaderSource.trim()}
         type="Fragment"
@@ -133,9 +133,9 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         the value of Y increases as you go up.
       </p>
       <p>Let's now look at the next example, where we tile the image.</p>
-      <Heading type="h3">Example - A tiled coordinate gradient</Heading>
+      <Heading type="h2">Example - A tiled coordinate gradient</Heading>
       <RandomImageGenerationSecondExample />
-      <Heading type="h4">How it works</Heading>
+      <Heading type="h3">How it works</Heading>
       <p>
         Tiling an image is pretty simple. The image needs to be split into
         blocks, and then each block can have operations performed on it.
@@ -407,11 +407,11 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         the fragment, just like in the first example.
       </p>
       <p>Next, let's draw something else within the tiles.</p>
-      <Heading type="h3">
+      <Heading type="h2">
         Pattern Example - A tiled pattern with glowing center
       </Heading>
       <RandomImageGenerationThirdExample />
-      <Heading type="h4">How it works</Heading>
+      <Heading type="h3">How it works</Heading>
       <p>
         Now equipped with the information on how to tile an image, and get the
         necessary values required to work within a tile, we can start drawing
@@ -516,11 +516,11 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         Use this trick to your advantage if you need to exaggerate color values
         of your fragments.
       </p>
-      <Heading type="h3">
+      <Heading type="h2">
         Pattern Example - A tiled pattern with glowing diagonals
       </Heading>
       <RandomImageGenerationFourthExample />
-      <Heading type="h4">How it works</Heading>
+      <Heading type="h3">How it works</Heading>
       <p>
         Drawing a pattern of diagonal lines across a tile may seem complex but,
         looking at the mathematics, we'll see that it's much more simple than it
@@ -660,9 +660,9 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         Let's look at an example where we combine our previous two patterns into
         one and see the results.
       </p>
-      <Heading type="h3">Pattern Example - A tiled combination pattern</Heading>
+      <Heading type="h2">Pattern Example - A tiled combination pattern</Heading>
       <RandomImageGenerationFifthExample />
-      <Heading type="h4">How it works</Heading>
+      <Heading type="h3">How it works</Heading>
       <GlslCodeHighlight
         code={fifthFragmentShaderSource.trim()}
         type="Fragment"
@@ -765,9 +765,9 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         specifically tiling and patterns within tiles. Next, let's look at how
         images can be generated using randomness and noise.
       </p>
-      <Heading type="h3">Randomness Example - Random noise</Heading>
+      <Heading type="h2">Randomness Example - Random noise</Heading>
       <RandomImageGenerationSixthExample />
-      <Heading type="h4">How it works</Heading>
+      <Heading type="h3">How it works</Heading>
       <GlslCodeHighlight
         code={sixthFragmentShaderSource.trim()}
         type="Fragment"
@@ -805,11 +805,11 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
           .
         </em>
       </p>
-      <Heading type="h3">
+      <Heading type="h2">
         Randomness Example - A tiled pattern of random (grayscale) colors
       </Heading>
       <RandomImageGenerationSeventhExample />
-      <Heading type="h4">How it works</Heading>
+      <Heading type="h3">How it works</Heading>
       <GlslCodeHighlight
         code={seventhFragmentShaderSource.trim()}
         type="Fragment"
@@ -858,11 +858,11 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         all belong to the same tile. This means that they will generate the same
         random number, ensuring that the entire tile is the same color.
       </p>
-      <Heading type="h3">
+      <Heading type="h2">
         Combined Example - A tiled pattern with random centers
       </Heading>
       <RandomImageGenerationEighthExample />
-      <Heading type="h4">How it works</Heading>
+      <Heading type="h3">How it works</Heading>
       <GlslCodeHighlight
         code={eighthFragmentShaderSource.trim()}
         type="Fragment"
@@ -941,11 +941,11 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         In the next example, let's look at how the random factor can be used to
         make "decisions" on what should and should not be shown.
       </p>
-      <Heading type="h3">
+      <Heading type="h2">
         Combined Example - A tiled pattern with random diagonals
       </Heading>
       <RandomImageGenerationNinthExample />
-      <Heading type="h4">How it works</Heading>
+      <Heading type="h3">How it works</Heading>
       <p>
         In this example, either diagonal needs to be shown based upon the random
         factor of the tile. First, let's take a look of the tile with diagonals
@@ -1146,7 +1146,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         such that there will be an overlapping range where both diagonals can be
         shown for a tile.
       </p>
-      <Heading type="h3">Additional Notes</Heading>
+      <Heading type="h2">Additional Notes</Heading>
       <p>
         The concepts taught so far show the basics of pattern image generation,
         random noise image generation, and a combination of both.
@@ -1162,7 +1162,7 @@ const ImageGenerationPage = ({ location: { pathname } }) => (
         generation. Time can be used to influence the randomness of an image, or
         the patterns of an image.
       </p>
-      <Heading type="h3">Summary</Heading>
+      <Heading type="h2">Summary</Heading>
       <ul>
         <li>
           Images can be generated without using external data, but just using

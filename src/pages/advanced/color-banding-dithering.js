@@ -22,13 +22,13 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
       keywords={["shader", "advanced", "banding", "dithering"]}
     />
     <Content>
-      <h2>Shader Advanced - Color Banding and Dithering</h2>
+      <h1>Shader Advanced - Color Banding and Dithering</h1>
       <p>
         An issue that can occur when drawing gradients is something called color
         banding. Let us look at a flat grayscale gradient going from black to
         white.
       </p>
-      <Heading type="h4">Example - Color Banded Gradient</Heading>
+      <Heading type="h3">Example - Color Banded Gradient</Heading>
       <BandingExample />
       <GlslCodeHighlight code={bandingFragmentShaderSource} type="Fragment" />
       <p>
@@ -113,7 +113,7 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         sudden transition to a band of black. This is a case of color banding,
         albeit an extreme one.
       </p>
-      <Heading type="h3">Dithering</Heading>
+      <Heading type="h2">Dithering</Heading>
       <p>
         The solution to this issue of not being able to represent intermediate
         colors is called dithering. The{" "}
@@ -198,7 +198,7 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         spectrum, the grainy effect introduced by dithering should be very hard
         to spot, making it ideal to fix the banding issue.
       </p>
-      <Heading type="h4">Example - Dithered Gradient</Heading>
+      <Heading type="h3">Example - Dithered Gradient</Heading>
       <DitheringExample />
       <p>Below is a zoomed in part of the new dithered image.</p>
       <div className="util text-center">
@@ -262,7 +262,7 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         </a>
         .
       </p>
-      <Heading type="h3">Summary</Heading>
+      <Heading type="h2">Summary</Heading>
       <ul>
         <li>
           Color banding is an issue that can occur when the computer cannot

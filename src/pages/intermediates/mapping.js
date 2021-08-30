@@ -16,7 +16,7 @@ const MappingPage = ({ location: { pathname } }) => (
       keywords={["mapping", "textures", "uv", "shader", "intermediates"]}
     />
     <Content>
-      <h2>Shader Intermediates - Mapping</h2>
+      <h1>Shader Intermediates - Mapping</h1>
       <p>
         A major concern when rendering objects in shaders is that all object
         details that can be defined and passed to shaders have to be defined on
@@ -66,7 +66,7 @@ const MappingPage = ({ location: { pathname } }) => (
         In order to use textures on objects, we first need to learn how a
         texture is overlayed onto on object.
       </p>
-      <Heading type="h3">UV Mapping</Heading>
+      <Heading type="h2">UV Mapping</Heading>
       <p>
         The process of overlaying, or "mapping", a texture (2D plane) onto an
         object (3D system) is known as UV mapping. Just as how the axes of a 3D
@@ -143,7 +143,7 @@ const MappingPage = ({ location: { pathname } }) => (
         objects, the process being called color mapping, or texturing (for
         simplicity).
       </p>
-      <Heading type="h3">Summary</Heading>
+      <Heading type="h2">Summary</Heading>
       <ul>
         <li>
           GPU can only be provided with raw data at the vertex level. This

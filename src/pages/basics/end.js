@@ -14,7 +14,7 @@ const EndPage = ({ location: { pathname } }) => (
       keywords={["shader", "basics", "end", "complete", "epilogue"]}
     />
     <Content>
-      <h2>Shader Basics - The End</h2>
+      <h1>Shader Basics - The End</h1>
       <p>
         You've completed the basics of shader programming, from plotting points
         on a screen using a vertex shader to simulating lighting in a simple

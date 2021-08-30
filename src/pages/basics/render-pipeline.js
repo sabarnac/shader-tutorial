@@ -16,7 +16,7 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
       keywords={["shader", "basics", "gpu", "render", "pipeline"]}
     />
     <Content>
-      <h2>Shader Basics - The GPU Render Pipeline</h2>
+      <h1>Shader Basics - The GPU Render Pipeline</h1>
       <p>
         GPUs, when rendering images, primarily work on a set of vertex data. If
         we have an object (for example, a teapot) that we wish to render an
@@ -77,7 +77,7 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
       </p>
       <dl>
         <dt>
-          <Heading type="h4">Vertex Specification</Heading>
+          <Heading type="h3">Vertex Specification</Heading>
         </dt>
         <dd>
           <p>
@@ -92,7 +92,7 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
           </p>
         </dd>
         <dt>
-          <Heading type="h4">Vertex Shader</Heading>
+          <Heading type="h3">Vertex Shader</Heading>
         </dt>
         <dd>
           <p>
@@ -103,7 +103,7 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
           </p>
         </dd>
         <dt>
-          <Heading type="h4">Tesellation</Heading>
+          <Heading type="h3">Tesellation</Heading>
         </dt>
         <dd>
           <p>
@@ -120,7 +120,7 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
           </p>
         </dd>
         <dt>
-          <Heading type="h4">Geometry Shader</Heading>
+          <Heading type="h3">Geometry Shader</Heading>
         </dt>
         <dd>
           <p>
@@ -149,7 +149,7 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
           </p>
         </dd>
         <dt>
-          <Heading type="h4">Vertex Post-Processing</Heading>
+          <Heading type="h3">Vertex Post-Processing</Heading>
         </dt>
         <dd>
           <p>
@@ -173,7 +173,7 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
           </p>
         </dd>
         <dt>
-          <Heading type="h4">Primitive Assembly</Heading>
+          <Heading type="h3">Primitive Assembly</Heading>
         </dt>
         <dd>
           <p>
@@ -189,7 +189,7 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
           </p>
         </dd>
         <dt>
-          <Heading type="h4">Rasterization</Heading>
+          <Heading type="h3">Rasterization</Heading>
         </dt>
         <dd>
           <p>
@@ -200,7 +200,7 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
           </p>
         </dd>
         <dt>
-          <Heading type="h4">Fragment Shader</Heading>
+          <Heading type="h3">Fragment Shader</Heading>
         </dt>
         <dd>
           <p>
@@ -216,7 +216,7 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
           </p>
         </dd>
         <dt>
-          <Heading type="h4">Per-Sample Operations</Heading>
+          <Heading type="h3">Per-Sample Operations</Heading>
         </dt>
         <dd>
           <p>

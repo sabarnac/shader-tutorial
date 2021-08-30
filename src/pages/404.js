@@ -13,7 +13,7 @@ const IndexPage = ({ location: { pathname } }) => (
       keywords={["not", "found"]}
     />
     <Content>
-      <h2>Page Not Found</h2>
+      <h1>Page Not Found</h1>
       <p>The page you requested for doesn't seem to exist.</p>
     </Content>
   </Layout>

@@ -30,7 +30,7 @@ const TransparencyPage = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <h2>Shader Advanced - Transparency</h2>
+      <h1>Shader Advanced - Transparency</h1>
       <p>
         Implementing support for transparency in shader code is not a complex
         task. The fragment shader returns a color vector of 4 components, with
@@ -95,7 +95,7 @@ const TransparencyPage = ({ location: { pathname } }) => (
         an example to see the limitations of the chosen color blending
         algorithm.
       </p>
-      <Heading type="h3">Example - Red Square and Green Square</Heading>
+      <Heading type="h2">Example - Red Square and Green Square</Heading>
       <TransparencyFirstExample />
       <p>
         Here, we're drawing two squares, one in red, and one in green. In this
@@ -219,7 +219,7 @@ const TransparencyPage = ({ location: { pathname } }) => (
         algorithm produces a different output, so we recommend experimenting to
         see which configuration works best for your use-case.
       </p>
-      <Heading type="h3">Summary</Heading>
+      <Heading type="h2">Summary</Heading>
       <ul>
         <li>
           Transparency on the shader side is simple to add, through the use of

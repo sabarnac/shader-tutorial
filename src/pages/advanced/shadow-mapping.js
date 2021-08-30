@@ -75,7 +75,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <h2>Shader Advanced - Shadow Mapping</h2>
+      <h1>Shader Advanced - Shadow Mapping</h1>
       <p>
         In the <Link to="/intermediates/lighting/">lighting chapter</Link>,
         we've learnt how to color an object based on the light falling on it,
@@ -111,7 +111,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         various types of lights that one may add to their scene and see how
         shadow mapping is done for each of them.
       </p>
-      <Heading type="h3">Directional light</Heading>
+      <Heading type="h2">Directional light</Heading>
       <p>
         Directional lights represent a light where the rays all travel in the
         same direction and don't have their intensity decrease with increase in
@@ -169,7 +169,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         Let's look at an example for creating a shadow map for a directional
         light.
       </p>
-      <Heading type="h4">Rendering a shadow map</Heading>
+      <Heading type="h3">Rendering a shadow map</Heading>
       <p>
         Rendering a shadow map is very simple. We just need to adjust our view
         and projection matrices to match how the light source would view the
@@ -248,7 +248,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         Next, let's look at how we use the shadow map when rendering the actual
         scene.
       </p>
-      <Heading type="h4">Utilizing the shadow map</Heading>
+      <Heading type="h3">Utilizing the shadow map</Heading>
       <p>
         With the shadow map generated, now we need to use it during the main
         render of the scene.
@@ -412,7 +412,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         common artifacts you would face when rendering shadows and how to
         overcome each of them.
       </p>
-      <Heading type="h4">Shadow acne</Heading>
+      <Heading type="h3">Shadow acne</Heading>
       <p>
         The most obvious artifact present is the dark shadow stripes in the
         scene. This shadow artifact is called "shadow acne". This artifact is
@@ -424,7 +424,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         Shadow acne occurs due how the shadow map is rendered, with two main
         causes:
       </p>
-      <Heading type="h5">1. Shadow map resolution</Heading>
+      <Heading type="h4">1. Shadow map resolution</Heading>
       <p>
         The shadow map can only contain as much detail as is allowed by its
         resolution.
@@ -449,7 +449,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         This solution will also never fully fix shadow acne, which is the second
         (and primary) cause for shadow acne.
       </p>
-      <Heading type="h5">2. Precision per pixel of shadow map</Heading>
+      <Heading type="h4">2. Precision per pixel of shadow map</Heading>
       <p>
         Each pixel in the shadow map is also limited by the number of bits used
         to store them. If we are storing high precision values in a low
@@ -475,7 +475,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         considered to be in shadow, even if they actually aren't.
       </p>
       <p>We could fix this in a few ways.</p>
-      <Heading type="h6">
+      <Heading type="h5">
         i. Better fit the depth value into the resultant pixel
       </Heading>
       <p>
@@ -542,7 +542,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         To completely remove the issue of shadow acne, we can follow the next
         solution.
       </p>
-      <Heading type="h6">ii. Use a bias value</Heading>
+      <Heading type="h5">ii. Use a bias value</Heading>
       <p>
         The best (and most common) approach to removing shadow approach is to
         introduce a bias value to the comparison called an acne bias/depth bias.
@@ -572,7 +572,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         However, this solution does introduce a new problem that we will look at
         in the next section.
       </p>
-      <Heading type="h6">
+      <Heading type="h5">
         iii. Move the shadow acne to parts already in shadow
       </Heading>
       <p>
@@ -615,7 +615,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         Now let's look at the second problem we're facing from using the acne
         bias solution.
       </p>
-      <Heading type="h4">Peter-panning</Heading>
+      <Heading type="h3">Peter-panning</Heading>
       <p>
         Looking at the final rendered scene using the acne bias solution, we can
         clearly see that the shadow projected by the wall is "hovering".
@@ -653,7 +653,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         Now let's further zoom into the edges of the shadow to find another
         problem.
       </p>
-      <Heading type="h4">Shadow aliasing</Heading>
+      <Heading type="h3">Shadow aliasing</Heading>
       <p>
         If we zoom in to the edges of the shadow we can spot another problem -
         aliasing.
@@ -664,7 +664,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         can increase the resolution to reduce the amount of aliasing, but this
         will not completely remove the aliasing artifacts from the shadows.
       </p>
-      <Heading type="h4">Percentage-Closer Filtering (PCF)</Heading>
+      <Heading type="h3">Percentage-Closer Filtering (PCF)</Heading>
       <p>
         Instead of increasing the shadow map resolution, we can implement a form
         of anti-aliasing calculation when determining whether a fragment is in
@@ -765,7 +765,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         <Link to="/intermediates/lighting/">lighting chapter</Link> (with
         intensity of the light reducing with distance).
       </p>
-      <Heading type="h3">Spot light</Heading>
+      <Heading type="h2">Spot light</Heading>
       <p>
         Spot lights represent the typical light sources we see. The light
         originates from a single point, covering a certain area of the scene,
@@ -836,7 +836,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         , which uses the same way we calculated diffuse lighting in the{" "}
         <Link to="/intermediates/lighting/">lighting chapter</Link>.
       </p>
-      <Heading type="h3">Area light</Heading>
+      <Heading type="h2">Area light</Heading>
       <p>
         Area lights are similar to directional lights, with the only distance
         being that they are considered to be a finite distance away, and the
@@ -972,7 +972,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         compared to the accurate way is within a margin of error you set. This
         would help with improving the performance of the shader as well.
       </p>
-      <Heading type="h3">Point light</Heading>
+      <Heading type="h2">Point light</Heading>
       <p>
         Point lights are a special type of spot light. While spot light only
         lights up an area in a general direction, point lights radiate light in
@@ -1104,8 +1104,8 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         a cube map, we need three nested loops (one for each axis) for sampling
         the surrounding depth values for our PCF algorithm.
       </p>
-      <Heading type="h3">Additional Notes</Heading>
-      <Heading type="h4">Cascaded shadow maps</Heading>
+      <Heading type="h2">Additional Notes</Heading>
+      <Heading type="h3">Cascaded shadow maps</Heading>
       <p>
         One problem we didn't tackle is shadows of lights covering a large area
         having lower detail.
@@ -1163,14 +1163,14 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         previous ones. Since it is the last one, it should be reasonably far
         away such that the low quality shadows from it should not be noticeable.
       </p>
-      <Heading type="h4">Other types of lights</Heading>
+      <Heading type="h3">Other types of lights</Heading>
       <p>
         The lights discussed in these chapters are generally the most commonly
         used ones. There may be some other types of lights, which also have
         different ways for generating shadows, but they should all use the same
         or similar principles discussed we've discussed here.
       </p>
-      <Heading type="h4">Improving render performance</Heading>
+      <Heading type="h3">Improving render performance</Heading>
       <p>
         There are ways to improve performance when rendering shadows. Objects in
         a scene can be tagged to be "Shadow Receivers" or "Shadow Casters"
@@ -1196,7 +1196,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         in the scene for rendering the shadow maps, if they are good enough to
         use as an approximation for the fully detailed object.
       </p>
-      <Heading type="h4">Calculating projection matrices for lights</Heading>
+      <Heading type="h3">Calculating projection matrices for lights</Heading>
       <p>
         The projection matrices used for the cameras of the lights were
         hand-crafted, but this isn't always practically. Sometimes (especially
@@ -1224,7 +1224,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         benefits, but it is still a useful alternative to cascaded shadow maps
         and is also simpler to implement.
       </p>
-      <Heading type="h3">Summary</Heading>
+      <Heading type="h2">Summary</Heading>
       <ul>
         <li>
           Rendering shadows are an important aspect of lighting to make a scene

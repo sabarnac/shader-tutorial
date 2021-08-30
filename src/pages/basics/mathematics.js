@@ -48,7 +48,7 @@ const MathematicsPage = ({ location: { pathname } }) => (
         these areas, since an explanation into why they're used is also
         provided.
       </p>
-      <Heading type="h3">Vector Mathematics</Heading>
+      <Heading type="h2">Vector Mathematics</Heading>
       <p>
         A vector is generally understood to be an object or piece of data that
         has a certain amount of magnitude and a direction and shows what it
@@ -133,7 +133,7 @@ const MathematicsPage = ({ location: { pathname } }) => (
         1, and for directions it's always 0. The reason for this will be
         discussed in the next section, where we'll talk about matrices.
       </p>
-      <Heading type="h3">Matrix Mathematics</Heading>
+      <Heading type="h2">Matrix Mathematics</Heading>
       <p>
         Matrices are objects or data that are written as a rectangular array of
         values. This means that matrices have two dimensions, with data moving
@@ -267,7 +267,7 @@ const MathematicsPage = ({ location: { pathname } }) => (
         </a>{" "}
         provides an example to show this behaviour.
       </p>
-      <Heading type="h3">Trignometry</Heading>
+      <Heading type="h2">Trignometry</Heading>
       <p>
         Similar to matrix mathematics, trignometry is useful for performing
         transformations, except that it allows for transformation through the
@@ -359,7 +359,7 @@ const MathematicsPage = ({ location: { pathname } }) => (
         lines with increasing angles. This property can still be useful in
         certain scenarios.
       </p>
-      <Heading type="h3">Other Mathematic Concepts</Heading>
+      <Heading type="h2">Other Mathematic Concepts</Heading>
       <p>
         Similar to how trignometric functions can be used to produce patterns
         and shapes, operations such as{" "}
@@ -373,7 +373,7 @@ const MathematicsPage = ({ location: { pathname } }) => (
         Functions such as these can be referred to as pattern functions or shape
         functions, since they can help produce patterns and shapes in images.
       </p>
-      <Heading type="h3">Summary</Heading>
+      <Heading type="h2">Summary</Heading>
       <ul>
         <li>
           There are three primary areas of math that should be learnt that are

@@ -37,7 +37,7 @@ const LightingPage = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <h2>Shader Intermediates - Lighting</h2>
+      <h1>Shader Intermediates - Lighting</h1>
       <p>
         While adding textures to color your objects helps to add more detail,
         simulating the lighting of the environment on the object adds further
@@ -64,7 +64,7 @@ const LightingPage = ({ location: { pathname } }) => (
         reference.
       </p>
       <LightingNoLightExample />
-      <Heading type="h3">The Diffuse Component</Heading>
+      <Heading type="h2">The Diffuse Component</Heading>
       <p>
         The first component is the diffuse component and is the primary
         reflection component that lights up objects.
@@ -190,9 +190,9 @@ const LightingPage = ({ location: { pathname } }) => (
         color map used to color an object is also called a diffuse map, since it
         provides the color that the diffuse reflection is supposed to show.
       </p>
-      <Heading type="h3">Example - Cube with diffused reflection</Heading>
+      <Heading type="h2">Example - Cube with diffused reflection</Heading>
       <LightingFirstExample />
-      <Heading type="h4">How it works</Heading>
+      <Heading type="h3">How it works</Heading>
       <p>
         We now know that diffuse light is the light that shows the color of the
         surface of an object, and it's brighter when the incident light is
@@ -226,7 +226,7 @@ const LightingPage = ({ location: { pathname } }) => (
         object, the angle between the normal of the surface and the direction of
         light must be compared.
       </p>
-      <Heading type="h5">The mathematics</Heading>
+      <Heading type="h4">The mathematics</Heading>
       <p>
         If the direction of the light is perpendicular to the surface, then the
         angle between the direction of light and the normal of the surface will
@@ -426,7 +426,7 @@ const LightingPage = ({ location: { pathname } }) => (
         since the transparency of an object won't change based upon the light
         falling on it.
       </p>
-      <Heading type="h3">The Ambient Component</Heading>
+      <Heading type="h2">The Ambient Component</Heading>
       <p>
         The ambient component is the second component of lighting reflection,
         and is generally a much more subtle form of reflection. Ambient
@@ -449,7 +449,7 @@ const LightingPage = ({ location: { pathname } }) => (
         environment, the diffuse lighting component adds on top of the ambient
         component.
       </p>
-      <Heading type="h3">
+      <Heading type="h2">
         Example - Cube with ambient and diffuse reflections
       </Heading>
       <LightingSecondExample />
@@ -457,7 +457,7 @@ const LightingPage = ({ location: { pathname } }) => (
         code={secondFragmentShaderSource.trim()}
         type={"Fragment"}
       />
-      <Heading type="h4">How it works</Heading>
+      <Heading type="h3">How it works</Heading>
       <p>
         Since the ambient component of lighting is just a minimum brightness of
         the object due to the environment, the ambient factor doesn't need any
@@ -481,7 +481,7 @@ const LightingPage = ({ location: { pathname } }) => (
         diffusion component is an addition on top of it to further increase the
         brightness of surfaces being hit by the light.
       </p>
-      <Heading type="h3">The Specular Component</Heading>
+      <Heading type="h2">The Specular Component</Heading>
       <p>
         The specular component is the final component of lighting reflection and
         is what gives objects a "shine".
@@ -520,15 +520,15 @@ const LightingPage = ({ location: { pathname } }) => (
         Other than this factor, specular reflection is also dependent on all the
         other factors that diffuse reflection is.
       </p>
-      <Heading type="h3">Example - Cube with all lighting components</Heading>
+      <Heading type="h2">Example - Cube with all lighting components</Heading>
       <LightingThirdExample />
-      <Heading type="h4">How it works</Heading>
+      <Heading type="h3">How it works</Heading>
       <p>
         We can reuse the principles we've learnt from diffuse reflection. We
         know that a factor of diffuse lighting is the angle of the reflected
         light with the direction of the camera.
       </p>
-      <Heading type="h5">The mathematics</Heading>
+      <Heading type="h4">The mathematics</Heading>
       <p>
         If the direction of the camera is known, as well as the direction of the
         reflected light, by applying the <code>dot</code> operation we've
@@ -741,7 +741,7 @@ const LightingPage = ({ location: { pathname } }) => (
         the specular color of the fragment, and then added to the other lighting
         reflection components to set the final color value of the fragment.
       </p>
-      <Heading type="h3">Per-vertex vs Per-fragment lighting</Heading>
+      <Heading type="h2">Per-vertex vs Per-fragment lighting</Heading>
       <p>
         All lighting factors we calculated was done on the vertex shader, which
         is then passed to the fragment shader, allowing the GPU to interpolate
@@ -920,7 +920,7 @@ const LightingPage = ({ location: { pathname } }) => (
         In future examples with lighting, we'll be performing the lighting
         calculations per-fragment instead of per-vertex for more accuracy.
       </p>
-      <Heading type="h3">Additional Notes</Heading>
+      <Heading type="h2">Additional Notes</Heading>
       <p>
         This process can also be called shading, since we are "shading" an
         object based on how light falls on it. Certain topics taught later also
@@ -947,7 +947,7 @@ const LightingPage = ({ location: { pathname } }) => (
         In later chapters, we'll be using a diffuse map instead of a simple
         color map to provide diffuse color information.
       </p>
-      <Heading type="h3">Summary</Heading>
+      <Heading type="h2">Summary</Heading>
       <ul>
         <li>
           Lighting helps to make an object seem more in place with the world

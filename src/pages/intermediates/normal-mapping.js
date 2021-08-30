@@ -24,14 +24,14 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       keywords={["normal", "mapping", "texturing", "shader", "intermediates"]}
     />
     <Content>
-      <h2>Shader Intermediates - Normal Mapping</h2>
+      <h1>Shader Intermediates - Normal Mapping</h1>
       <p>
         An issue with the lighting examples seen in the{" "}
         <Link to="/intermediates/lighting/">previous chapter on lighting</Link>{" "}
         is that the entire surface of the object has a uniform appearance,
         making it appear flat.
       </p>
-      <Heading type="h3">Example - Stone wall</Heading>
+      <Heading type="h2">Example - Stone wall</Heading>
       <NormalMappingFirstExample />
       <p>
         In the above example of the stone wall, we've applied our naive approach
@@ -57,7 +57,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         light interacts with the surface using a texture, the wall can be made
         to appear rough instead of smooth and flat.
       </p>
-      <Heading type="h3">Why store normals in a map?</Heading>
+      <Heading type="h2">Why store normals in a map?</Heading>
       <p>
         If we look into the{" "}
         <Link to="/intermediates/lighting/">lighting chapter</Link>, we see that
@@ -125,7 +125,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         of an object is called a normal map, and the process of mapping normals
         of a fragment from a texture is called normal mapping.
       </p>
-      <Heading type="h3">Normal Maps</Heading>
+      <Heading type="h2">Normal Maps</Heading>
       <p>The texture maps that will be used to color and light the wall are:</p>
       <div className="image util text-center">
         <StaticImage
@@ -195,7 +195,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         The values of the normals in the normal map are stored in a 2.5D space
         called "tangent-space".
       </p>
-      <Heading type="h4">Tangent-Space</Heading>
+      <Heading type="h3">Tangent-Space</Heading>
       <p>
         Consider a sphere. A plane (a flat 2D surface) is considered "tangent"
         to a point on the sphere if the plane only touches the sphere at that
@@ -233,7 +233,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         sphere, the values of the normals have to be recorded w.r.t the
         tangent-space of the point they belong to.
       </p>
-      <Heading type="h3">Calculating the lighting</Heading>
+      <Heading type="h2">Calculating the lighting</Heading>
       <p>
         Since the calculations we've seen in previous chapters are done in a
         space that is not the tangent-space, in order to use a normal map a
@@ -261,7 +261,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         perform the transformation. This matrix is called the
         Tangent-Bitangent-Normal matrix (or TBN matrix).
       </p>
-      <Heading type="h4">TBN Matrix</Heading>
+      <Heading type="h3">TBN Matrix</Heading>
       <p>
         Just like with the model, view, and projection matrices, in order to
         transform values either into (or out of) tangent-space, a matrix called
@@ -301,7 +301,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         normal values in the normal map are done in view-space using the TBN
         matrix.
       </p>
-      <Heading type="h3">
+      <Heading type="h2">
         Example - Normal-mapped stone wall (in view-space)
       </Heading>
       <NormalMappingSecondExample />
@@ -430,7 +430,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         Now that we've seen what the calculation looks like in view-space, let's
         now look at how the calculation would appear in tangent-space.
       </p>
-      <Heading type="h3">
+      <Heading type="h2">
         Example - Normal-mapped stone wall (in tangent-space)
       </Heading>
       <NormalMappingThirdExample />
@@ -466,7 +466,7 @@ const NormalMappingPage = ({ location: { pathname } }) => (
         same way as in the previous example. The resultant lighting value will
         be the same!
       </p>
-      <Heading type="h3">Summary</Heading>
+      <Heading type="h2">Summary</Heading>
       <ul>
         <li>
           Similar to color mapping, normal mapping can be used to map normals to

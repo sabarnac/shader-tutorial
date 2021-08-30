@@ -22,12 +22,32 @@ body {
   height: 100%;
 }
 
+.title-largest {
+  font-size: 4.6rem;
+  line-height: 1.2;
+  text-transform: capitalize;
+  font-weight: 300;
+  letter-spacing: -0.1rem;
+  margin-bottom: 2rem;
+  margin-top: 0;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  display: flex;
+  align-items: center;
+}
+
 h2 > a,
 h3 > a,
 h4 > a,
 h5 > a,
 h6 > a {
-  float: right;
+  margin-left: auto;
+  padding-left: 2rem;
   border-bottom: none !important;
 }
 
@@ -165,13 +185,27 @@ textarea {
   border: none;
 }
 
-.container .row.wrapper header.column nav ul li.skip-nav {
+.container .row.wrapper header.column nav > ul > li.skip-nav {
   text-align: center;
+  opacity: 0.000001;
 }
 
-.container .row.wrapper header.column nav ul li:not(.skip-nav) {
+.container .row.wrapper header.column nav > ul > li.skip-nav:focus-within {
+  opacity: 99.999999%;
+}
+
+.container .row.wrapper header.column nav > ul > li:not(.skip-nav) {
   font-size: 2rem;
   padding: 0 2rem;
+}
+
+.container .row.wrapper header.column nav > ul > li ul li {
+  font-size: 2rem;
+  padding: 0 2rem;
+}
+
+.container .row.wrapper header.column nav > ul > li ul li:first-child {
+  margin-top: 1rem;
 }
 
 .container .row.wrapper .column.content {

@@ -20,7 +20,7 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
       keywords={["specular", "mapping", "texturing", "shader", "intermediates"]}
     />
     <Content>
-      <h2>Shader Intermediates - Specular Mapping</h2>
+      <h1>Shader Intermediates - Specular Mapping</h1>
       <p>
         Similar to how we've stored information the normal information of a
         surface in a map (as taught in the{" "}
@@ -28,7 +28,7 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         we can also store specular information of a surface in a map as well.
         Such a map is called a specular map.
       </p>
-      <Heading type="h3">Specular Maps</Heading>
+      <Heading type="h2">Specular Maps</Heading>
       <p>
         Like the texture maps used in the{" "}
         <Link to="/intermediates/normal-mapping">normal mapping chapter</Link>,
@@ -107,7 +107,7 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         Let's look at the stone wall example with the specular map added in.
         We'll be performing the lighting calculation in view-space.
       </p>
-      <Heading type="h3">Example - Stone wall</Heading>
+      <Heading type="h2">Example - Stone wall</Heading>
       <SpecularMappingFirstExample />
       <GlslCodeHighlight
         code={firstVertexShaderSource.trim()}
@@ -133,7 +133,7 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
         and multiplied against the specular lighting vector to give us the final
         specular lighting value for the fragment.
       </p>
-      <Heading type="h3">Summary</Heading>
+      <Heading type="h2">Summary</Heading>
       <ul>
         <li>
           Similar to normal mapping, specular mapping can be used to map

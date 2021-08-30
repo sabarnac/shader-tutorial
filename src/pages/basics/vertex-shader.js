@@ -22,8 +22,8 @@ const VertexShaderPage = ({ location: { pathname } }) => (
       keywords={["vertex", "shader", "basics"]}
     />
     <Content>
-      <h2>Shader Basics - Vertex Shader</h2>
-      <Heading type="h3">What is a vertex shader</Heading>
+      <h1>Shader Basics - Vertex Shader</h1>
+      <Heading type="h2">What is a vertex shader</Heading>
       <p>
         Vertex shaders process vertices and tells what their coordinates are in
         "clip-space", which is a space that makes it easy for computers to
@@ -45,7 +45,7 @@ const VertexShaderPage = ({ location: { pathname } }) => (
         can be performed during in this shader, as long as the final output is
         where the vertex is to be placed in the clip-space.
       </p>
-      <Heading type="h3">An example - A triangle</Heading>
+      <Heading type="h2">An example - A triangle</Heading>
       <p>Below is an example of the work simple vertex shader:</p>
       <VertexShaderFirstExample />
       <p>
@@ -53,7 +53,7 @@ const VertexShaderPage = ({ location: { pathname } }) => (
         drawn. The points on the canvas where the vertices are placed is
         determined by the vertex shader (in part).
       </p>
-      <Heading type="h4">How it works</Heading>
+      <Heading type="h3">How it works</Heading>
       <p>Let's look at the code for the vertex shader</p>
       <GlslCodeHighlight
         code={firstVertexShaderSource.trim()}
@@ -153,12 +153,8 @@ const VertexShaderPage = ({ location: { pathname } }) => (
         </dd>
       </dl>
       <p>
-        From the above explanation, it should be more obvious why the operation{" "}
-        <code>
-          gl_Position = projectionMatrix * viewMatrix * modelMatrix *
-          vertexPosition;
-        </code>{" "}
-        is performed.
+        From the above explanation, it should be more obvious why the operation
+        on line 8 in the vertex shader is performed.
       </p>
       <ol>
         <li>
@@ -180,7 +176,7 @@ const VertexShaderPage = ({ location: { pathname } }) => (
         This final result is the output of the vertex shader, which, in WebGL,
         is stored in the special variable <code>gl_Position</code>.
       </p>
-      <Heading type="h3">Another example - A rotating triangle</Heading>
+      <Heading type="h2">Another example - A rotating triangle</Heading>
       <p>
         Since the vertex shader determines where each vertex is w.r.t the
         perspective-space of the screen, by passing it the necessary
@@ -188,7 +184,7 @@ const VertexShaderPage = ({ location: { pathname } }) => (
         required.
       </p>
       <VertexShaderSecondExample />
-      <Heading type="h4">How it works</Heading>
+      <Heading type="h3">How it works</Heading>
       <GlslCodeHighlight
         code={secondVertexShaderSource.trim()}
         type={"Vertex"}
@@ -221,7 +217,7 @@ const VertexShaderPage = ({ location: { pathname } }) => (
         with the previous example is followed to calculate the final coordinates
         of the vertex.
       </p>
-      <Heading type="h3">Additional Notes</Heading>
+      <Heading type="h2">Additional Notes</Heading>
       <p>
         This rotation matrix can be more easily created outside the shader since
         there are utility libraries that provide helper functions for performing
@@ -248,7 +244,7 @@ const VertexShaderPage = ({ location: { pathname } }) => (
         additional transformations (like rotations) will also be calculated
         beforehand and then passed through this uniform.
       </p>
-      <Heading type="h3">Summary</Heading>
+      <Heading type="h2">Summary</Heading>
       <ul>
         <li>
           The vertex shader receives a vertex from a list of vertices and plots

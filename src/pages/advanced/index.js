@@ -14,7 +14,7 @@ const IntermediatesIndexPage = ({ location: { pathname } }) => (
       keywords={["shader", "advanced", "content", "toc"]}
     />
     <Content>
-      <h2>Table of Contents</h2>
+      <h1>Table of Contents - Advanced</h1>
       <ul className="toc">
         <li>
           <Link to="/advanced/branching/">Shader Advanced - Branching</Link>

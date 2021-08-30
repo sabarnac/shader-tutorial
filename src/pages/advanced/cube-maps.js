@@ -25,7 +25,7 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
       ]}
     />
     <Content>
-      <h2>Shader Advanced - Cube Maps</h2>
+      <h1>Shader Advanced - Cube Maps</h1>
       <p>Page is currently not written yet. Check back later!</p>
     </Content>
     <PageChange previous="/advanced/shadow-mapping/" />

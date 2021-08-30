@@ -18,15 +18,13 @@ const BranchingPage = ({ location: { pathname } }) => (
       keywords={["branching", "branch", "shader", "advanced"]}
     />
     <Content>
-      <h2>Shader Advanced - Branching</h2>
+      <h1>Shader Advanced - Branching</h1>
       <p>
         A question that might have come up often in past chapters is why simple
         conditional logic not used to execute different bits of code, instead of
         relying on transforming the conditional logic into mathematical logic.
       </p>
-      <h5>
-        <strong>Examples:</strong>
-      </h5>
+      <Heading type="h4">Examples:</Heading>
       <hr />
       <GlslCodeHighlight showHeader={false} type={""} code={example1} />
       <hr />
@@ -103,7 +101,7 @@ const BranchingPage = ({ location: { pathname } }) => (
           before they supported branching operations (ex: <code>clamp</code>).
         </em>
       </p>
-      <Heading type="h3">Summary</Heading>
+      <Heading type="h2">Summary</Heading>
       <ul>
         <li>
           Branching is generally discouraged to be performed in shaders and can
