@@ -22,7 +22,7 @@ const Heading = ({ type, children }) => {
   return (
     <HeaderComponent id={slugLink}>
       {children}
-      <a href={`#${slugLink}`} aria-labe={`Link to section "${children}"`}>
+      <a href={`#${slugLink}`} aria-label={`Link to section "${children}"`}>
         <img alt="" role="presentation" src={linkImage} />
       </a>
     </HeaderComponent>
