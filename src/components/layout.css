@@ -184,11 +184,6 @@ textarea {
 
 .container .row.wrapper header.column nav > ul > li.skip-nav {
   text-align: center;
-  opacity: 0.000001;
-}
-
-.container .row.wrapper header.column nav > ul > li.skip-nav:focus-within {
-  opacity: 99.999999%;
 }
 
 .container .row.wrapper header.column nav > ul > li:not(.skip-nav) {
