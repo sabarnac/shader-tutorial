@@ -1,7 +1,8 @@
 import PropTypes from "prop-types"
 import React, { useEffect, useState } from "react"
 
-import animatedIcon from "../images/icon-animated.png"
+import animatedIconAvif from "../images/icon-animated.avif"
+import animatedIconPng from "../images/icon-animated.png"
 import icon from "../images/icon.png"
 import Navigation from "./navigation"
 
@@ -15,7 +16,10 @@ const Header = ({ siteTitle, isHomePage }) => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <picture>
           {showAnimatedIcon ? (
-            <source srcSet={animatedIcon} type="image/apng" />
+            <>
+              <source srcSet={animatedIconAvif} type="image/avif" />
+              <source srcSet={animatedIconPng} type="image/apng" />
+            </>
           ) : null}
           <img
             src={icon}
