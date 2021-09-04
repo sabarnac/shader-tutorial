@@ -37,7 +37,7 @@ const Header = ({ siteTitle, isHomePage }) => {
       ) : (
         <div
           id="site-title"
-          class="title-largest"
+          className="title-largest"
           style={{ textAlign: "center" }}
         >
           {siteTitle}
