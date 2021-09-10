@@ -10,13 +10,14 @@ uniform mat4 projectionMatrix;
 
 varying highp vec2 uv;
 varying highp mat3 tbnMatrix_viewSpace;
-varying highp vec4 vertexPosition_viewSpace;
+varying highp vec4 fragmentPosition_viewSpace;
 
 void main() {
   highp vec4 vertexPosition_worldSpace = modelMatrix * vertexPosition;
-  vertexPosition_viewSpace = viewMatrix * vertexPosition_worldSpace;
+  highp vec4 vertexPosition_viewSpace = viewMatrix * vertexPosition_worldSpace;
   gl_Position = projectionMatrix * vertexPosition_viewSpace;
 
+  fragmentPosition_viewSpace = vertexPosition_viewSpace;
   uv = vertexUv;
 
   highp mat3 modelViewMatrix_3x3 = mat3(viewMatrix * modelMatrix);

@@ -621,7 +621,6 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         clearly see that the shadow projected by the wall is "hovering".
       </p>
       <ShadowMappingFixedDirectionalLightPeterPanningExample.default />
-      <ShadowMappingFixedModelDirectionalLightShadowExample.default />
       <p>
         This "hovering" is called "Peter-Panning", being named after the
         fictional character Peter Pan and his ability to fly.
@@ -637,6 +636,11 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         geometry thicker. This will push the rendered fragments in the shadow
         map close enough to the light source to counter the peter-panning effect
         introduced by the acne-bias/imprecision from the shadow map.
+      </p>
+      <ShadowMappingFixedModelDirectionalLightShadowExample.default />
+      <p>
+        You can see from the above example that by making the floor and walls
+        thicker the peter-panning problem now no longer exists
       </p>
       <p>
         When using the third solution for the shadow acne problem, this won't

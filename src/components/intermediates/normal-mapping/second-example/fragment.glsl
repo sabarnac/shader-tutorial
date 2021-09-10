@@ -1,6 +1,6 @@
 varying highp vec2 uv;
 varying highp mat3 tbnMatrix_viewSpace;
-varying highp vec4 vertexPosition_viewSpace;
+varying highp vec4 fragmentPosition_viewSpace;
 
 uniform highp mat4 viewMatrix;
 uniform highp vec4 lightPosition_worldSpace;
@@ -22,12 +22,12 @@ void main() {
   highp vec3 normal_viewSpace = tbnMatrix_viewSpace * normalize((normalColor.xyz * 2.0) - 1.0);
 
   highp vec4 lightPosition_viewSpace = viewMatrix * lightPosition_worldSpace;
-  highp vec3 lightDirection_viewSpace = normalize((lightPosition_viewSpace - vertexPosition_viewSpace).xyz);
+  highp vec3 lightDirection_viewSpace = normalize((lightPosition_viewSpace - fragmentPosition_viewSpace).xyz);
   highp vec3 cameraPosition_viewSpace = vec3(0.0, 0.0, 0.0); // In view-space, the camera is in the center of the world, so it's position would be (0, 0, 0).
-  highp vec3 viewDirection_viewSpace = normalize(vertexPosition_viewSpace.xyz - cameraPosition_viewSpace);
+  highp vec3 viewDirection_viewSpace = normalize(fragmentPosition_viewSpace.xyz - cameraPosition_viewSpace);
 
   highp vec3 lightColorIntensity = lightColor * lightIntensity;
-  highp float distanceFromLight = distance(vertexPosition_viewSpace, lightPosition_viewSpace);
+  highp float distanceFromLight = distance(fragmentPosition_viewSpace, lightPosition_viewSpace);
 
   highp float diffuseStrength = clamp(dot(normal_viewSpace, lightDirection_viewSpace), 0.0, 1.0);
   highp vec3 diffuseLight = (lightColorIntensity * diffuseStrength) / (distanceFromLight * distanceFromLight);

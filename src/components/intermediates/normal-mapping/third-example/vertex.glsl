@@ -10,7 +10,7 @@ uniform mat4 projectionMatrix;
 
 varying highp vec2 uv;
 varying highp mat3 tbnMatrix_tangentSpace;
-varying highp vec3 vertexPosition_tangentSpace;
+varying highp vec3 fragmentPosition_tangentSpace;
 
 mat3 transpose(mat3 m) {
   return mat3(m[0][0], m[1][0], m[2][0],
@@ -36,5 +36,5 @@ void main() {
     vertexNormal
   ));
 
-  vertexPosition_tangentSpace = tbnMatrix_tangentSpace * (viewMatrix * vertexPosition_worldSpace).xyz;
+  fragmentPosition_tangentSpace = tbnMatrix_tangentSpace * (viewMatrix * vertexPosition_worldSpace).xyz;
 }

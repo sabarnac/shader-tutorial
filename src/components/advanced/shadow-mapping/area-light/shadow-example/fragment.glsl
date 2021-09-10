@@ -1,7 +1,7 @@
-varying highp vec4 vertexPositionFromLight;
+varying highp vec4 fragmentPositionFromLight;
 
-varying highp vec4 vertexPosition_worldSpace;
-varying highp vec3 vertexNormal_viewSpace;
+varying highp vec4 fragmentPosition_worldSpace;
+varying highp vec3 fragmentNormal_viewSpace;
 varying highp vec3 lightDirection_viewSpace;
 
 uniform highp vec2 texelSize;
@@ -32,12 +32,12 @@ highp float getDistanceFromLight() {
                                                   - (lightPlaneNormal.z * lightPosition_worldSpace.z)
                                              ) / length(lightPlaneNormal);
 
-  return abs(dot(lightPlaneNormal, vertexPosition_worldSpace.xyz) + lightPlaneDistanceFromOrigin);
+  return abs(dot(lightPlaneNormal, fragmentPosition_worldSpace.xyz) + lightPlaneDistanceFromOrigin);
 }
 
 highp vec3 getDiffuseLighting() {
   highp vec3 lightColorIntensity = lightColor * lightIntensity;
-  highp float diffuseStrength = clamp(dot(vertexNormal_viewSpace, lightDirection_viewSpace), 0.0, 1.0);
+  highp float diffuseStrength = clamp(dot(fragmentNormal_viewSpace, lightDirection_viewSpace), 0.0, 1.0);
 
   highp float distanceFromLight = getDistanceFromLight();
   return (lightColorIntensity * diffuseStrength) / (distanceFromLight * distanceFromLight);
@@ -49,7 +49,7 @@ void main() {
 
   highp vec3 diffuseLight = getDiffuseLighting();
 
-  highp vec3 shadowMapCoords = (vertexPositionFromLight.xyz / vertexPositionFromLight.w) * 0.5 + 0.5;
+  highp vec3 shadowMapCoords = (fragmentPositionFromLight.xyz / fragmentPositionFromLight.w) * 0.5 + 0.5;
 
   highp float currentDepth = shadowMapCoords.z;
   highp float fragmentVisibility = getAverageVisibility(shadowMapCoords.xy, currentDepth);
