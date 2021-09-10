@@ -2,8 +2,6 @@ varying highp vec4 vertexPosition_worldSpace;
 varying highp vec3 vertexNormal_viewSpace;
 varying highp vec3 lightDirection_viewSpace;
 
-uniform highp mat4 viewMatrix;
-
 uniform highp vec3 lightColor;
 uniform highp float lightIntensity;
 uniform highp vec4 lightPosition_worldSpace;
