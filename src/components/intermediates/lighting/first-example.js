@@ -39,10 +39,10 @@ const lightIntensity = 50.0
 const cubeModelPosition = mat4.create()
 const cubeFaceUvs = [
   [0.0, 0.0],
-  [1.0, 0.0],
   [0.0, 1.0],
   [1.0, 0.0],
   [0.0, 1.0],
+  [1.0, 0.0],
   [1.0, 1.0],
 ]
 
@@ -57,12 +57,12 @@ const LightingFirstExample = () => {
       [1.0, -1.0, 1.0],
       [1.0, 1.0, 1.0],
       // Left vertices
-      [-1.0, -1.0, 1.0],
-      [-1.0, 1.0, 1.0],
-      [-1.0, -1.0, -1.0],
-      [-1.0, 1.0, 1.0],
       [-1.0, -1.0, -1.0],
       [-1.0, 1.0, -1.0],
+      [-1.0, -1.0, 1.0],
+      [-1.0, 1.0, -1.0],
+      [-1.0, -1.0, 1.0],
+      [-1.0, 1.0, 1.0],
       // Right vertices
       [1.0, -1.0, 1.0],
       [1.0, 1.0, 1.0],
@@ -72,25 +72,25 @@ const LightingFirstExample = () => {
       [1.0, 1.0, -1.0],
       // Top vertices
       [-1.0, 1.0, 1.0],
-      [1.0, 1.0, 1.0],
       [-1.0, 1.0, -1.0],
       [1.0, 1.0, 1.0],
       [-1.0, 1.0, -1.0],
+      [1.0, 1.0, 1.0],
       [1.0, 1.0, -1.0],
       // Bottom vertices
+      [-1.0, -1.0, -1.0],
       [-1.0, -1.0, 1.0],
-      [1.0, -1.0, 1.0],
-      [-1.0, -1.0, -1.0],
-      [1.0, -1.0, 1.0],
-      [-1.0, -1.0, -1.0],
       [1.0, -1.0, -1.0],
+      [-1.0, -1.0, 1.0],
+      [1.0, -1.0, -1.0],
+      [1.0, -1.0, 1.0],
       // Back vertices
+      [1.0, -1.0, -1.0],
       [1.0, 1.0, -1.0],
-      [1.0, -1.0, -1.0],
-      [-1.0, 1.0, -1.0],
-      [1.0, -1.0, -1.0],
-      [-1.0, 1.0, -1.0],
       [-1.0, -1.0, -1.0],
+      [1.0, 1.0, -1.0],
+      [-1.0, -1.0, -1.0],
+      [-1.0, 1.0, -1.0],
     ],
     uvs: [
       // Front UVs
@@ -171,11 +171,11 @@ const LightingFirstExample = () => {
     texture: null,
   })
 
-  const canvasRef = useCallback(canvas => {
+  const canvasRef = useCallback((canvas) => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
       return () =>
-        updateWebGlRef(webGlRef => {
+        updateWebGlRef((webGlRef) => {
           webGlRef.destroy()
           return null
         })

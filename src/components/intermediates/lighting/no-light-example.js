@@ -5,10 +5,7 @@ import texture from "../../../images/intermediates/texture.png"
 import { runOnPredicate } from "../../util"
 import wrapExample from "../../webgl-example-view"
 import WebGlWrapper from "../../webgl-wrapper"
-import {
-  noLightFragmentShaderSource,
-  noLightVertexShaderSource,
-} from "./no-light-example-shaders"
+import { noLightFragmentShaderSource, noLightVertexShaderSource } from "./no-light-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -33,10 +30,10 @@ const shaderProgramInfo = {
 const cubeModelPosition = mat4.create()
 const cubeFaceUvs = [
   [0.0, 0.0],
-  [1.0, 0.0],
   [0.0, 1.0],
   [1.0, 0.0],
   [0.0, 1.0],
+  [1.0, 0.0],
   [1.0, 1.0],
 ]
 
@@ -51,12 +48,12 @@ const LightingNoLightExample = () => {
       [1.0, -1.0, 1.0],
       [1.0, 1.0, 1.0],
       // Left vertices
-      [-1.0, -1.0, 1.0],
-      [-1.0, 1.0, 1.0],
-      [-1.0, -1.0, -1.0],
-      [-1.0, 1.0, 1.0],
       [-1.0, -1.0, -1.0],
       [-1.0, 1.0, -1.0],
+      [-1.0, -1.0, 1.0],
+      [-1.0, 1.0, -1.0],
+      [-1.0, -1.0, 1.0],
+      [-1.0, 1.0, 1.0],
       // Right vertices
       [1.0, -1.0, 1.0],
       [1.0, 1.0, 1.0],
@@ -66,25 +63,25 @@ const LightingNoLightExample = () => {
       [1.0, 1.0, -1.0],
       // Top vertices
       [-1.0, 1.0, 1.0],
-      [1.0, 1.0, 1.0],
       [-1.0, 1.0, -1.0],
       [1.0, 1.0, 1.0],
       [-1.0, 1.0, -1.0],
+      [1.0, 1.0, 1.0],
       [1.0, 1.0, -1.0],
       // Bottom vertices
+      [-1.0, -1.0, -1.0],
       [-1.0, -1.0, 1.0],
-      [1.0, -1.0, 1.0],
-      [-1.0, -1.0, -1.0],
-      [1.0, -1.0, 1.0],
-      [-1.0, -1.0, -1.0],
       [1.0, -1.0, -1.0],
+      [-1.0, -1.0, 1.0],
+      [1.0, -1.0, -1.0],
+      [1.0, -1.0, 1.0],
       // Back vertices
+      [1.0, -1.0, -1.0],
       [1.0, 1.0, -1.0],
-      [1.0, -1.0, -1.0],
-      [-1.0, 1.0, -1.0],
-      [1.0, -1.0, -1.0],
-      [-1.0, 1.0, -1.0],
       [-1.0, -1.0, -1.0],
+      [1.0, 1.0, -1.0],
+      [-1.0, -1.0, -1.0],
+      [-1.0, 1.0, -1.0],
     ],
     uvs: [
       // Front UVs
@@ -120,11 +117,11 @@ const LightingNoLightExample = () => {
     texture: null,
   })
 
-  const canvasRef = useCallback(canvas => {
+  const canvasRef = useCallback((canvas) => {
     if (canvas !== null) {
       updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
       return () =>
-        updateWebGlRef(webGlRef => {
+        updateWebGlRef((webGlRef) => {
           webGlRef.destroy()
           return null
         })

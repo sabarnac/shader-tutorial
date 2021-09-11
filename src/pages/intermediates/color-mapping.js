@@ -185,6 +185,39 @@ const ColorMappingPage = ({ location: { pathname } }) => (
         are white have a color shift factor of 0, and the rest have a value of
         1.
       </p>
+      <Heading type="h2">Additional Notes</Heading>
+      <p>
+        If you're working with OpenGL/WebGL, there is one thing you will need to
+        remember when working with textures.
+      </p>
+      <p>
+        Typically when images are read, their starting coordinates are at the
+        top-left of the image. This means that the origin coordinates{" "}
+        <code>(0, 0, 0)</code> represents the top-left most pixel of the image.
+      </p>
+      <p>
+        However, in OpenGL/WebGL the starting coordinate is instead the
+        bottom-left of the image. This means that if you try to load an image
+        the same way in OpenGL as in DirectX, you will find that the image is
+        flipped vertically when sampling and rendering it in your shader.
+      </p>
+      <p>As a result, you have two possible options:</p>
+      <ul>
+        <li>
+          Flip the image vertically when loading it in OpenGL to keep things
+          consistent in the shader.
+        </li>
+        <li>
+          Invert the Y-axis of your UV coordinates when sampling from the image
+          texture.
+        </li>
+      </ul>
+      <p>
+        Since our tutorial uses WebGL, we need to use one of these options to
+        prevent textures from appearing inverted. We've gone with the first
+        option to keep the shader logic more consistent. If you're using
+        OpenGL/WebGL, you'll need to keep this in mind as well.
+      </p>
       <Heading type="h2">Summary</Heading>
       <ul>
         <li>

@@ -16,6 +16,8 @@ export default class WebGlWrapper {
   _viewMatrix = mat4.create()
   _modelMatrix = mat4.create()
 
+  _FACES = {}
+
   constructor(canvas, modelPosition, disableDepth = false, cullFace = false) {
     this.canvasDimensions = {
       ...this.canvasDimensions,
@@ -32,6 +34,15 @@ export default class WebGlWrapper {
     }
 
     this._startSetup(modelPosition, disableDepth)
+
+    this._FACES = {
+      POSITIVE_X: this._webgl.TEXTURE_CUBE_MAP_POSITIVE_X,
+      NEGATIVE_X: this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_X,
+      POSITIVE_Y: this._webgl.TEXTURE_CUBE_MAP_POSITIVE_Y,
+      NEGATIVE_Y: this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_Y,
+      POSITIVE_Z: this._webgl.TEXTURE_CUBE_MAP_POSITIVE_Z,
+      NEGATIVE_Z: this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_Z,
+    }
   }
 
   _showNotSupported = () => {
@@ -266,6 +277,8 @@ export default class WebGlWrapper {
 
     const image = new Image()
     image.addEventListener("load", () => {
+      this._webgl.pixelStorei(this._webgl.UNPACK_FLIP_Y_WEBGL, true)
+
       this._webgl.bindTexture(this._webgl.TEXTURE_2D, texture)
 
       this._webgl.texImage2D(
@@ -282,6 +295,8 @@ export default class WebGlWrapper {
       }
 
       this._webgl.bindTexture(this._webgl.TEXTURE_2D, null)
+
+      this._webgl.pixelStorei(this._webgl.UNPACK_FLIP_Y_WEBGL, false)
     })
     image.src = imageSrc
 
@@ -354,7 +369,11 @@ export default class WebGlWrapper {
       this._webgl.LINEAR
     )
 
-    imageSrcMap.forEach(({ face, src }) => {
+    imageSrcMap.forEach(({ id, face, src }) => {
+      if (!face) {
+        face = this._FACES[id]
+      }
+
       const image = new Image()
       image.addEventListener("load", () => {
         this._webgl.bindTexture(this._webgl.TEXTURE_CUBE_MAP, texture)
@@ -516,15 +535,13 @@ export default class WebGlWrapper {
       }
 
       for (let dataAttribute in locationDetails.attributeLocations) {
-        dataLocation[type].attributeLocations[
-          dataAttribute
-        ] = this._webgl.getAttribLocation(shaderProgram, dataAttribute)
+        dataLocation[type].attributeLocations[dataAttribute] =
+          this._webgl.getAttribLocation(shaderProgram, dataAttribute)
       }
 
       for (let dataAttribute in locationDetails.uniformLocations) {
-        dataLocation[type].uniformLocations[
-          dataAttribute
-        ] = this._webgl.getUniformLocation(shaderProgram, dataAttribute)
+        dataLocation[type].uniformLocations[dataAttribute] =
+          this._webgl.getUniformLocation(shaderProgram, dataAttribute)
       }
     }
 
@@ -599,15 +616,6 @@ export default class WebGlWrapper {
   ) => {
     this._resizeCanvas()
 
-    const faces = {
-      POSITIVE_X: this._webgl.TEXTURE_CUBE_MAP_POSITIVE_X,
-      NEGATIVE_X: this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_X,
-      POSITIVE_Y: this._webgl.TEXTURE_CUBE_MAP_POSITIVE_Y,
-      NEGATIVE_Y: this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_Y,
-      POSITIVE_Z: this._webgl.TEXTURE_CUBE_MAP_POSITIVE_Z,
-      NEGATIVE_Z: this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_Z,
-    }
-
     if (frameBuffer === null) {
       frameBuffer = this._webgl.createFramebuffer()
     }
@@ -616,7 +624,7 @@ export default class WebGlWrapper {
     this._webgl.framebufferTexture2D(
       this._webgl.FRAMEBUFFER,
       this._webgl.COLOR_ATTACHMENT0,
-      faces[cubeMapFace],
+      this._FACES[cubeMapFace],
       renderTarget,
       0
     )
