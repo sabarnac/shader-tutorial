@@ -13,8 +13,9 @@ uniform samplerCube shadowMapTextureSampler;
 
 const highp float acneBias = 0.02;
 
-highp float getAverageVisibility(highp vec3 fragmentDirection_lightSpace) {
-  highp float currentDepth = length(fragmentDirection_lightSpace) / farPlane;
+highp float getAverageVisibility(highp vec3 fragmentPosition_lightSpace) {
+  highp float currentDepth = length(fragmentPosition_lightSpace) / farPlane;
+  highp vec3 fragmentDirection_lightSpace = normalize(fragmentPosition_lightSpace);
 
   highp float visibility = 0.0;
   for (int xi = -2; xi <= 2; xi++) {
@@ -42,8 +43,8 @@ void main() {
 
   highp vec3 diffuseLight = getDiffuseLighting();
 
-  highp vec3 fragmentDirection_lightSpace = (fragmentPosition_worldSpace - lightPosition_worldSpace).xyz;
-  highp float fragmentVisibility = getAverageVisibility(fragmentDirection_lightSpace);
+  highp vec3 fragmentPosition_lightSpace = (fragmentPosition_worldSpace - lightPosition_worldSpace).xyz;
+  highp float fragmentVisibility = getAverageVisibility(fragmentPosition_lightSpace);
 
   gl_FragColor.rgb = (ambientColor.rgb * ambientFactor) + (fragmentVisibility * surfaceColor.rgb * diffuseLight);
   gl_FragColor.a = surfaceColor.a;

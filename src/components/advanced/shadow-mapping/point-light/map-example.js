@@ -281,6 +281,13 @@ Light:
     World Position: ${coordArrToString(lightModelPosition)}
 `.trim()}
       </pre>
+      <pre className="util text-left">
+        {`
+Face:
+    Center: ${coordArrToString(lightModelFaces[currentFace].center)}
+    Up: ${coordArrToString(lightModelFaces[currentFace].up)}
+`.trim()}
+      </pre>
     </div>
   )
 }
