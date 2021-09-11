@@ -37,7 +37,7 @@ const lightModelFaces = [
       lightModelPosition[1],
       lightModelPosition[2],
     ],
-    up: [0.0, -1.0, 0.0],
+    up: [0.0, 1.0, 0.0],
   },
   {
     name: "-X-Axis Face",
@@ -47,7 +47,7 @@ const lightModelFaces = [
       lightModelPosition[1],
       lightModelPosition[2],
     ],
-    up: [0.0, -1.0, 0.0],
+    up: [0.0, 1.0, 0.0],
   },
   {
     name: "+Y-Axis Face",
@@ -57,7 +57,7 @@ const lightModelFaces = [
       lightModelPosition[1] + 1.0,
       lightModelPosition[2],
     ],
-    up: [0.0, 0.0, 1.0],
+    up: [0.0, 0.0, -1.0],
   },
   {
     name: "-Y-Axis Face",
@@ -67,7 +67,7 @@ const lightModelFaces = [
       lightModelPosition[1] - 1.0,
       lightModelPosition[2],
     ],
-    up: [0.0, 0.0, -1.0],
+    up: [0.0, 0.0, 1.0],
   },
   {
     name: "+Z-Axis Face",
@@ -77,7 +77,7 @@ const lightModelFaces = [
       lightModelPosition[1],
       lightModelPosition[2] + 1.0,
     ],
-    up: [0.0, -1.0, 0.0],
+    up: [0.0, 1.0, 0.0],
   },
   {
     name: "-Z-Axis Face",
@@ -87,7 +87,7 @@ const lightModelFaces = [
       lightModelPosition[1],
       lightModelPosition[2] - 1.0,
     ],
-    up: [0.0, -1.0, 0.0],
+    up: [0.0, 1.0, 0.0],
   },
 ]
 

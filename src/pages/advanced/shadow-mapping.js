@@ -1109,6 +1109,61 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         the surrounding depth values for our PCF algorithm.
       </p>
       <Heading type="h2">Additional Notes</Heading>
+      <Heading type="h3">
+        Generating point light shadow maps in OpenGL/WebGL
+      </Heading>
+      <p>
+        When we generate a camera for each face of the shadow cube map, we use
+        an up vector that points in the positive Y-axis (with the exception for
+        the Y-axis faces, where we use a negative Z-axis up vector for the
+        positive Y face, and a positive Z-axis up vector for the negative Z
+        face).
+      </p>
+      <p>
+        However, in OpenGL/WebGL you need to invert these up vectors instead.
+      </p>
+      <p>
+        In the <Link to="/intermediates/color-mapping/">color mapping</Link>{" "}
+        chapter, we provided an additional note that these graphics APIs read
+        image data with the origin at the bottom-left of the image instead of
+        the origin being traditionally at the top-left of the image. As a
+        result, you would need to either flip the UV coordinates on the Y-axis,
+        or flip the image vertically for the results to appear same as other
+        graphics APIs.
+      </p>
+      <p>
+        When you render each face of the shadow cube map into from the shader,
+        the rendered image is written starting from the bottom-left corner of
+        the face.
+      </p>
+      <p>
+        So when you expect to also read from the cube map, using the direction
+        vector the expectation is that the direction will select which face of
+        the cube map to read from, and then use the direction coordinates to
+        read from that face with the coordinate system starting from the
+        bottom-left as always.
+      </p>
+      <p>
+        However, cube maps are an exception to this bottom-left coordinate
+        system. When reading from cube maps, the faces instead follow the
+        traditional top-left origin coordinate system. This results in reading
+        the data from the shadow cube map in an inverted fashion.
+      </p>
+      <p>
+        The solution to this is simple - by inverting the up vector of the
+        cameras for each face, you invert how the shadows are rendered on the
+        shadow cube map.
+      </p>
+      <p>
+        This way you transform your shadows from being rendered with the
+        bottom-left corner being rendered to the top-left, which then means the
+        resultant image on the face will follow the top-left coordinate system,
+        and reading from the shadow cube map should not create any issues.
+      </p>
+      <p>
+        This will be discussed in the{" "}
+        <Link to="/advanced/cube-maps/">next chapter</Link> as well.
+      </p>
       <Heading type="h3">Cascaded shadow maps</Heading>
       <p>
         One problem we didn't tackle is shadows of lights covering a large area
