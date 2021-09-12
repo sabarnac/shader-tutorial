@@ -1132,37 +1132,24 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         graphics APIs.
       </p>
       <p>
-        When you render each face of the shadow cube map into from the shader,
-        the rendered image is written starting from the bottom-left corner of
-        the face.
+        The reason for this is that while OpenGL/WebGL typically use a
+        right-handed coordinate system (where the positive Z-direction is
+        towards the camera), cube maps instead use the left-handed coordinate
+        system (where the positive Z-direction is away from the camera).
       </p>
       <p>
-        So when you expect to also read from the cube map, using the direction
-        vector the expectation is that the direction will select which face of
-        the cube map to read from, and then use the direction coordinates to
-        read from that face with the coordinate system starting from the
-        bottom-left as always.
+        As a result, when you transform the cube map faces from one coordinate
+        system to the other, you will find that the up vectors of each face get
+        flipped to the opposite direction.
       </p>
       <p>
-        However, cube maps are an exception to this bottom-left coordinate
-        system. When reading from cube maps, the faces instead follow the
-        traditional top-left origin coordinate system. This results in reading
-        the data from the shadow cube map in an inverted fashion.
-      </p>
-      <p>
-        The solution to this is simple - by inverting the up vector of the
-        cameras for each face, you invert how the shadows are rendered on the
-        shadow cube map.
-      </p>
-      <p>
-        This way you transform your shadows from being rendered with the
-        bottom-left corner being rendered to the top-left, which then means the
-        resultant image on the face will follow the top-left coordinate system,
-        and reading from the shadow cube map should not create any issues.
+        So keeping this in mind is important when working with cube maps and
+        knowing how they behave differently compared to standard 2D maps.
       </p>
       <p>
         This will be discussed in the{" "}
-        <Link to="/advanced/cube-maps/">next chapter</Link> as well.
+        <Link to="/advanced/cube-maps/">next chapter</Link> as well under the
+        "Additional Notes" section.
       </p>
       <Heading type="h3">Cascaded shadow maps</Heading>
       <p>
