@@ -227,6 +227,62 @@ export default class WebGlWrapper {
     return shaderProgram
   }
 
+  createSingleColorImageTexture = (
+    texture,
+    imageColor = [255, 255, 255, 255]
+  ) => {
+    if (texture === null) {
+      texture = this._webgl.createTexture()
+    }
+
+    this._webgl.bindTexture(this._webgl.TEXTURE_2D, texture)
+
+    const level = 0
+    const internalFormat = this._webgl.RGBA
+    const width = 1
+    const height = 1
+    const border = 0
+    const srcFormat = this._webgl.RGBA
+    const srcType = this._webgl.UNSIGNED_BYTE
+    const pixel = new Uint8Array(imageColor)
+    this._webgl.texImage2D(
+      this._webgl.TEXTURE_2D,
+      level,
+      internalFormat,
+      width,
+      height,
+      border,
+      srcFormat,
+      srcType,
+      pixel
+    )
+
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_2D,
+      this._webgl.TEXTURE_WRAP_S,
+      this._webgl.CLAMP_TO_EDGE
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_2D,
+      this._webgl.TEXTURE_WRAP_T,
+      this._webgl.CLAMP_TO_EDGE
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_2D,
+      this._webgl.TEXTURE_MIN_FILTER,
+      this._webgl.LINEAR
+    )
+    this._webgl.texParameteri(
+      this._webgl.TEXTURE_2D,
+      this._webgl.TEXTURE_MAG_FILTER,
+      this._webgl.LINEAR
+    )
+
+    this._webgl.bindTexture(this._webgl.TEXTURE_2D, null)
+
+    return texture
+  }
+
   createImageTexture = (imageSrc, texture) => {
     if (texture === null) {
       texture = this._webgl.createTexture()
@@ -320,16 +376,8 @@ export default class WebGlWrapper {
     const srcFormat = this._webgl.RGBA
     const srcType = this._webgl.UNSIGNED_BYTE
     const pixel = new Uint8Array([255, 255, 255, 255])
-    const faces = [
-      this._webgl.TEXTURE_CUBE_MAP_POSITIVE_X,
-      this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_X,
-      this._webgl.TEXTURE_CUBE_MAP_POSITIVE_Y,
-      this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_Y,
-      this._webgl.TEXTURE_CUBE_MAP_POSITIVE_Z,
-      this._webgl.TEXTURE_CUBE_MAP_NEGATIVE_Z,
-    ]
 
-    faces.forEach((face) => {
+    Object.values(this._FACES).forEach((face) => {
       this._webgl.texImage2D(
         face,
         level,
