@@ -20,7 +20,8 @@ void main() {
   highp vec4 diffuseColor = texture2D(diffuseTextureSampler, uv);
   highp vec3 specularColor = vec3(diffuseColor.rgb);
 
-  highp vec3 lightPosition_tangentSpace = tbnMatrix_tangentSpace * (viewMatrix * lightPosition_worldSpace).xyz;
+  highp vec4 lightPosition_viewSpace = viewMatrix * lightPosition_worldSpace;
+  highp vec3 lightPosition_tangentSpace = tbnMatrix_tangentSpace * lightPosition_viewSpace.xyz;
   highp vec3 lightDirection_tangentSpace = normalize(lightPosition_tangentSpace - fragmentPosition_tangentSpace);
 
   highp vec3 normal_tangentSpace = normalize((normalColor.xyz * 2.0) - 1.0);
