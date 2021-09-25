@@ -25,7 +25,8 @@ void main() {
   highp vec3 lightColorIntensity = lightColor * lightIntensity;
   highp float distanceFromLight = distance(vertexPosition_worldSpace, lightPosition_worldSpace);
   highp vec3 normal_viewSpace = normalize((viewMatrix * modelMatrix * vec4(vertexNormal, 0.0)).xyz);
-  highp vec3 lightDirection_viewSpace = normalize(((viewMatrix * lightPosition_worldSpace) - vertexPosition_viewSpace).xyz);
+  highp vec4 lightPosition_viewSpace = viewMatrix * lightPosition_worldSpace;
+  highp vec3 lightDirection_viewSpace = normalize((lightPosition_viewSpace - vertexPosition_viewSpace).xyz);
 
   highp float diffuseStrength = clamp(dot(normal_viewSpace, lightDirection_viewSpace), 0.0, 1.0);
   diffuseLight = (lightColorIntensity * diffuseStrength) / (distanceFromLight * distanceFromLight);
