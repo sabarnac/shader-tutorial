@@ -10,9 +10,12 @@ import skyboxFacePositiveZ from "../../../images/advanced/skybox-face-positive-z
 import { runOnPredicate } from "../../util"
 import wrapExample from "../../webgl-example-view"
 import WebGlWrapper from "../../webgl-wrapper"
-import { blobFragmentShaderSource, blobVertexShaderSource } from "./blob-example-shaders"
+import {
+  blobFragmentShaderSource as blobFragmentShaderSource,
+  blobVertexShaderSource as blobVertexShaderSource,
+} from "./blob-example-shaders"
+import { complexRefractionFragmentShaderSource, complexRefractionVertexShaderSource } from "./complex-refraction-example-shaders"
 import { blobsIndices, blobsVertices } from "./model-blobs"
-import { reflectionFragmentShaderSource, reflectionVertexShaderSource } from "./reflection-example-shaders"
 import { skyboxFragmentShaderSource, skyboxVertexShaderSource } from "./skybox-example-shaders"
 
 const cubeShaderProgramInfo = {
@@ -73,15 +76,15 @@ const blobsShaderProgramInfo = {
   },
 }
 
-const modelReflectionPosition = vec4.fromValues(0.0, 0.0, 0.0, 1.0)
-const modelReflectionFaces = [
+const modelComplexRefractionPosition = vec4.fromValues(0.0, 0.0, 0.0, 1.0)
+const modelComplexRefractionFaces = [
   {
     name: "+X-Axis Face",
     id: "POSITIVE_X",
     center: [
-      modelReflectionPosition[0] + 1.0,
-      modelReflectionPosition[1],
-      modelReflectionPosition[2],
+      modelComplexRefractionPosition[0] + 1.0,
+      modelComplexRefractionPosition[1],
+      modelComplexRefractionPosition[2],
     ],
     up: [0.0, -1.0, 0.0],
   },
@@ -89,9 +92,9 @@ const modelReflectionFaces = [
     name: "-X-Axis Face",
     id: "NEGATIVE_X",
     center: [
-      modelReflectionPosition[0] - 1.0,
-      modelReflectionPosition[1],
-      modelReflectionPosition[2],
+      modelComplexRefractionPosition[0] - 1.0,
+      modelComplexRefractionPosition[1],
+      modelComplexRefractionPosition[2],
     ],
     up: [0.0, -1.0, 0.0],
   },
@@ -99,9 +102,9 @@ const modelReflectionFaces = [
     name: "+Y-Axis Face",
     id: "POSITIVE_Y",
     center: [
-      modelReflectionPosition[0],
-      modelReflectionPosition[1] + 1.0,
-      modelReflectionPosition[2],
+      modelComplexRefractionPosition[0],
+      modelComplexRefractionPosition[1] + 1.0,
+      modelComplexRefractionPosition[2],
     ],
     up: [0.0, 0.0, 1.0],
   },
@@ -109,9 +112,9 @@ const modelReflectionFaces = [
     name: "-Y-Axis Face",
     id: "NEGATIVE_Y",
     center: [
-      modelReflectionPosition[0],
-      modelReflectionPosition[1] - 1.0,
-      modelReflectionPosition[2],
+      modelComplexRefractionPosition[0],
+      modelComplexRefractionPosition[1] - 1.0,
+      modelComplexRefractionPosition[2],
     ],
     up: [0.0, 0.0, -1.0],
   },
@@ -119,9 +122,9 @@ const modelReflectionFaces = [
     name: "+Z-Axis Face",
     id: "POSITIVE_Z",
     center: [
-      modelReflectionPosition[0],
-      modelReflectionPosition[1],
-      modelReflectionPosition[2] + 1.0,
+      modelComplexRefractionPosition[0],
+      modelComplexRefractionPosition[1],
+      modelComplexRefractionPosition[2] + 1.0,
     ],
     up: [0.0, -1.0, 0.0],
   },
@@ -129,9 +132,9 @@ const modelReflectionFaces = [
     name: "-Z-Axis Face",
     id: "NEGATIVE_Z",
     center: [
-      modelReflectionPosition[0],
-      modelReflectionPosition[1],
-      modelReflectionPosition[2] - 1.0,
+      modelComplexRefractionPosition[0],
+      modelComplexRefractionPosition[1],
+      modelComplexRefractionPosition[2] - 1.0,
     ],
     up: [0.0, -1.0, 0.0],
   },
@@ -139,7 +142,7 @@ const modelReflectionFaces = [
 
 const cubeModelPosition = vec4.fromValues(0.0, 0.0, 0.0, 1.0)
 
-const ReflectionExample = () => {
+const ComplexRefractionExample = () => {
   const cube = {
     vertices: [
       // Front vertices
@@ -360,10 +363,12 @@ const ReflectionExample = () => {
     indices: null,
   })
 
-  const [reflectionMapTexture, updateReflectionMapTexture] = useState(null)
-  const [reflectionMapFramebuffer, updateReflectionMapFramebuffer] = useState(
-    modelReflectionFaces.map(() => null)
-  )
+  const [complexRefractionMapTexture, updateComplexRefractionMapTexture] =
+    useState(null)
+  const [
+    complexRefractionMapFramebuffer,
+    updateComplexRefractionMapFramebuffer,
+  ] = useState(modelComplexRefractionFaces.map(() => null))
 
   const canvasRef = useCallback((canvas) => {
     if (canvas !== null) {
@@ -380,8 +385,8 @@ const ReflectionExample = () => {
     runOnPredicate(webGlRef !== null, () => {
       updateCubeShaderProgram(
         webGlRef.createShaderProgram(
-          reflectionVertexShaderSource,
-          reflectionFragmentShaderSource
+          complexRefractionVertexShaderSource,
+          complexRefractionFragmentShaderSource
         )
       )
     }),
@@ -497,33 +502,34 @@ const ReflectionExample = () => {
 
   useEffect(
     runOnPredicate(blobsBuffer.vertices !== null, () => {
-      updateReflectionMapTexture(
-        webGlRef.createCubeMapRenderTargetTexture(reflectionMapTexture)
+      updateComplexRefractionMapTexture(
+        webGlRef.createCubeMapRenderTargetTexture(complexRefractionMapTexture)
       )
     }),
     [blobsBuffer]
   )
 
   useEffect(
-    runOnPredicate(reflectionMapTexture !== null, () => {
-      updateReflectionMapFramebuffer(
-        modelReflectionFaces.map((face, i) =>
+    runOnPredicate(complexRefractionMapTexture !== null, () => {
+      updateComplexRefractionMapFramebuffer(
+        modelComplexRefractionFaces.map((face, i) =>
           webGlRef.createCubeMapTargetFramebuffer(
-            reflectionMapTexture,
+            complexRefractionMapTexture,
             face.id,
-            reflectionMapFramebuffer[i],
+            complexRefractionMapFramebuffer[i],
             true
           )
         )
       )
     }),
-    [reflectionMapTexture]
+    [complexRefractionMapTexture]
   )
 
   useEffect(
     runOnPredicate(
-      reflectionMapFramebuffer.filter((framebuffer) => framebuffer !== null)
-        .length === modelReflectionFaces.length,
+      complexRefractionMapFramebuffer.filter(
+        (framebuffer) => framebuffer !== null
+      ).length === modelComplexRefractionFaces.length,
       () => {
         let shouldRender = true
 
@@ -534,7 +540,7 @@ const ReflectionExample = () => {
               : (0.0).toString()
           )
 
-          reflectionMapFramebuffer.forEach((framebuffer, i) => {
+          complexRefractionMapFramebuffer.forEach((framebuffer, i) => {
             webGlRef.renderToCubeMapFramebuffer(framebuffer, () => {
               webGlRef.renderScene(({ gl }) => {
                 if (!shouldRender) {
@@ -554,12 +560,12 @@ const ReflectionExample = () => {
                 gl.clearDepth(1.0)
                 gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
-                const modelReflectionViewMatrix = mat4.create()
+                const modelComplexRefractionViewMatrix = mat4.create()
                 mat4.lookAt(
-                  modelReflectionViewMatrix,
-                  modelReflectionPosition,
-                  modelReflectionFaces[i].center,
-                  modelReflectionFaces[i].up
+                  modelComplexRefractionViewMatrix,
+                  modelComplexRefractionPosition,
+                  modelComplexRefractionFaces[i].center,
+                  modelComplexRefractionFaces[i].up
                 )
 
                 {
@@ -588,7 +594,7 @@ const ReflectionExample = () => {
                   gl.uniformMatrix4fv(
                     skyboxShaderInfo.vertex.uniformLocations.viewMatrix,
                     false,
-                    modelReflectionViewMatrix
+                    modelComplexRefractionViewMatrix
                   )
                   gl.uniformMatrix4fv(
                     skyboxShaderInfo.vertex.uniformLocations.modelMatrix,
@@ -656,7 +662,7 @@ const ReflectionExample = () => {
                   gl.uniformMatrix4fv(
                     blobsShaderInfo.vertex.uniformLocations.viewMatrix,
                     false,
-                    modelReflectionViewMatrix
+                    modelComplexRefractionViewMatrix
                   )
                   gl.uniformMatrix4fv(
                     blobsShaderInfo.vertex.uniformLocations.modelMatrix,
@@ -895,7 +901,7 @@ const ReflectionExample = () => {
               )
 
               gl.activeTexture(gl.TEXTURE0)
-              gl.bindTexture(gl.TEXTURE_CUBE_MAP, reflectionMapTexture)
+              gl.bindTexture(gl.TEXTURE_CUBE_MAP, complexRefractionMapTexture)
               gl.uniform1i(
                 cubeShaderInfo.fragment.uniformLocations.cubeMapTextureSampler,
                 0
@@ -919,7 +925,7 @@ const ReflectionExample = () => {
         }
       }
     ),
-    [reflectionMapFramebuffer]
+    [complexRefractionMapFramebuffer]
   )
 
   return (
@@ -931,4 +937,4 @@ const ReflectionExample = () => {
   )
 }
 
-export default wrapExample(ReflectionExample)
+export default wrapExample(ComplexRefractionExample)

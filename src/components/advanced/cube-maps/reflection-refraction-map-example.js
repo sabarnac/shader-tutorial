@@ -7,15 +7,11 @@ import skyboxFaceNegativeZ from "../../../images/advanced/skybox-face-negative-z
 import skyboxFacePositiveX from "../../../images/advanced/skybox-face-positive-x.png"
 import skyboxFacePositiveY from "../../../images/advanced/skybox-face-positive-y.png"
 import skyboxFacePositiveZ from "../../../images/advanced/skybox-face-positive-z.png"
-import texture from "../../../images/intermediates/texture.png"
 import { coordArrToString, runOnPredicate } from "../../util"
 import wrapExample from "../../webgl-example-view"
 import WebGlWrapper from "../../webgl-wrapper"
+import { blobFragmentShaderSource, blobVertexShaderSource } from "./blob-example-shaders"
 import { blobsIndices, blobsVertices } from "./model-blobs"
-import {
-  reflectionRefractionMapFragmentShaderSource,
-  reflectionRefractionMapVertexShaderSource,
-} from "./reflection-refraction-map-example-shaders"
 import { skyboxFragmentShaderSource, skyboxVertexShaderSource } from "./skybox-example-shaders"
 
 const skyboxShaderProgramInfo = {
@@ -268,8 +264,8 @@ const ReflectionRefractionMapExample = () => {
     runOnPredicate(skyboxShaderInfo !== null, () => {
       updateBlobsShaderProgram(
         webGlRef.createShaderProgram(
-          reflectionRefractionMapVertexShaderSource,
-          reflectionRefractionMapFragmentShaderSource
+          blobVertexShaderSource,
+          blobFragmentShaderSource
         )
       )
     }),

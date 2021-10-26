@@ -10,11 +10,11 @@ import skyboxFacePositiveZ from "../../../images/advanced/skybox-face-positive-z
 import { runOnPredicate } from "../../util"
 import wrapExample from "../../webgl-example-view"
 import WebGlWrapper from "../../webgl-wrapper"
-import { blobsIndices, blobsVertices } from "./model-blobs"
 import {
-  reflectionRefractionMapFragmentShaderSource as simpleRefractionMapFragmentShaderSource,
-  reflectionRefractionMapVertexShaderSource as simpleRefractionMapVertexShaderSource,
-} from "./reflection-refraction-map-example-shaders"
+  blobFragmentShaderSource as blobFragmentShaderSource,
+  blobVertexShaderSource as blobVertexShaderSource,
+} from "./blob-example-shaders"
+import { blobsIndices, blobsVertices } from "./model-blobs"
 import { simpleRefractionFragmentShaderSource, simpleRefractionVertexShaderSource } from "./simple-refraction-example-shaders"
 import { skyboxFragmentShaderSource, skyboxVertexShaderSource } from "./skybox-example-shaders"
 
@@ -425,8 +425,8 @@ const SimpleRefractionExample = () => {
     runOnPredicate(skyboxShaderInfo !== null, () => {
       updateBlobsShaderProgram(
         webGlRef.createShaderProgram(
-          simpleRefractionMapVertexShaderSource,
-          simpleRefractionMapFragmentShaderSource
+          blobVertexShaderSource,
+          blobFragmentShaderSource
         )
       )
     }),

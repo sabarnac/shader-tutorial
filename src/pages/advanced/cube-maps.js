@@ -1,5 +1,7 @@
 import React from "react"
 
+import ComplexRefractionExample from "../../components/advanced/cube-maps/complex-refraction-example"
+import { complexRefractionFragmentShaderSource } from "../../components/advanced/cube-maps/complex-refraction-example-shaders"
 import CubeMapTexture from "../../components/advanced/cube-maps/cube-map-texture"
 import CubeMapTextureExample from "../../components/advanced/cube-maps/cube-map-texture-example"
 import {
@@ -7,8 +9,10 @@ import {
   cubeMapTextureVertexShaderSource,
 } from "../../components/advanced/cube-maps/cube-map-texture-example-shaders"
 import ReflectionExample from "../../components/advanced/cube-maps/reflection-example"
+import { reflectionFragmentShaderSource } from "../../components/advanced/cube-maps/reflection-example-shaders"
 import ReflectionRefractionMapExample from "../../components/advanced/cube-maps/reflection-refraction-map-example"
 import SimpleRefractionExample from "../../components/advanced/cube-maps/simple-refraction-example"
+import { simpleRefractionFragmentShaderSource } from "../../components/advanced/cube-maps/simple-refraction-example-shaders"
 import SkyboxExample from "../../components/advanced/cube-maps/skybox-example"
 import { skyboxFragmentShaderSource, skyboxVertexShaderSource } from "../../components/advanced/cube-maps/skybox-example-shaders"
 import SkyboxMapTexture from "../../components/advanced/cube-maps/skybox-texture"
@@ -33,9 +37,6 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         "skybox",
         "reflections",
         "refractions",
-        "global",
-        "illumination",
-        "gi",
       ]}
     />
     <Content>
@@ -66,7 +67,20 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
     />
     <ReflectionRefractionMapExample />
     <ReflectionExample />
+    <GlslCodeHighlight
+      code={reflectionFragmentShaderSource}
+      type="Reflection Fragment"
+    />
     <SimpleRefractionExample />
+    <GlslCodeHighlight
+      code={simpleRefractionFragmentShaderSource}
+      type="Simple Refraction Fragment"
+    />
+    <ComplexRefractionExample />
+    <GlslCodeHighlight
+      code={complexRefractionFragmentShaderSource}
+      type="Complex Refraction Fragment"
+    />
     <PageChange previous="/advanced/shadow-mapping/" />
   </Layout>
 )
