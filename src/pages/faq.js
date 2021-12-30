@@ -188,23 +188,53 @@ const FaqPage = ({ location: { pathname } }) => (
             programming, but I will update this section when I do find reliable
             ones.
           </p>
+          <p>
+            There is a great course on Awwwards Academy called{" "}
+            <a href="https://www.awwwards.com/academy/course/the-fun-process-of-creating-lively-interactive-3d-scenes-for-the-web">
+              The fun process of creating lively interactive 3D scenes for the
+              web
+            </a>{" "}
+            that provides some great learning for creating interactive 3D scenes
+            (as it says in the name). It is a paid course but a great one for
+            those interested in learning more in that area. The course primarily
+            teaches with WebGL, using the Three.js library.
+          </p>
         </dd>
         <dt>Are all the materials shown on the website your own?</dt>
         <dd>
           <p>
             No, not all of the materials shown are owned by me. Some are sourced
-            from other areas, which I do try to provide a link or reference to.
+            from other areas, which I do try to provide a link or reference to
+            wherever they are used.
           </p>
           <p>
-            The link icon that you see alongside headings was gotten from{" "}
-            <a
-              href="http://simpleicon.com/link-2.html"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              simpleicon.com
-            </a>
+            For materials that I cannot provide the reference alongside them,
+            I've noted them down below.
           </p>
+          <ul>
+            <li>
+              The link icon that you see alongside headings was gotten from{" "}
+              <a
+                href="http://simpleicon.com/link-2.html"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                simpleicon.com
+              </a>
+              .
+            </li>
+            <li>
+              The GitHub icon that you see at the website footer was gotten from{" "}
+              <a
+                href="https://github.com/logos"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                GitHub's Logos and Usage page
+              </a>
+              .
+            </li>
+          </ul>
           <p>
             If you find any material that is not owned by me and is not properly
             linked to the source, open an issue at the{" "}

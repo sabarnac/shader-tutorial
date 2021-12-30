@@ -5,7 +5,7 @@ const Footer = () => (
   <div className="row">
     <footer className="column">
       <div className="author">
-        Logo from{" "}
+        Logo inspired from{" "}
         <a
           href="https://commons.wikimedia.org/wiki/File:Phong-shading-sample.jpg"
           rel="noopener noreferrer"
