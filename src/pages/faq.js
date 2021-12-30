@@ -149,7 +149,8 @@ const FaqPage = ({ location: { pathname } }) => (
         </dd>
         <dt>
           Do you have references for where one can learn about programming using
-          graphics APIs in general?
+          graphics APIs in general, learning about graphics rendering itself, or
+          learning about some ways to apply it?
         </dt>
         <dd>
           <p>
@@ -187,6 +188,18 @@ const FaqPage = ({ location: { pathname } }) => (
             I currently do not have any sources for DirectX and HLSL
             programming, but I will update this section when I do find reliable
             ones.
+          </p>
+          <p>
+            To learn about the graphics rendering pipeline in a lot of detail,
+            check out the blog series{" "}
+            <a
+              href="https://fgiesen.wordpress.com/2011/07/09/a-trip-through-the-graphics-pipeline-2011-index/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              A trip through the Graphics Pipeline 2011
+            </a>
+            , which is great.
           </p>
           <p>
             There is a great course on Awwwards Academy called{" "}
