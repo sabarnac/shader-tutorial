@@ -32,6 +32,5 @@ module.exports = {
       },
     },
     "gatsby-plugin-offline",
-    // "gatsby-plugin-remove-serviceworker",
   ],
 }
