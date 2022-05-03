@@ -7,10 +7,10 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-const Content = ({ children }) => <>{children}</>
+const Content = ({ children }) => <>{children}</>;
 
 Content.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
-export default Content
+export default Content;

@@ -1,9 +1,9 @@
-import { Link } from "gatsby"
-import React from "react"
+import { Link } from "gatsby";
+import React from "react";
 
-import Content from "../../components/content"
-import Layout from "../../components/layout"
-import Seo from "../../components/seo"
+import Content from "../../components/content";
+import Layout from "../../components/layout";
+import Seo from "../../components/seo";
 
 const BasicsIndexPage = ({ location: { pathname } }) => (
   <Layout>
@@ -43,6 +43,6 @@ const BasicsIndexPage = ({ location: { pathname } }) => (
       </ul>
     </Content>
   </Layout>
-)
+);
 
-export default BasicsIndexPage
+export default BasicsIndexPage;

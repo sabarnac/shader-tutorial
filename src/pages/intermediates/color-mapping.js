@@ -1,17 +1,20 @@
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
-import React from "react"
+import { Link } from "gatsby";
+import { StaticImage } from "gatsby-plugin-image";
+import React from "react";
 
-import Content from "../../components/content"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Heading from "../../components/heading"
-import TexturingFirstExample from "../../components/intermediates/color-mapping/first-example"
-import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/color-mapping/first-example-shaders"
-import TexturingSecondExample from "../../components/intermediates/color-mapping/second-example"
-import { secondFragmentShaderSource } from "../../components/intermediates/color-mapping/second-example-shaders"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import Seo from "../../components/seo"
+import Content from "../../components/content";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Heading from "../../components/heading";
+import TexturingFirstExample from "../../components/intermediates/color-mapping/first-example";
+import {
+  firstFragmentShaderSource,
+  firstVertexShaderSource,
+} from "../../components/intermediates/color-mapping/first-example-shaders";
+import TexturingSecondExample from "../../components/intermediates/color-mapping/second-example";
+import { secondFragmentShaderSource } from "../../components/intermediates/color-mapping/second-example-shaders";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import Seo from "../../components/seo";
 
 const ColorMappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -240,6 +243,6 @@ const ColorMappingPage = ({ location: { pathname } }) => (
       next="/intermediates/lighting/"
     />
   </Layout>
-)
+);
 
-export default ColorMappingPage
+export default ColorMappingPage;

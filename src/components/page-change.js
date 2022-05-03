@@ -15,16 +15,16 @@ const PageChange = ({ previous, next }) => (
       </div>
     ) : null}
   </div>
-)
+);
 
 PageChange.propTypes = {
   previous: PropTypes.string,
   next: PropTypes.string,
-}
+};
 
 PageChange.defaultProps = {
   previous: ``,
   next: ``,
-}
+};
 
-export default PageChange
+export default PageChange;

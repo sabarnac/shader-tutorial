@@ -1,13 +1,13 @@
-import example1 from "!raw-loader!../../components/advanced/branching/example-1.glsl"
-import example2 from "!raw-loader!../../components/advanced/branching/example-2.glsl"
-import React from "react"
+import example1 from "!raw-loader!../../components/advanced/branching/example-1.glsl";
+import example2 from "!raw-loader!../../components/advanced/branching/example-2.glsl";
+import React from "react";
 
-import Content from "../../components/content"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Heading from "../../components/heading"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import Seo from "../../components/seo"
+import Content from "../../components/content";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Heading from "../../components/heading";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import Seo from "../../components/seo";
 
 const BranchingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -116,6 +116,6 @@ const BranchingPage = ({ location: { pathname } }) => (
     </Content>
     <PageChange next="/advanced/color-banding-dithering/" />
   </Layout>
-)
+);
 
-export default BranchingPage
+export default BranchingPage;

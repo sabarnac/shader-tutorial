@@ -1,29 +1,31 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const wrapExample = ExampleComponent => {
+const wrapExample = (ExampleComponent) => {
   return () => {
-    const [hidden, setHidden] = useState(false)
-    const [height, setHeight] = useState(480)
+    const [hidden, setHidden] = useState(false);
+    const [height, setHeight] = useState(480);
 
     useEffect(() => {
-      setHidden(true)
-    }, [])
+      setHidden(true);
+    }, []);
 
-    const exampleRef = useCallback(div => {
-      if (div !== null) {
-        const observer = new IntersectionObserver(entries => {
-          entries.forEach(entry => {
+    const divRef = useRef();
+    useEffect(() => {
+      if (divRef.current !== null) {
+        const div = divRef.current;
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
             if (!entry.isIntersecting) {
-              setHidden(true)
+              setHidden(true);
             }
-          })
-        })
-        observer.observe(div)
-        setHeight(div.getBoundingClientRect().height)
+          });
+        });
+        observer.observe(div);
+        setHeight(div.getBoundingClientRect().height);
 
-        return () => observer.unobserve(div)
+        return () => observer.unobserve(div);
       }
-    }, [])
+    }, [divRef]);
 
     return hidden ? (
       <div
@@ -40,7 +42,7 @@ const wrapExample = ExampleComponent => {
         <button
           className="example-view-link"
           onClick={() => {
-            setHidden(false)
+            setHidden(false);
           }}
         >
           Show example
@@ -53,22 +55,22 @@ const wrapExample = ExampleComponent => {
           margin: "2rem 0",
           border: "1px dashed #dddddd",
         }}
-        ref={exampleRef}
+        ref={divRef}
       >
         <ExampleComponent />
         <div style={{ padding: "1rem", textAlign: "center" }}>
           <button
             className="example-view-link"
             onClick={() => {
-              setHidden(true)
+              setHidden(true);
             }}
           >
             Hide example
           </button>
         </div>
       </div>
-    )
-  }
-}
+    );
+  };
+};
 
-export default wrapExample
+export default wrapExample;

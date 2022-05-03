@@ -1,12 +1,12 @@
-import React from "react"
+import React from "react";
 
-import Content from "../../components/content"
-import Equation from "../../components/equation/equation"
-import Heading from "../../components/heading"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import Seo from "../../components/seo"
-import Mathematics1 from "../../images/basics/mathematics-1.gif"
+import Content from "../../components/content";
+import Equation from "../../components/equation/equation";
+import Heading from "../../components/heading";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import Seo from "../../components/seo";
+import Mathematics1 from "../../images/basics/mathematics-1.gif";
 
 const MathematicsPage = ({ location: { pathname } }) => (
   <Layout>
@@ -407,6 +407,6 @@ const MathematicsPage = ({ location: { pathname } }) => (
       next="/basics/vertex-shader/"
     />
   </Layout>
-)
+);
 
-export default MathematicsPage
+export default MathematicsPage;

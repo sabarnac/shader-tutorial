@@ -1,17 +1,17 @@
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
-import React from "react"
+import { Link } from "gatsby";
+import { StaticImage } from "gatsby-plugin-image";
+import React from "react";
 
-import BandingExample from "../../components/advanced/color-banding-dithering/banding-example"
-import { bandingFragmentShaderSource } from "../../components/advanced/color-banding-dithering/banding-example-shaders"
-import DitheringExample from "../../components/advanced/color-banding-dithering/dithering-example"
-import { ditheringFragmentShaderSource } from "../../components/advanced/color-banding-dithering/dithering-example-shaders"
-import Content from "../../components/content"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Heading from "../../components/heading"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import Seo from "../../components/seo"
+import BandingExample from "../../components/advanced/color-banding-dithering/banding-example";
+import { bandingFragmentShaderSource } from "../../components/advanced/color-banding-dithering/banding-example-shaders";
+import DitheringExample from "../../components/advanced/color-banding-dithering/dithering-example";
+import { ditheringFragmentShaderSource } from "../../components/advanced/color-banding-dithering/dithering-example-shaders";
+import Content from "../../components/content";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Heading from "../../components/heading";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import Seo from "../../components/seo";
 
 const ColorBandingDitheringPage = ({ location: { pathname } }) => (
   <Layout>
@@ -281,6 +281,6 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
       next="/advanced/transparency/"
     />
   </Layout>
-)
+);
 
-export default ColorBandingDitheringPage
+export default ColorBandingDitheringPage;

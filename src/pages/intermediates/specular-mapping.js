@@ -1,15 +1,18 @@
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
-import React from "react"
+import { Link } from "gatsby";
+import { StaticImage } from "gatsby-plugin-image";
+import React from "react";
 
-import Content from "../../components/content"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Heading from "../../components/heading"
-import SpecularMappingFirstExample from "../../components/intermediates/specular-mapping/first-example"
-import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/specular-mapping/first-example-shaders"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import Seo from "../../components/seo"
+import Content from "../../components/content";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Heading from "../../components/heading";
+import SpecularMappingFirstExample from "../../components/intermediates/specular-mapping/first-example";
+import {
+  firstFragmentShaderSource,
+  firstVertexShaderSource,
+} from "../../components/intermediates/specular-mapping/first-example-shaders";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import Seo from "../../components/seo";
 
 const SpecularMappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -160,6 +163,6 @@ const SpecularMappingPage = ({ location: { pathname } }) => (
     </Content>
     <PageChange previous="/intermediates/normal-mapping/" />
   </Layout>
-)
+);
 
-export default SpecularMappingPage
+export default SpecularMappingPage;

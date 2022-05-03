@@ -1,11 +1,11 @@
-import { StaticImage } from "gatsby-plugin-image"
-import React from "react"
+import { StaticImage } from "gatsby-plugin-image";
+import React from "react";
 
-import Content from "../../components/content"
-import Heading from "../../components/heading"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import Seo from "../../components/seo"
+import Content from "../../components/content";
+import Heading from "../../components/heading";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import Seo from "../../components/seo";
 
 const ColorPage = ({ location: { pathname } }) => (
   <Layout>
@@ -321,6 +321,6 @@ const ColorPage = ({ location: { pathname } }) => (
       next="/basics/fragment-shader/"
     />
   </Layout>
-)
+);
 
-export default ColorPage
+export default ColorPage;

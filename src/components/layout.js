@@ -4,18 +4,18 @@
  *
  * See: https://www.gatsbyjs.org/docs/static-query/
  */
- import "./milligram.css"
- import "./normalize.css"
- import "./roboto-font.css"
- import "./layout.css"
+import "./milligram.css";
+import "./normalize.css";
+import "./roboto-font.css";
+import "./layout.css";
 
-import { graphql, StaticQuery } from "gatsby"
-import PropTypes from "prop-types"
-import React from "react"
+import { graphql, StaticQuery } from "gatsby";
+import PropTypes from "prop-types";
+import React from "react";
 
-import Footer from "./footer"
-import Header from "./header"
-import Notice from "./notice"
+import Footer from "./footer";
+import Header from "./header";
+import Notice from "./notice";
 
 const Layout = ({ children, isHomePage }) => (
   <StaticQuery
@@ -47,15 +47,15 @@ const Layout = ({ children, isHomePage }) => (
       </div>
     )}
   />
-)
+);
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
   isHomePage: PropTypes.bool,
-}
+};
 
 Layout.defaultProps = {
   isHomePage: false,
-}
+};
 
-export default Layout
+export default Layout;

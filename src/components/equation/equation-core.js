@@ -1,6 +1,6 @@
-import PropTypes from "prop-types"
-import React from "react"
-import MathJax from "react-mathjax2"
+import PropTypes from "prop-types";
+import React from "react";
+import MathJax from "react-mathjax2";
 
 const EquationCore = ({ text }) => (
   <code
@@ -10,10 +10,10 @@ const EquationCore = ({ text }) => (
       <MathJax.Node inline>{text}</MathJax.Node>
     </MathJax.Context>
   </code>
-)
+);
 
 EquationCore.propTypes = {
   text: PropTypes.string.isRequired,
-}
+};
 
-export default EquationCore
+export default EquationCore;

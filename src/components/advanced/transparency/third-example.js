@@ -1,10 +1,10 @@
-import { mat4 } from "gl-matrix"
-import React, { useCallback, useEffect, useState } from "react"
+import { mat4 } from "gl-matrix";
+import React, { useEffect, useRef, useState } from "react";
 
-import { runOnPredicate } from "../../util"
-import wrapExample from "../../webgl-example-view"
-import WebGlWrapper from "../../webgl-wrapper"
-import { fragmentShaderSource, vertexShaderSource } from "./common-shaders"
+import { runOnPredicate } from "../../util";
+import wrapExample from "../../webgl-example-view";
+import WebGlWrapper from "../../webgl-wrapper";
+import { fragmentShaderSource, vertexShaderSource } from "./common-shaders";
 
 const shaderProgramInfo = {
   vertex: {
@@ -16,9 +16,9 @@ const shaderProgramInfo = {
       mvpMatrix: "mat4",
     },
   },
-}
+};
 
-const cubeModelPosition = mat4.create()
+const cubeModelPosition = mat4.create();
 
 const TransparencyThirdExample = () => {
   const cube = {
@@ -58,135 +58,141 @@ const TransparencyThirdExample = () => {
       [0, 1, 2, 3, 4, 5],
       [6, 7, 8, 9, 10, 11],
     ],
-  }
-  const [webGlRef, updateWebGlRef] = useState(null)
-  const [shaderProgram, updateShaderProgram] = useState(null)
-  const [shaderInfo, updateShaderInfo] = useState(null)
+  };
+  const [webGlRef, updateWebGlRef] = useState(null);
+  const [shaderProgram, updateShaderProgram] = useState(null);
+  const [shaderInfo, updateShaderInfo] = useState(null);
   const [cubeBuffer, updateCubeBuffer] = useState({
     vertices: null,
     colors: null,
     indices: null,
-  })
+  });
 
-  const canvasRef = useCallback(canvas => {
-    if (canvas !== null) {
-      updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition, true))
-      return () =>
-        updateWebGlRef(webGlRef => {
-          webGlRef.destroy()
-          return null
-        })
+  const canvasRef = useRef();
+  useEffect(() => {
+    if (canvasRef.current !== null) {
+      const newWebGlRef = new WebGlWrapper(
+        canvas.current,
+        cubeModelPosition,
+        true,
+      );
+      updateWebGlRef(newWebGlRef);
+
+      return () => {
+        updateWebGlRef(null);
+        newWebGlRef.destroy();
+      };
     }
-  }, [])
+  }, [canvasRef]);
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
-        webGlRef.createShaderProgram(vertexShaderSource, fragmentShaderSource)
-      )
+        webGlRef.createShaderProgram(vertexShaderSource, fragmentShaderSource),
+      );
     }),
-    [webGlRef]
-  )
+    [webGlRef],
+  );
 
   useEffect(
     runOnPredicate(shaderProgram !== null, () => {
       updateShaderInfo(
-        webGlRef.getDataLocations(shaderProgram, shaderProgramInfo)
-      )
+        webGlRef.getDataLocations(shaderProgram, shaderProgramInfo),
+      );
     }),
-    [shaderProgram]
-  )
+    [shaderProgram],
+  );
 
   useEffect(
     runOnPredicate(shaderInfo !== null, () => {
       updateCubeBuffer({
         vertices: webGlRef.createStaticDrawArrayBuffer(
           cube.vertices.flat(),
-          cubeBuffer.vertices
+          cubeBuffer.vertices,
         ),
         colors: webGlRef.createStaticDrawArrayBuffer(
           cube.colors.flat(),
-          cubeBuffer.colors
+          cubeBuffer.colors,
         ),
         indices: webGlRef.createElementArrayBuffer(
           cube.indices.flat(),
-          cubeBuffer.indices
+          cubeBuffer.indices,
         ),
-      })
+      });
     }),
-    [shaderInfo]
-  )
+    [shaderInfo],
+  );
 
   useEffect(
     runOnPredicate(cubeBuffer.vertices !== null, () => {
-      let shouldRender = true
+      let shouldRender = true;
 
       const renderScene = () => {
         webGlRef.renderSceneOrtho(
           ({ gl, orthoMatrix, viewMatrix, modelMatrix }) => {
             if (!shouldRender) {
-              return
+              return;
             }
 
-            const mvpMatrix = mat4.create()
-            mat4.multiply(mvpMatrix, viewMatrix, modelMatrix)
-            mat4.multiply(mvpMatrix, orthoMatrix, mvpMatrix)
+            const mvpMatrix = mat4.create();
+            mat4.multiply(mvpMatrix, viewMatrix, modelMatrix);
+            mat4.multiply(mvpMatrix, orthoMatrix, mvpMatrix);
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.vertices)
+            gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.vertices);
             gl.vertexAttribPointer(
               shaderInfo.vertex.attributeLocations.vertexPosition.reverse,
               3,
               gl.FLOAT,
               false,
               0,
-              0
-            )
+              0,
+            );
             gl.enableVertexAttribArray(
-              shaderInfo.vertex.attributeLocations.vertexPosition
-            )
+              shaderInfo.vertex.attributeLocations.vertexPosition,
+            );
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.colors)
+            gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.colors);
             gl.vertexAttribPointer(
               shaderInfo.vertex.attributeLocations.vertexColor,
               3,
               gl.FLOAT,
               false,
               0,
-              0
-            )
+              0,
+            );
             gl.enableVertexAttribArray(
-              shaderInfo.vertex.attributeLocations.vertexColor
-            )
+              shaderInfo.vertex.attributeLocations.vertexColor,
+            );
 
-            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeBuffer.indices)
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeBuffer.indices);
 
-            gl.useProgram(shaderProgram)
+            gl.useProgram(shaderProgram);
 
             gl.uniformMatrix4fv(
               shaderInfo.vertex.uniformLocations.mvpMatrix,
               false,
-              mvpMatrix
-            )
+              mvpMatrix,
+            );
 
             gl.drawElements(
               gl.TRIANGLES,
               cube.indices.length * cube.indices[0].length,
               gl.UNSIGNED_SHORT,
-              0
-            )
+              0,
+            );
 
-            requestAnimationFrame(renderScene)
-          }
-        )
-      }
-      requestAnimationFrame(renderScene)
+            requestAnimationFrame(renderScene);
+          },
+        );
+      };
+      requestAnimationFrame(renderScene);
 
       return () => {
-        shouldRender = false
-      }
+        shouldRender = false;
+      };
     }),
-    [cubeBuffer]
-  )
+    [cubeBuffer],
+  );
 
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
@@ -205,7 +211,7 @@ Order of Faces:
 `.trim()}
       </pre>
     </div>
-  )
-}
+  );
+};
 
-export default wrapExample(TransparencyThirdExample)
+export default wrapExample(TransparencyThirdExample);

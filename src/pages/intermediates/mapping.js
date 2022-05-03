@@ -1,11 +1,11 @@
-import { StaticImage } from "gatsby-plugin-image"
-import React from "react"
+import { StaticImage } from "gatsby-plugin-image";
+import React from "react";
 
-import Content from "../../components/content"
-import Heading from "../../components/heading"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import Seo from "../../components/seo"
+import Content from "../../components/content";
+import Heading from "../../components/heading";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import Seo from "../../components/seo";
 
 const MappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -171,6 +171,6 @@ const MappingPage = ({ location: { pathname } }) => (
       next="/intermediates/color-mapping/"
     />
   </Layout>
-)
+);
 
-export default MappingPage
+export default MappingPage;

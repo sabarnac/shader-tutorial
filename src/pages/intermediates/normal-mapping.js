@@ -1,19 +1,25 @@
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
-import React from "react"
+import { Link } from "gatsby";
+import { StaticImage } from "gatsby-plugin-image";
+import React from "react";
 
-import Content from "../../components/content"
-import Equation from "../../components/equation/equation"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Heading from "../../components/heading"
-import NormalMappingFirstExample from "../../components/intermediates/normal-mapping/first-example"
-import NormalMappingSecondExample from "../../components/intermediates/normal-mapping/second-example"
-import { secondFragmentShaderSource, secondVertexShaderSource } from "../../components/intermediates/normal-mapping/second-example-shaders"
-import NormalMappingThirdExample from "../../components/intermediates/normal-mapping/third-example"
-import { thirdFragmentShaderSource, thirdVertexShaderSource } from "../../components/intermediates/normal-mapping/third-example-shaders"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import Seo from "../../components/seo"
+import Content from "../../components/content";
+import Equation from "../../components/equation/equation";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Heading from "../../components/heading";
+import NormalMappingFirstExample from "../../components/intermediates/normal-mapping/first-example";
+import NormalMappingSecondExample from "../../components/intermediates/normal-mapping/second-example";
+import {
+  secondFragmentShaderSource,
+  secondVertexShaderSource,
+} from "../../components/intermediates/normal-mapping/second-example-shaders";
+import NormalMappingThirdExample from "../../components/intermediates/normal-mapping/third-example";
+import {
+  thirdFragmentShaderSource,
+  thirdVertexShaderSource,
+} from "../../components/intermediates/normal-mapping/third-example-shaders";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import Seo from "../../components/seo";
 
 const NormalMappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -504,6 +510,6 @@ const NormalMappingPage = ({ location: { pathname } }) => (
       next="/intermediates/specular-mapping/"
     />
   </Layout>
-)
+);
 
-export default NormalMappingPage
+export default NormalMappingPage;
