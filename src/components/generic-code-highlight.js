@@ -1,7 +1,7 @@
-import PropTypes from "prop-types"
-import React, { Fragment } from "react"
-import SyntaxHighlighter from "react-syntax-highlighter"
-import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs"
+import PropTypes from "prop-types";
+import React, { Fragment } from "react";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 const GenericCodeHighlight = ({ showHeader = true, code, type, language }) => (
   <Fragment>
@@ -34,13 +34,13 @@ const GenericCodeHighlight = ({ showHeader = true, code, type, language }) => (
       {code}
     </SyntaxHighlighter>
   </Fragment>
-)
+);
 
 GenericCodeHighlight.propTypes = {
   showHeader: PropTypes.bool,
   code: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
-}
+};
 
-export default GenericCodeHighlight
+export default GenericCodeHighlight;

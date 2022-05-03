@@ -1,16 +1,19 @@
-import { mat4, vec4 } from "gl-matrix"
-import React, { useEffect, useRef, useState } from "react"
+import { mat4, vec4 } from "gl-matrix";
+import React, { useEffect, useRef, useState } from "react";
 
-import skyboxFaceNegativeX from "../../../images/advanced/skybox-face-negative-x.png"
-import skyboxFaceNegativeY from "../../../images/advanced/skybox-face-negative-y.png"
-import skyboxFaceNegativeZ from "../../../images/advanced/skybox-face-negative-z.png"
-import skyboxFacePositiveX from "../../../images/advanced/skybox-face-positive-x.png"
-import skyboxFacePositiveY from "../../../images/advanced/skybox-face-positive-y.png"
-import skyboxFacePositiveZ from "../../../images/advanced/skybox-face-positive-z.png"
-import { runOnPredicate } from "../../util"
-import wrapExample from "../../webgl-example-view"
-import WebGlWrapper from "../../webgl-wrapper"
-import { skyboxFragmentShaderSource, skyboxVertexShaderSource } from "./skybox-example-shaders"
+import skyboxFaceNegativeX from "../../../images/advanced/skybox-face-negative-x.png";
+import skyboxFaceNegativeY from "../../../images/advanced/skybox-face-negative-y.png";
+import skyboxFaceNegativeZ from "../../../images/advanced/skybox-face-negative-z.png";
+import skyboxFacePositiveX from "../../../images/advanced/skybox-face-positive-x.png";
+import skyboxFacePositiveY from "../../../images/advanced/skybox-face-positive-y.png";
+import skyboxFacePositiveZ from "../../../images/advanced/skybox-face-positive-z.png";
+import { runOnPredicate } from "../../util";
+import wrapExample from "../../webgl-example-view";
+import WebGlWrapper from "../../webgl-wrapper";
+import {
+  skyboxFragmentShaderSource,
+  skyboxVertexShaderSource,
+} from "./skybox-example-shaders";
 
 const shaderProgramInfo = {
   vertex: {
@@ -29,7 +32,7 @@ const shaderProgramInfo = {
       skyboxSampler: "samplerCube",
     },
   },
-}
+};
 
 const SkyboxExample = () => {
   const skybox = {
@@ -117,185 +120,185 @@ const SkyboxExample = () => {
         src: skyboxFaceNegativeZ,
       },
     ],
-  }
+  };
 
-  const [webGlRef, updateWebGlRef] = useState(null)
-  const [shaderProgram, updateShaderProgram] = useState(null)
-  const [shaderInfo, updateShaderInfo] = useState(null)
+  const [webGlRef, updateWebGlRef] = useState(null);
+  const [shaderProgram, updateShaderProgram] = useState(null);
+  const [shaderInfo, updateShaderInfo] = useState(null);
   const [skyboxBuffer, updateSkyboxBuffer] = useState({
     vertices: null,
     indices: null,
     texture: null,
-  })
+  });
 
-  const canvasRef = useRef()
+  const canvasRef = useRef();
   useEffect(() => {
     if (canvasRef.current !== null) {
-      const newWebGlRef = new WebGlWrapper(canvasRef.current, mat4.create())
-      updateWebGlRef(newWebGlRef)
+      const newWebGlRef = new WebGlWrapper(canvasRef.current, mat4.create());
+      updateWebGlRef(newWebGlRef);
 
       return () => {
-        newWebGlRef.destroy()
-        updateWebGlRef(null)
-      }
+        newWebGlRef.destroy();
+        updateWebGlRef(null);
+      };
     }
-  }, [canvasRef])
+  }, [canvasRef]);
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
           skyboxVertexShaderSource,
-          skyboxFragmentShaderSource
-        )
-      )
+          skyboxFragmentShaderSource,
+        ),
+      );
     }),
-    [webGlRef]
-  )
+    [webGlRef],
+  );
 
   useEffect(
     runOnPredicate(shaderProgram !== null, () => {
       updateShaderInfo(
-        webGlRef.getDataLocations(shaderProgram, shaderProgramInfo)
-      )
+        webGlRef.getDataLocations(shaderProgram, shaderProgramInfo),
+      );
     }),
-    [shaderProgram]
-  )
+    [shaderProgram],
+  );
 
   useEffect(
     runOnPredicate(shaderInfo !== null, () => {
       updateSkyboxBuffer({
         vertices: webGlRef.createStaticDrawArrayBuffer(
           skybox.vertices.flat(),
-          skyboxBuffer.vertices
+          skyboxBuffer.vertices,
         ),
         indices: webGlRef.createElementArrayBuffer(
           skybox.indices.flat(),
-          skyboxBuffer.indices
+          skyboxBuffer.indices,
         ),
         texture: webGlRef.createCubeMapTexture(
           skybox.textures,
-          skyboxBuffer.texture
+          skyboxBuffer.texture,
         ),
-      })
+      });
     }),
-    [shaderInfo]
-  )
+    [shaderInfo],
+  );
 
   useEffect(
     runOnPredicate(skyboxBuffer.vertices !== null, () => {
-      let shouldRender = true
+      let shouldRender = true;
 
       const renderScene = () => {
         webGlRef.renderScene(({ gl, modelMatrix }) => {
           if (!shouldRender) {
-            return
+            return;
           }
 
-          const projectionMatrix = mat4.create()
+          const projectionMatrix = mat4.create();
           mat4.perspective(
             projectionMatrix,
             (100 * Math.PI) / 180,
             1.0,
             0.1,
-            50
-          )
+            50,
+          );
 
           const time = parseInt(
             typeof performance !== "undefined"
               ? performance.now()
-              : (0.0).toString()
-          )
+              : (0.0).toString(),
+          );
 
-          const rotatedCameraMatrix = mat4.create()
+          const rotatedCameraMatrix = mat4.create();
           const rotationAngle =
-            (-1 * (((time / 30) % (360 * 6)) * Math.PI)) / 180
+            (-1 * (((time / 30) % (360 * 6)) * Math.PI)) / 180;
           if (Math.floor(rotationAngle / (2 * Math.PI)) % 2 === 0) {
             mat4.rotateY(
               rotatedCameraMatrix,
               rotatedCameraMatrix,
-              rotationAngle
-            )
+              rotationAngle,
+            );
           } else {
             mat4.rotateX(
               rotatedCameraMatrix,
               rotatedCameraMatrix,
-              rotationAngle
-            )
+              rotationAngle,
+            );
           }
 
-          const lookAtPosition = vec4.fromValues(0.0, 0.0, 1.0, 1.0)
+          const lookAtPosition = vec4.fromValues(0.0, 0.0, 1.0, 1.0);
           vec4.transformMat4(
             lookAtPosition,
             lookAtPosition,
-            rotatedCameraMatrix
-          )
-          const upVector = vec4.fromValues(0.0, 1.0, 0.0, 1.0)
-          vec4.transformMat4(upVector, upVector, rotatedCameraMatrix)
+            rotatedCameraMatrix,
+          );
+          const upVector = vec4.fromValues(0.0, 1.0, 0.0, 1.0);
+          vec4.transformMat4(upVector, upVector, rotatedCameraMatrix);
 
-          const viewMatrix = mat4.create()
+          const viewMatrix = mat4.create();
           mat4.lookAt(
             viewMatrix,
             [0.0, 0.0, 0.0],
             [lookAtPosition[0], lookAtPosition[1], lookAtPosition[2]],
-            [upVector[0], upVector[1], upVector[2]]
-          )
+            [upVector[0], upVector[1], upVector[2]],
+          );
 
-          gl.bindBuffer(gl.ARRAY_BUFFER, skyboxBuffer.vertices)
+          gl.bindBuffer(gl.ARRAY_BUFFER, skyboxBuffer.vertices);
           gl.vertexAttribPointer(
             shaderInfo.vertex.attributeLocations.vertexPosition,
             3,
             gl.FLOAT,
             false,
             0,
-            0
-          )
+            0,
+          );
           gl.enableVertexAttribArray(
-            shaderInfo.vertex.attributeLocations.vertexPosition
-          )
+            shaderInfo.vertex.attributeLocations.vertexPosition,
+          );
 
-          gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, skyboxBuffer.indices)
+          gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, skyboxBuffer.indices);
 
-          gl.useProgram(shaderProgram)
+          gl.useProgram(shaderProgram);
 
           gl.uniformMatrix4fv(
             shaderInfo.vertex.uniformLocations.projectionMatrix,
             false,
-            projectionMatrix
-          )
+            projectionMatrix,
+          );
           gl.uniformMatrix4fv(
             shaderInfo.vertex.uniformLocations.viewMatrix,
             false,
-            viewMatrix
-          )
+            viewMatrix,
+          );
           gl.uniformMatrix4fv(
             shaderInfo.vertex.uniformLocations.modelMatrix,
             false,
-            modelMatrix
-          )
+            modelMatrix,
+          );
 
-          gl.activeTexture(gl.TEXTURE0)
-          gl.bindTexture(gl.TEXTURE_CUBE_MAP, skyboxBuffer.texture)
-          gl.uniform1i(shaderInfo.fragment.uniformLocations.skyboxSampler, 0)
+          gl.activeTexture(gl.TEXTURE0);
+          gl.bindTexture(gl.TEXTURE_CUBE_MAP, skyboxBuffer.texture);
+          gl.uniform1i(shaderInfo.fragment.uniformLocations.skyboxSampler, 0);
 
           gl.drawElements(
             gl.TRIANGLES,
             skybox.indices.length * skybox.indices[0].length,
             gl.UNSIGNED_SHORT,
-            0
-          )
-        })
+            0,
+          );
+        });
 
-        requestAnimationFrame(renderScene)
-      }
-      requestAnimationFrame(renderScene)
+        requestAnimationFrame(renderScene);
+      };
+      requestAnimationFrame(renderScene);
 
       return () => {
-        shouldRender = false
-      }
+        shouldRender = false;
+      };
     }),
-    [skyboxBuffer]
-  )
+    [skyboxBuffer],
+  );
 
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
@@ -303,7 +306,7 @@ const SkyboxExample = () => {
         Cannot run WebGL examples (not supported)
       </canvas>
     </div>
-  )
-}
+  );
+};
 
-export default wrapExample(SkyboxExample)
+export default wrapExample(SkyboxExample);

@@ -1,5 +1,5 @@
 import fragmentShader from "!raw-loader!./second-example/fragment.glsl";
 import vertexShader from "!raw-loader!./second-example/vertex.glsl";
 
-export const secondVertexShaderSource = vertexShader
-export const secondFragmentShaderSource = fragmentShader
+export const secondVertexShaderSource = vertexShader;
+export const secondFragmentShaderSource = fragmentShader;

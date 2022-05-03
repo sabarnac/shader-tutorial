@@ -1,10 +1,10 @@
-import React from "react"
+import React from "react";
 
-import Content from "../../components/content"
-import Heading from "../../components/heading"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import Seo from "../../components/seo"
+import Content from "../../components/content";
+import Heading from "../../components/heading";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import Seo from "../../components/seo";
 
 const IntroductionPage = ({ location: { pathname } }) => (
   <Layout>
@@ -104,6 +104,6 @@ const IntroductionPage = ({ location: { pathname } }) => (
     </Content>
     <PageChange next="/basics/render-pipeline/" />
   </Layout>
-)
+);
 
-export default IntroductionPage
+export default IntroductionPage;

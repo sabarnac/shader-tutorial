@@ -1,8 +1,8 @@
-import loadable from "@loadable/component"
-import PropTypes from "prop-types"
-import React from "react"
+import loadable from "@loadable/component";
+import PropTypes from "prop-types";
+import React from "react";
 
-const EquationCore = loadable(() => import("./equation-core"))
+const EquationCore = loadable(() => import("./equation-core"));
 
 const Equation = ({ text }) => (
   <EquationCore
@@ -15,10 +15,10 @@ const Equation = ({ text }) => (
     }
     text={text}
   />
-)
+);
 
 Equation.propTypes = {
   text: PropTypes.string.isRequired,
-}
+};
 
-export default Equation
+export default Equation;

@@ -1,15 +1,15 @@
-import PropTypes from "prop-types"
-import React, { useEffect, useState } from "react"
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 
-import animatedIconAvif from "../images/icon-animated.avif"
-import animatedIconPng from "../images/icon-animated.png"
-import icon from "../images/icon.png"
-import Navigation from "./navigation"
+import animatedIconAvif from "../images/icon-animated.avif";
+import animatedIconPng from "../images/icon-animated.png";
+import icon from "../images/icon.png";
+import Navigation from "./navigation";
 
 const Header = ({ siteTitle, isHomePage }) => {
-  const [showAnimatedIcon, setShowAnimatedIcon] = useState(false)
+  const [showAnimatedIcon, setShowAnimatedIcon] = useState(false);
 
-  useEffect(() => setShowAnimatedIcon(true), [])
+  useEffect(() => setShowAnimatedIcon(true), []);
 
   return (
     <header className="column column-25">
@@ -45,17 +45,17 @@ const Header = ({ siteTitle, isHomePage }) => {
       )}
       <Navigation />
     </header>
-  )
-}
+  );
+};
 
 Header.propTypes = {
   siteTitle: PropTypes.string,
   isHomePage: PropTypes.bool,
-}
+};
 
 Header.defaultProps = {
   siteTitle: ``,
   isHomePage: false,
-}
+};
 
-export default Header
+export default Header;

@@ -1,9 +1,9 @@
-import { Link } from "gatsby"
-import React from "react"
+import { Link } from "gatsby";
+import React from "react";
 
-import Content from "../components/content"
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Content from "../components/content";
+import Layout from "../components/layout";
+import Seo from "../components/seo";
 
 const FaqPage = ({ location: { pathname } }) => (
   <Layout>
@@ -264,6 +264,6 @@ const FaqPage = ({ location: { pathname } }) => (
       </dl>
     </Content>
   </Layout>
-)
+);
 
-export default FaqPage
+export default FaqPage;

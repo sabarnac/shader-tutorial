@@ -1,9 +1,9 @@
-import React from "react"
+import React from "react";
 
-import Content from "../../components/content"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import Seo from "../../components/seo"
+import Content from "../../components/content";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import Seo from "../../components/seo";
 
 const EndPage = ({ location: { pathname } }) => (
   <Layout>
@@ -59,6 +59,6 @@ const EndPage = ({ location: { pathname } }) => (
     </Content>
     <PageChange previous="/basics/fragment-shader/" />
   </Layout>
-)
+);
 
-export default EndPage
+export default EndPage;

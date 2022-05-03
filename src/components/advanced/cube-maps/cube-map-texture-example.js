@@ -1,16 +1,19 @@
-import { mat4, vec4 } from "gl-matrix"
-import React, { useEffect, useRef, useState } from "react"
+import { mat4, vec4 } from "gl-matrix";
+import React, { useEffect, useRef, useState } from "react";
 
-import cubeFaceNegativeX from "../../../images/advanced/cube-face-negative-x.png"
-import cubeFaceNegativeY from "../../../images/advanced/cube-face-negative-y.png"
-import cubeFaceNegativeZ from "../../../images/advanced/cube-face-negative-z.png"
-import cubeFacePositiveX from "../../../images/advanced/cube-face-positive-x.png"
-import cubeFacePositiveY from "../../../images/advanced/cube-face-positive-y.png"
-import cubeFacePositiveZ from "../../../images/advanced/cube-face-positive-z.png"
-import { coordArrToString, runOnPredicate } from "../../util"
-import wrapExample from "../../webgl-example-view"
-import WebGlWrapper from "../../webgl-wrapper"
-import { cubeMapTextureFragmentShaderSource, cubeMapTextureVertexShaderSource } from "./cube-map-texture-example-shaders"
+import cubeFaceNegativeX from "../../../images/advanced/cube-face-negative-x.png";
+import cubeFaceNegativeY from "../../../images/advanced/cube-face-negative-y.png";
+import cubeFaceNegativeZ from "../../../images/advanced/cube-face-negative-z.png";
+import cubeFacePositiveX from "../../../images/advanced/cube-face-positive-x.png";
+import cubeFacePositiveY from "../../../images/advanced/cube-face-positive-y.png";
+import cubeFacePositiveZ from "../../../images/advanced/cube-face-positive-z.png";
+import { coordArrToString, runOnPredicate } from "../../util";
+import wrapExample from "../../webgl-example-view";
+import WebGlWrapper from "../../webgl-wrapper";
+import {
+  cubeMapTextureFragmentShaderSource,
+  cubeMapTextureVertexShaderSource,
+} from "./cube-map-texture-example-shaders";
 
 const shaderProgramInfo = {
   vertex: {
@@ -30,9 +33,9 @@ const shaderProgramInfo = {
       cubeMapTextureSampler: "samplerCube",
     },
   },
-}
+};
 
-const cubeModelPosition = vec4.fromValues(0.0, 0.0, 0.0, 1.0)
+const cubeModelPosition = vec4.fromValues(0.0, 0.0, 0.0, 1.0);
 
 const CubeMapTextureExample = () => {
   const cube = {
@@ -120,172 +123,172 @@ const CubeMapTextureExample = () => {
         src: cubeFaceNegativeZ,
       },
     ],
-  }
+  };
 
-  const [webGlRef, updateWebGlRef] = useState(null)
-  const [shaderProgram, updateShaderProgram] = useState(null)
-  const [shaderInfo, updateShaderInfo] = useState(null)
+  const [webGlRef, updateWebGlRef] = useState(null);
+  const [shaderProgram, updateShaderProgram] = useState(null);
+  const [shaderInfo, updateShaderInfo] = useState(null);
   const [cubeBuffer, updateCubeBuffer] = useState({
     vertices: null,
     indices: null,
-  })
-  const [cubeMapTexture, updateCubeMapTexture] = useState(null)
+  });
+  const [cubeMapTexture, updateCubeMapTexture] = useState(null);
 
-  const canvasRef = useRef()
+  const canvasRef = useRef();
   useEffect(() => {
     if (canvasRef.current !== null) {
-      const newWebGlRef = new WebGlWrapper(canvasRef.current, mat4.create())
-      updateWebGlRef(newWebGlRef)
+      const newWebGlRef = new WebGlWrapper(canvasRef.current, mat4.create());
+      updateWebGlRef(newWebGlRef);
 
       return () => {
-        updateWebGlRef(null)
-        newWebGlRef.destroy()
-      }
+        updateWebGlRef(null);
+        newWebGlRef.destroy();
+      };
     }
-  }, [canvasRef])
+  }, [canvasRef]);
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {
       updateCubeMapTexture(
-        webGlRef.createCubeMapTexture(cube.textures, cubeMapTexture)
-      )
+        webGlRef.createCubeMapTexture(cube.textures, cubeMapTexture),
+      );
     }),
-    [webGlRef]
-  )
+    [webGlRef],
+  );
 
   useEffect(
     runOnPredicate(cubeMapTexture !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
           cubeMapTextureVertexShaderSource,
-          cubeMapTextureFragmentShaderSource
-        )
-      )
+          cubeMapTextureFragmentShaderSource,
+        ),
+      );
     }),
-    [cubeMapTexture]
-  )
+    [cubeMapTexture],
+  );
 
   useEffect(
     runOnPredicate(shaderProgram !== null, () => {
       updateShaderInfo(
-        webGlRef.getDataLocations(shaderProgram, shaderProgramInfo)
-      )
+        webGlRef.getDataLocations(shaderProgram, shaderProgramInfo),
+      );
     }),
-    [shaderProgram]
-  )
+    [shaderProgram],
+  );
 
   useEffect(
     runOnPredicate(shaderInfo !== null, () => {
       updateCubeBuffer({
         vertices: webGlRef.createStaticDrawArrayBuffer(
           cube.vertices.flat(),
-          cubeBuffer.vertices
+          cubeBuffer.vertices,
         ),
         indices: webGlRef.createElementArrayBuffer(
           cube.indices.flat(),
-          cubeBuffer.indices
+          cubeBuffer.indices,
         ),
-      })
+      });
     }),
-    [shaderInfo]
-  )
+    [shaderInfo],
+  );
 
   useEffect(
     runOnPredicate(cubeBuffer.vertices !== null, () => {
-      let shouldRender = true
+      let shouldRender = true;
 
       const renderScene = () => {
         webGlRef.renderScene(({ gl, projectionMatrix }) => {
           if (!shouldRender) {
-            return
+            return;
           }
 
-          const viewMatrix = mat4.create()
+          const viewMatrix = mat4.create();
           mat4.lookAt(
             viewMatrix,
             [4.0, 4.0, 4.0],
             [0.0, 0.0, 0.0],
-            [0.0, 1.0, 0.0]
-          )
+            [0.0, 1.0, 0.0],
+          );
 
           const time = parseInt(
             typeof performance !== "undefined"
               ? performance.now()
-              : (0.0).toString()
-          )
+              : (0.0).toString(),
+          );
 
-          const rotatedModelMatrix = mat4.create()
-          mat4.fromTranslation(rotatedModelMatrix, cubeModelPosition)
-          const rotationAngle = (((time / 30) % (360 * 6)) * Math.PI) / 180
+          const rotatedModelMatrix = mat4.create();
+          mat4.fromTranslation(rotatedModelMatrix, cubeModelPosition);
+          const rotationAngle = (((time / 30) % (360 * 6)) * Math.PI) / 180;
           if (Math.floor(rotationAngle / (2 * Math.PI)) % 2 === 0) {
-            mat4.rotateY(rotatedModelMatrix, rotatedModelMatrix, rotationAngle)
+            mat4.rotateY(rotatedModelMatrix, rotatedModelMatrix, rotationAngle);
           } else {
-            mat4.rotateZ(rotatedModelMatrix, rotatedModelMatrix, rotationAngle)
+            mat4.rotateZ(rotatedModelMatrix, rotatedModelMatrix, rotationAngle);
           }
 
-          gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.vertices)
+          gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer.vertices);
           gl.vertexAttribPointer(
             shaderInfo.vertex.attributeLocations.vertexPosition,
             3,
             gl.FLOAT,
             false,
             0,
-            0
-          )
+            0,
+          );
           gl.enableVertexAttribArray(
-            shaderInfo.vertex.attributeLocations.vertexPosition
-          )
+            shaderInfo.vertex.attributeLocations.vertexPosition,
+          );
 
-          gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeBuffer.indices)
+          gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeBuffer.indices);
 
-          gl.useProgram(shaderProgram)
+          gl.useProgram(shaderProgram);
 
           gl.uniformMatrix4fv(
             shaderInfo.vertex.uniformLocations.projectionMatrix,
             false,
-            projectionMatrix
-          )
+            projectionMatrix,
+          );
           gl.uniformMatrix4fv(
             shaderInfo.vertex.uniformLocations.viewMatrix,
             false,
-            viewMatrix
-          )
+            viewMatrix,
+          );
           gl.uniformMatrix4fv(
             shaderInfo.vertex.uniformLocations.modelMatrix,
             false,
-            rotatedModelMatrix
-          )
+            rotatedModelMatrix,
+          );
 
           gl.uniform4fv(
             shaderInfo.fragment.uniformLocations.modelPosition_worldSpace,
-            cubeModelPosition
-          )
+            cubeModelPosition,
+          );
 
-          gl.activeTexture(gl.TEXTURE0)
-          gl.bindTexture(gl.TEXTURE_CUBE_MAP, cubeMapTexture)
+          gl.activeTexture(gl.TEXTURE0);
+          gl.bindTexture(gl.TEXTURE_CUBE_MAP, cubeMapTexture);
           gl.uniform1i(
             shaderInfo.fragment.uniformLocations.cubeMapTextureSampler,
-            0
-          )
+            0,
+          );
 
           gl.drawElements(
             gl.TRIANGLES,
             cube.indices.length * cube.indices[0].length,
             gl.UNSIGNED_SHORT,
-            0
-          )
-        })
+            0,
+          );
+        });
 
-        requestAnimationFrame(renderScene)
-      }
-      requestAnimationFrame(renderScene)
+        requestAnimationFrame(renderScene);
+      };
+      requestAnimationFrame(renderScene);
 
       return () => {
-        shouldRender = false
-      }
+        shouldRender = false;
+      };
     }),
-    [cubeBuffer]
-  )
+    [cubeBuffer],
+  );
 
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
@@ -299,7 +302,7 @@ Scene:
 `.trim()}
       </pre>
     </div>
-  )
-}
+  );
+};
 
-export default wrapExample(CubeMapTextureExample)
+export default wrapExample(CubeMapTextureExample);

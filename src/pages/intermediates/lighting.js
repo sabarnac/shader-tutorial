@@ -1,25 +1,34 @@
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
-import React from "react"
+import { Link } from "gatsby";
+import { StaticImage } from "gatsby-plugin-image";
+import React from "react";
 
-import Content from "../../components/content"
-import Equation from "../../components/equation/equation"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Heading from "../../components/heading"
-import LightingFirstExample from "../../components/intermediates/lighting/first-example"
-import { firstFragmentShaderSource, firstVertexShaderSource } from "../../components/intermediates/lighting/first-example-shaders"
-import LightingFourthExample from "../../components/intermediates/lighting/fourth-example"
-import { fourthFragmentShaderSource, fourthVertexShaderSource } from "../../components/intermediates/lighting/fourth-example-shaders"
-import FragmentLightingExample from "../../components/intermediates/lighting/fragment-lighting-example"
-import LightingNoLightExample from "../../components/intermediates/lighting/no-light-example.js"
-import LightingSecondExample from "../../components/intermediates/lighting/second-example"
-import { secondFragmentShaderSource } from "../../components/intermediates/lighting/second-example-shaders"
-import LightingThirdExample from "../../components/intermediates/lighting/third-example"
-import { thirdFragmentShaderSource, thirdVertexShaderSource } from "../../components/intermediates/lighting/third-example-shaders"
-import VertexLightingExample from "../../components/intermediates/lighting/vertex-lighting-example"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import Seo from "../../components/seo"
+import Content from "../../components/content";
+import Equation from "../../components/equation/equation";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Heading from "../../components/heading";
+import LightingFirstExample from "../../components/intermediates/lighting/first-example";
+import {
+  firstFragmentShaderSource,
+  firstVertexShaderSource,
+} from "../../components/intermediates/lighting/first-example-shaders";
+import LightingFourthExample from "../../components/intermediates/lighting/fourth-example";
+import {
+  fourthFragmentShaderSource,
+  fourthVertexShaderSource,
+} from "../../components/intermediates/lighting/fourth-example-shaders";
+import FragmentLightingExample from "../../components/intermediates/lighting/fragment-lighting-example";
+import LightingNoLightExample from "../../components/intermediates/lighting/no-light-example.js";
+import LightingSecondExample from "../../components/intermediates/lighting/second-example";
+import { secondFragmentShaderSource } from "../../components/intermediates/lighting/second-example-shaders";
+import LightingThirdExample from "../../components/intermediates/lighting/third-example";
+import {
+  thirdFragmentShaderSource,
+  thirdVertexShaderSource,
+} from "../../components/intermediates/lighting/third-example-shaders";
+import VertexLightingExample from "../../components/intermediates/lighting/vertex-lighting-example";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import Seo from "../../components/seo";
 
 const LightingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -985,6 +994,6 @@ const LightingPage = ({ location: { pathname } }) => (
       next="/intermediates/normal-mapping/"
     />
   </Layout>
-)
+);
 
-export default LightingPage
+export default LightingPage;

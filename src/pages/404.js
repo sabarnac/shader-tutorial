@@ -1,8 +1,8 @@
-import React from "react"
+import React from "react";
 
-import Content from "../components/content"
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Content from "../components/content";
+import Layout from "../components/layout";
+import Seo from "../components/seo";
 
 const IndexPage = ({ location: { pathname } }) => (
   <Layout>
@@ -17,6 +17,6 @@ const IndexPage = ({ location: { pathname } }) => (
       <p>The page you requested for doesn't seem to exist.</p>
     </Content>
   </Layout>
-)
+);
 
-export default IndexPage
+export default IndexPage;

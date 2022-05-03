@@ -1,10 +1,13 @@
-import { mat4 } from "gl-matrix"
-import React, { useEffect, useRef, useState } from "react"
+import { mat4 } from "gl-matrix";
+import React, { useEffect, useRef, useState } from "react";
 
-import { runOnPredicate } from "../../util"
-import wrapExample from "../../webgl-example-view"
-import WebGlWrapper from "../../webgl-wrapper"
-import { bandingFragmentShaderSource, bandingVertexShaderSource } from "./banding-example-shaders"
+import { runOnPredicate } from "../../util";
+import wrapExample from "../../webgl-example-view";
+import WebGlWrapper from "../../webgl-wrapper";
+import {
+  bandingFragmentShaderSource,
+  bandingVertexShaderSource,
+} from "./banding-example-shaders";
 
 const shaderProgramInfo = {
   vertex: {
@@ -19,9 +22,9 @@ const shaderProgramInfo = {
       resolution: "vec2",
     },
   },
-}
+};
 
-const screenModelPosition = mat4.create()
+const screenModelPosition = mat4.create();
 
 const BandingExample = () => {
   const screen = {
@@ -31,104 +34,104 @@ const BandingExample = () => {
       [1.0, -1.0, 0.0],
       [1.0, 1.0, 0.0],
     ],
-  }
-  const [webGlRef, updateWebGlRef] = useState(null)
-  const [shaderProgram, updateShaderProgram] = useState(null)
-  const [shaderInfo, updateShaderInfo] = useState(null)
-  const [screenBuffer, updateScreenBuffer] = useState({ vertices: null })
+  };
+  const [webGlRef, updateWebGlRef] = useState(null);
+  const [shaderProgram, updateShaderProgram] = useState(null);
+  const [shaderInfo, updateShaderInfo] = useState(null);
+  const [screenBuffer, updateScreenBuffer] = useState({ vertices: null });
 
-  const canvasRef = useRef()
+  const canvasRef = useRef();
   useEffect(() => {
     if (canvasRef.current !== null) {
       const newWebGlRef = new WebGlWrapper(
         canvasRef.current,
-        screenModelPosition
-      )
-      updateWebGlRef(newWebGlRef)
+        screenModelPosition,
+      );
+      updateWebGlRef(newWebGlRef);
 
       return () => {
-        updateWebGlRef(null)
-        newWebGlRef.destroy()
-      }
+        updateWebGlRef(null);
+        newWebGlRef.destroy();
+      };
     }
-  }, [canvasRef])
+  }, [canvasRef]);
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {
       updateShaderProgram(
         webGlRef.createShaderProgram(
           bandingVertexShaderSource,
-          bandingFragmentShaderSource
-        )
-      )
+          bandingFragmentShaderSource,
+        ),
+      );
     }),
-    [webGlRef]
-  )
+    [webGlRef],
+  );
 
   useEffect(
     runOnPredicate(shaderProgram !== null, () => {
       updateShaderInfo(
-        webGlRef.getDataLocations(shaderProgram, shaderProgramInfo)
-      )
+        webGlRef.getDataLocations(shaderProgram, shaderProgramInfo),
+      );
     }),
-    [shaderProgram]
-  )
+    [shaderProgram],
+  );
 
   useEffect(
     runOnPredicate(shaderInfo !== null, () => {
       updateScreenBuffer({
         vertices: webGlRef.createStaticDrawArrayBuffer(
           screen.vertices.flat(),
-          screenBuffer.vertices
+          screenBuffer.vertices,
         ),
-      })
+      });
     }),
-    [shaderInfo]
-  )
+    [shaderInfo],
+  );
 
   useEffect(
     runOnPredicate(screenBuffer.vertices !== null, () => {
-      let shouldRender = true
+      let shouldRender = true;
 
       const renderScene = () => {
         webGlRef.renderScene(({ gl, resolution }) => {
           if (!shouldRender) {
-            return
+            return;
           }
 
-          gl.bindBuffer(gl.ARRAY_BUFFER, screenBuffer.vertices)
+          gl.bindBuffer(gl.ARRAY_BUFFER, screenBuffer.vertices);
           gl.vertexAttribPointer(
             shaderInfo.vertex.attributeLocations.vertexPosition,
             3,
             gl.FLOAT,
             false,
             0,
-            0
-          )
+            0,
+          );
           gl.enableVertexAttribArray(
-            shaderInfo.vertex.attributeLocations.vertexPosition
-          )
+            shaderInfo.vertex.attributeLocations.vertexPosition,
+          );
 
-          gl.useProgram(shaderProgram)
+          gl.useProgram(shaderProgram);
 
           gl.uniform2fv(
             shaderInfo.fragment.uniformLocations.resolution,
-            resolution
-          )
+            resolution,
+          );
 
-          gl.drawArrays(gl.TRIANGLE_STRIP, 0, screen.vertices.length)
+          gl.drawArrays(gl.TRIANGLE_STRIP, 0, screen.vertices.length);
 
-          requestAnimationFrame(renderScene)
-        })
-      }
-      requestAnimationFrame(renderScene)
+          requestAnimationFrame(renderScene);
+        });
+      };
+      requestAnimationFrame(renderScene);
 
       return () => {
-        shouldRender = false
-      }
+        shouldRender = false;
+      };
     }),
-    [screenBuffer]
-  )
+    [screenBuffer],
+  );
 
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
@@ -136,7 +139,7 @@ const BandingExample = () => {
         Cannot run WebGL examples (not supported)
       </canvas>
     </div>
-  )
-}
+  );
+};
 
-export default wrapExample(BandingExample)
+export default wrapExample(BandingExample);

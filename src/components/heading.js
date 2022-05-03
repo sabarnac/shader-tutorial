@@ -1,7 +1,7 @@
-import PropTypes from "prop-types"
-import React from "react"
+import PropTypes from "prop-types";
+import React from "react";
 
-import linkImage from "../images/link.svg"
+import linkImage from "../images/link.svg";
 
 const slugify = (text) => {
   return text
@@ -12,12 +12,12 @@ const slugify = (text) => {
     .replace(/[^\w\-]+/g, "")
     .replace(/\-\-+/g, "-")
     .replace(/^-+/, "")
-    .replace(/-+$/, "")
-}
+    .replace(/-+$/, "");
+};
 
 const Heading = ({ type, children }) => {
-  const HeaderComponent = type
-  const slugLink = `${type[1]}-${slugify(children)}`
+  const HeaderComponent = type;
+  const slugLink = `${type[1]}-${slugify(children)}`;
 
   return (
     <HeaderComponent id={slugLink}>
@@ -26,12 +26,12 @@ const Heading = ({ type, children }) => {
         <img alt="" role="presentation" src={linkImage} />
       </a>
     </HeaderComponent>
-  )
-}
+  );
+};
 
 Heading.propTypes = {
   type: PropTypes.oneOf(["h2", "h3", "h4", "h5", "h6"]).isRequired,
   children: PropTypes.string.isRequired,
-}
+};
 
-export default Heading
+export default Heading;

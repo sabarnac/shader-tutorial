@@ -7,6 +7,6 @@ const Notice = () => (
       updated, or removed at any time.
     </div>
   </div>
-)
+);
 
-export default Notice
+export default Notice;

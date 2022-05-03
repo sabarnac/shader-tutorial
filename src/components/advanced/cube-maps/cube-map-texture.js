@@ -1,14 +1,14 @@
-import { vec3 } from "gl-matrix"
-import React, { useState } from "react"
+import { vec3 } from "gl-matrix";
+import React, { useState } from "react";
 
-import cubeFaceNegativeX from "../../../images/advanced/cube-face-negative-x.png"
-import cubeFaceNegativeY from "../../../images/advanced/cube-face-negative-y.png"
-import cubeFaceNegativeZ from "../../../images/advanced/cube-face-negative-z.png"
-import cubeFacePositiveX from "../../../images/advanced/cube-face-positive-x.png"
-import cubeFacePositiveY from "../../../images/advanced/cube-face-positive-y.png"
-import cubeFacePositiveZ from "../../../images/advanced/cube-face-positive-z.png"
-import cubeFaces from "../../../images/advanced/cube-faces.png"
-import { coordArrToString } from "../../util"
+import cubeFaceNegativeX from "../../../images/advanced/cube-face-negative-x.png";
+import cubeFaceNegativeY from "../../../images/advanced/cube-face-negative-y.png";
+import cubeFaceNegativeZ from "../../../images/advanced/cube-face-negative-z.png";
+import cubeFacePositiveX from "../../../images/advanced/cube-face-positive-x.png";
+import cubeFacePositiveY from "../../../images/advanced/cube-face-positive-y.png";
+import cubeFacePositiveZ from "../../../images/advanced/cube-face-positive-z.png";
+import cubeFaces from "../../../images/advanced/cube-faces.png";
+import { coordArrToString } from "../../util";
 
 const FACES = [
   {
@@ -45,10 +45,10 @@ const FACES = [
     src: cubeFaceNegativeZ,
     up: vec3.fromValues(0.0, 1.0, 0.0),
   },
-]
+];
 
 const CubeMapTexture = () => {
-  const [currentFace, updateCurrentFace] = useState(0)
+  const [currentFace, updateCurrentFace] = useState(0);
 
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
@@ -73,7 +73,7 @@ Face:
         </pre>
       ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default CubeMapTexture
+export default CubeMapTexture;

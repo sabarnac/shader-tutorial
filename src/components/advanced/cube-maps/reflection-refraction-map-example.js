@@ -1,18 +1,24 @@
-import { mat4, vec4 } from "gl-matrix"
-import React, { useEffect, useRef, useState } from "react"
+import { mat4, vec4 } from "gl-matrix";
+import React, { useEffect, useRef, useState } from "react";
 
-import skyboxFaceNegativeX from "../../../images/advanced/skybox-face-negative-x.png"
-import skyboxFaceNegativeY from "../../../images/advanced/skybox-face-negative-y.png"
-import skyboxFaceNegativeZ from "../../../images/advanced/skybox-face-negative-z.png"
-import skyboxFacePositiveX from "../../../images/advanced/skybox-face-positive-x.png"
-import skyboxFacePositiveY from "../../../images/advanced/skybox-face-positive-y.png"
-import skyboxFacePositiveZ from "../../../images/advanced/skybox-face-positive-z.png"
-import { coordArrToString, runOnPredicate } from "../../util"
-import wrapExample from "../../webgl-example-view"
-import WebGlWrapper from "../../webgl-wrapper"
-import { blobFragmentShaderSource, blobVertexShaderSource } from "./blob-example-shaders"
-import { blobsIndices, blobsVertices } from "./model-blobs"
-import { skyboxFragmentShaderSource, skyboxVertexShaderSource } from "./skybox-example-shaders"
+import skyboxFaceNegativeX from "../../../images/advanced/skybox-face-negative-x.png";
+import skyboxFaceNegativeY from "../../../images/advanced/skybox-face-negative-y.png";
+import skyboxFaceNegativeZ from "../../../images/advanced/skybox-face-negative-z.png";
+import skyboxFacePositiveX from "../../../images/advanced/skybox-face-positive-x.png";
+import skyboxFacePositiveY from "../../../images/advanced/skybox-face-positive-y.png";
+import skyboxFacePositiveZ from "../../../images/advanced/skybox-face-positive-z.png";
+import { coordArrToString, runOnPredicate } from "../../util";
+import wrapExample from "../../webgl-example-view";
+import WebGlWrapper from "../../webgl-wrapper";
+import {
+  blobFragmentShaderSource,
+  blobVertexShaderSource,
+} from "./blob-example-shaders";
+import { blobsIndices, blobsVertices } from "./model-blobs";
+import {
+  skyboxFragmentShaderSource,
+  skyboxVertexShaderSource,
+} from "./skybox-example-shaders";
 
 const skyboxShaderProgramInfo = {
   vertex: {
@@ -31,7 +37,7 @@ const skyboxShaderProgramInfo = {
       skyboxSampler: "samplerCube",
     },
   },
-}
+};
 
 const blobsShaderProgramInfo = {
   vertex: {
@@ -48,9 +54,9 @@ const blobsShaderProgramInfo = {
     attributeLocations: {},
     uniformLocations: {},
   },
-}
+};
 
-const modelReflectionRefractionPosition = vec4.fromValues(0.0, 0.0, 0.0, 1.0)
+const modelReflectionRefractionPosition = vec4.fromValues(0.0, 0.0, 0.0, 1.0);
 const modelReflectionRefractionFaces = [
   {
     name: "+X-Axis Face",
@@ -112,7 +118,7 @@ const modelReflectionRefractionFaces = [
     ],
     up: [0.0, 1.0, 0.0],
   },
-]
+];
 
 const ReflectionRefractionMapExample = () => {
   const skybox = {
@@ -200,279 +206,279 @@ const ReflectionRefractionMapExample = () => {
         src: skyboxFaceNegativeZ,
       },
     ],
-  }
+  };
 
   const blobs = {
     vertices: blobsVertices,
     indices: blobsIndices,
     texture: null,
-  }
+  };
 
-  const [webGlRef, updateWebGlRef] = useState(null)
-  const [currentFace, updateCurrentFace] = useState(0)
+  const [webGlRef, updateWebGlRef] = useState(null);
+  const [currentFace, updateCurrentFace] = useState(0);
 
-  const [skyboxShaderProgram, updateSkyboxShaderProgram] = useState(null)
-  const [skyboxShaderInfo, updateSkyboxShaderInfo] = useState(null)
+  const [skyboxShaderProgram, updateSkyboxShaderProgram] = useState(null);
+  const [skyboxShaderInfo, updateSkyboxShaderInfo] = useState(null);
 
-  const [blobsShaderProgram, updateBlobsShaderProgram] = useState(null)
-  const [blobsShaderInfo, updateBlobsShaderInfo] = useState(null)
+  const [blobsShaderProgram, updateBlobsShaderProgram] = useState(null);
+  const [blobsShaderInfo, updateBlobsShaderInfo] = useState(null);
 
   const [skyboxBuffer, updateSkyboxBuffer] = useState({
     vertices: null,
     indices: null,
     texture: null,
-  })
+  });
 
   const [blobsBuffer, updateBlobsBuffer] = useState({
     vertices: null,
     indices: null,
-  })
+  });
 
-  const canvasRef = useRef()
+  const canvasRef = useRef();
   useEffect(() => {
     if (canvasRef.current !== null) {
-      const newWebGlRef = new WebGlWrapper(canvasRef.current, vec4.create())
-      updateWebGlRef(newWebGlRef)
+      const newWebGlRef = new WebGlWrapper(canvasRef.current, vec4.create());
+      updateWebGlRef(newWebGlRef);
 
       return () => {
-        newWebGlRef.destroy()
-        updateWebGlRef(null)
-      }
+        newWebGlRef.destroy();
+        updateWebGlRef(null);
+      };
     }
-  }, [canvasRef])
+  }, [canvasRef]);
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {
       updateSkyboxShaderProgram(
         webGlRef.createShaderProgram(
           skyboxVertexShaderSource,
-          skyboxFragmentShaderSource
-        )
-      )
+          skyboxFragmentShaderSource,
+        ),
+      );
     }),
-    [webGlRef]
-  )
+    [webGlRef],
+  );
 
   useEffect(
     runOnPredicate(skyboxShaderProgram !== null, () => {
       updateSkyboxShaderInfo(
-        webGlRef.getDataLocations(skyboxShaderProgram, skyboxShaderProgramInfo)
-      )
+        webGlRef.getDataLocations(skyboxShaderProgram, skyboxShaderProgramInfo),
+      );
     }),
-    [skyboxShaderProgram]
-  )
+    [skyboxShaderProgram],
+  );
 
   useEffect(
     runOnPredicate(skyboxShaderInfo !== null, () => {
       updateBlobsShaderProgram(
         webGlRef.createShaderProgram(
           blobVertexShaderSource,
-          blobFragmentShaderSource
-        )
-      )
+          blobFragmentShaderSource,
+        ),
+      );
     }),
-    [skyboxShaderInfo]
-  )
+    [skyboxShaderInfo],
+  );
 
   useEffect(
     runOnPredicate(blobsShaderProgram !== null, () => {
       updateBlobsShaderInfo(
-        webGlRef.getDataLocations(blobsShaderProgram, blobsShaderProgramInfo)
-      )
+        webGlRef.getDataLocations(blobsShaderProgram, blobsShaderProgramInfo),
+      );
     }),
-    [blobsShaderProgram]
-  )
+    [blobsShaderProgram],
+  );
 
   useEffect(
     runOnPredicate(blobsShaderInfo !== null, () => {
       updateSkyboxBuffer({
         vertices: webGlRef.createStaticDrawArrayBuffer(
           skybox.vertices.flat(),
-          skyboxBuffer.vertices
+          skyboxBuffer.vertices,
         ),
         indices: webGlRef.createElementArrayBuffer(
           skybox.indices.flat(),
-          skyboxBuffer.indices
+          skyboxBuffer.indices,
         ),
         texture: webGlRef.createCubeMapTexture(
           skybox.textures,
-          skyboxBuffer.texture
+          skyboxBuffer.texture,
         ),
-      })
+      });
     }),
-    [blobsShaderInfo]
-  )
+    [blobsShaderInfo],
+  );
 
   useEffect(
     runOnPredicate(skyboxBuffer.vertices !== null, () => {
       updateBlobsBuffer({
         vertices: webGlRef.createStaticDrawArrayBuffer(
           blobs.vertices.flat(),
-          blobsBuffer.vertices
+          blobsBuffer.vertices,
         ),
         indices: webGlRef.createElementArrayBuffer(
           blobs.indices.flat(),
-          blobsBuffer.indices
+          blobsBuffer.indices,
         ),
-      })
+      });
     }),
-    [skyboxBuffer]
-  )
+    [skyboxBuffer],
+  );
 
   useEffect(
     runOnPredicate(blobsBuffer.vertices !== null, () => {
-      let shouldRender = true
+      let shouldRender = true;
 
-      const renderFace = currentFace
+      const renderFace = currentFace;
       const renderScene = () => {
         webGlRef.renderScene(({ gl }) => {
           if (!shouldRender) {
-            return
+            return;
           }
 
           const time = parseInt(
             typeof performance !== "undefined"
               ? performance.now()
-              : (0.0).toString()
-          )
+              : (0.0).toString(),
+          );
 
-          const depthProjectionMatrix = mat4.create()
+          const depthProjectionMatrix = mat4.create();
           mat4.perspective(
             depthProjectionMatrix,
             (90 * Math.PI) / 180,
             1.0,
             0.1,
-            50.0
-          )
+            50.0,
+          );
 
-          gl.clearColor(0.0, 0.0, 0.0, 1.0)
-          gl.clearDepth(1.0)
-          gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+          gl.clearColor(0.0, 0.0, 0.0, 1.0);
+          gl.clearDepth(1.0);
+          gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-          const modelReflectionRefractionViewMatrix = mat4.create()
+          const modelReflectionRefractionViewMatrix = mat4.create();
           mat4.lookAt(
             modelReflectionRefractionViewMatrix,
             modelReflectionRefractionPosition,
             modelReflectionRefractionFaces[renderFace].center,
-            modelReflectionRefractionFaces[renderFace].up
-          )
+            modelReflectionRefractionFaces[renderFace].up,
+          );
 
           {
-            gl.useProgram(skyboxShaderProgram)
+            gl.useProgram(skyboxShaderProgram);
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, skyboxBuffer.vertices)
+            gl.bindBuffer(gl.ARRAY_BUFFER, skyboxBuffer.vertices);
             gl.vertexAttribPointer(
               skyboxShaderInfo.vertex.attributeLocations.vertexPosition,
               3,
               gl.FLOAT,
               false,
               0,
-              0
-            )
+              0,
+            );
             gl.enableVertexAttribArray(
-              skyboxShaderInfo.vertex.attributeLocations.vertexPosition
-            )
+              skyboxShaderInfo.vertex.attributeLocations.vertexPosition,
+            );
 
-            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, skyboxBuffer.indices)
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, skyboxBuffer.indices);
 
             gl.uniformMatrix4fv(
               skyboxShaderInfo.vertex.uniformLocations.projectionMatrix,
               false,
-              depthProjectionMatrix
-            )
+              depthProjectionMatrix,
+            );
             gl.uniformMatrix4fv(
               skyboxShaderInfo.vertex.uniformLocations.viewMatrix,
               false,
-              modelReflectionRefractionViewMatrix
-            )
+              modelReflectionRefractionViewMatrix,
+            );
             gl.uniformMatrix4fv(
               skyboxShaderInfo.vertex.uniformLocations.modelMatrix,
               false,
-              mat4.create()
-            )
+              mat4.create(),
+            );
 
-            gl.activeTexture(gl.TEXTURE0)
-            gl.bindTexture(gl.TEXTURE_CUBE_MAP, skyboxBuffer.texture)
+            gl.activeTexture(gl.TEXTURE0);
+            gl.bindTexture(gl.TEXTURE_CUBE_MAP, skyboxBuffer.texture);
             gl.uniform1i(
               skyboxShaderInfo.fragment.uniformLocations.skyboxSampler,
-              0
-            )
+              0,
+            );
 
             gl.drawElements(
               gl.TRIANGLES,
               skybox.indices.length * skybox.indices[0].length,
               gl.UNSIGNED_SHORT,
-              0
-            )
+              0,
+            );
           }
 
           {
-            const rotatedModelMatrix = mat4.create()
-            const rotationAngle = (((time / 30) % (360 * 6)) * Math.PI) / 180
-            mat4.rotateZ(rotatedModelMatrix, rotatedModelMatrix, rotationAngle)
+            const rotatedModelMatrix = mat4.create();
+            const rotationAngle = (((time / 30) % (360 * 6)) * Math.PI) / 180;
+            mat4.rotateZ(rotatedModelMatrix, rotatedModelMatrix, rotationAngle);
             mat4.rotateX(
               rotatedModelMatrix,
               rotatedModelMatrix,
-              rotationAngle / 2
-            )
+              rotationAngle / 2,
+            );
             mat4.rotateY(
               rotatedModelMatrix,
               rotatedModelMatrix,
-              rotationAngle / 3
-            )
+              rotationAngle / 3,
+            );
 
-            gl.useProgram(blobsShaderProgram)
+            gl.useProgram(blobsShaderProgram);
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, blobsBuffer.vertices)
+            gl.bindBuffer(gl.ARRAY_BUFFER, blobsBuffer.vertices);
             gl.vertexAttribPointer(
               blobsShaderInfo.vertex.attributeLocations.vertexPosition,
               3,
               gl.FLOAT,
               false,
               0,
-              0
-            )
+              0,
+            );
             gl.enableVertexAttribArray(
-              blobsShaderInfo.vertex.attributeLocations.vertexPosition
-            )
+              blobsShaderInfo.vertex.attributeLocations.vertexPosition,
+            );
 
-            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, blobsBuffer.indices)
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, blobsBuffer.indices);
 
             gl.uniformMatrix4fv(
               blobsShaderInfo.vertex.uniformLocations.projectionMatrix,
               false,
-              depthProjectionMatrix
-            )
+              depthProjectionMatrix,
+            );
             gl.uniformMatrix4fv(
               blobsShaderInfo.vertex.uniformLocations.viewMatrix,
               false,
-              modelReflectionRefractionViewMatrix
-            )
+              modelReflectionRefractionViewMatrix,
+            );
             gl.uniformMatrix4fv(
               blobsShaderInfo.vertex.uniformLocations.modelMatrix,
               false,
-              rotatedModelMatrix
-            )
+              rotatedModelMatrix,
+            );
 
             gl.drawElements(
               gl.TRIANGLES,
               blobs.indices.length,
               gl.UNSIGNED_SHORT,
-              0
-            )
+              0,
+            );
           }
 
-          requestAnimationFrame(renderScene)
-        })
-      }
-      requestAnimationFrame(renderScene)
+          requestAnimationFrame(renderScene);
+        });
+      };
+      requestAnimationFrame(renderScene);
 
       return () => {
-        shouldRender = false
-      }
+        shouldRender = false;
+      };
     }),
-    [blobsBuffer, currentFace]
-  )
+    [blobsBuffer, currentFace],
+  );
 
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
@@ -500,13 +506,13 @@ Scene:
         {`
 Face:
     Center: ${coordArrToString(
-      modelReflectionRefractionFaces[currentFace].center
+      modelReflectionRefractionFaces[currentFace].center,
     )}
     Up: ${coordArrToString(modelReflectionRefractionFaces[currentFace].up)}
 `.trim()}
       </pre>
     </div>
-  )
-}
+  );
+};
 
-export default wrapExample(ReflectionRefractionMapExample)
+export default wrapExample(ReflectionRefractionMapExample);

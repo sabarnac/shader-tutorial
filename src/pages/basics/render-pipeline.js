@@ -1,11 +1,11 @@
-import { StaticImage } from "gatsby-plugin-image"
-import React from "react"
+import { StaticImage } from "gatsby-plugin-image";
+import React from "react";
 
-import Content from "../../components/content"
-import Heading from "../../components/heading"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import Seo from "../../components/seo"
+import Content from "../../components/content";
+import Heading from "../../components/heading";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import Seo from "../../components/seo";
 
 const RenderPipelinePage = ({ location: { pathname } }) => (
   <Layout>
@@ -292,6 +292,6 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
     </Content>
     <PageChange previous="/basics/introduction/" next="/basics/mathematics/" />
   </Layout>
-)
+);
 
-export default RenderPipelinePage
+export default RenderPipelinePage;

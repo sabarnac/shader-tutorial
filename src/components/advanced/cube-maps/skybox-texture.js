@@ -1,14 +1,14 @@
-import { vec3 } from "gl-matrix"
-import React, { useState } from "react"
+import { vec3 } from "gl-matrix";
+import React, { useState } from "react";
 
-import skyboxFaceNegativeX from "../../../images/advanced/skybox-face-negative-x.png"
-import skyboxFaceNegativeY from "../../../images/advanced/skybox-face-negative-y.png"
-import skyboxFaceNegativeZ from "../../../images/advanced/skybox-face-negative-z.png"
-import skyboxFacePositiveX from "../../../images/advanced/skybox-face-positive-x.png"
-import skyboxFacePositiveY from "../../../images/advanced/skybox-face-positive-y.png"
-import skyboxFacePositiveZ from "../../../images/advanced/skybox-face-positive-z.png"
-import skyboxFaces from "../../../images/advanced/skybox-faces.png"
-import { coordArrToString } from "../../util"
+import skyboxFaceNegativeX from "../../../images/advanced/skybox-face-negative-x.png";
+import skyboxFaceNegativeY from "../../../images/advanced/skybox-face-negative-y.png";
+import skyboxFaceNegativeZ from "../../../images/advanced/skybox-face-negative-z.png";
+import skyboxFacePositiveX from "../../../images/advanced/skybox-face-positive-x.png";
+import skyboxFacePositiveY from "../../../images/advanced/skybox-face-positive-y.png";
+import skyboxFacePositiveZ from "../../../images/advanced/skybox-face-positive-z.png";
+import skyboxFaces from "../../../images/advanced/skybox-faces.png";
+import { coordArrToString } from "../../util";
 
 const FACES = [
   {
@@ -45,10 +45,10 @@ const FACES = [
     src: skyboxFaceNegativeZ,
     up: vec3.fromValues(0.0, 1.0, 0.0),
   },
-]
+];
 
 const SkyboxMapTexture = () => {
-  const [currentFace, updateCurrentFace] = useState(0)
+  const [currentFace, updateCurrentFace] = useState(0);
 
   return (
     <div className="util text-center" style={{ padding: "1rem" }}>
@@ -83,7 +83,7 @@ Face:
         </pre>
       ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default SkyboxMapTexture
+export default SkyboxMapTexture;
