@@ -34,9 +34,6 @@ const IntermediatesIndexPage = ({ location: { pathname } }) => (
             Shader Advanced - Shadow Mapping
           </Link>
         </li>
-        <li>
-          <Link to="/advanced/cube-maps/">Shader Advanced - Cube Maps</Link>
-        </li>
         <li>More Coming Soon...</li>
       </ul>
     </Content>
