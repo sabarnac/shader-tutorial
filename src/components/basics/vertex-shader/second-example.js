@@ -1,13 +1,10 @@
-import { mat4 } from "gl-matrix";
-import React, { useEffect, useRef, useState } from "react";
+import { mat4 } from "gl-matrix"
+import React, { useEffect, useRef, useState } from "react"
 
-import { coordArrToString, runOnPredicate } from "../../util";
-import wrapExample from "../../webgl-example-view";
-import WebGlWrapper from "../../webgl-wrapper";
-import {
-  secondFragmentShaderSource,
-  secondVertexShaderSource,
-} from "./second-example-shaders";
+import { coordArrToString, runOnPredicate } from "../../util"
+import wrapExample from "../../webgl-example-view"
+import WebGlWrapper from "../../webgl-wrapper"
+import { secondFragmentShaderSource, secondVertexShaderSource } from "./second-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -50,7 +47,7 @@ const VertexShaderSecondExample = () => {
   useEffect(() => {
     if (canvasRef.current !== null) {
       const newWebGlRef = new WebGlWrapper(
-        canvas.current,
+        canvasRef.current,
         triangleModelPosition,
         true,
       );

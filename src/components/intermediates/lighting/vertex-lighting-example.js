@@ -1,17 +1,11 @@
-import { mat4, vec3, vec4 } from "gl-matrix";
-import React, { useEffect, useRef, useState } from "react";
+import { mat4, vec3, vec4 } from "gl-matrix"
+import React, { useEffect, useRef, useState } from "react"
 
-import { coordArrToString, runOnPredicate } from "../../util";
-import wrapExample from "../../webgl-example-view";
-import WebGlWrapper from "../../webgl-wrapper";
-import {
-  lightPointFragmentShaderSource,
-  lightPointVertexShaderSource,
-} from "./light-point-shaders";
-import {
-  vertexLightingFragmentShaderSource,
-  vertexLightingVertexShaderSource,
-} from "./vertex-lighting-example-shaders";
+import { coordArrToString, runOnPredicate } from "../../util"
+import wrapExample from "../../webgl-example-view"
+import WebGlWrapper from "../../webgl-wrapper"
+import { lightPointFragmentShaderSource, lightPointVertexShaderSource } from "./light-point-shaders"
+import { vertexLightingFragmentShaderSource, vertexLightingVertexShaderSource } from "./vertex-lighting-example-shaders"
 
 const lightShaderProgramInfo = {
   vertex: {
@@ -102,7 +96,10 @@ const VertexLightingExample = () => {
   const canvasRef = useRef();
   useEffect(() => {
     if (canvasRef.current !== null) {
-      const newWebGlRef = new WebGlWrapper(canvas.current, squareModelPosition);
+      const newWebGlRef = new WebGlWrapper(
+        canvasRef.current,
+        squareModelPosition,
+      );
       updateWebGlRef(newWebGlRef);
 
       return () => {
