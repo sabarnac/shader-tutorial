@@ -1,5 +1,5 @@
 import { mat4, vec3, vec4 } from "gl-matrix"
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import { runOnPredicate } from "../../../util"
 import wrapExample from "../../../webgl-example-view"
@@ -87,16 +87,21 @@ const ShadowMappingDirectionalLightShadowAcneExample = () => {
   const [shadowMapFramebuffer, updateShadowMapFramebuffer] = useState(null)
   const [shouldRender, updateShouldRender] = useState(true)
 
-  const canvasRef = useCallback((canvas) => {
-    if (canvas !== null) {
-      updateWebGlRef(new WebGlWrapper(canvas, sceneModelPosition))
-      return () =>
-        updateWebGlRef((webGlRef) => {
-          webGlRef.destroy()
-          return null
-        })
+  const canvasRef = useRef()
+  useEffect(() => {
+    if (canvasRef.current !== null) {
+      const newWebGlRef = new WebGlWrapper(
+        canvasRef.current,
+        sceneModelPosition
+      )
+      updateWebGlRef(newWebGlRef)
+
+      return () => {
+        updateWebGlRef(null)
+        newWebGlRef.destroy()
+      }
     }
-  }, [])
+  }, [canvasRef])
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

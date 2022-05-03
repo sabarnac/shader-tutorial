@@ -1,13 +1,10 @@
 import { mat4 } from "gl-matrix"
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import { runOnPredicate } from "../../util"
 import wrapExample from "../../webgl-example-view"
 import WebGlWrapper from "../../webgl-wrapper"
-import {
-  ditheringFragmentShaderSource,
-  ditheringVertexShaderSource,
-} from "./dithering-example-shaders"
+import { ditheringFragmentShaderSource, ditheringVertexShaderSource } from "./dithering-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -40,16 +37,21 @@ const DitheringExample = () => {
   const [shaderInfo, updateShaderInfo] = useState(null)
   const [screenBuffer, updateScreenBuffer] = useState({ vertices: null })
 
-  const canvasRef = useCallback(canvas => {
-    if (canvas !== null) {
-      updateWebGlRef(new WebGlWrapper(canvas, screenModelPosition))
-      return () =>
-        updateWebGlRef(webGlRef => {
-          webGlRef.destroy()
-          return null
-        })
+  const canvasRef = useRef()
+  useEffect(() => {
+    if (canvasRef.current !== null) {
+      const newWebGlRef = new WebGlWrapper(
+        canvasRef.current,
+        screenModelPosition
+      )
+      updateWebGlRef(newWebGlRef)
+
+      return () => {
+        updateWebGlRef(null)
+        newWebGlRef.destroy()
+      }
     }
-  }, [])
+  }, [canvasRef])
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

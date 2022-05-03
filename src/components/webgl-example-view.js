@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react"
 
-const wrapExample = ExampleComponent => {
+const wrapExample = (ExampleComponent) => {
   return () => {
     const [hidden, setHidden] = useState(false)
     const [height, setHeight] = useState(480)
@@ -9,10 +9,12 @@ const wrapExample = ExampleComponent => {
       setHidden(true)
     }, [])
 
-    const exampleRef = useCallback(div => {
-      if (div !== null) {
-        const observer = new IntersectionObserver(entries => {
-          entries.forEach(entry => {
+    const divRef = useRef()
+    useEffect(() => {
+      if (divRef.current !== null) {
+        const div = divRef.current
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
             if (!entry.isIntersecting) {
               setHidden(true)
             }
@@ -23,7 +25,7 @@ const wrapExample = ExampleComponent => {
 
         return () => observer.unobserve(div)
       }
-    }, [])
+    }, [divRef])
 
     return hidden ? (
       <div
@@ -53,7 +55,7 @@ const wrapExample = ExampleComponent => {
           margin: "2rem 0",
           border: "1px dashed #dddddd",
         }}
-        ref={exampleRef}
+        ref={divRef}
       >
         <ExampleComponent />
         <div style={{ padding: "1rem", textAlign: "center" }}>

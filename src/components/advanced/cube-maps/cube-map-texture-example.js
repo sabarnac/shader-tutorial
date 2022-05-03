@@ -1,5 +1,5 @@
 import { mat4, vec4 } from "gl-matrix"
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import cubeFaceNegativeX from "../../../images/advanced/cube-face-negative-x.png"
 import cubeFaceNegativeY from "../../../images/advanced/cube-face-negative-y.png"
@@ -131,16 +131,18 @@ const CubeMapTextureExample = () => {
   })
   const [cubeMapTexture, updateCubeMapTexture] = useState(null)
 
-  const canvasRef = useCallback((canvas) => {
-    if (canvas !== null) {
-      updateWebGlRef(new WebGlWrapper(canvas, mat4.create()))
-      return () =>
-        updateWebGlRef((webGlRef) => {
-          webGlRef.destroy()
-          return null
-        })
+  const canvasRef = useRef()
+  useEffect(() => {
+    if (canvasRef.current !== null) {
+      const newWebGlRef = new WebGlWrapper(canvasRef.current, mat4.create())
+      updateWebGlRef(newWebGlRef)
+
+      return () => {
+        updateWebGlRef(null)
+        newWebGlRef.destroy()
+      }
     }
-  }, [])
+  }, [canvasRef])
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

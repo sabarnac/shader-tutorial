@@ -1,5 +1,5 @@
 import { mat4 } from "gl-matrix"
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import texture from "../../../images/intermediates/texture.png"
 import { coordArrToString, runOnPredicate, uvArrToString } from "../../util"
@@ -115,16 +115,18 @@ const ColorMappingFirstExample = () => {
     texture: null,
   })
 
-  const canvasRef = useCallback((canvas) => {
-    if (canvas !== null) {
-      updateWebGlRef(new WebGlWrapper(canvas, cubeModelPosition))
-      return () =>
-        updateWebGlRef((webGlRef) => {
-          webGlRef.destroy()
-          return null
-        })
+  const canvasRef = useRef()
+  useEffect(() => {
+    if (canvasRef.current !== null) {
+      const newWebGlRef = new WebGlWrapper(canvas.current, cubeModelPosition)
+      updateWebGlRef(newWebGlRef)
+
+      return () => {
+        updateWebGlRef(null)
+        newWebGlRef.destroy()
+      }
     }
-  }, [])
+  }, [canvasRef])
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

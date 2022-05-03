@@ -1,5 +1,5 @@
 import { mat4, vec4 } from "gl-matrix"
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import skyboxFaceNegativeX from "../../../images/advanced/skybox-face-negative-x.png"
 import skyboxFaceNegativeY from "../../../images/advanced/skybox-face-negative-y.png"
@@ -128,16 +128,18 @@ const SkyboxExample = () => {
     texture: null,
   })
 
-  const canvasRef = useCallback((canvas) => {
-    if (canvas !== null) {
-      updateWebGlRef(new WebGlWrapper(canvas, mat4.create()))
-      return () =>
-        updateWebGlRef((webGlRef) => {
-          webGlRef.destroy()
-          return null
-        })
+  const canvasRef = useRef()
+  useEffect(() => {
+    if (canvasRef.current !== null) {
+      const newWebGlRef = new WebGlWrapper(canvasRef.current, mat4.create())
+      updateWebGlRef(newWebGlRef)
+
+      return () => {
+        newWebGlRef.destroy()
+        updateWebGlRef(null)
+      }
     }
-  }, [])
+  }, [canvasRef])
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

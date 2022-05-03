@@ -1,5 +1,5 @@
 import { mat4, vec3, vec4 } from "gl-matrix"
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import texture from "../../../images/intermediates/texture-2.png"
 import { coordArrToString, runOnPredicate } from "../../util"
@@ -82,16 +82,18 @@ const NormalMappingFirstExample = () => {
     texture: null,
   })
 
-  const canvasRef = useCallback(canvas => {
-    if (canvas !== null) {
-      updateWebGlRef(new WebGlWrapper(canvas, squareModelPosition))
-      return () =>
-        updateWebGlRef(webGlRef => {
-          webGlRef.destroy()
-          return null
-        })
+  const canvasRef = useRef()
+  useEffect(() => {
+    if (canvasRef.current !== null) {
+      const newWebGlRef = new WebGlWrapper(canvas.current, squareModelPosition)
+      updateWebGlRef(newWebGlRef)
+
+      return () => {
+        updateWebGlRef(null)
+        newWebGlRef.destroy()
+      }
     }
-  }, [])
+  }, [canvasRef])
 
   useEffect(
     runOnPredicate(webGlRef !== null, () => {

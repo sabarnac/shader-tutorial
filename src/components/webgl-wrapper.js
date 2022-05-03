@@ -100,6 +100,8 @@ export default class WebGlWrapper {
   }
 
   _setupCullFace = () => {
+    if (!this._webgl) return
+
     if (this._cullFace) {
       this._webgl.enable(this._webgl.CULL_FACE)
       this._webgl.cullFace(this._webgl.BACK)
@@ -109,6 +111,8 @@ export default class WebGlWrapper {
   }
 
   _clearScreen = () => {
+    if (!this._webgl) return
+
     this._webgl.clearColor(0.0, 0.0, 0.0, 1.0)
     this._webgl.clearDepth(1.0)
     this._webgl.clear(
@@ -117,6 +121,8 @@ export default class WebGlWrapper {
   }
 
   _loadShaderSource = (shaderType, shaderSource) => {
+    if (!this._webgl) return
+
     const shader = this._webgl.createShader(shaderType)
     this._webgl.shaderSource(shader, shaderSource)
     this._webgl.compileShader(shader)
@@ -145,6 +151,8 @@ export default class WebGlWrapper {
     drawType,
     dataType = this._webgl.FLOAT
   ) => {
+    if (!this._webgl) return
+
     if (buffer === null) {
       buffer = this._webgl.createBuffer()
     }
@@ -167,6 +175,8 @@ export default class WebGlWrapper {
   }
 
   _resizeCanvas = () => {
+    if (!this._webgl) return
+
     if (
       this._canvas.width !==
       this._canvas.clientWidth * this.canvasDimensions.scale
@@ -192,6 +202,8 @@ export default class WebGlWrapper {
   }
 
   createShaderProgram = (vertexShaderSource, fragmentShaderSource) => {
+    if (!this._webgl) return
+
     const vertexShader = this._loadShaderSource(
       this._webgl.VERTEX_SHADER,
       vertexShaderSource
@@ -231,6 +243,8 @@ export default class WebGlWrapper {
     texture,
     imageColor = [255, 255, 255, 255]
   ) => {
+    if (!this._webgl) return
+
     if (texture === null) {
       texture = this._webgl.createTexture()
     }
@@ -284,6 +298,8 @@ export default class WebGlWrapper {
   }
 
   createImageTexture = (imageSrc, texture) => {
+    if (!this._webgl) return
+
     if (texture === null) {
       texture = this._webgl.createTexture()
     }
@@ -362,6 +378,8 @@ export default class WebGlWrapper {
   }
 
   createCubeMapTexture = (imageSrcMap, texture) => {
+    if (!this._webgl) return
+
     if (texture === null) {
       texture = this._webgl.createTexture()
     }
@@ -450,6 +468,8 @@ export default class WebGlWrapper {
   }
 
   createRenderTargetTexture = (texture) => {
+    if (!this._webgl) return
+
     this._resizeCanvas()
 
     if (texture === null) {
@@ -504,6 +524,8 @@ export default class WebGlWrapper {
   }
 
   createCubeMapRenderTargetTexture = (texture) => {
+    if (!this._webgl) return
+
     this._resizeCanvas()
 
     if (texture === null) {
@@ -573,6 +595,8 @@ export default class WebGlWrapper {
   }
 
   getDataLocations = (shaderProgram, programInfo) => {
+    if (!this._webgl) return
+
     const dataLocation = {}
     for (let type in programInfo) {
       const locationDetails = programInfo[type]
@@ -597,6 +621,8 @@ export default class WebGlWrapper {
   }
 
   createStaticDrawArrayBuffer = (bufferData, buffer) => {
+    if (!this._webgl) return
+
     return this._createBuffer(
       bufferData,
       buffer,
@@ -606,6 +632,8 @@ export default class WebGlWrapper {
   }
 
   createElementArrayBuffer = (elementData, buffer) => {
+    if (!this._webgl) return
+
     return this._createBuffer(
       elementData,
       buffer,
@@ -620,6 +648,8 @@ export default class WebGlWrapper {
     frameBuffer,
     bindDepth = false
   ) => {
+    if (!this._webgl) return
+
     this._resizeCanvas()
 
     if (frameBuffer === null) {
@@ -662,6 +692,8 @@ export default class WebGlWrapper {
     frameBuffer,
     bindDepth = false
   ) => {
+    if (!this._webgl) return
+
     this._resizeCanvas()
 
     if (frameBuffer === null) {
@@ -700,6 +732,8 @@ export default class WebGlWrapper {
   }
 
   renderToCubeMapFramebuffer = (frameBuffer, renderer) => {
+    if (!this._webgl) return
+
     this._webgl.viewport(
       0,
       0,
@@ -715,6 +749,8 @@ export default class WebGlWrapper {
   }
 
   renderToFramebuffer = (frameBuffer, renderer) => {
+    if (!this._webgl) return
+
     this._webgl.viewport(
       0,
       0,
@@ -730,6 +766,8 @@ export default class WebGlWrapper {
   }
 
   renderScene = (renderer) => {
+    if (!this._webgl) return
+
     this._resizeCanvas()
 
     const renderInfo = {
@@ -747,6 +785,8 @@ export default class WebGlWrapper {
   }
 
   renderSceneOrtho = (renderer) => {
+    if (!this._webgl) return
+
     this._resizeCanvas()
 
     const renderInfo = {
