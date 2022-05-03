@@ -87,9 +87,6 @@ const Navigation = () => (
           <li>
             <Link to="/advanced/shadow-mapping/">Shadow Mapping</Link>
           </li>
-          <li>
-            <Link to="/advanced/cube-maps/">Cube Maps</Link>
-          </li>
           <li>More Coming Soon...</li>
         </ul>
       </li>
@@ -101,6 +98,6 @@ const Navigation = () => (
       </li>
     </ul>
   </nav>
-)
+);
 
-export default Navigation
+export default Navigation;

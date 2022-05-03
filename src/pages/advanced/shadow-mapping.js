@@ -1401,11 +1401,8 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange
-      previous="/advanced/transparency/"
-      next="/advanced/cube-maps/"
-    />
+    <PageChange previous="/advanced/transparency/" />
   </Layout>
-)
+);
 
-export default ShadowMappingPage
+export default ShadowMappingPage;

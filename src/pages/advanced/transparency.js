@@ -269,6 +269,6 @@ const TransparencyPage = ({ location: { pathname } }) => (
       next="/advanced/shadow-mapping/"
     />
   </Layout>
-)
+);
 
-export default TransparencyPage
+export default TransparencyPage;
