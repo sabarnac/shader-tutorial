@@ -1,13 +1,10 @@
-import { mat4 } from "gl-matrix";
-import React, { useEffect, useRef, useState } from "react";
+import { mat4 } from "gl-matrix"
+import React, { useEffect, useRef, useState } from "react"
 
-import { runOnPredicate } from "../../util";
-import wrapExample from "../../webgl-example-view";
-import WebGlWrapper from "../../webgl-wrapper";
-import {
-  fifthFragmentShaderSource,
-  fifthVertexShaderSource,
-} from "./fifth-example-shaders";
+import { runOnPredicate } from "../../util"
+import wrapExample from "../../webgl-example-view"
+import WebGlWrapper from "../../webgl-wrapper"
+import { fifthFragmentShaderSource, fifthVertexShaderSource } from "./fifth-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -43,7 +40,10 @@ const RandomImageGenerationFifthExample = () => {
   const canvasRef = useRef();
   useEffect(() => {
     if (canvasRef.current !== null) {
-      const newWebGlRef = new WebGlWrapper(canvas.current, screenModelPosition);
+      const newWebGlRef = new WebGlWrapper(
+        canvasRef.current,
+        screenModelPosition,
+      );
       updateWebGlRef(newWebGlRef);
 
       return () => {

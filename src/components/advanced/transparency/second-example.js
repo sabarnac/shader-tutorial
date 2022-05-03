@@ -1,10 +1,10 @@
-import { mat4 } from "gl-matrix";
-import React, { useEffect, useRef, useState } from "react";
+import { mat4 } from "gl-matrix"
+import React, { useEffect, useRef, useState } from "react"
 
-import { runOnPredicate } from "../../util";
-import wrapExample from "../../webgl-example-view";
-import WebGlWrapper from "../../webgl-wrapper";
-import { fragmentShaderSource, vertexShaderSource } from "./common-shaders";
+import { runOnPredicate } from "../../util"
+import wrapExample from "../../webgl-example-view"
+import WebGlWrapper from "../../webgl-wrapper"
+import { fragmentShaderSource, vertexShaderSource } from "./common-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -72,7 +72,7 @@ const TransparenceySecondExample = () => {
   useEffect(() => {
     if (canvasRef.current !== null) {
       const newWebGlRef = new WebGlWrapper(
-        canvas.current,
+        canvasRef.current,
         cubeModelPosition,
         true,
       );

@@ -1,14 +1,11 @@
-import { mat4, vec3, vec4 } from "gl-matrix";
-import React, { useEffect, useRef, useState } from "react";
+import { mat4, vec3, vec4 } from "gl-matrix"
+import React, { useEffect, useRef, useState } from "react"
 
-import texture from "../../../images/intermediates/texture.png";
-import { coordArrToString, runOnPredicate } from "../../util";
-import wrapExample from "../../webgl-example-view";
-import WebGlWrapper from "../../webgl-wrapper";
-import {
-  fourthFragmentShaderSource,
-  fourthVertexShaderSource,
-} from "./fourth-example-shaders";
+import texture from "../../../images/intermediates/texture.png"
+import { coordArrToString, runOnPredicate } from "../../util"
+import wrapExample from "../../webgl-example-view"
+import WebGlWrapper from "../../webgl-wrapper"
+import { fourthFragmentShaderSource, fourthVertexShaderSource } from "./fourth-example-shaders"
 
 const shaderProgramInfo = {
   vertex: {
@@ -183,7 +180,10 @@ const LightingFourthExample = () => {
   const canvasRef = useRef();
   useEffect(() => {
     if (canvasRef.current !== null) {
-      const newWebGlRef = new WebGlWrapper(canvas.current, cubeModelPosition);
+      const newWebGlRef = new WebGlWrapper(
+        canvasRef.current,
+        cubeModelPosition,
+      );
       updateWebGlRef(newWebGlRef);
 
       return () => {
