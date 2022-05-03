@@ -41,6 +41,6 @@ const IntermediatesIndexPage = ({ location: { pathname } }) => (
       </ul>
     </Content>
   </Layout>
-)
+);
 
-export default IntermediatesIndexPage
+export default IntermediatesIndexPage;
