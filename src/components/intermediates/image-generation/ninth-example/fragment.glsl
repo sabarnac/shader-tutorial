@@ -1,10 +1,10 @@
 uniform highp vec2 resolution;
 
-highp float random(vec2 coords) {
+highp float random(highp vec2 coords) {
    return fract(sin(dot(coords.xy, vec2(12.9898,78.233))) * 43758.5453);
 }
 
-highp float invert_step(float edge, float x) {
+highp float invert_step(highp float edge, highp float x) {
   return 1.0 - step(edge, x);
 }
 

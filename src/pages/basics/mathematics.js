@@ -296,7 +296,7 @@ const MathematicsPage = ({ location: { pathname } }) => (
         Lets visualize what is plotted by these functions on a graph as the
         angle passed to it keeps increasing.
       </p>
-      <p className="util text-center">
+      <div className="util text-center">
         <img
           src={Mathematics1}
           alt="Sine Cosine Visual"
@@ -310,7 +310,7 @@ const MathematicsPage = ({ location: { pathname } }) => (
         >
           Source
         </a>
-      </p>
+      </div>
       <p>
         These functions allow the ability to draw patterns and shapes since the
         results of these functions draws a line that is continuous and smooth

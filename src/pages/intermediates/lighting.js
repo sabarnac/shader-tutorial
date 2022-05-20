@@ -89,7 +89,7 @@ const LightingPage = ({ location: { pathname } }) => (
         which means these are the colors which we see as being the color of that
         object.
       </p>
-      <p className="util text-center">
+      <div className="util text-center">
         <img
           src="https://www.opengl-tutorial.org/assets/images/tuto-8-basic-shading/diffuseWhite1.png"
           alt="Diffuse Lighting Main Example"
@@ -102,7 +102,7 @@ const LightingPage = ({ location: { pathname } }) => (
         >
           Source
         </a>
-      </p>
+      </div>
       <p>
         For example, when white light falls on an apple, we see that the apple
         is red. This is because white light is made up of multiple colors in a
@@ -160,7 +160,7 @@ const LightingPage = ({ location: { pathname } }) => (
         concentrated across a smaller surface, making the surface appear
         brighter.
       </p>
-      <p className="util text-center">
+      <div className="util text-center">
         <img
           src="https://www.opengl-tutorial.org/assets/images/tuto-8-basic-shading/diffuseAngle.png"
           alt="Diffuse Lighting Angle Example"
@@ -173,7 +173,7 @@ const LightingPage = ({ location: { pathname } }) => (
         >
           Source
         </a>
-      </p>
+      </div>
       <p>
         This can be done through an experiment as well. Grab your phone and turn
         on the flashlight (or else grab a torch) and shine it perpendicularly
@@ -500,7 +500,7 @@ const LightingPage = ({ location: { pathname } }) => (
         light hits the surface, depending on the smoothness of the surface, this
         light may be completely reflected, like as if the surface were a mirror.
       </p>
-      <p className="util text-center">
+      <div className="util text-center">
         <img
           src="https://www.opengl-tutorial.org/assets/images/tuto-8-basic-shading/specular.png"
           alt="Specular Lighting Main Example"
@@ -513,7 +513,7 @@ const LightingPage = ({ location: { pathname } }) => (
         >
           Source
         </a>
-      </p>
+      </div>
       <p>
         If the reflected light is seen by the viewer, it would look like all, or
         a part of the light was reflected by the object, giving the impression
@@ -582,7 +582,7 @@ const LightingPage = ({ location: { pathname } }) => (
         of the surface.
       </p>
       <p>An image showing this law is below:</p>
-      <p className="util text-center">
+      <div className="util text-center">
         <img
           src="https://www.asu.edu/courses/phs208/patternsbb/PiN/rdg/reflection/opticsRDG1.gif"
           alt="Law Of Reflection"
@@ -595,7 +595,7 @@ const LightingPage = ({ location: { pathname } }) => (
         >
           Source
         </a>
-      </p>
+      </div>
       <p>
         We've already know the direction of the light to the object when
         calculating diffuse reflection. Using the normal of the surface, the

@@ -2,7 +2,7 @@ uniform highp vec2 resolution;
 
 const highp float NOISE_GRANULARITY = 0.5/255.0;
 
-highp float random(vec2 coords) {
+highp float random(highp vec2 coords) {
    return fract(sin(dot(coords.xy, vec2(12.9898,78.233))) * 43758.5453);
 }
 

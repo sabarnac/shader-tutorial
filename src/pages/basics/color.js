@@ -89,7 +89,7 @@ const ColorPage = ({ location: { pathname } }) => (
         light. To understand why, lets look at what the spectrum of visible
         light is.
       </p>
-      <p className="util text-center">
+      <div className="util text-center">
         <StaticImage
           src="../../images/basics/color-1.png"
           alt="Visible Light Spectrum"
@@ -103,7 +103,7 @@ const ColorPage = ({ location: { pathname } }) => (
         >
           Source
         </a>
-      </p>
+      </div>
       <p>
         If you look at the image, you'll see that the colors red and blue lie
         around the edge of the bisible light spectrum, while the color green is
@@ -156,7 +156,7 @@ const ColorPage = ({ location: { pathname } }) => (
         saturation, lightness) and HSV/HSB (hue, saturation, value/brightness).
         These representations are much closer to how we perceive color making.
       </p>
-      <p className="util text-center">
+      <div className="util text-center">
         <StaticImage
           src="../../images/basics/color-2.png"
           alt="HSV Color Wheel"
@@ -170,7 +170,7 @@ const ColorPage = ({ location: { pathname } }) => (
         >
           Source
         </a>
-      </p>
+      </div>
       <p>Let's look at what the components of these representations mean:</p>
       <Heading type="h3">Hue</Heading>
       <p>

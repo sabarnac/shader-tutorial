@@ -152,7 +152,7 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         Below is an example showing how introducing noise can improve the detail
         of an image:
       </p>
-      <p className="util text-center">
+      <div className="util text-center">
         <StaticImage
           src="../../images/advanced/dithering-example.png"
           alt="Wikipedia Dithering Example"
@@ -166,7 +166,7 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
         >
           Source
         </a>
-      </p>
+      </div>
       <p>
         The image is just made from white and black pixels, but through the
         introduction of noise into the image, shades of gray can be seen within

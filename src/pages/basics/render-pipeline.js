@@ -56,7 +56,7 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
         goes through to render the final image (note that stages in blue are
         programmable, stages in yellow are not):
       </p>
-      <p className="util text-center">
+      <div className="util text-center">
         <StaticImage
           src="../../images/basics/render-pipeline-1.png"
           alt="Render Pipeline Visual"
@@ -70,7 +70,7 @@ const RenderPipelinePage = ({ location: { pathname } }) => (
         >
           Source
         </a>
-      </p>
+      </div>
       <p>
         This may seem a little daunting at first, but let's walk through it step
         by step:
