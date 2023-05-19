@@ -54,14 +54,6 @@ const SkyboxMapTexture = () => {
     <div className="util text-center" style={{ padding: "1rem" }}>
       <p>
         <img src={FACES[currentFace].src} />
-        <a
-          href="https://www.seekpng.com/ipng/u2w7o0o0y3q8q8a9_cubemap-day-desert-sky-sun-dry-bright-paint/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <br />
-          Source
-        </a>
       </p>
       <select
         value={currentFace}

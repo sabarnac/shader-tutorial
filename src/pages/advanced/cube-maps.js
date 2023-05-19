@@ -1,29 +1,32 @@
-import React from "react"
+import React from "react";
 
-import ComplexRefractionExample from "../../components/advanced/cube-maps/complex-refraction-example"
-import { complexRefractionFragmentShaderSource } from "../../components/advanced/cube-maps/complex-refraction-example-shaders"
-import CubeMapTexture from "../../components/advanced/cube-maps/cube-map-texture"
-import CubeMapTextureExample from "../../components/advanced/cube-maps/cube-map-texture-example"
+import ComplexRefractionExample from "../../components/advanced/cube-maps/complex-refraction-example";
+import { complexRefractionFragmentShaderSource } from "../../components/advanced/cube-maps/complex-refraction-example-shaders";
+import CubeMapTexture from "../../components/advanced/cube-maps/cube-map-texture";
+import CubeMapTextureExample from "../../components/advanced/cube-maps/cube-map-texture-example";
 import {
   cubeMapTextureFragmentShaderSource,
   cubeMapTextureVertexShaderSource,
-} from "../../components/advanced/cube-maps/cube-map-texture-example-shaders"
-import ReflectionExample from "../../components/advanced/cube-maps/reflection-example"
-import { reflectionFragmentShaderSource } from "../../components/advanced/cube-maps/reflection-example-shaders"
-import ReflectionRefractionMapExample from "../../components/advanced/cube-maps/reflection-refraction-map-example"
-import SimpleRefractionExample from "../../components/advanced/cube-maps/simple-refraction-example"
-import { simpleRefractionFragmentShaderSource } from "../../components/advanced/cube-maps/simple-refraction-example-shaders"
-import SkyboxExample from "../../components/advanced/cube-maps/skybox-example"
-import { skyboxFragmentShaderSource, skyboxVertexShaderSource } from "../../components/advanced/cube-maps/skybox-example-shaders"
-import SkyboxMapTexture from "../../components/advanced/cube-maps/skybox-texture"
-import Content from "../../components/content"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Heading from "../../components/heading"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import Seo from "../../components/seo"
+} from "../../components/advanced/cube-maps/cube-map-texture-example-shaders";
+import ReflectionExample from "../../components/advanced/cube-maps/reflection-example";
+import { reflectionFragmentShaderSource } from "../../components/advanced/cube-maps/reflection-example-shaders";
+import ReflectionRefractionMapExample from "../../components/advanced/cube-maps/reflection-refraction-map-example";
+import SimpleRefractionExample from "../../components/advanced/cube-maps/simple-refraction-example";
+import { simpleRefractionFragmentShaderSource } from "../../components/advanced/cube-maps/simple-refraction-example-shaders";
+import SkyboxExample from "../../components/advanced/cube-maps/skybox-example";
+import {
+  skyboxFragmentShaderSource,
+  skyboxVertexShaderSource,
+} from "../../components/advanced/cube-maps/skybox-example-shaders";
+import SkyboxMapTexture from "../../components/advanced/cube-maps/skybox-texture";
+import Content from "../../components/content";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Heading from "../../components/heading";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import Seo from "../../components/seo";
 
-const ColorBandingDitheringPage = ({ location: { pathname } }) => (
+const CubeMapsPage = ({ location: { pathname } }) => (
   <Layout>
     <Seo
       pathname={pathname}
@@ -81,8 +84,11 @@ const ColorBandingDitheringPage = ({ location: { pathname } }) => (
       code={complexRefractionFragmentShaderSource}
       type="Complex Refraction Fragment"
     />
-    <PageChange previous="/advanced/shadow-mapping/" />
+    <PageChange
+      previous="/advanced/transparency/"
+      next="/advanced/shadow-mapping/"
+    />
   </Layout>
-)
+);
 
-export default ColorBandingDitheringPage
+export default CubeMapsPage;

@@ -1,61 +1,53 @@
-import { Link } from "gatsby"
-import React from "react"
+import { Link } from "gatsby";
+import React from "react";
 
-import ShadowMappingAreaLightMapExample from "../../components/advanced/shadow-mapping/area-light/map-example"
-import ShadowMappingAreaLightShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-example"
-import { areaLightShadowFragmentShaderSource } from "../../components/advanced/shadow-mapping/area-light/shadow-example-shaders"
-import ShadowMappingDirectionalLightMapExample from "../../components/advanced/shadow-mapping/directional-light/map-example"
+import ShadowMappingAreaLightMapExample from "../../components/advanced/shadow-mapping/area-light/map-example";
+import ShadowMappingAreaLightShadowExample from "../../components/advanced/shadow-mapping/area-light/shadow-example";
+import { areaLightShadowFragmentShaderSource } from "../../components/advanced/shadow-mapping/area-light/shadow-example-shaders";
+import ShadowMappingDirectionalLightMapExample from "../../components/advanced/shadow-mapping/directional-light/map-example";
 import {
   directionalLightMapFragmentShaderSource,
   directionalLightMapVertexShaderSource,
-} from "../../components/advanced/shadow-mapping/directional-light/map-example-shaders"
-import * as ShadowMappingDirectionalLightMapFixedExample from "../../components/advanced/shadow-mapping/directional-light/map-fixed-example"
-import {
-  directionalLightMapFixedFragmentShaderSource,
-} from "../../components/advanced/shadow-mapping/directional-light/map-fixed-example-shaders"
-import * as ShadowMappingFixedDirectionalLightPeterPanningExample from "../../components/advanced/shadow-mapping/directional-light/peter-panning-example"
-import ShadowMappingDirectionalLightShadowAcneExample from "../../components/advanced/shadow-mapping/directional-light/shadow-acne-example"
-import ShadowMappingDirectionalLightShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-example"
+} from "../../components/advanced/shadow-mapping/directional-light/map-example-shaders";
+import * as ShadowMappingDirectionalLightMapFixedExample from "../../components/advanced/shadow-mapping/directional-light/map-fixed-example";
+import { directionalLightMapFixedFragmentShaderSource } from "../../components/advanced/shadow-mapping/directional-light/map-fixed-example-shaders";
+import * as ShadowMappingFixedDirectionalLightPeterPanningExample from "../../components/advanced/shadow-mapping/directional-light/peter-panning-example";
+import ShadowMappingDirectionalLightShadowAcneExample from "../../components/advanced/shadow-mapping/directional-light/shadow-acne-example";
+import ShadowMappingDirectionalLightShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-example";
 import {
   directionalLightShadowFragmentShaderSource,
   directionalLightShadowVertexShaderSource,
-} from "../../components/advanced/shadow-mapping/directional-light/shadow-example-shaders"
-import * as ShadowMappingFixedAltDirectionalLightShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-fixed-alt-example"
-import {
-  directionalLightShadowFixedAltFragmentShaderSource,
-} from "../../components/advanced/shadow-mapping/directional-light/shadow-fixed-alt-example-shaders"
-import * as ShadowMappingFixedDirectionalLightShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-fixed-example"
-import {
-  directionalLightShadowFixedFragmentShaderSource,
-} from "../../components/advanced/shadow-mapping/directional-light/shadow-fixed-example-shaders"
-import * as ShadowMappingFixedModelDirectionalLightShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-model-fixed-example"
-import * as ShadowMappingFixedModelDirectionalLightZoomedShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-model-fixed-zoomed-example"
-import ShadowMappingDirectionalLightPcfShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-pcf-example"
-import {
-  directionalLightShadowPcfFragmentShaderSource,
-} from "../../components/advanced/shadow-mapping/directional-light/shadow-pcf-example-shaders"
-import * as ShadowMappingDirectionalLightPcfZoomedShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-pcf-zoomed-example"
-import ShadowMappingNoShadowExample from "../../components/advanced/shadow-mapping/no-shadow/shadow-example"
-import ShadowMappingPointLightMapExample from "../../components/advanced/shadow-mapping/point-light/map-example"
+} from "../../components/advanced/shadow-mapping/directional-light/shadow-example-shaders";
+import * as ShadowMappingFixedAltDirectionalLightShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-fixed-alt-example";
+import { directionalLightShadowFixedAltFragmentShaderSource } from "../../components/advanced/shadow-mapping/directional-light/shadow-fixed-alt-example-shaders";
+import * as ShadowMappingFixedDirectionalLightShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-fixed-example";
+import { directionalLightShadowFixedFragmentShaderSource } from "../../components/advanced/shadow-mapping/directional-light/shadow-fixed-example-shaders";
+import * as ShadowMappingFixedModelDirectionalLightShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-model-fixed-example";
+import * as ShadowMappingFixedModelDirectionalLightZoomedShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-model-fixed-zoomed-example";
+import ShadowMappingDirectionalLightPcfShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-pcf-example";
+import { directionalLightShadowPcfFragmentShaderSource } from "../../components/advanced/shadow-mapping/directional-light/shadow-pcf-example-shaders";
+import * as ShadowMappingDirectionalLightPcfZoomedShadowExample from "../../components/advanced/shadow-mapping/directional-light/shadow-pcf-zoomed-example";
+import ShadowMappingNoShadowExample from "../../components/advanced/shadow-mapping/no-shadow/shadow-example";
+import ShadowMappingPointLightMapExample from "../../components/advanced/shadow-mapping/point-light/map-example";
 import {
   pointLightMapFragmentShaderSource,
   pointLightMapVertexShaderSource,
-} from "../../components/advanced/shadow-mapping/point-light/map-example-shaders"
-import ShadowMappingPointLightShadowExample from "../../components/advanced/shadow-mapping/point-light/shadow-example"
-import { pointLightShadowFragmentShaderSource } from "../../components/advanced/shadow-mapping/point-light/shadow-example-shaders"
-import ShadowMappingSpotLightMapExample from "../../components/advanced/shadow-mapping/spot-light/map-example"
-import ShadowMappingSpotLightShadowExample from "../../components/advanced/shadow-mapping/spot-light/shadow-example"
+} from "../../components/advanced/shadow-mapping/point-light/map-example-shaders";
+import ShadowMappingPointLightShadowExample from "../../components/advanced/shadow-mapping/point-light/shadow-example";
+import { pointLightShadowFragmentShaderSource } from "../../components/advanced/shadow-mapping/point-light/shadow-example-shaders";
+import ShadowMappingSpotLightMapExample from "../../components/advanced/shadow-mapping/spot-light/map-example";
+import ShadowMappingSpotLightShadowExample from "../../components/advanced/shadow-mapping/spot-light/shadow-example";
 import {
   spotLightShadowFragmentShaderSource,
   spotLightShadowVertexShaderSource,
-} from "../../components/advanced/shadow-mapping/spot-light/shadow-example-shaders"
-import Content from "../../components/content"
-import Equation from "../../components/equation/equation"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Heading from "../../components/heading"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import Seo from "../../components/seo"
+} from "../../components/advanced/shadow-mapping/spot-light/shadow-example-shaders";
+import Content from "../../components/content";
+import Equation from "../../components/equation/equation";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Heading from "../../components/heading";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import Seo from "../../components/seo";
 
 const ShadowMappingPage = ({ location: { pathname } }) => (
   <Layout>
@@ -992,19 +984,9 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         6 textures to capture each direction.
       </p>
       <p>
-        There is special kind of texture that GPUs support that fit these kinds
-        of use cases. They are called cube map textures. These textures
-        represent faces of a cube, with each face representing a direction along
-        an axis, with each face being its own 2D texture.
-      </p>
-      <p>
-        To read a value from a cube map, you provide a direction from the origin
-        of the cube map to read the value stored in the cube map in that
-        direction.
-      </p>
-      <p>
-        We'll learn more about cube maps and some ways to use them in the{" "}
-        <Link to="/advanced/cube-maps/">next chapter</Link>.
+        If you recall how cube map textures work from the{" "}
+        <Link to="/advanced/cube-maps/">previous chapter</Link>, you'll notice
+        that they seem to perfectly fit these requirements.
       </p>
       <p>
         We can use a cube map to store all 6 directions of the shadow map
@@ -1025,7 +1007,8 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
       <p>
         However, due to WebGL not supporting this behavior, and also for the
         sake of simplicity, we'll be sticking with showing shaders for rendering
-        a single face at a time.
+        a single face at a time. Note that this doesn't change the core concepts
+        for rendering the shadow maps for each direction.
       </p>
       <p>
         Now let's look at how the shadow cube map of a point light is rendered
@@ -1401,7 +1384,7 @@ const ShadowMappingPage = ({ location: { pathname } }) => (
         </li>
       </ul>
     </Content>
-    <PageChange previous="/advanced/transparency/" />
+    <PageChange previous="/advanced/cube-maps/" />
   </Layout>
 );
 

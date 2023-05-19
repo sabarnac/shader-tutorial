@@ -1,19 +1,19 @@
-import React from "react"
+import React from "react";
 
-import { fragmentShaderSource } from "../../components/advanced/transparency/common-shaders"
-import { directxCode } from "../../components/advanced/transparency/directx-blend"
-import TransparencyFirstExample from "../../components/advanced/transparency/first-example"
-import { openglCode } from "../../components/advanced/transparency/opengl-blend"
-import TransparencySecondExample from "../../components/advanced/transparency/second-example"
-import TransparencyThirdExample from "../../components/advanced/transparency/third-example"
-import { webglCode } from "../../components/advanced/transparency/webgl-blend"
-import Content from "../../components/content"
-import GenericCodeHighlight from "../../components/generic-code-highlight"
-import GlslCodeHighlight from "../../components/glsl-code-highlight"
-import Heading from "../../components/heading"
-import Layout from "../../components/layout"
-import PageChange from "../../components/page-change"
-import Seo from "../../components/seo"
+import { fragmentShaderSource } from "../../components/advanced/transparency/common-shaders";
+import { directxCode } from "../../components/advanced/transparency/directx-blend";
+import TransparencyFirstExample from "../../components/advanced/transparency/first-example";
+import { openglCode } from "../../components/advanced/transparency/opengl-blend";
+import TransparencySecondExample from "../../components/advanced/transparency/second-example";
+import TransparencyThirdExample from "../../components/advanced/transparency/third-example";
+import { webglCode } from "../../components/advanced/transparency/webgl-blend";
+import Content from "../../components/content";
+import GenericCodeHighlight from "../../components/generic-code-highlight";
+import GlslCodeHighlight from "../../components/glsl-code-highlight";
+import Heading from "../../components/heading";
+import Layout from "../../components/layout";
+import PageChange from "../../components/page-change";
+import Seo from "../../components/seo";
 
 const TransparencyPage = ({ location: { pathname } }) => (
   <Layout>
@@ -266,7 +266,7 @@ const TransparencyPage = ({ location: { pathname } }) => (
     </Content>
     <PageChange
       previous="/advanced/color-banding-dithering/"
-      next="/advanced/shadow-mapping/"
+      next="/advanced/cube-maps/"
     />
   </Layout>
 );
