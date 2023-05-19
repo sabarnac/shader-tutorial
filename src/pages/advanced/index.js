@@ -1,9 +1,9 @@
-import { Link } from "gatsby"
-import React from "react"
+import { Link } from "gatsby";
+import React from "react";
 
-import Content from "../../components/content"
-import Layout from "../../components/layout"
-import Seo from "../../components/seo"
+import Content from "../../components/content";
+import Layout from "../../components/layout";
+import Seo from "../../components/seo";
 
 const IntermediatesIndexPage = ({ location: { pathname } }) => (
   <Layout>
@@ -28,6 +28,9 @@ const IntermediatesIndexPage = ({ location: { pathname } }) => (
           <Link to="/advanced/transparency/">
             Shader Advanced - Transparency
           </Link>
+        </li>
+        <li>
+          <Link to="/advanced/cube-maps/">Shader Advanced - Cube Maps</Link>
         </li>
         <li>
           <Link to="/advanced/shadow-mapping/">

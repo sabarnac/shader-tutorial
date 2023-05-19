@@ -1,5 +1,5 @@
-import { Link } from "gatsby"
-import React from "react"
+import { Link } from "gatsby";
+import React from "react";
 
 const Navigation = () => (
   <nav>
@@ -83,6 +83,9 @@ const Navigation = () => (
           </li>
           <li>
             <Link to="/advanced/transparency/">Transparency</Link>
+          </li>
+          <li>
+            <Link to="/advanced/cube-maps/">Cube Maps</Link>
           </li>
           <li>
             <Link to="/advanced/shadow-mapping/">Shadow Mapping</Link>
