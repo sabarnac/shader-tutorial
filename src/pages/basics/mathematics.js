@@ -30,7 +30,7 @@ const MathematicsPage = ({ location: { pathname } }) => (
       <ul>
         <li>Vectors</li>
         <li>Matrices</li>
-        <li>Trignometry</li>
+        <li>Trigonometry</li>
       </ul>
       <p>
         While these aren't the only areas or mathematical concepts used within
@@ -265,9 +265,9 @@ const MathematicsPage = ({ location: { pathname } }) => (
         </a>{" "}
         provides an example to show this behaviour.
       </p>
-      <Heading type="h2">Trignometry</Heading>
+      <Heading type="h2">Trigonometry</Heading>
       <p>
-        Similar to matrix mathematics, trignometry is useful for performing
+        Similar to matrix mathematics, trigonometry is useful for performing
         transformations, except that it allows for transformation through the
         use of regular patterns or shapes.
       </p>
@@ -379,7 +379,7 @@ const MathematicsPage = ({ location: { pathname } }) => (
           <ul>
             <li>Vectors</li>
             <li>Matrices</li>
-            <li>Trignometry</li>
+            <li>Trigonometry</li>
           </ul>
         </li>
         <li>
@@ -391,13 +391,13 @@ const MathematicsPage = ({ location: { pathname } }) => (
           such as moving, rotating, scaling points and directions.
         </li>
         <li>
-          Trignometry is useful for manipulating data in specific patterns, such
-          as rotating a point along the circumference of a circle, producing a
-          smooth wave, or generating certain shapes.
+          Trigonometry is useful for manipulating data in specific patterns,
+          such as rotating a point along the circumference of a circle,
+          producing a smooth wave, or generating certain shapes.
         </li>
         <li>
           There are other mathematical functions and operations outside of
-          trignometry that allow for manipulating data in patterns, with each
+          trigonometry that allow for manipulating data in patterns, with each
           having their own specific properties.
         </li>
       </ul>

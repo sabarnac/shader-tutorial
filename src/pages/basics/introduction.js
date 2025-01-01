@@ -98,8 +98,8 @@ const IntroductionPage = ({ location: { pathname } }) => (
       </Heading>
       <p>
         You will need to have a basic understanding of vector math, matrix math,
-        and trignometry. Any other pre-requisite will have links or explanations
-        provided before it is used.
+        and trigonometry. Any other pre-requisite will have links or
+        explanations provided before it is used.
       </p>
     </Content>
     <PageChange next="/basics/render-pipeline/" />
